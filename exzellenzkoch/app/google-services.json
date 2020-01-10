@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "464654487911",
+    "firebase_url": "https://exzellenzkoch.firebaseio.com",
+    "project_id": "exzellenzkoch",
+    "storage_bucket": "exzellenzkoch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464654487911:android:8e7a3bba43b66d89079fc2",
+        "android_client_info": {
+          "package_name": "de.psekochbuch.exzellenzkoch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "464654487911-a7qssl2q8b8kr24fpgf52tcaft32621t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs5YKlXkGcNYf3X5G1I9ztWvcnB7REkXg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "464654487911-a7qssl2q8b8kr24fpgf52tcaft32621t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

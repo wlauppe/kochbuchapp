@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView57"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="Gruppenname:Bratans" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="234dp"
+                    android:layout_height="151dp"
+                    android:layout_weight="1"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic[6]" />
+
+                <TextView
+                    android:layout_width="204dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_weight="1"
+                    android:text="Piroggen"
+                    android:textAlignment="center"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="234dp"
+                    android:layout_height="151dp"
+                    android:layout_weight="1"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic[7]" />
+
+                <TextView
+                    android:layout_width="204dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_weight="1"
+                    android:text="Buenos Nachos"
+                    android:textAlignment="center"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="234dp"
+                    android:layout_height="151dp"
+                    android:layout_weight="1"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic[8]" />
+
+                <TextView
+                    android:layout_width="204dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_weight="1"
+                    android:text="Apfeltorte"
+                    android:textAlignment="center"
+                    android:textSize="25dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="188dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="234dp"
+                    android:layout_height="151dp"
+                    android:layout_weight="1"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic[9]" />
+
+                <TextView
+                    android:layout_width="204dp"
+                    android:layout_height="130dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_weight="1"
+                    android:text="Hummer"
+                    android:textAlignment="center"
+                    android:textSize="25dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
