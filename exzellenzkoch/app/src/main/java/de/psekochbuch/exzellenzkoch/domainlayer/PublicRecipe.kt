@@ -10,30 +10,44 @@ import de.psekochbuch.exzellenzkoch.domainlayer.Recipe
 import java.sql.Timestamp
 
 @Entity
-class PublicRecipe : Recipe() {
+class PublicRecipe constructor(
+    ingredients:String,
+    title:String,
+    preparationDescription:String,
+    preparationTime:Int,
+    cookingTime:Int,
+    image:Image,
+    portions:Int,
+    tags:MutableList<String>
+
+) : Recipe(ingredients, image, title, preparationDescription, preparationTime, cookingTime,
+    tags, portions)
+{
 
 
     //Attributes
     @PrimaryKey(autoGenerate = true)
     override var id:Int? = null
 
-    override var ingredients:String? = null
-    override var title:String? = null
+    override var ingredients:String? = ingredients
 
-    override var preparationDescription: String? = null
+    override var title:String? = title
 
-    override var preparationTime:Int? = null
+    override var preparationDescription: String? = preparationDescription
 
-    override var cookingTime:Int? = null
+    override var preparationTime:Int? = preparationTime
 
-    override var image:Image? = null
+    override var cookingTime:Int? = cookingTime
 
-    override var portions:Int? = null
+    override var image:Image? = image
 
-    override var tags:MutableList<String>? = null
+    override var portions:Int? = portions
+
+    override var tags:MutableList<String>? = tags
 
 
     var creationTimeStamp:Timestamp = this.updateTimeStamp()
+
     var rating:Int? = null
 
     var chapters:MutableList<IngredientChapter> ? = null

@@ -1,10 +1,8 @@
 package com.example.kochbuchappmagnus.datalayer.repositoryimpl.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
-import com.example.kochbuchappmagnus.domainlayer.domainentities.PublicRecipe
+import androidx.room.*
+import de.psekochbuch.exzellenzkoch.domainlayer.PublicRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.Recipe
 
 @Dao
 interface PublicRecipeDAO{
@@ -17,5 +15,9 @@ interface PublicRecipeDAO{
 
     @Update
     fun update(publicRecipe: PublicRecipe)
+
+    @Query("SELECT * FROM publicrecipe ORDER BY id DESC")
+    fun getAllRecipes():MutableList<Recipe>
+
 
 }

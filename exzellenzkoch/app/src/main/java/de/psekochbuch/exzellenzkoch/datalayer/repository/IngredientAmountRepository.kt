@@ -1,4 +1,7 @@
 package de.psekochbuch.exzellenzkoch.datalayer.repository
 
-interface IngredientAmountRepository {
+import de.psekochbuch.exzellenzkoch.datalayer.AppDatabase
+
+interface IngredientAmountRepository  {
+
 }

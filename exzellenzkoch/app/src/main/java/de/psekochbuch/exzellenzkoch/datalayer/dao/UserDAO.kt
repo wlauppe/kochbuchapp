@@ -4,13 +4,14 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Update
-import com.example.kochbuchappmagnus.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.domainlayer.User
+
 
 @Dao
 interface UserDAO {
 
     @Insert
-    fun insert(user:User)
+    fun insert(user: User)
 
     @Delete
     fun delete(user: User)
