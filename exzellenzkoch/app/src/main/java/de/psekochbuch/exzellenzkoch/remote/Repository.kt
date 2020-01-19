@@ -17,9 +17,9 @@ class Repository(token:String)
         return null
     }
 
-    fun createApi(api :Class<out T>)
+    fun createApi(api :Class<out Any>)
     {
-        
+
     }
 
 
