@@ -2,15 +2,14 @@ package de.psekochbuch.exzellenzkoch
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.Toolbar
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentManager
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RegistrateFragment
+import de.psekochbuch.exzellenzkoch.application.dto.PublicRecipeDto
+import de.psekochbuch.exzellenzkoch.remote.Repository
+import de.psekochbuch.exzellenzkoch.remote.api.PublicRecipeApi
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,11 +23,41 @@ class MainActivity : AppCompatActivity() {
 
         val frag = supportFragmentManager.findFragmentById(R.id.regisFrag)
 
+        val call : PublicRecipeApi = Repository(null).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
+        call.getRecipe(1).enqueue(object : Callback<PublicRecipeDto?> {
+            override fun onResponse(
+                call: Call<PublicRecipeDto?>?,
+                response: Response<PublicRecipeDto?>?
+            ) {
+                if(response!!.isSuccessful)
+                {
+                    val publicRecipe = response.body()
+                }
+            }
 
-        val auth = Authentification()
+            override fun onFailure(
+                call: Call<PublicRecipeDto?>,
+                t: Throwable
+            ) {
+                val t = ""
+            }
+        })
+
+
+       /* repo.getRecipe(1).enqueue(Callback<PublicRecipeDto>()
+        {
+
+        })*/
+
+        //ResponseCallback({
+        //            var publicrecipe : PublicRecipeDto = it as PublicRecipeDto
+        //        }) as Callback<PublicRecipeDto?>)
+
+
+        /*val auth = Authentification()
         auth.registrate("test@test.de", "12345678"){ it, status ->
             if(it != null) Log.d("ContentValues", "Ypeee")
-        }
+        }*/
     }
 
     
