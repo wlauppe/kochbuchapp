@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GetTokenResult
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 import javax.security.auth.callback.Callback
 
 /**
@@ -25,17 +26,18 @@ class Authentification
      * @param [password] The password of the User
      * @param callback Return the token
      */
-    fun registrate(email:String, password:String, callback : (String?) -> Unit)
+    fun registrate(email:String, password:String, callback : (String?, AuthenticationResult) -> Unit)
     {
         auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
             if(task.isSuccessful) {
                 Log.d(TAG, "createUserWithEmail:success")
                 auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
-                    callback(it.result?.token)
+                    callback(it.result?.token, AuthenticationResult.REGISTRATIONSUCCESS)
                 }
             } else {
                 Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                callback(null)
+                //if(task.exception.)
+                callback(null, AuthenticationResult.REGISTRATIONFAILED)
             }
 
         }
