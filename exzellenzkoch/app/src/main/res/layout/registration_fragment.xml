@@ -41,10 +41,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+
             android:hint="@string/email_example"
             android:inputType="textEmailAddress"
-            android:text="@{viewModel.email}"
-            android:on
+            android:text="@={viewModel.email}"
+
             android:textSize="25sp"
             android:textStyle="italic"
             app:layout_constraintTop_toBottomOf="@+id/textView27"
@@ -93,6 +94,7 @@
             android:inputType="textPassword"
             android:text="@{viewModel.password}"
             app:layout_constraintTop_toBottomOf="@+id/textView29"
+
             tools:layout_editor_absoluteX="-27dp" />
 
         <Button
