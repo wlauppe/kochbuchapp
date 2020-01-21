@@ -44,7 +44,6 @@
             android:hint="@string/email_example"
             android:inputType="textEmailAddress"
             android:text="@{viewModel.email}"
-            android:on
             android:textSize="25sp"
             android:textStyle="italic"
             app:layout_constraintTop_toBottomOf="@+id/textView27"
