@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4be7cf1d-731d-4cf0-8d1e-233f9414803f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/exzellenzkoch/app/src/main/java/de/psekochbuch/exzellenzkoch/Authentification.kt" beforeDir="false" afterPath="$PROJECT_DIR$/exzellenzkoch/app/src/main/java/de/psekochbuch/exzellenzkoch/Authentification.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exzellenzkoch/app/src/main/java/de/psekochbuch/exzellenzkoch/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/exzellenzkoch/app/src/main/java/de/psekochbuch/exzellenzkoch/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exzellenzkoch/app/src/main/java/de/psekochbuch/exzellenzkoch/userinterfacelayer/viewmodel/LoginViewmodel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/exzellenzkoch/app/src/main/java/de/psekochbuch/exzellenzkoch/userinterfacelayer/viewmodel/LoginViewmodel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exzellenzkoch/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exzellenzkoch/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-    </list>
+    <list default="true" id="4be7cf1d-731d-4cf0-8d1e-233f9414803f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,36 +11,26 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="887" />
-    <option name="y" value="23" />
-    <option name="width" value="1409" />
-    <option name="height" value="1331" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="144" />
+    <option name="y" value="-30" />
+    <option name="width" value="1410" />
+    <option name="height" value="1106" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp" type="e9137016:NonAndroidModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/exzellenzkoch" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -73,10 +58,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="887" y="23" width="1409" height="1331" extended-state="0" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <layout>
+      <window_info id="simpleUML" />
       <window_info id="Captures" order="0" sideWeight="0.5006017" side_tool="true" weight="0.586444" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49939832" visible="true" weight="0.43672276" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49939832" visible="true" weight="0.31093118" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
