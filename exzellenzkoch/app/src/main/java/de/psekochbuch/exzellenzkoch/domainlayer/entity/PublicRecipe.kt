@@ -1,12 +1,11 @@
-package de.psekochbuch.exzellenzkoch.domainlayer
+package de.psekochbuch.exzellenzkoch.domainlayer.entity
 
 
 
 import android.media.Image
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import de.psekochbuch.exzellenzkoch.domainlayer.IngredientChapter
-import de.psekochbuch.exzellenzkoch.domainlayer.Recipe
 import java.sql.Timestamp
 
 @Entity
@@ -49,7 +48,7 @@ class PublicRecipe constructor(
     var creationTimeStamp:Timestamp = this.updateTimeStamp()
 
     var rating:Int? = null
-
+    @Embedded
     var chapters:MutableList<IngredientChapter> ? = null
 
 

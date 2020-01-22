@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.domainlayer
+package de.psekochbuch.exzellenzkoch.domainlayer.entity
 
 import android.media.Image
 
@@ -8,7 +8,7 @@ open class Recipe constructor(ingredients:String,
                               preparationDescription:String,
                               preparationTime:Int,
                               cookingTime:Int,
-                              tags:MutableList<String>,
+                              tags:MutableList<String>?,
                               portions:Int){
 
 

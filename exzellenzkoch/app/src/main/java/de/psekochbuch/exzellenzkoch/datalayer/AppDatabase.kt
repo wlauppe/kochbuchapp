@@ -4,12 +4,13 @@ import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteOpenHelper
 import com.example.kochbuchappmagnus.datalayer.repositoryimpl.dao.PrivateRecipeDAO
-import de.psekochbuch.exzellenzkoch.domainlayer.IngredientAmount
-import de.psekochbuch.exzellenzkoch.domainlayer.IngredientChapter
-import de.psekochbuch.exzellenzkoch.domainlayer.PrivateRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.PublicRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.entity.IngredientAmount
+import de.psekochbuch.exzellenzkoch.domainlayer.entity.IngredientChapter
+import de.psekochbuch.exzellenzkoch.domainlayer.entity.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.entity.PublicRecipe
 
-@Database(entities = arrayOf(PublicRecipe::class, IngredientChapter::class, IngredientAmount::class,
+@Database(entities = arrayOf(
+    PublicRecipe::class, IngredientChapter::class, IngredientAmount::class,
     PublicRecipe::class, PrivateRecipe::class), version = 1)
 class AppDatabase(): RoomDatabase() {
 

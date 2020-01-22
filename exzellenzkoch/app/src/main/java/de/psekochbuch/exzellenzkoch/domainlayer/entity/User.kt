@@ -1,8 +1,6 @@
-package de.psekochbuch.exzellenzkoch.domainlayer
+package de.psekochbuch.exzellenzkoch.domainlayer.entity
 
 import android.media.Image
-import androidx.room.Entity
-import de.psekochbuch.exzellenzkoch.domainlayer.Group
 
 class User {
 

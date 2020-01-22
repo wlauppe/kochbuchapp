@@ -4,18 +4,19 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Update
-import de.psekochbuch.exzellenzkoch.domainlayer.User
-
+import de.psekochbuch.exzellenzkoch.domainlayer.entity.IngredientAmount
 
 @Dao
-interface UserDAO {
+interface PrivateTagsDAO {
 
     @Insert
-    fun insert(user: User)
+    fun insert(privateTag: String)
 
     @Delete
-    fun delete(user: User)
+    fun delete(privateTag: String)
 
     @Update
-    fun update(user: User)
+    fun update(privateTag: String)
+
+
 }

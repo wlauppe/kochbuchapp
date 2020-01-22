@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.remote.entity
+package de.psekochbuch.exzellenzkoch.domainlayer.entity
 
 class Comment {
      private var id: Int? = null

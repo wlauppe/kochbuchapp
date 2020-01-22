@@ -1,6 +1,5 @@
-package de.psekochbuch.exzellenzkoch.remote.api
+package de.psekochbuch.exzellenzkoch.domainlayer.api
 
-import de.psekochbuch.exzellenzkoch.remote.entity.User
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

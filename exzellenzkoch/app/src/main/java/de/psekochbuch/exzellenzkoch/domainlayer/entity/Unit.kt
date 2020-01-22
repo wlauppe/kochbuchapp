@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.domainlayer
+package de.psekochbuch.exzellenzkoch.domainlayer.entity
 
 enum class Unit {
     Eßl,

@@ -1,7 +1,7 @@
 package com.example.kochbuchappmagnus.datalayer.repositoryimpl.dao
 
 import androidx.room.*
-import de.psekochbuch.exzellenzkoch.domainlayer.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.entity.PrivateRecipe
 
 
 @Dao

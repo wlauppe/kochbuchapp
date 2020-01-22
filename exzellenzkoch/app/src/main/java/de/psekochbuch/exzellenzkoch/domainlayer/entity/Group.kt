@@ -1,8 +1,9 @@
-package de.psekochbuch.exzellenzkoch.remote.entity
+package de.psekochbuch.exzellenzkoch.domainlayer.entity
 
-class Group (creator: User, name:String) {
+import androidx.room.Entity
 
 
+class Group (creator: User, name:String){
     fun getUsers():List<User>{
         return emptyList() //TODO
     }
@@ -11,7 +12,7 @@ class Group (creator: User, name:String) {
         return "" //TODO
 
     }
-    fun getCreator():User?{
+    fun getCreator(): User?{
         return null //TODO
     }
 

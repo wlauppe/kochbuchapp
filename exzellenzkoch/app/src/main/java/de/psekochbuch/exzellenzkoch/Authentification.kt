@@ -22,7 +22,8 @@ class Authentification
      */
     fun registrate(userId:String, email:String, password:String, activity: Activity)
     {
-        auth.createUserWithEmailAndPassword(email,password).
+        auth.createUserWithEmailAndPassword(email,password)
+
     }
 
     /**

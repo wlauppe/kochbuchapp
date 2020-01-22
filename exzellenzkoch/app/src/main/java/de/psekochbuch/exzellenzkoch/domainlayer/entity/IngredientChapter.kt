@@ -1,12 +1,12 @@
-package de.psekochbuch.exzellenzkoch.domainlayer
+package de.psekochbuch.exzellenzkoch.domainlayer.entity
 
+import androidx.room.Embedded
 import androidx.room.Entity
-import de.psekochbuch.exzellenzkoch.domainlayer.IngredientAmount
 
 @Entity
 class IngredientChapter {
 
     var chapter:String? = null
-
+    @Embedded
     var ingredients:MutableList<IngredientAmount>? = null
 }
