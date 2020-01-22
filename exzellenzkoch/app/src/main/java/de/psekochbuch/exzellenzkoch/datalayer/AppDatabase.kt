@@ -1,9 +1,8 @@
 package de.psekochbuch.exzellenzkoch.datalayer
-
 import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteOpenHelper
-import com.example.kochbuchappmagnus.datalayer.repositoryimpl.dao.PrivateRecipeDAO
+import de.psekochbuch.exzellenzkoch.datalayer.dao.PrivateRecipeDAO
 import de.psekochbuch.exzellenzkoch.domainlayer.entity.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.entity.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.entity.PrivateRecipe
@@ -18,10 +17,10 @@ class AppDatabase(): RoomDatabase() {
     private lateinit var INSTANCE: AppDatabase
 
     //DAOS
-    private var privateRecipeDAO:PrivateRecipeDAO? = null
+    private var privateRecipeDAO: PrivateRecipeDAO? = null
 
     //Constructor
-    fun getDatabase(context: Context):AppDatabase{
+    fun getDatabase(context: Context): AppDatabase {
         synchronized(AppDatabase::class.java){
             if(!::INSTANCE.isInitialized){
                 INSTANCE = Room.databaseBuilder(context.applicationContext,

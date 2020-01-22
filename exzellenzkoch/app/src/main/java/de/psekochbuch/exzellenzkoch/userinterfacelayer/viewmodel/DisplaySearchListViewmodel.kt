@@ -1,4 +1,5 @@
-package com.example.kochbuchappmagnus.userinterfacelayer.viewmodel
+package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
+
 
 import androidx.lifecycle.ViewModel
 

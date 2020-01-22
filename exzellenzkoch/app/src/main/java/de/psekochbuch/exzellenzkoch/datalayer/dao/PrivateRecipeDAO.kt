@@ -1,5 +1,4 @@
-package com.example.kochbuchappmagnus.datalayer.repositoryimpl.dao
-
+package de.psekochbuch.exzellenzkoch.datalayer.dao
 import androidx.room.*
 import de.psekochbuch.exzellenzkoch.domainlayer.entity.PrivateRecipe
 

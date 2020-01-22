@@ -1,8 +1,7 @@
-package com.example.kochbuchappmagnus.datalayer.repositoryimpl.repository
-
+package de.psekochbuch.exzellenzkoch.datalayer.repositoryimplementations
 import android.app.Application
-import com.example.kochbuchappmagnus.datalayer.repositoryimpl.dao.PrivateRecipeDAO
 import de.psekochbuch.exzellenzkoch.datalayer.AppDatabase
+import de.psekochbuch.exzellenzkoch.datalayer.dao.PrivateRecipeDAO
 import de.psekochbuch.exzellenzkoch.datalayer.repository.PrivateRecipeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

@@ -1,5 +1,4 @@
-package com.example.kochbuchappmagnus.datalayer.repositoryimpl.repository
-
+package de.psekochbuch.exzellenzkoch.datalayer.repositoryimplementations
 import de.psekochbuch.exzellenzkoch.datalayer.repository.IngredientChapterRepository
 
 class IngredientChapterRepositoryImplementation :IngredientChapterRepository{
