@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Exzellenzkoch</string>
+    <string name="registrate">Registrieren</string>
+    <string name="email_address">Email Adresse</string>
+    <string name="optional_user_id">*optional* Benutzer ID</string>
+    <string name="email_example">max.musterman@muster.de</string>
+    <string name="password">Passwort</string>
+    <string name="user_id">Benutzerid</string>
 </resources>
