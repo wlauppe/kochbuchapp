@@ -1,5 +1,4 @@
-package com.example.kochbuchappmagnus.userinterfacelayer.view
-
+package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

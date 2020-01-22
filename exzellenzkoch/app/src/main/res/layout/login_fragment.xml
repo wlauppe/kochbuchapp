@@ -1,72 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/textView26"
-        android:textSize="30dp"
-        android:textAlignment="center"
-        android:textStyle="bold"
+    <data>
+        <import type="android.view.View"></import>
+        <variable
+            name="loginviewModel"
+            type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewmodel" />
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Einloggen" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView27"
-        android:layout_marginTop="30dp"
-        android:textSize="25dp"
-        android:textStyle="italic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Email" />
 
-    <EditText
-        android:id="@+id/editText10"
-        android:layout_marginTop="20dp"
-        android:textSize="25dp"
-        android:textStyle="italic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"/>
+        <TextView
+            android:id="@+id/textView26"
+            android:textSize="30dp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Einloggen" />
 
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="match_parent"
-        android:textSize="25dp"
-        android:textStyle="italic"
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_marginTop="30dp"
+            android:textSize="25dp"
+            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email" />
 
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Passwort" />
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_marginTop="20dp"
+            android:textSize="25dp"
+            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@={loginviewModel.email}"/>
 
-    <EditText
-        android:id="@+id/editText11"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPassword" />
+        <TextView
+            android:id="@+id/textView29Password"
+            android:layout_width="match_parent"
+            android:textSize="25dp"
+            android:textStyle="italic"
 
-    <Button
-        android:id="@+id/button15"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Login" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@={loginviewModel.password}" />
 
-    <TextView
-        android:id="@+id/textView31"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ich habe noch keinen Account"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        <EditText
+            android:id="@+id/editText11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
 
-    <Button
-        android:id="@+id/button46"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Registrieren" />
+        <Button
+            android:id="@+id/button15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Login" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ich habe noch keinen Account"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button46"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Registrieren" />
+
+    </LinearLayout>
+</layout>

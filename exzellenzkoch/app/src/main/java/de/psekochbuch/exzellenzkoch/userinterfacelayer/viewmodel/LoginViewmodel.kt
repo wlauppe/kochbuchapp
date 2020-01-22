@@ -1,4 +1,5 @@
-package com.example.kochbuchappmagnus.userinterfacelayer.viewmodel
+package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
+
 
 import android.app.Activity
 import android.app.Application
@@ -7,15 +8,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginViewmodel(application: Application) : AndroidViewModel(application) {
+class LoginViewmodel(application: Application) : ViewModel() {
 
 
 
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    private var email:LiveData<String>? = null
+     var email:LiveData<String>? = null
 
-    private var password:LiveData<String>? = null
+     var password:LiveData<String>? = null
 
 
 

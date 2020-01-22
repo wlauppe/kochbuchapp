@@ -1,5 +1,4 @@
-package com.example.kochbuchappmagnus.userinterfacelayer.view
-
+package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 import androidx.fragment.app.Fragment
 
 class SearchWithTagsFragment: Fragment() {
