@@ -49,8 +49,12 @@
     <fragment
         android:id="@+id/login_fragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.LoginFragment"
-        android:label="LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/login_fragment_to_Display_Profile_fragment"
+            app:destination="@+id/profile_display_fragment"
         />
+    </fragment>
     <fragment
         android:id="@+id/profile_display_fragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ProfileDisplayFragment"
@@ -81,6 +85,6 @@
 
         android:label="Shoppinglist_fragment"
         />
-    
+
 
 </navigation>
