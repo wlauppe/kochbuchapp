@@ -58,8 +58,12 @@
     <fragment
         android:id="@+id/profile_display_fragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ProfileDisplayFragment"
-        android:label="ProfileDisplayFragment"
+        android:label="ProfileDisplayFragment">
+        <action
+            android:id="@+id/profile_display_fragment_to_recipe_display_fragment"
+            app:destination="@+id/recipe_display_fragment"
         />
+    </fragment>
     <fragment
         android:id="@+id/profile_edit_fragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ProfileEditFragment"

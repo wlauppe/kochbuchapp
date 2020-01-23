@@ -96,7 +96,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton8"
+                    android:id="@+id/goto_recipe_button"
                     android:layout_width="208dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
