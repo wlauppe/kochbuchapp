@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navgraph"
+    app:startDestination="@id/public_recipe_search_fragment">
+
+    <fragment
+        android:id="@+id/public_recipe_search_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.PublicRecipeSearchFragment"
+        android:label="PublicRecipeSearchFragment">
+    <action
+            android:id="@+id/public_recipe_search_fragment_to_display_searchlistfragment"
+            app:destination="@+id/display_searchlist_fragment">
+    </action>
+    </fragment>
+    <fragment
+        android:id="@+id/display_searchlist_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragment"
+        android:label="DisplaySearchListFragment">
+    <action
+            android:id="@+id/RecipeSearchListfragment_to_recipeDisplayfragment"
+            app:destination="@+id/recipe_display_fragment">
+    </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipe_display_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeDisplayFragment"
+        android:label="RecipeDisplayFragment"
+        />
+    <fragment
+        android:id="@+id/add_edit_comment_fragment"
+        android:label="CommentFragment"
+        />
+
+    <fragment
+        android:id="@+id/admin_fragment"
+        android:label="AdminFragment"
+        />
+    <fragment
+        android:id="@+id/change_password_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ChangePasswordFragment"
+        android:label="ChangePasswordFragment"
+        />
+    <fragment
+        android:id="@+id/create_recipe_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.CreateRecipeFragment"
+        android:label="CreateRecipeFragment"
+        />
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.LoginFragment"
+        android:label="LoginFragment"
+        />
+    <fragment
+        android:id="@+id/profile_display_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ProfileDisplayFragment"
+        android:label="ProfileDisplayFragment"
+        />
+    <fragment
+        android:id="@+id/profile_edit_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ProfileEditFragment"
+        android:label="ProfileEditFragment"
+        />
+    <fragment
+        android:id="@+id/recipe_list_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeListFragment"
+        android:label="RecipeListFragment"
+        />
+    <fragment
+        android:id="@+id/registration_fragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RegistrateFragment"
+        android:label="RegistrationFragment"
+        />
+    <fragment
+        android:id="@+id/search_with_tags"
+
+        android:label="SearchWithTags"
+        />
+    <fragment
+        android:id="@+id/shoppinglist_fragment"
+
+        android:label="Shoppinglist_fragment"
+        />
+    
+
+</navigation>
