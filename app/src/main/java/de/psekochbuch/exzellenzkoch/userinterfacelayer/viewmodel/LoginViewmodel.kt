@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 
@@ -14,9 +15,9 @@ class LoginViewmodel(application: Application) : ViewModel() {
 
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-     var email:LiveData<String>? = null
+     var email:MutableLiveData<String>? = null
 
-     var password:LiveData<String>? = null
+     var password: MutableLiveData<String>? = null
 
 
 
