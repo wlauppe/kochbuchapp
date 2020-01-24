@@ -4,4 +4,6 @@ import de.psekochbuch.exzellenzkoch.datalayer.AppDatabase
 
 interface IngredientAmountRepository  {
 
+
+
 }

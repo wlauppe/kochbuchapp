@@ -15,13 +15,11 @@ class ChangePasswordFragment : Fragment() {
 
         val binding = ChangePasswordFragmentBinding.inflate(inflater, container, false)
 
-        val ac = activity
-        if(ac != null){
-            val viewModel = ViewModelProviders.of(ac).get(ChangePasswordViewmodel::class.java)
+            val viewModel = ViewModelProviders.of(this).get(ChangePasswordViewmodel::class.java)
             binding.changePasswordViewModel = viewModel
-            binding.lifecycleOwner = ac
+            binding.lifecycleOwner = this
 
-        }
+
         //val navController = findNavController()
 
         return binding.root
