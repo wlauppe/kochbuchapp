@@ -3,7 +3,7 @@ package de.psekochbuch.exzellenzkoch.domainlayer.entity
 import android.media.Image
 
 open class Recipe constructor(ingredients:String,
-                              image: Image,
+                              image: Image?,
                               title:String,
                               preparationDescription:String,
                               preparationTime:Int,
