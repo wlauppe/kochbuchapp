@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Exzellenzkoch.iml" filepath="$PROJECT_DIR$/Exzellenzkoch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PSE-kochbuchapp-Exzellenzkoch.iml" filepath="$PROJECT_DIR$/PSE-kochbuchapp-Exzellenzkoch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/PSE-kochbuchapp-app.iml" filepath="$PROJECT_DIR$/app/PSE-kochbuchapp-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/kochbuchapp.iml" filepath="$PROJECT_DIR$/.idea/kochbuchapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/kochbuchapp-Exzellenzkoch.iml" filepath="$PROJECT_DIR$/kochbuchapp-Exzellenzkoch.iml" />

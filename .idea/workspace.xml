@@ -7,16 +7,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4be7cf1d-731d-4cf0-8d1e-233f9414803f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/dto/PrivateRecipeTagDto.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/dto/SharedPrivateRecipeDto.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/PrivateRecipeTag.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/test/java/de/psekochbuch/exzellenzkoch/RepositoryTest/PrivateRecipeRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientAmount.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientChapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientChapterWithIngredientAmount.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/PublicRecipe.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/PublicRecipeWithIngredientChapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/PrivateRecipeRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/PrivateRecipeRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repositoryimplementations/PrivateRecipeRepositoryImplementation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repositoryimplementations/PrivateRecipeRepositoryImplementation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/PrivateRecipe.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/PrivateRecipe.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/Recipe.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/Recipe.kt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,7 +25,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_29" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5X_API_28" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -43,97 +41,22 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/dto/SharedPrivateRecipeDto.kt">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/dao/PublicRecipeDAO.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="57" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
-              <folding>
-                <element signature="e#52#97#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/IngredientAmountRepository.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/IngredientChapterRepository.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/PrivateRecipeRepository.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="77" selection-start-line="11" selection-start-column="77" selection-end-line="11" selection-end-column="77" />
-              <folding>
-                <element signature="e#59#342#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/PrivateRecipeTag.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/PrivateRecipe.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="37" column="83" selection-start-line="37" selection-start-column="83" selection-end-line="37" selection-end-column="83" />
+            <state relative-caret-position="272">
+              <caret line="18" column="43" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repositoryimplementations/PrivateRecipeRepositoryImplementation.kt">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientChapterWithIngredientAmount.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="42" column="43" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/PublicRecipeRepository.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/UnitRepository.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/UserRepository.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+            <state relative-caret-position="153">
+              <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+              <folding>
+                <element signature="e#55#114#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -144,6 +67,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -162,13 +86,18 @@
         <option value="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repositoryimplementations/PrivateRecipeRepositoryImplementation.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/PrivateRecipeTag.kt" />
         <option value="$PROJECT_DIR$/app/src/test/java/de/psekochbuch/exzellenzkoch/RepositoryTest/PrivateRecipeRepository.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientAmount.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientChapter.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/PublicRecipe.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/PublicRecipeWithIngredientChapter.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientChapterWithIngredientAmount.kt" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="39" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="38" />
     <option name="y" value="24" />
-    <option name="width" value="939" />
+    <option name="width" value="940" />
     <option name="height" value="1176" />
   </component>
   <component name="ProjectView">
@@ -176,85 +105,57 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
               <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
+              <item name="PSE-kochbuchapp-app" type="feadf853:AndroidModuleNode" />
             </path>
             <path>
               <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
+              <item name="PSE-kochbuchapp-app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
             </path>
             <path>
               <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
+              <item name="PSE-kochbuchapp-app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="datalayer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
+              <item name="PSE-kochbuchapp-app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="datalayer" type="462c0819:PsiDirectoryNode" />
-              <item name="dto" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
+              <item name="PSE-kochbuchapp-app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="datalayer" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="PSE-kochbuchapp-app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="datalayer" type="462c0819:PsiDirectoryNode" />
+              <item name="Entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
+              <item name="PSE-kochbuchapp-app" type="feadf853:AndroidModuleNode" />
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="datalayer" type="462c0819:PsiDirectoryNode" />
               <item name="repository" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="datalayer" type="462c0819:PsiDirectoryNode" />
-              <item name="repositoryimplementations" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="domainlayer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="domainlayer" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
-              <item name="kochbuchapp-app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="exzellenzkoch" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="RepositoryTest" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kochbuchapp" type="1abcf292:AndroidViewProjectNode" />
@@ -291,10 +192,63 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Android App.kochbuchapp-app">
+  <component name="RunManager" selected="Android App.PSE-kochbuchapp-app">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PSE-kochbuchapp-app" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="PSE-kochbuchapp-app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <method v="2">
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
@@ -420,11 +374,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="-6" y="-6" width="1381" height="885" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.5006017" side_tool="true" weight="0.586444" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49939832" visible="true" weight="0.2728745" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49939832" visible="true" weight="0.27739984" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -439,7 +393,7 @@
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.3292978" />
       <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.50121456" side_tool="true" weight="0.35523978" />
       <window_info anchor="bottom" id="Android Profiler" order="5" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Build" order="6" sideWeight="0.49878544" weight="0.330373" />
+      <window_info anchor="bottom" id="Build" order="6" sideWeight="0.49878544" visible="true" weight="0.32650274" />
       <window_info anchor="bottom" id="Run" order="7" />
       <window_info anchor="bottom" id="Debug" order="8" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
@@ -528,34 +482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/PublicRecipeRepository.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/UnitRepository.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/UserRepository.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/IngredientAmountRepository.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/IngredientChapterRepository.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -582,15 +508,142 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/PrivateRecipe.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
+        <state relative-caret-position="612">
           <caret line="37" column="83" selection-start-line="37" selection-start-column="83" selection-end-line="37" selection-end-column="83" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/PublicRecipeRepository.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/UnitRepository.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/IngredientAmount.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repositoryimplementations/UnitRepositoryImplementation.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repositoryimplementations/UserRepositoryImplementation.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientAmount.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="7" lean-forward="true" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          <folding>
+            <element signature="e#55#114#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/IngredientAmountRepository.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repositoryimplementations/PrivateRecipeRepositoryImplementation.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
+        <state relative-caret-position="561">
           <caret line="42" column="43" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/dao/PrivateRecipeDAO.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/domainlayer/entity/Group.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repositoryimplementations/PublicRecipeRepositoryImplementation.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/PublicRecipe.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="7" lean-forward="true" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
+          <folding>
+            <element signature="e#55#141#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientChapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="31" lean-forward="true" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+          <folding>
+            <element signature="e#55#114#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/PublicRecipeWithIngredientChapter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#55#114#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/repository/UserRepository.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/dao/PublicRecipeDAO.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="18" column="43" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/de/psekochbuch/exzellenzkoch/datalayer/Entity/IngredientChapterWithIngredientAmount.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+          <folding>
+            <element signature="e#55#114#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
