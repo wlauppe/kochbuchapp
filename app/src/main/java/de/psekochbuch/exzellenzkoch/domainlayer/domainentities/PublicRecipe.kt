@@ -17,7 +17,7 @@ class PublicRecipe constructor(ingredients: List<IngredientChapter>, title:Strin
     var rating: Double? = rating
     var preparation: String? = preparation
     var tags: List<String>? = tags
-    var preparationTime: Int? =
+    var preparationTime: Int? = preparationTime
     var cookingTime: Int? = cookingTime
     var image: Image? =image
     var portions: Int? = portions
