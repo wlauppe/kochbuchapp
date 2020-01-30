@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
 import de.psekochbuch.exzellenzkoch.application.dto.PublicRecipeDto
-import de.psekochbuch.exzellenzkoch.remote.Repository
-import de.psekochbuch.exzellenzkoch.remote.api.PublicRecipeApi
+import de.psekochbuch.exzellenzkoch.datalayer.remote.Repository
+import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,7 +34,9 @@ class MainActivity : AppCompatActivity() {
 
         val frag = supportFragmentManager.findFragmentById(R.id.regisFrag)
 
-        val call : PublicRecipeApi = Repository(null).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
+        val call : PublicRecipeApi = Repository(
+            null
+        ).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
         call.getRecipe(1).enqueue(object : Callback<PublicRecipeDto?> {
             override fun onResponse(
                 call: Call<PublicRecipeDto?>?,

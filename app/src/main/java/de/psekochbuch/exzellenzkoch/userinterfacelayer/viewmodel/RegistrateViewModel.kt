@@ -2,13 +2,9 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.psekochbuch.exzellenzkoch.Authentification
+import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations.Authentification
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
 class RegistrateViewModel : ViewModel() {
@@ -27,7 +23,8 @@ class RegistrateViewModel : ViewModel() {
         val em = email.value
         val pw = password.value
         if(em != null && pw != null) {
-            Authentification().registrate(em, pw) { it, result ->
+            Authentification()
+                .register(em, pw) { it, result ->
                 if(it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
                     Log.d(TAG,"Registration erfolgreich")
                     progressBarVisibility.postValue(false)

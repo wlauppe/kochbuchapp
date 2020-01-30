@@ -2,9 +2,9 @@ package de.psekochbuch.exzellenzkoch.RepositoryTest
 
 import de.psekochbuch.exzellenzkoch.datalayer.dto.PrivateRecipeTagDto
 import de.psekochbuch.exzellenzkoch.datalayer.dto.SharedPrivateRecipeDto
-import de.psekochbuch.exzellenzkoch.datalayer.repositoryimplementations.PrivateRecipeRepositoryImplementation
-import de.psekochbuch.exzellenzkoch.domainlayer.entity.PrivateRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.entity.PrivateRecipeTag
+import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.repositoryimplementations.PrivateRecipeRepositoryImplementation
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipeTag
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 import java.util.*
