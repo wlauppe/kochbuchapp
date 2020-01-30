@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_main)
         supportActionBar?.setTitle("Exzellenzkoch")
         //setSupportActionBar(findViewById(R.id.my_toolbar))
-        setContentView(R.layout.activity_main)
 
 
         val frag = supportFragmentManager.findFragmentById(R.id.regisFrag)
