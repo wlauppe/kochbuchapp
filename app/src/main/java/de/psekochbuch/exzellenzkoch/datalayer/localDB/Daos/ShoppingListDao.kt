@@ -1,10 +1,10 @@
-package com.example.simplekochbuchapp.domainlayer.localDB.Daos
+package de.psekochbuch.exzellenzkoch.datalayer.localDB.Daos
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.simplekochbuchapp.domainlayer.localDB.Entities.ShoppingList
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.ShoppingList
 
 @Dao
 interface ShoppingListDao {
@@ -16,5 +16,5 @@ interface ShoppingListDao {
 
     //Diese methode ist nur fürs Testen nütlich
     @Query("SELECT * from shoppingList where id = :id")
-    fun getShoppingListItemById(id:Int):ShoppingList;
+    fun getShoppingListItemById(id:Int): ShoppingList;
 }

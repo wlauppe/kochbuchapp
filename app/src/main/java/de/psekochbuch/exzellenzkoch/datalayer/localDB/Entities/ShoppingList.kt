@@ -1,4 +1,4 @@
-package com.example.simplekochbuchapp.domainlayer.localDB.Entities
+package de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

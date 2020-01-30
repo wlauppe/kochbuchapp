@@ -1,5 +1,5 @@
-package com.example.simplekochbuchapp.domainlayer.domainentities
+package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-class PrivateRecipe:Recipe() {
+class PrivateRecipe: Recipe() {
 
 }

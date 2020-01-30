@@ -1,11 +1,11 @@
-package com.example.simplekochbuchapp.domainlayer.localDB.DataBase
+package de.psekochbuch.exzellenzkoch.datalayer.localDB.DataBase
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.simplekochbuchapp.domainlayer.localDB.Daos.ShoppingListDao
-import com.example.simplekochbuchapp.domainlayer.localDB.Entities.ShoppingList
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.Daos.ShoppingListDao
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.ShoppingList
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

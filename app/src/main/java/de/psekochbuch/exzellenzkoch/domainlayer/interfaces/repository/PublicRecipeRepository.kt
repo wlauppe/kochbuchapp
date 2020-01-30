@@ -1,7 +1,7 @@
-package com.example.simplekochbuchapp.domainlayer.interfaces.repository
+package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository
 import androidx.lifecycle.LiveData
-import com.example.simplekochbuchapp.datalayer.repositoryimpl.dto.PublicRecipeDto
-import com.example.simplekochbuchapp.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.datalayer.dto.PublicRecipeDto
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import retrofit2.Call
 import retrofit2.http.GET
 

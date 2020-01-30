@@ -1,8 +1,7 @@
-package com.example.simplekochbuchapp.domainlayer.interfaces.repository
+package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository
 
-import androidx.lifecycle.LiveData
-import com.example.simplekochbuchapp.domainlayer.domainentities.TagList
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 
 interface TagRepository {
-    fun getTags():TagList
+    fun getTags(): TagList
 }

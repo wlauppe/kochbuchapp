@@ -1,6 +1,6 @@
-package com.example.simplekochbuchapp.domainlayer.interfaces.repository
+package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository
 
-import com.example.simplekochbuchapp.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 
 interface UserRepository {
 

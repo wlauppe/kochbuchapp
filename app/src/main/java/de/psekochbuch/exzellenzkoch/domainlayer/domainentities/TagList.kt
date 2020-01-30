@@ -1,4 +1,4 @@
-package com.example.simplekochbuchapp.domainlayer.domainentities
+package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

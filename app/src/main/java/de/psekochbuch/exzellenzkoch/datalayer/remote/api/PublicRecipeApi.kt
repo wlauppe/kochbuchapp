@@ -1,6 +1,6 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.api
 
-import de.psekochbuch.exzellenzkoch.application.dto.PublicRecipeDto
+import de.psekochbuch.exzellenzkoch.datalayer.dto.PublicRecipeDto
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
@@ -25,7 +25,7 @@ interface PublicRecipeApi {
      * @param publicRecipe Recipe to add
      */
     @POST ("")
-    fun addRecipe(@Body publicRecipe:PublicRecipeDto?)
+    fun addRecipe(@Body publicRecipe: PublicRecipeDto?)
 
     /**
      * PUT-Request to update a recipe

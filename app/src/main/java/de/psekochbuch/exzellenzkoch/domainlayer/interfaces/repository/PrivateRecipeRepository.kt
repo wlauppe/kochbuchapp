@@ -1,7 +1,7 @@
-package com.example.simplekochbuchapp.domainlayer.interfaces.repository
+package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository
 
 import androidx.lifecycle.LiveData
-import com.example.simplekochbuchapp.domainlayer.domainentities.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 
 interface PrivateRecipeRepository {
 

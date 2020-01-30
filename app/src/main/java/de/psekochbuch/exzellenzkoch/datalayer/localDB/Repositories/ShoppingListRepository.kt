@@ -1,10 +1,9 @@
-package com.example.simplekochbuchapp.domainlayer.localDB.Repositories
+package de.psekochbuch.exzellenzkoch.datalayer.localDB.Repositories
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import com.example.simplekochbuchapp.domainlayer.localDB.Daos.ShoppingListDao
-import com.example.simplekochbuchapp.domainlayer.localDB.DataBase.WordRoomDatabase
-import com.example.simplekochbuchapp.domainlayer.localDB.Entities.ShoppingList
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.Daos.ShoppingListDao
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.DataBase.WordRoomDatabase
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.ShoppingList
 
 
 class ShoppingListRepository(application: Application?) {
@@ -21,7 +20,7 @@ class ShoppingListRepository(application: Application?) {
         return shoppingListDao!!.getShoppingList()
     }
 
-    fun getById(id:Int):ShoppingList{
+    fun getById(id:Int): ShoppingList {
         return shoppingListDao!!.getShoppingListItemById(id)
     }
 }

@@ -1,4 +1,5 @@
-package com.example.simplekochbuchapp.domainlayer.domainentities
+package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
+
 
 class IngredientChapter(chapter:String, ingredients:List<IngredientAmount>) {
 

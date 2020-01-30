@@ -1,4 +1,4 @@
-package com.example.simplekochbuchapp.domainlayer.domainentities
+package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
 enum class Unit(unit:String) {
     EssLöffel("EL.") {

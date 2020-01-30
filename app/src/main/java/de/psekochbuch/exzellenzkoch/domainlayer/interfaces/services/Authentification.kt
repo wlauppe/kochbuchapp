@@ -1,4 +1,4 @@
-package com.example.simplekochbuchapp.domainlayer.interfaces.repository
+package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services
 
 import android.util.JsonToken
 
