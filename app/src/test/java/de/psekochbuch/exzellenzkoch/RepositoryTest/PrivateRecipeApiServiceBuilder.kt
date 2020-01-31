@@ -2,7 +2,6 @@ package de.psekochbuch.exzellenzkoch.RepositoryTest
 
 import de.psekochbuch.exzellenzkoch.datalayer.dto.PrivateRecipeTagDto
 import de.psekochbuch.exzellenzkoch.datalayer.dto.SharedPrivateRecipeDto
-import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.repositoryimplementations.PrivateRecipeRepositoryImplementation
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipeTag
 import junit.framework.Assert.assertEquals
@@ -10,9 +9,9 @@ import org.junit.Test
 import java.util.*
 import kotlin.collections.ArrayList
 
-class PrivateRecipeRepository  {
+class PrivateRecipeApiServiceBuilder  {
     //var repo: PrivateRecipeRepositoryImplementation = PrivateRecipeRepositoryImplementation()
-    var repo:PrivateRecipeRepositoryImplementation? = null
+/*    var repo:PrivateRecipeRepositoryImplementation? = null
 
     @Test
     fun Shared_Private_Recipe_Dto_To_Private_Recipe_Test(){
@@ -42,4 +41,5 @@ class PrivateRecipeRepository  {
         var formattedDto = repo!!.private_Recipe_tag_Dto_To_Private_Recipe_Tag(dto)
         assertEquals(formattedDto.tagId, controll.tagId)
     }
+    */
 }
