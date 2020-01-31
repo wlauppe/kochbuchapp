@@ -7,7 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 
 import de.psekochbuch.exzellenzkoch.datalayer.dto.PublicRecipeDto
-import de.psekochbuch.exzellenzkoch.datalayer.remote.Repository
+import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         //val frag = supportFragmentManager.findFragmentById(R.id.regisFrag)
 
-        val call : PublicRecipeApi = Repository(
+        /*val call : PublicRecipeApi = ApiServiceBuilder(
             null
         ).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
         call.getRecipe(1).enqueue(object : Callback<PublicRecipeDto?> {
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             ) {
                 val t = ""
             }
-        })
+        })*/
 
 
        /* repo.getRecipe(1).enqueue(Callback<PublicRecipeDto>()

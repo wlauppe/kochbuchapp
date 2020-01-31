@@ -7,10 +7,6 @@ import retrofit2.http.GET
 
 interface PublicRecipeRepository {
 
-    //Die App baut nicht, einfach zum testen ein normaler Retrofit zugriff über callbacks
-    @GET("api/recipes/1")
-    fun getRecipe(): Call<PublicRecipeDto>
-
     /**
      * Deletes the given recipe from the server.
      * Only authors or admins can delete recipes.
@@ -23,6 +19,7 @@ interface PublicRecipeRepository {
      *
      * TODO Suchparameter und Pagingparameter in Methodenkopf (nullables)
      */
+    @Throws
     fun getPublicRecipes(): LiveData<List<PublicRecipe>>
 
     /**
@@ -30,7 +27,7 @@ interface PublicRecipeRepository {
      *
      * reportRecipe()
      * deleteRecipe(id:String)
-     * 
+     *
      */
 
 }
