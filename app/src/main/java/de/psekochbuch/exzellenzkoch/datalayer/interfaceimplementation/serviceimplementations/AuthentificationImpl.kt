@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
 /**
@@ -11,7 +12,10 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
  *
  * @constructor Create a firebaseinstance
  */
-class Authentification
+class AuthentificationImpl
+//TODO("Implementierung sollte irgendwann das Interface implementieren")
+
+
 {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 

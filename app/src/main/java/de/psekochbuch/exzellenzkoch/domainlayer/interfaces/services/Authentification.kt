@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services
 
 import android.util.JsonToken
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
 interface Authentification {
 
