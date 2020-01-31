@@ -10,4 +10,16 @@
     <string name="create_recipe_button">erstellen</string>
     <string name="edit_recipe_button">bearbeiten</string>
     <string name="remove_recipe">löschen</string>
+    <string name="enter_new_password">Neues Passwort eingeben</string>
+    <string name="change_password">Passwort ändern</string>
+    <string name="search_result_textView">Suchergebnisse</string>
+    <string name="sorted_after">Sortiert nach</string>
+    <string name="my_favourite">Meine Favoriten</string>
+    <string name="textView_feed">Feed</string>
+    <string name="group_title_fragment">Gruppen</string>
+    <string name="create_group">Gruppe erstellen</string>
+    <string name="friend_title">Freunde</string>
+    <string name="friend_requests">Freundschaftsanfragen</string>
+    <string name="search_user_button">Nach Nutzer suchen</string>
+    <string name="enter_user_id">Gib eine persönliche ID ein</string>
 </resources>

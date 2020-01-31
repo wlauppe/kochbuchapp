@@ -1,148 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:textSize="40dp"
-        android:textStyle="italic"
+    <data>
+        <variable
+            name="DisplaySearchListViewmodel"
+            type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel" />
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Suchergebnisse" />
+    </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="61dp"
-        android:layout_marginTop="40dp"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/spinner2"
-            android:layout_width="136dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:textSize="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Sortiert nach" />
-
-        <Spinner
-            android:id="@+id/spinner"
-            android:layout_width="136dp"
-
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
-    <ScrollView
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView_search_results"
+            android:textSize="40dp"
+            android:textStyle="italic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:orientation="vertical" >
+            android:text="@string/search_result_textView" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic[11]" />
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-
-                    android:text="Bratwurst"
-                    android:textAlignment="center"
-                    android:textSize="40dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imageButton4"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic[13]" />
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_marginTop="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Bratan"
-                    android:textAlignment="center"
-                    android:textSize="40dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imageButton2"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic[12]" />
-
-                <TextView
-                    android:id="@+id/textView9"
-
-                    android:layout_marginTop="30dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Piroggen"
-                    android:textAlignment="center"
-                    android:textSize="40dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imageButton5"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic[9]" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="40dp"
-
-                    android:layout_marginTop="30dp"
-                    android:textAlignment="center"
-                    android:text="Salat" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textView_sorted_after"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sorted_after" />
 
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+    </LinearLayout>
+</layout>

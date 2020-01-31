@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginViewmodel(application: Application) : ViewModel() {
+class LoginViewmodel() : ViewModel() {
 
 
 
@@ -29,8 +29,7 @@ class LoginViewmodel(application: Application) : ViewModel() {
      * @param [activity] The Aktivity which the method execute
      *
      */
-    fun login(email: String, password: String,activity: Activity)
-    {
+    fun login(){
 
     }
 }

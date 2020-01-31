@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"></import>
@@ -9,10 +10,14 @@
 
     </data>
 
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+
 
 
         <TextView
@@ -34,7 +39,7 @@
             android:text="Email" />
 
         <EditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/editText_email"
             android:layout_marginTop="20dp"
             android:textSize="25dp"
             android:textStyle="italic"
@@ -54,18 +59,19 @@
             android:text="@={loginviewModel.password}" />
 
         <EditText
-            android:id="@+id/editText11"
+            android:id="@+id/editText_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/login_button"
+            android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="Login" />
+            android:text="Login"
+        />
 
         <TextView
             android:id="@+id/textView31"
@@ -77,7 +83,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button46"
+            android:id="@+id/button_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"

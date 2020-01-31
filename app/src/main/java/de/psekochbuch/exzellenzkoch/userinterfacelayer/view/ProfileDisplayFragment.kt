@@ -5,37 +5,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import de.psekochbuch.exzellenzkoch.R
+import androidx.navigation.fragment.findNavController
+
+import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 
-class ProfileDisplayFragment: Fragment(), View.OnClickListener {
-    var navController:NavController? = null
+class ProfileDisplayFragment: Fragment() {
+    private lateinit var navController:NavController
 
     var profileDisplayViewmodel:ProfileDisplayViewmodel? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view:View = inflater.inflate(R.layout.profil_display_fragment, container, false)
 
-        profileDisplayViewmodel = ViewModelProviders.of(this).get(ProfileDisplayViewmodel::class.java)
 
-        return view
+        val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
+
+        val navController = findNavController()
+
+        profileDisplayViewmodel = ViewModelProvider(this).get(ProfileDisplayViewmodel::class.java)
+
+
+        return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        view.findViewById<Button>(R.id.goto_recipe_button).setOnClickListener(this)
     }
-    override fun onClick(v:View?){
-        when(v!!.id){
-            R.id.goto_recipe_button -> navController!!.navigate(R.id.profile_display_fragment_to_recipe_display_fragment)
-        }
-    }
+
 
 
 }

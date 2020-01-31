@@ -7,6 +7,8 @@
     tools:context=".MainActivity"
     android:id="@+id/activity_main">
 
+
+
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
@@ -15,38 +17,38 @@
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/regisFrag"
-        app:layout_constraintTop_toTopOf="@+id/regisFrag"
         app:navGraph="@navigation/nav_graph">
 
     </fragment>
 
-   <!-- <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_marginTop="0dp"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <include
-        style="@android:style/Widget.DeviceDefault.PopupMenu"
-        layout="@layout/menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/my_toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/my_toolbar"
-        tools:visibility="visible" />-->
+    <!--
+    <android.support.v7.widget.Toolbar
+         android:id="@+id/my_toolbar"
+         android:layout_width="match_parent"
+         android:layout_height="?attr/actionBarSize"
+         android:layout_marginTop="0dp"
+         android:background="?attr/colorPrimary"
+         android:elevation="4dp"
+         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="1.0"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="parent"
+         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+     <include
+         style="@android:style/Widget.DeviceDefault.PopupMenu"
+         layout="@layout/menu"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:visibility="visible"
+         app:layout_constraintBottom_toBottomOf="@+id/my_toolbar"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintHorizontal_bias="0.05"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintTop_toTopOf="@+id/my_toolbar"
+         tools:visibility="visible" />
 
     <fragment
         android:id="@+id/regisFrag"
@@ -58,5 +60,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
+-->
 </androidx.constraintlayout.widget.ConstraintLayout>

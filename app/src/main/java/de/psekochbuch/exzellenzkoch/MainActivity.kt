@@ -1,6 +1,9 @@
 package de.psekochbuch.exzellenzkoch
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 
 import de.psekochbuch.exzellenzkoch.datalayer.dto.PublicRecipeDto
@@ -19,7 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        setContentView(R.layout.recipe_list_fragment)
+
+        setContentView(R.layout.activity_main)
 
 
         supportActionBar?.setTitle("Exzellenzkoch")
@@ -31,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         //setSupportActionBar(findViewById(R.id.my_toolbar))
 
 
-        val frag = supportFragmentManager.findFragmentById(R.id.regisFrag)
+        //val frag = supportFragmentManager.findFragmentById(R.id.regisFrag)
 
         val call : PublicRecipeApi = Repository(
             null
@@ -70,6 +74,24 @@ class MainActivity : AppCompatActivity() {
         auth.registrate("test@test.de", "12345678"){ it, status ->
             if(it != null) Log.d("ContentValues", "Ypeee")
         }*/
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        var inflater:MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.login -> setContentView(R.id.login_fragment)
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 
     
