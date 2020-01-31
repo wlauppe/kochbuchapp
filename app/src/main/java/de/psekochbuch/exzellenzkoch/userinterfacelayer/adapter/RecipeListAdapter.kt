@@ -2,20 +2,24 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
-
-class RecipeListAdapter (var names: List<String>): RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder> (){
-
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
 
+class RecipeListAdapter (var viewModel : RecipeListViewmodel): RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder> (){
 
-    fun setNewNames(newNames:List<String>)
-    {
-        names = newNames
-        this.notifyDataSetChanged()
-    }
+
+var navController : NavController? = null
+
+    var viewmModel: RecipeListViewmodel? = null
+    var names = viewModel.recipes
+
+
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeListViewHolder {
@@ -25,21 +29,38 @@ class RecipeListAdapter (var names: List<String>): RecyclerView.Adapter<RecipeLi
 
         val itemBinding = RecipeListItemBinding.inflate(inflater, parent, false)
 
+
+        //TestNavcontroller
+        navController = Navigation.findNavController(parent)
+
+
+
         return RecipeListViewHolder(itemBinding)
     }
 
     override fun getItemCount(): Int {
-        return names.size
+        if(viewModel.names.isNullOrEmpty()){
+            return 0
+        }
+        return viewModel.names!!.size
     }
 
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
 
-        holder.recipeListItemBinding.textViewRecipeTitleItem.setText(names[position])
+
+
+
+        if(names.isNullOrEmpty()){
+            return
+        }
+        holder.recipeListItemBinding.textViewRecipeTitleItem.setText(names!![position].title)
+
+
         holder.recipeListItemBinding.buttonEditRecipe.setOnClickListener{
-             //TODO fragment wechsel
+             navController!!.navigate(R.id.action_recipe_list_fragment_to_create_recipe_fragment)
         }
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
-            //TODO fragment wechsel
+            viewModel.deleteRecipe(names!![position].id)
         }
 
         }

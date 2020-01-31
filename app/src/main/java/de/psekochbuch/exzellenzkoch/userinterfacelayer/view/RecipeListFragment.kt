@@ -35,8 +35,12 @@ class RecipeListFragment: Fragment(), View.OnClickListener {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.recipe_list_fragment, container, false)
 
-
         viewModel = ViewModelProvider(this).get(RecipeListViewmodel::class.java)
+
+
+
+        val recipeListAdapter:RecipeListAdapter = RecipeListAdapter(viewModel)
+
 
         //Sets according viewmodel from XML to this fragment
         binding.recipeListViewModel = viewModel

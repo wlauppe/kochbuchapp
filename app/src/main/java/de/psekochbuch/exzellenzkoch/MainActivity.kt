@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.recipe_list_fragment)
 
 
         supportActionBar?.setTitle("Exzellenzkoch")
