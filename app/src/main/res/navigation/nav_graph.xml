@@ -94,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/registration_fragment"
-        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RegistrateFragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RegisterFragment"
         android:label="RegistrationFragment"
         >
         <action

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".userinterfacelayer.view.AdminFragment">
+
+    <TextView
+        android:id="@+id/textView_admin_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="@string/admin_title"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_admin_flagged_recipes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="@string/admin_flagged_recipes"
+        android:textStyle="bold"
+        android:textAlignment="center"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_admin_recipes"
+        android:layout_width="match_parent"
+        android:layout_height="285dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp" />
+
+    <TextView
+        android:id="@+id/textView_admin_flagged_users"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:text="@string/flagged_users" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_admin_users"
+        android:layout_width="match_parent"
+        android:layout_height="363dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp" />
+</LinearLayout>

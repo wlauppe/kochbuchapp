@@ -18,7 +18,10 @@
             android:id="@+id/recipe_list_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/recipe_list_recipe_title" />
+            android:text="@string/recipe_list_recipe_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
@@ -29,8 +32,8 @@
 
         <Button
             android:id="@+id/button_create_recipe"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/create_recipe_button" />
+            android:text="@string/recipe_list_create_recipe_button" />
     </LinearLayout>
 </layout>

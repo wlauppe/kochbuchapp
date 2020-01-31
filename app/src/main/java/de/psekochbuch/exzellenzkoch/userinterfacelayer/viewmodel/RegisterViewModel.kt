@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
-class RegistrateViewModel : ViewModel() {
+class RegisterViewModel : ViewModel() {
 
 
 
@@ -16,7 +16,7 @@ class RegistrateViewModel : ViewModel() {
     var password : MutableLiveData<String> = MutableLiveData()
     var progressBarVisibility : MutableLiveData<Boolean> = MutableLiveData(false)
 
-    fun registrateOnClick()
+    fun registerOnClick()
     {
         //email.postValue("bal")
         progressBarVisibility.postValue(true)

@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name">Exzellenzkoch</string>
-    <string name="registrate">Registrieren</string>
+    <string name="register">Registrieren</string>
     <string name="email_address">Email Adresse</string>
     <string name="optional_user_id">*optional* Benutzer ID</string>
     <string name="email_example">max.musterman@muster.de</string>
     <string name="password">Passwort</string>
     <string name="user_id">Benutzerid</string>
-    <string name="recipe_list_recipe_title">Rezept Liste</string>
-    <string name="create_recipe_button">erstellen</string>
+    <string name="recipe_list_recipe_title">Meine Rezepte</string>
+    <string name="recipe_list_create_recipe_button">Neues Rezept erstellen</string>
     <string name="edit_recipe_button">bearbeiten</string>
     <string name="remove_recipe">löschen</string>
+    <string name="admin_title">Admin</string>
+    <string name="admin_flagged_recipes">Gemeldete Rezepte</string>
+    <string name="flagged_users">Gemeldete Nutzer</string>
     <string name="enter_new_password">Neues Passwort eingeben</string>
     <string name="change_password">Passwort ändern</string>
     <string name="search_result_textView">Suchergebnisse</string>
