@@ -1,12 +1,11 @@
-package de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities
-
+package com.example.simplekochbuchapp.domainlayer.localDB.Entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "ingredientAmount")
-data class IngredientAmount(@PrimaryKey(autoGenerate = true) val id:Long,
-                            val chapterId:Long,
+@Entity(tableName = "ingredientamount")
+data class IngredientAmount(@PrimaryKey val id:Long,
+                            val recipeId:Long,
                             val name:String,
                             val unit:String,
                             val amount:Int

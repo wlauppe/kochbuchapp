@@ -4,13 +4,13 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
+import com.example.simplekochbuchapp.domainlayer.localDB.Entities.*
 
 @Dao
 interface IngredientAmountDao {
-    @Insert(onConflict  = OnConflictStrategy.REPLACE)
-    fun insert(ingredientAmount: IngredientAmount);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(ingredientAmount: IngredientAmount)
 
-    @Query("SELECT * from ingredientAmount where id = :ingredientChapterId")
-    fun getIngredientAmountFromIngredientChapter(ingredientChapterId:Int): IngredientAmount;
+    @Query("SELECT * from ingredientamount where recipeId = :recipeId")
+    fun getIngredientAmountByRecipeId(recipeId:Long):List<IngredientAmount>
 }
