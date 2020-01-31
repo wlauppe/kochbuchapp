@@ -73,7 +73,11 @@
         android:id="@+id/recipe_list_fragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeListFragment"
         android:label="RecipeListFragment"
-        />
+        >
+        <action
+            android:id="@+id/action_recipe_list_fragment_to_create_recipe_fragment"
+            app:destination="@id/create_recipe_fragment" />
+    </fragment>
     <fragment
         android:id="@+id/registration_fragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RegistrateFragment"
