@@ -13,8 +13,10 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
  */
 class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
-    val retrofit : PublicRecipeApi = ApiServiceBuilder(null).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
+    val token = null
+    //TODO token von Authentification Interface bekommen.
 
+    val retrofit : PublicRecipeApi = ApiServiceBuilder(token).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
 
     override suspend fun removePublicRecipe(recipe: PublicRecipe) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
