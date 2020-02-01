@@ -6,7 +6,7 @@ import java.security.Timestamp
 class PublicRecipe constructor(ingredients: List<IngredientChapter>, title:String,
                                rating:Double, preparation:String,
                                tags:List<String>, preparationTime:Int,
-                               cookingTime: Int, image: Image?, portions:Int ){
+                               cookingTime: Int, imgSrcUrl : String?, portions:Int ){
 
 
 
@@ -19,7 +19,8 @@ class PublicRecipe constructor(ingredients: List<IngredientChapter>, title:Strin
     var tags: List<String>? = tags
     var preparationTime: Int? = preparationTime
     var cookingTime: Int? = cookingTime
-    var image: Image? =image
+    var image: Image? = null
+    var imgSrcUrl: String? = imgSrcUrl
     var portions: Int? = portions
 
 
