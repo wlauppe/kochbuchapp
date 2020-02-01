@@ -47,25 +47,17 @@ var navController : NavController? = null
 
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
 
-
-
-
         if(names.isNullOrEmpty()){
             return
         }
         holder.recipeListItemBinding.textViewRecipeTitleItem.setText(names!![position].title)
-
-
         holder.recipeListItemBinding.buttonEditRecipe.setOnClickListener{
            //  navController!!.navigate(R.id.action_recipe_list_fragment_to_create_recipe_fragment)
         }
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
             viewModel.deleteRecipe(names!![position].id)
         }
-
         }
-
-
     class RecipeListViewHolder(val recipeListItemBinding: RecipeListItemBinding): RecyclerView.ViewHolder(recipeListItemBinding.root)
 
 

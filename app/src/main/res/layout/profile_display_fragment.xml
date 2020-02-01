@@ -3,7 +3,7 @@
 
     <data>
         <variable
-            name="profileDisplayFragment"
+            name="profileDisplayViewmodel"
             type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel" />
 
     </data>
@@ -13,5 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/button_report_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nutzer melden" />
+
+        <Button
+            android:id="@+id/button_edit_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Profil bearbeiten" />
     </LinearLayout>
 </layout>

@@ -7,24 +7,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
 class DisplaySearchListFragment: Fragment() {
-    private lateinit var navController: NavController
 
+    private lateinit var binding: DisplaySearchlistFragmentBinding
 
-
-    var displaySearchListViewmodel:DisplaySearchListViewmodel? = null
+    private lateinit var viewModel : DisplaySearchListViewmodel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        val binding = DisplaySearchlistFragmentBinding.inflate(inflater, container, false)
-        var navController = findNavController()
-
-        displaySearchListViewmodel  = ViewModelProvider(this).get(DisplaySearchListViewmodel::class.java)
+        //binding set to the according Fragment
+        binding = DisplaySearchlistFragmentBinding.inflate(inflater, container, false)
+        //viewmodel recieved by viewmodelproviders
+        viewModel = ViewModelProvider(this).get(DisplaySearchListViewmodel::class.java)
+        //Sets according viewmodel from XML to this fragment
+        binding.displaySearchListViewmodel = viewModel
+        //initialized navcontoller
+        var navController: NavController = findNavController()
+        //buttons with fragment change connected with buttonlisteners here
 
         return binding.root
     }
@@ -32,14 +34,7 @@ class DisplaySearchListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = Navigation.findNavController(view)
-
-    }
-   /* override fun onClick(v:View?){
-        when(v!!.id){
-            R.id.search_button -> navController!!.navigate(R.id.RecipeSearchListfragment_to_recipeDisplayfragment)
-        }
     }
 
-    */
+
 }
