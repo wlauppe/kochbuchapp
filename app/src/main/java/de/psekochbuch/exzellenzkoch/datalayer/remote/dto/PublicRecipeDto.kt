@@ -9,7 +9,7 @@ data class PublicRecipeDto(
     /**
          * Id of the recipe
          */
-        val id:Int,
+        val id:Int?,
 
     /**
          * Title of the recipe
@@ -64,7 +64,7 @@ data class PublicRecipeDto(
     /**
          * Ingredientschapters of the recipe
          */
-        var ingredientsChapter: List<IngredientChapterDto>?,
+        var ingredientChapter: List<IngredientChapterDto>?,
 
     /**
          * Tags of the recipes

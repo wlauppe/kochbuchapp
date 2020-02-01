@@ -25,7 +25,7 @@ interface PublicRecipeApi {
      * The URL ends with /api/recipes
      * @param publicRecipe Recipe to add
      */
-    @POST ("")
+    @POST ("recipes")
     fun addRecipe(@Body publicRecipe: PublicRecipeDto?)
 
     /**
@@ -34,7 +34,7 @@ interface PublicRecipeApi {
      * @param publicRecipe Recipe to update
      * @param id Id of the recipe to update
      */
-    @PUT ("/{id}")
+    @PUT ("recipes/{id}")
     fun updateRecipe(@Body publicRecipe: PublicRecipeDto?, @Query(value = "id") id:Int)
 
     /**
@@ -42,7 +42,7 @@ interface PublicRecipeApi {
      * The URL ends with /api/recipes/{id}
      * @param id Id of the recipe
      */
-    @DELETE ("/{id}")
+    @DELETE ("recipes/{id}")
     fun deleteRecipe(@Query(value = "id") id:Int)
 
     /**
