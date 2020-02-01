@@ -21,16 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
-
         setContentView(R.layout.activity_main)
-
-
-        supportActionBar?.setTitle("Exzellenzkoch")
-       // setSupportActionBar(findViewById(R.id.my_toolbar))
-        
-
-        //setContentView(R.layout.activity_main)
         supportActionBar?.setTitle("Exzellenzkoch")
         //setSupportActionBar(findViewById(R.id.my_toolbar))
 
@@ -85,8 +76,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         when(item.itemId){
-            R.id.login -> setContentView(R.id.login_fragment)
-
+            //todo
 
         }
 

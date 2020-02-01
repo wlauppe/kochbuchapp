@@ -57,7 +57,7 @@ var navController : NavController? = null
 
 
         holder.recipeListItemBinding.buttonEditRecipe.setOnClickListener{
-             navController!!.navigate(R.id.action_recipe_list_fragment_to_create_recipe_fragment)
+           //  navController!!.navigate(R.id.action_recipe_list_fragment_to_create_recipe_fragment)
         }
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
             viewModel.deleteRecipe(names!![position].id)

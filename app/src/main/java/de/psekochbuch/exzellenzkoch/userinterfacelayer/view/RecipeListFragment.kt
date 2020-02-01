@@ -68,7 +68,7 @@ class RecipeListFragment: Fragment(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when(v!!.id){
-            R.id.button_create_recipe -> navController!!.navigate(R.id.action_recipe_list_fragment_to_create_recipe_fragment)
+          //  R.id.button_create_recipe -> navController!!.navigate(R.id.action_recipe_list_fragment_to_create_recipe_fragment)
         }
 
 

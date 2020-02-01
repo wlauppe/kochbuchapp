@@ -16,27 +16,9 @@ class LoginFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        var inflater : MenuInflater= SupportMenuInflater(requireContext())
-        inflater.inflate(R.menu.menu, menu)
     }
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    val navController = findNavController()
-        when(item.itemId){
-            R.id.search -> navController.navigate(R.id.action_login_fragment_to_public_recipe_search_fragment)
-
-
-        }
-
-
-        return super.onOptionsItemSelected(item)
-    }
     //private lateinit var binding : LoginFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,7 +31,7 @@ class LoginFragment: Fragment() {
 
         //setOnClicklistener
         binding.buttonLogin.setOnClickListener{
-            navController.navigate(R.id.action_login_fragment_to_profile_display_fragment)
+           // navController.navigate(R.id.action_login_fragment_to_profile_display_fragment)
         }
 
         //initializing the Viewmodel

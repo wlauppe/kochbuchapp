@@ -8,12 +8,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations.Authentification
+
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 
 class ChangePasswordViewmodel(@NonNull application: Application) : AndroidViewModel(application) {
 
     var password: MutableLiveData<String>? = null
-    var repo = Authentification()
+
 
 
     fun changePassword() {

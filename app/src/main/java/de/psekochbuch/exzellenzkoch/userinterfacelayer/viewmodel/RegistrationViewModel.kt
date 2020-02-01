@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
-class RegisterViewModel : ViewModel() {
+class RegistrationViewModel : ViewModel() {
 
 
 

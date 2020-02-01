@@ -34,7 +34,7 @@ class ChangePasswordFragment : Fragment() {
         //navcontroller
         navController = findNavController()
         binding.buttonChangePassword.setOnClickListener{
-            navController.navigate(R.id.action_login_fragment_to_profile_display_fragment)
+           // navController.navigate(R.id.action_login_fragment_to_profile_display_fragment)
         }
 
 

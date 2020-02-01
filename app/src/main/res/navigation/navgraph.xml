@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navgraph"
+    app:startDestination="@id/publicRecipeSearchFragment">
+
+    <fragment
+        android:id="@+id/displaySearchListFragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragment"
+        android:label="DisplaySearchListFragment" />
+    <fragment
+        android:id="@+id/publicRecipeSearchFragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.PublicRecipeSearchFragment"
+        android:label="PublicRecipeSearchFragment" >
+        <action
+            android:id="@+id/action_publicRecipeSearchFragment_to_displaySearchListFragment"
+            app:destination="@id/displaySearchListFragment" />
+    </fragment>
+</navigation>
