@@ -4,6 +4,7 @@ import android.app.Application
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.Daos.*
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.DataBase.*
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.*
 
 
 class IngredientAmountRepository(application: Application?) {
@@ -12,11 +13,11 @@ class IngredientAmountRepository(application: Application?) {
     fun insert(ingredientAmount: IngredientAmount?) {
         if (ingredientAmount == null)
             return;
-        IngredientAmountDataBase.databaseWriteExecutor.execute { ingredientAmountDao?.insert(ingredientAmount) }
+        IngredientAmountDataBase.databaseWriteExecutor.execute { ingredientAmountDao?.insert(IngredientAmountDB(0,0,ingredientAmount.ingredient!!,ingredientAmount.unit!!,ingredientAmount.quantity!!)) }
     }
 
 
-    fun getIngredientAmountByRecipeId(recipeId:Long):List<IngredientAmount>{
-        return ingredientAmountDao!!.getIngredientAmountByRecipeId(recipeId)
+    fun getIngredientAmountByIngredientChapterId(chapterId:Long):List<IngredientAmountDB>{
+        return ingredientAmountDao!!.getIngredientAmountByIngredientChapterId(chapterId)
     }
 }

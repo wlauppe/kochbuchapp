@@ -9,7 +9,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-@Database(entities = [IngredientAmount::class], version = 1, exportSchema = false)
+@Database(entities = [IngredientAmountDB::class], version = 1, exportSchema = false)
 abstract class IngredientAmountDataBase : RoomDatabase() {
     abstract fun ingredientAmountDao(): IngredientAmountDao?
 

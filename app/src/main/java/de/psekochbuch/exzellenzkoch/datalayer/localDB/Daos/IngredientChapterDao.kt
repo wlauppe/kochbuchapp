@@ -7,10 +7,10 @@ import androidx.room.Query
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 
 @Dao
-interface IngredientAmountDao {
+interface IngredientChapterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(ingredientAmount: IngredientAmountDB)
+    fun insert(ingredientChapter:IngredientChapterDB):Long
 
-    @Query("SELECT * from ingredientamount where chapterId = :ingredientChapterId")
-    fun getIngredientAmountByIngredientChapterId(ingredientChapterId:Long):List<IngredientAmountDB>
+    @Query("SELECT * from ingredientChapter where recipeId = :recipeId")
+    fun getIngredientChapterByRecipeId(recipeId:Long):List<IngredientChapterDB>
 }

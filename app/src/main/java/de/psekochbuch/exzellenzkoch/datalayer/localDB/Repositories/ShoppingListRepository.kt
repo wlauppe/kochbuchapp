@@ -9,18 +9,18 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 class ShoppingListRepository(application: Application?) {
     private val shoppingListDao: ShoppingListDao? = ShoppingListDataBase.getDatabase(application!!)?.shoppingListDao();
 
-    fun insert(shoppingList: ShoppingList?) {
+    fun insert(shoppingList: ShoppingListDB?) {
         if (shoppingList == null)
             return;
         ShoppingListDataBase.databaseWriteExecutor.execute { shoppingListDao?.insert(shoppingList) }
     }
 
 
-    fun get():List<ShoppingList>{
+    fun get():List<ShoppingListDB>{
         return shoppingListDao!!.getShoppingList()
     }
 
-    fun getById(id:Int): ShoppingList {
+    fun getById(id:Int): ShoppingListDB {
         return shoppingListDao!!.getShoppingListItemById(id)
     }
 }

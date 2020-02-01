@@ -9,12 +9,12 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 @Dao
 interface ShoppingListDao {
     @Insert(onConflict  = OnConflictStrategy.REPLACE)
-    fun insert(shoppingList: ShoppingList);
+    fun insert(shoppingList: ShoppingListDB);
 
     @Query("SELECT * from shoppingList")
-    fun getShoppingList():List<ShoppingList>;
+    fun getShoppingList():List<ShoppingListDB>;
 
     //Diese methode ist nur fürs Testen nütlich
     @Query("SELECT * from shoppingList where id = :id")
-    fun getShoppingListItemById(id:Int): ShoppingList;
+    fun getShoppingListItemById(id:Int): ShoppingListDB;
 }

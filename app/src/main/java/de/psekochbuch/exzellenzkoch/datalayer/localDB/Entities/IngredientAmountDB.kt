@@ -4,9 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "ingredientamount")
-data class IngredientAmount(@PrimaryKey val id:Long,
-                            val recipeId:Long,
+data class IngredientAmountDB(@PrimaryKey val id:Long,
+                            val chapterId:Long,
                             val name:String,
                             val unit:String,
-                            val amount:Int
+                            val amount:Double
                             )

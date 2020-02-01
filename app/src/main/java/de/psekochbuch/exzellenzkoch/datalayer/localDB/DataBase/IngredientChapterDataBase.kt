@@ -9,25 +9,24 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-
-@Database(entities = [ShoppingListDB::class], version = 1, exportSchema = false)
-abstract class ShoppingListDataBase : RoomDatabase() {
-    abstract fun shoppingListDao(): ShoppingListDao?
+@Database(entities = [IngredientChapterDB::class], version = 1, exportSchema = false)
+abstract class IngredientChapterDataBase : RoomDatabase() {
+    abstract fun ingredientChapterDao(): IngredientChapterDao?
 
     companion object {
         @Volatile
-        private var INSTANCE: ShoppingListDataBase? = null
+        private var INSTANCE: IngredientChapterDataBase? = null
         private const val NUMBER_OF_THREADS = 4
         val databaseWriteExecutor: ExecutorService =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS)
 
-        fun getDatabase(context: Context): ShoppingListDataBase? {
+        fun getDatabase(context: Context): IngredientChapterDataBase? {
             if (INSTANCE == null) {
-                synchronized(ShoppingListDataBase::class.java) {
+                synchronized(IngredientChapterDataBase::class.java) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
                             context.getApplicationContext(),
-                            ShoppingListDataBase::class.java, "shoppinglist_database"
+                            IngredientChapterDataBase::class.java, "ingredientchapter_database"
                         )
                             .build()
                     }

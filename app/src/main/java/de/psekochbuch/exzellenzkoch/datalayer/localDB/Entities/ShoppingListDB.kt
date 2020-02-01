@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "shoppingList")
-data class ShoppingList(
+data class ShoppingListDB(
     @PrimaryKey(autoGenerate = true) var id:Int,
     var nameIngredient:String,
     var unit:String,

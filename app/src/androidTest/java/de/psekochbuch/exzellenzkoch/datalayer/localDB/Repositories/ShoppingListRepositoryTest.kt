@@ -12,7 +12,7 @@ class ShoppingListRepositoryTest{
     {
         val repo = ShoppingListRepository(ApplicationProvider.getApplicationContext<Application>())
 
-        repo.insert(ShoppingList(1,"Banana","unit",42))
+        repo.insert(ShoppingListDB(1,"Banana","unit",42))
 
 
         //das repo macht das im hintergrund, deswegen sollte man warten

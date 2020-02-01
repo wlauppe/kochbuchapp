@@ -2,18 +2,18 @@ package de.psekochbuch.exzellenzkoch.datalayer.localDB.Repositories
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.*
 import org.junit.Assert.*
 import org.junit.Test
 
-class IngredientAmountRepositoryTest{
+class IngredientChapterRepositoryTest{
     @Test
     fun ingredientAmountRepoIsCorrect()
     {
-        val repo = IngredientAmountRepository(ApplicationProvider.getApplicationContext<Application>())
+        val chapterRepo = IngredientChapterRepository(ApplicationProvider.getApplicationContext<Application>())
+        val ingredientRepo = IngredientAmountRepository(ApplicationProvider.getApplicationContext<Application>())
 
-        repo.insert(IngredientAmount("Kokosnuss",2.0,"flasche"))
+        chapterRepo.insert(IngredientChapter("ss",listOf(IngredientAmount("lalali",2.0,"lala"))))
 
 
         //das repo macht das im hintergrund, deswegen sollte man warten
@@ -21,6 +21,6 @@ class IngredientAmountRepositoryTest{
 
 
         //achtung, dieser Test geht schief, wenn sich mehrere rezepte mit derselben recipeid in der db befinden
-        assertEquals(repo.getIngredientAmountByIngredientChapterId(0).last().name, "Kokosnuss")
+        assertEquals(ingredientRepo.getIngredientAmountByIngredientChapterId(20).last().unit, "lala")
     }
 }
