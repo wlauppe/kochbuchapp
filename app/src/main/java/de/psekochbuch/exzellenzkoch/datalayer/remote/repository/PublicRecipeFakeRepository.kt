@@ -1,13 +1,13 @@
-package de.psekochbuch.exzellenzkoch.datalayer.repository
+package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeFakeRepository
 
 
-class PublicRecipeFakeRepository : PublicRecipeRepository {
-    override suspend fun removePublicRecipe(recipe: PublicRecipe) {
+class PublicRecipeFakeRepositoryImp : PublicRecipeFakeRepository {
+    override  fun removePublicRecipe(recipe: PublicRecipe) {
 
     }
 

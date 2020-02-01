@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.datalayer.repository
+package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
