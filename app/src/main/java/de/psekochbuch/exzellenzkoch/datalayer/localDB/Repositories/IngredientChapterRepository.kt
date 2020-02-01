@@ -3,7 +3,6 @@ package de.psekochbuch.exzellenzkoch.datalayer.localDB.Repositories
 import android.app.Application
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.DB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.Daos.*
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.DataBase.*
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 
