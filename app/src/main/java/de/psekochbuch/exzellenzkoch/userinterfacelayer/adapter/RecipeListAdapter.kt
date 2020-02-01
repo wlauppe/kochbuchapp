@@ -7,6 +7,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
 
@@ -18,35 +20,22 @@ var navController : NavController? = null
     var viewmModel: RecipeListViewmodel? = null
     var names = viewModel.recipes
 
-
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeListViewHolder {
 
-
         val inflater = LayoutInflater.from(parent.context)
-
         val itemBinding = RecipeListItemBinding.inflate(inflater, parent, false)
-
-
         //TestNavcontroller
         navController = Navigation.findNavController(parent)
-
-
-
         return RecipeListViewHolder(itemBinding)
     }
-
     override fun getItemCount(): Int {
-        if(viewModel.names.isNullOrEmpty()){
+        if(viewModel.names!!.value.isNullOrEmpty()){
             return 0
         }
-        return viewModel.names!!.size
+        return viewModel.names!!.value!!.size
     }
 
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
-
         if(names.isNullOrEmpty()){
             return
         }
@@ -58,6 +47,16 @@ var navController : NavController? = null
             viewModel.deleteRecipe(names!![position].id)
         }
         }
+
+    fun setNewItems(items: List<PrivateRecipe>?){
+        if(!items.isNullOrEmpty()){
+            //names = items
+        }
+        this.notifyDataSetChanged()
+
+
+
+    }
     class RecipeListViewHolder(val recipeListItemBinding: RecipeListItemBinding): RecyclerView.ViewHolder(recipeListItemBinding.root)
 
 
