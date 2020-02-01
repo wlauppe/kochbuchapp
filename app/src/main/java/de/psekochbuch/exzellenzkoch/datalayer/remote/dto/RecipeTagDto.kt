@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.datalayer.dto
+package de.psekochbuch.exzellenzkoch.datalayer.remote.dto
 
 /**
  * Data transfer object of the Recipetag

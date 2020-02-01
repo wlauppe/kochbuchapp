@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations
+package de.psekochbuch.exzellenzkoch.datalayer.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

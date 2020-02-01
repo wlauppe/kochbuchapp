@@ -4,7 +4,7 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
 class RegistrateViewModel : ViewModel() {

@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.datalayer.dto
+package de.psekochbuch.exzellenzkoch.datalayer.remote.dto
 
 /**
  * Data Transfer Object of the ingredients

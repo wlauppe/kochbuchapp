@@ -1,10 +1,9 @@
-package de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations
+package de.psekochbuch.exzellenzkoch.datalayer.remote.service
 
 import android.app.Activity
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
 /**

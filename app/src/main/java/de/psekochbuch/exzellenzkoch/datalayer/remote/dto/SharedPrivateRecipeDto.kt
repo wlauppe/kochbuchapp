@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.datalayer.dto
+package de.psekochbuch.exzellenzkoch.datalayer.remote.dto
 
 import android.media.Image
 import java.util.*

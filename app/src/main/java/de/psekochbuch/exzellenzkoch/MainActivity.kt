@@ -3,14 +3,6 @@ package de.psekochbuch.exzellenzkoch
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-import de.psekochbuch.exzellenzkoch.datalayer.dto.PublicRecipeDto
-import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
-import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-
-
 
 class MainActivity : AppCompatActivity() {
 
