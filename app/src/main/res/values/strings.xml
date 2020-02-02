@@ -2,10 +2,10 @@
     <string name="app_name">Exzellenzkoch</string>
     <string name="register">Registrieren</string>
     <string name="email_address">Email Adresse</string>
-    <string name="optional_user_id">*optional* Benutzer ID</string>
+    <string name="optional_user_id">Gib dir einen Nutzernamen (optional)</string>
     <string name="email_example">max.musterman@muster.de</string>
     <string name="password">Passwort</string>
-    <string name="user_id">Benutzerid</string>
+    <string name="user_id">Nutzername</string>
     <string name="recipe_list_recipe_title">Meine Rezepte</string>
     <string name="recipe_list_create_recipe_button">Neues Rezept erstellen</string>
     <string name="edit_recipe_button">bearbeiten</string>
@@ -61,5 +61,7 @@
     <string name="vegan">Vegan</string>
     <string name="vegetarian">vegetarisch</string>
     <string name="preparation_description">Beschreibe mit ein paar wenigen Worten, wie dein Rezept zubereitet wird. Überschriften mit *Überschriftname* kennzeichnen</string>
+    <string name="email_address_input">Gib deine E-Mail Adresse ein</string>
+    <string name="password_input">Gib dein Passwort ein</string>
 
 </resources>

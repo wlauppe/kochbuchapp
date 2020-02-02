@@ -17,31 +17,28 @@
         android:layout_height="match_parent">
 
 
-
-
-
         <TextView
-            android:id="@+id/textView26"
-            android:textSize="30dp"
+            android:id="@+id/textView_register_fragment_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Einloggen"
             android:textAlignment="center"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Einloggen" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView27"
-            android:layout_marginTop="30dp"
-            android:textSize="25dp"
-            android:textStyle="italic"
+            android:id="@+id/textView_register_email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email" />
+            android:layout_marginTop="30dp"
+            android:text="@string/email_address_input"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
         <EditText
-            android:id="@+id/editText_email"
+            android:id="@+id/editText_login_fragment_email"
             android:layout_marginTop="20dp"
-            android:textSize="25dp"
+            android:textSize="20sp"
             android:textStyle="italic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,44 +46,45 @@
             android:text="@={loginviewModel.email}"/>
 
         <TextView
-            android:id="@+id/textView29Password"
+            android:id="@+id/textView_login_fragment_password"
             android:layout_width="match_parent"
-            android:textSize="25dp"
-            android:textStyle="italic"
-
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@={loginviewModel.password}" />
+            android:text="@string/password_input"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
         <EditText
-            android:id="@+id/editText_password"
+            android:id="@+id/editText_login_fragment_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:text="@={loginviewModel.password}" />
 
         <Button
-            android:id="@+id/button_login"
+            android:id="@+id/button_login_fragment_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:text="Login"
         />
 
         <TextView
-            android:id="@+id/textView31"
+            android:id="@+id/textView_login_fragment_kein_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ich habe noch keinen Account"
             android:textAlignment="center"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="50dp"/>
 
         <Button
-            android:id="@+id/button_register"
+            android:id="@+id/button_login_fragment_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:text="Registrieren" />
 
     </LinearLayout>
