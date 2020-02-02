@@ -14,9 +14,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/textView_search_fragment_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="20sp"
             android:text="@string/public_recipe_search_title" />
 
         <EditText
@@ -24,15 +26,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_marginTop="20dp"
             android:inputType="textPersonName"
-            android:text="@string/recipe_title" />
+            android:hint="@string/recipe_title" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/search_button"
+            android:id="@+id/button_search_recipe_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Suchen" />
+            android:text="@string/search_button" />
 
 
     </LinearLayout>

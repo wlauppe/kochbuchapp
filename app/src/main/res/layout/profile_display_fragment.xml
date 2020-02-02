@@ -16,7 +16,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="679dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,50 +33,19 @@
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
+                <ImageView
+                    android:id="@+id/imageView2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="434dp"
+                    android:cropToPadding="true"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
 
-                    <TextView
-                        android:id="@+id/textView_profile_display_description"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_display_user_description"
-                        app:layout_constraintBottom_toTopOf="@+id/button_profile_display_fragment_edit_profile"
-                        app:layout_constraintEnd_toStartOf="@+id/imageView_profile_display_picture"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/button_profile_display_fragment_flag_user"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="50dp"
-                        android:text="@string/flag_user"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/imageView_profile_display_picture"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:contentDescription="userImage"
-                        app:layout_constraintBottom_toTopOf="@+id/button_profile_display_fragment_flag_user"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:srcCompat="@tools:sample/avatars" />
-
-                    <Button
-                        android:id="@+id/button_profile_display_fragment_edit_profile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/profile_display_edit_profile_button"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/button_profile_display_fragment_flag_user"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textView_profile_display_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="@string/profile_display_user_description" />
 
                 <TextView
                     android:id="@+id/textView_profile_display_fragment_user_recipes"
@@ -93,6 +62,30 @@
 
             </LinearLayout>
         </ScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button_profile_display_fragment_flag_user"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/flag_user"
+                app:layout_constraintBaseline_toBaselineOf="@+id/button_profile_display_fragment_edit_profile"
+                app:layout_constraintEnd_toStartOf="@+id/button_profile_display_fragment_edit_profile"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/button_profile_display_fragment_edit_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_display_edit_profile_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button_profile_display_fragment_flag_user" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </layout>

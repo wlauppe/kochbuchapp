@@ -31,7 +31,7 @@ class ProfileDisplayAdapter (viewModel: ProfileDisplayViewmodel) :RecyclerView.A
 
         navController = Navigation.findNavController(parent)
 
-        return ProfileDisplayAdapter(itemBinding)
+        return ProfileDisplayAdapter(viewmModel)
     }
 
     override fun getItemCount(): Int {
