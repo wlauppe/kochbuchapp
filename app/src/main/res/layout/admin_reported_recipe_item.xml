@@ -2,6 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+        <variable
+            name="value"
+            type="String" />
 
 
     </data>
@@ -15,9 +18,14 @@
             android:id="@+id/textView_admin_recipeTitel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:text="@string/admin_reported_item"
             android:layout_weight="4"
             android:textSize="16sp"/>
+
+            android:text="@{value}"
+            android:textSize="20sp"/>
+
 
         <Button
             android:id="@+id/button_admin_remove_recipe"

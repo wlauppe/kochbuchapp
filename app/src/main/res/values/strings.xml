@@ -44,6 +44,7 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+
     <string name="new_comment">Neuer Kommentar</string>
     <string name="comment">Kommentieren</string>
     <string name="admin_reported_item">TextView</string>
@@ -53,4 +54,12 @@
     <string name="profile_display_erstellte_rezepte">Erstellte Rezepte</string>
     <string name="flag_user">Nutzer melden</string>
     <string name="profile_display_edit_profile_button">Profil Bearbeiten</string>
+
+    <string name="enter_recipe_title">Rezepttitel eingeben</string>
+    <string name="enter_preparing_time">Zubereitungszeit eingeben</string>
+    <string name="enter_cooking_time">Backzeit eingeben</string>
+    <string name="vegan">Vegan</string>
+    <string name="vegetarian">vegetarisch</string>
+    <string name="preparation_description">Beschreibe mit ein paar wenigen Worten, wie dein Rezept zubereitet wird. Überschriften mit *Überschriftname* kennzeichnen</string>
+
 </resources>

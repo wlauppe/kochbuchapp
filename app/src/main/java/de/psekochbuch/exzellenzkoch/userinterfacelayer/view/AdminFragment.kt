@@ -5,28 +5,46 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.databinding.AdminFragmentBinding
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.AdminRecipeAdapter
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.AdminUserAdapter
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 
 class AdminFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = AdminFragment()
-    }
-
-    private lateinit var viewModel: AdminViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.admin_fragment, container, false)
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AdminViewModel::class.java)
-        // TODO: Use the ViewModel
+        val binding = AdminFragmentBinding.inflate(inflater, container, false)
+
+        val viewModel = ViewModelProvider(this).get(AdminViewModel::class.java)
+
+        binding.recyclerViewAdminRecipes.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        //RecipeAdapter and Observer
+        val recipeAdapter = AdminRecipeAdapter(viewModel)
+        val observer = Observer<List<PublicRecipe>> {
+            listItem -> recipeAdapter.setNewListItems(listItem)
+        }
+        val userAdapter = AdminUserAdapter(viewModel)
+//---------------------Hier schlät es fehl
+            viewModel.recipes.observe(this, observer)
+
+
+            binding.recyclerViewAdminUsers.setHasFixedSize(true)
+            binding.recyclerViewAdminRecipes.setHasFixedSize(true)
+
+    return binding.root
     }
 
 }
