@@ -19,7 +19,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="646dp"
             app:layout_constraintEnd_toEndOf="parent"
 
             app:layout_constraintStart_toStartOf="parent"
@@ -37,13 +37,13 @@
                     android:layout_height="300dp"
                     app:srcCompat="@android:color/holo_green_light" />
 
-                <TextView
+                <EditText
                     android:id="@+id/textView_enter_userID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_user_id"
-                    android:textAlignment="center"
                     android:padding="5dp"
+                    android:textAlignment="center"
                     android:textSize="20dp" />
 
                 <TextView

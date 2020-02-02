@@ -21,4 +21,15 @@ class PublicRecipeFakeRepository : PublicRecipeRepository {
         val ld = MutableLiveData <List<PublicRecipe>>().apply { list }
         return ld
     }
+
+    fun getPublicRecipesAsStrings():MutableLiveData<List<String>>{
+        val recipe1 = "piroggen"
+        //val recipe2 = PublicRecipe(listOf(), "ganz trockener Sandkuchen", 2.0, "Backe backe Kuchen",tags=listOf("trocken","kuchen","ungeniessbar"))
+        val recipe2= "kuchen"
+
+        val list = listOf(recipe1,recipe2)
+
+        val ld = MutableLiveData <List<String>>().apply { list }
+        return ld
+    }
 }

@@ -30,10 +30,10 @@ class LoginFragment : Fragment() {
         binding.loginviewModel = viewModel
         //initialized navcontoller
         var navController: NavController = findNavController()
-        binding.buttonLogin.setOnClickListener {
+        binding.buttonLoginFragmentLogin.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_profileDisplayFragment)
         }
-        binding.buttonRegister.setOnClickListener {
+        binding.buttonLoginFragmentRegister.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_registrationFragment)
         }
         return binding.root

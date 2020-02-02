@@ -2,23 +2,22 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
-import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 
-class AdminRecipeAdapter(var viewModel: AdminViewModel) : RecyclerView.Adapter<AdminRecipeAdapter.AdminRecipeViewHolder>() {
+class AdminRecipeAdapter(var viewModel: AdminViewModel) :
+    RecyclerView.Adapter<AdminRecipeAdapter.AdminRecipeViewHolder>() {
 
-    var items : List<PublicRecipe> = emptyList()
+    var items: List<String> = emptyList()
 
-    fun setNewListItems(newItems: List<PublicRecipe>){
+    fun setNewListItems(newItems: List<String>) {
         items = newItems
         this.notifyDataSetChanged()
     }
 
-    override fun getItemCount():Int{
+    override fun getItemCount(): Int {
         return items.size
     }
 
@@ -37,12 +36,13 @@ class AdminRecipeAdapter(var viewModel: AdminViewModel) : RecyclerView.Adapter<A
 
     override fun onBindViewHolder(holder: AdminRecipeViewHolder, position: Int) {
         //in the XML the variable value is used for the TextView which is displayed.
-        holder.adminRecipeIdemBinding.value = items[position].title
-
-        holder.adminRecipeIdemBinding.buttonAdminRemoveRecipe.setOnClickListener{
-            viewModel.deleteRecipe(items[position].id!!)
-        }
+        holder.adminRecipeIdemBinding.value = items[position]
+        holder.adminRecipeIdemBinding.root.setOnClickListener{}
+        //holder.adminRecipeIdemBinding.buttonAdminRemoveRecipe.setOnClickListener {
+         //   viewModel.deleteRecipe(items[position])
+        //}
     }
 
-    class AdminRecipeViewHolder(val adminRecipeIdemBinding: AdminReportedRecipeItemBinding):RecyclerView.ViewHolder(adminRecipeIdemBinding.root)
+    class AdminRecipeViewHolder(val adminRecipeIdemBinding: AdminReportedRecipeItemBinding) :
+        RecyclerView.ViewHolder(adminRecipeIdemBinding.root)
 }

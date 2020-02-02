@@ -50,6 +50,7 @@
         <action
             android:id="@+id/action_profileDisplayFragment_to_profileEditFragment"
             app:destination="@id/profileEditFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"

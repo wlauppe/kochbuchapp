@@ -2,21 +2,17 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.Unit
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
-import java.sql.Timestamp
 
 
-class RecipeListAdapter(var viewModel: RecipeListViewmodel) :RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
+class RecipeListAdapter(var viewModel: RecipeListViewmodel) :
+    RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
 
     //Attributes delclareted
     var navController: NavController? = null
@@ -26,7 +22,7 @@ class RecipeListAdapter(var viewModel: RecipeListViewmodel) :RecyclerView.Adapte
     //OnCreateViewHolder inflates the layout and sets binding & Navcontroller
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeListViewHolder {
 
-    //Initializing the attributes
+        //Initializing the attributes
         val inflater = LayoutInflater.from(parent.context)
         val itemBinding = RecipeListItemBinding.inflate(inflater, parent, false)
         //TestNavcontroller
@@ -36,7 +32,7 @@ class RecipeListAdapter(var viewModel: RecipeListViewmodel) :RecyclerView.Adapte
 
     override fun getItemCount(): Int {
         //Check if the requested list of private recipes is empty. If so there is nothing to display
-        if(names.value.isNullOrEmpty()){
+        if (names.value.isNullOrEmpty()) {
             //The list is null or empty -> no recipe to display -> empty list
             return 0
         }
@@ -50,13 +46,13 @@ class RecipeListAdapter(var viewModel: RecipeListViewmodel) :RecyclerView.Adapte
             return
         }
         //The list is not null nor is it empty -> it exists at least one item to display
-            //Set the text of the given private Recipe to the TextView for every item
-            val param = names.value!![position].title
+        //Set the text of the given private Recipe to the TextView for every item
+        val param = names.value!![position].title
         holder.recipeListItemBinding.textViewRecipeTitleItem.text = param
-            //Set the onClicklistener on the Buttons which use the navcontroller to change to another fragment
+        //Set the onClicklistener on the Buttons which use the navcontroller to change to another fragment
         holder.recipeListItemBinding.buttonEditRecipe.setOnClickListener {
             //TODO Use safe args to pass the required informations to the new fragment
-              navController!!.navigate(R.id.action_recipeListFragment_to_createRecipeFragment)
+            navController!!.navigate(R.id.action_recipeListFragment_to_createRecipeFragment)
         }
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener {
             viewModel.deleteRecipe(names.value!![position].id)
