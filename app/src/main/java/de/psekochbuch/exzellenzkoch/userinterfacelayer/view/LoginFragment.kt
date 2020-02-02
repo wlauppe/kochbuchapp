@@ -1,23 +1,21 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.os.Bundle
-import android.view.*
-import androidx.appcompat.view.SupportMenuInflater
-import androidx.databinding.DataBindingUtil.setContentView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.LoginFragmentBinding
-import de.psekochbuch.exzellenzkoch.databinding.PublicRecipeSearchFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewmodel
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.PublicRecipeSearchViewmodel
 
-class LoginFragment: Fragment() {
+class LoginFragment : Fragment() {
 
     private lateinit var binding: LoginFragmentBinding
-    private lateinit var viewModel : LoginViewmodel
+    private lateinit var viewModel: LoginViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,17 +30,14 @@ class LoginFragment: Fragment() {
         binding.loginviewModel = viewModel
         //initialized navcontoller
         var navController: NavController = findNavController()
-        binding.buttonLogin.setOnClickListener{
+        binding.buttonLogin.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_profileDisplayFragment)
         }
-        binding.buttonRegister.setOnClickListener{
+        binding.buttonRegister.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_registrationFragment)
         }
         return binding.root
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 }

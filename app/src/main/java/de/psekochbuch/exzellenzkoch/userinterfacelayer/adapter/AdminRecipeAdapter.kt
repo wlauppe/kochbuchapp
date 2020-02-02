@@ -4,7 +4,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.AdminViewModel
 
-class AdminRecipeAdapter (var viewModel : AdminViewModel): RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder> (){
+class AdminRecipeAdapter(var viewModel: AdminViewModel) :
+    RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

@@ -1,26 +1,22 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.PublicRecipeSearchFragmentBinding
-import de.psekochbuch.exzellenzkoch.databinding.RecipeListFragmentBinding
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.RecipeListAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.PublicRecipeSearchViewmodel
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
-class PublicRecipeSearchFragment: Fragment() {
+class PublicRecipeSearchFragment : Fragment() {
 
 
-    private lateinit var binding:PublicRecipeSearchFragmentBinding
-    private lateinit var viewModel : PublicRecipeSearchViewmodel
+    private lateinit var binding: PublicRecipeSearchFragmentBinding
+    private lateinit var viewModel: PublicRecipeSearchViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,23 +31,11 @@ class PublicRecipeSearchFragment: Fragment() {
         binding.publicRecipeSearchViewModel = viewModel
         //initialized navcontoller
         var navController: NavController = findNavController()
-        binding.searchButton.setOnClickListener{
+        binding.searchButton.setOnClickListener {
             navController.navigate(R.id.action_publicRecipeSearchFragment_to_displaySearchListFragment)
         }
         return binding.root
     }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
 
 
 }

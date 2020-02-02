@@ -11,13 +11,17 @@ import androidx.navigation.fragment.findNavController
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
-class DisplaySearchListFragment: Fragment() {
+class DisplaySearchListFragment : Fragment() {
 
     private lateinit var binding: DisplaySearchlistFragmentBinding
 
-    private lateinit var viewModel : DisplaySearchListViewmodel
+    private lateinit var viewModel: DisplaySearchListViewmodel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         //binding set to the according Fragment
         binding = DisplaySearchlistFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
@@ -29,11 +33,6 @@ class DisplaySearchListFragment: Fragment() {
         //buttons with fragment change connected with buttonlisteners here
 
         return binding.root
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
 

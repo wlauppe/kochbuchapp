@@ -12,10 +12,10 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.CreateRecipeFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel
 
-class CreateRecipeFragment: Fragment() {
+class CreateRecipeFragment : Fragment() {
 
     private lateinit var binding: CreateRecipeFragmentBinding
-    private lateinit var viewModel : CreateRecipeViewmodel
+    private lateinit var viewModel: CreateRecipeViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +32,7 @@ class CreateRecipeFragment: Fragment() {
         var navController: NavController = findNavController()
 
 
-        binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener{
+        binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             //Create Recipe
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }

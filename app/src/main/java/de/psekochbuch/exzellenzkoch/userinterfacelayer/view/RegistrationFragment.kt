@@ -9,15 +9,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.databinding.PublicRecipeSearchFragmentBinding
 import de.psekochbuch.exzellenzkoch.databinding.RegistrationFragmentBinding
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.PublicRecipeSearchViewmodel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrationViewModel
 
 class RegistrationFragment : Fragment(R.layout.registration_fragment) {
 
     private lateinit var binding: RegistrationFragmentBinding
-    private lateinit var viewModel : RegistrationViewModel
+    private lateinit var viewModel: RegistrationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +30,7 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         binding.viewModel = viewModel
         //initialized navcontoller
         var navController: NavController = findNavController()
-        binding.buttonRegister.setOnClickListener{
+        binding.buttonRegister.setOnClickListener {
             navController.navigate(R.id.action_registrationFragment_to_profileDisplayFragment)
         }
         return binding.root

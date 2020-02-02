@@ -1,4 +1,5 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +13,9 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 
-class ProfileDisplayFragment: Fragment() {
+class ProfileDisplayFragment : Fragment() {
     private lateinit var binding: ProfileDisplayFragmentBinding
-    private lateinit var viewModel : ProfileDisplayViewmodel
+    private lateinit var viewModel: ProfileDisplayViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,23 +31,18 @@ class ProfileDisplayFragment: Fragment() {
         //initialized navcontoller
         var navController: NavController = findNavController()
 
-        binding.buttonReportUser.setOnClickListener{
+        binding.buttonReportUser.setOnClickListener {
             Toast.makeText(requireContext(), "nutzer gemeldet", Toast.LENGTH_SHORT)
             navController.navigateUp()
         }
-        binding.buttonEditProfile.setOnClickListener{
+        binding.buttonEditProfile.setOnClickListener {
             //if the user wants to edit a profile which is not his he is not allowed
-            if(viewModel.isOwner()) {
+            if (viewModel.isOwner()) {
                 navController.navigate((R.id.action_profileDisplayFragment_to_profileEditFragment))
             }
         }
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
-
 
 
 }

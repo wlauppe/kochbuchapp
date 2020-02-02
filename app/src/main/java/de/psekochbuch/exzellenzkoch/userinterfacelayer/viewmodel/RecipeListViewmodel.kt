@@ -10,19 +10,20 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 class RecipeListViewmodel: ViewModel() {
 
     var mrepo = PrivateRecipeRepositoryImplementation()
-    var names: MutableLiveData<List<String>> ? = null
-    var recipes: MutableList<PrivateRecipe>? = mrepo.getPrivateRecipes().value as MutableList<PrivateRecipe>?
+   // var names: MutableLiveData<List<String>>
+   // var recipes: MutableLiveData<List<PrivateRecipe>> = mrepo.getPrivateRecipes() as MutableLiveData<List<PrivateRecipe>>
+var recipes: MutableLiveData<List<PrivateRecipe>> = MutableLiveData()
 
-    var buttons:List<Button>? = null
 
 
 
     fun getNamesFromRecipes(liveData:LiveData<List<PrivateRecipe>>){
+        //TODO
 
     }
 
      fun deleteRecipe(id: Int?) {
-         //TODOD
+         //TODO
 
     }
 
