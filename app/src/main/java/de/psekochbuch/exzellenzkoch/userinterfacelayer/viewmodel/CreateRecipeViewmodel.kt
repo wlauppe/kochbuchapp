@@ -1,10 +1,8 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
+
 import android.widget.CheckBox
-import android.widget.TextView
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.w3c.dom.Text
 
 class CreateRecipeViewmodel : ViewModel() {
 
@@ -14,11 +12,11 @@ class CreateRecipeViewmodel : ViewModel() {
     //Current Preparation Time of the Reci
     var preparationTime: MutableLiveData<Int> = MutableLiveData()
 
-    var cookingTime:MutableLiveData<Int> = MutableLiveData()
+    var cookingTime: MutableLiveData<Int> = MutableLiveData()
 
-    var preparationDescription:MutableLiveData<String> = MutableLiveData()
+    var preparationDescription: MutableLiveData<String> = MutableLiveData()
 
-    var ingredients:MutableLiveData<String> = MutableLiveData()
+    var ingredients: MutableLiveData<String> = MutableLiveData()
 
 
     var tagCheckBoxVegan: MutableLiveData<CheckBox> = MutableLiveData()
@@ -29,11 +27,6 @@ class CreateRecipeViewmodel : ViewModel() {
     var tagCheckBoxCheap: MutableLiveData<CheckBox> = MutableLiveData()
 
     var tagCheckBoxPublish: MutableLiveData<CheckBox> = MutableLiveData()
-
-
-
-
-
 
 
 }

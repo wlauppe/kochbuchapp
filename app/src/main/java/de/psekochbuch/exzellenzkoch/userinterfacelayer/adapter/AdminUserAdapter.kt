@@ -3,21 +3,21 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedUserItemBinding
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
-class AdminUserAdapter(var viewModel: AdminViewModel) : RecyclerView.Adapter<AdminUserAdapter.AdminUserViewHolder>() {
 
-    var items : List<User> = emptyList()
+class AdminUserAdapter(var viewModel: AdminViewModel) :
+    RecyclerView.Adapter<AdminUserAdapter.AdminUserViewHolder>() {
 
-    fun setNewListItems(newItems: List<User>){
+    var items: List<User> = emptyList()
+
+    fun setNewListItems(newItems: List<User>) {
         items = newItems
         this.notifyDataSetChanged()
     }
 
-    override fun getItemCount():Int{
+    override fun getItemCount(): Int {
         return items.size
     }
 
@@ -38,10 +38,11 @@ class AdminUserAdapter(var viewModel: AdminViewModel) : RecyclerView.Adapter<Adm
         //in the XML the variable value is used for the TextView which is displayed.
         holder.adminUserIdemBinding.value = items[position].userID
 
-        holder.adminUserIdemBinding.buttonRemoveUser.setOnClickListener{
+        holder.adminUserIdemBinding.buttonRemoveUser.setOnClickListener {
             viewModel.deleteUser(items[position].userID!!)
         }
     }
 
-    class AdminUserViewHolder(val adminUserIdemBinding: AdminReportedUserItemBinding):RecyclerView.ViewHolder(adminUserIdemBinding.root)
+    class AdminUserViewHolder(val adminUserIdemBinding: AdminReportedUserItemBinding) :
+        RecyclerView.ViewHolder(adminUserIdemBinding.root)
 }

@@ -39,6 +39,7 @@ class ProfileEditFragment : Fragment() {
         }
         binding.buttonDeleteProfile.setOnClickListener {
             Toast.makeText(requireContext(), "profil entfernt", Toast.LENGTH_SHORT).show()
+            viewModel.deleteUser()
             navController.navigate(R.id.action_profileEditFragment_to_registrationFragment)
         }
         return binding.root

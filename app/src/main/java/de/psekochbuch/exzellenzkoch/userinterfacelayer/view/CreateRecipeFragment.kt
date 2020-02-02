@@ -35,10 +35,13 @@ class CreateRecipeFragment : Fragment() {
         //binding viewmodel with xml components
 
 
-
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             //Create Recipe
-            Toast.makeText(requireContext(), "Rezept zur Rezeptliste hinzugefügt", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Rezept zur Rezeptliste hinzugefügt",
+                Toast.LENGTH_SHORT
+            ).show()
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
 

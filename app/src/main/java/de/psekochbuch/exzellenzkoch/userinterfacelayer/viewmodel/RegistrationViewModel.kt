@@ -10,30 +10,26 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 class RegistrationViewModel : ViewModel() {
 
 
+    var email: MutableLiveData<String> = MutableLiveData()
+    var userId: MutableLiveData<String> = MutableLiveData()
+    var password: MutableLiveData<String> = MutableLiveData()
+    var progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    var email : MutableLiveData<String> = MutableLiveData()
-    var userId : MutableLiveData<String> = MutableLiveData()
-    var password : MutableLiveData<String> = MutableLiveData()
-    var progressBarVisibility : MutableLiveData<Boolean> = MutableLiveData(false)
-
-    fun registerOnClick()
-    {
+    fun registerOnClick() {
         //email.postValue("bal")
         progressBarVisibility.postValue(true)
         val em = email.value
         val pw = password.value
-        if(em != null && pw != null) {
+        if (em != null && pw != null) {
             AuthentificationImpl()
                 .register(em, pw) { it, result ->
-                if(it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
-                    Log.d(TAG,"Registration erfolgreich")
-                    progressBarVisibility.postValue(false)
+                    if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                        Log.d(TAG, "Registration erfolgreich")
+                        progressBarVisibility.postValue(false)
+                    } else {
+                        progressBarVisibility.postValue(false)
+                    }
                 }
-                else
-                {
-                    progressBarVisibility.postValue(false)
-                }
-            }
         }
         progressBarVisibility.postValue(false)
     }
