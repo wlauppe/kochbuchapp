@@ -63,5 +63,10 @@
     <string name="preparation_description">Beschreibe mit ein paar wenigen Worten, wie dein Rezept zubereitet wird. Überschriften mit *Überschriftname* kennzeichnen</string>
     <string name="email_address_input">Gib deine E-Mail Adresse ein</string>
     <string name="password_input">Gib dein Passwort ein</string>
+    <string name="search_ingredients">Eier, Lauch, Nudeln, Zucker, ...</string>
+    <string name="textView_search_title_text">Gibt den Titel des Rezeptes ein, nach dem du suchen willst:</string>
+    <string name="search_ingredients_headline">Gib Zutaten ein, nach denen du suchen willst:</string>
+    <string name="editText_hint_search_tags">vegetarisch, Hauptspeise, süß, deftig, Nachtisch, ...</string>
+    <string name="search_tags_headline">Welche Tags soll das Rezept haben?</string>
 
 </resources>
