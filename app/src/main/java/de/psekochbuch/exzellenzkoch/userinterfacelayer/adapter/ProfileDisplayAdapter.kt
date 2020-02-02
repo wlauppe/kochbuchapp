@@ -14,7 +14,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayV
 class ProfileDisplayAdapter(viewModel: ProfileDisplayViewmodel) :
     RecyclerView.Adapter<ProfileDisplayAdapter.ProfileDisplayViewHolder>() {
 
-    //Attributes delclareted
+    //Attributes declared
     var navController: NavController? = null
     var viewModel: ProfileDisplayViewmodel = viewModel
     var names: LiveData<MutableList<PublicRecipe>> = viewModel.recipes
@@ -25,10 +25,9 @@ class ProfileDisplayAdapter(viewModel: ProfileDisplayViewmodel) :
         //Initializing the attributes
         val inflater = LayoutInflater.from(parent.context)
         val itemBinding = ProfileDisplayRecipeItemBinding.inflate(inflater, parent, false)
-        //TestNavcontroller
+        //Test Navcontroller
         navController = Navigation.findNavController(parent)
 
-        return ProfileDisplayAdapter(viewModel)
         return ProfileDisplayViewHolder(itemBinding)
     }
 
