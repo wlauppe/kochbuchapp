@@ -37,12 +37,9 @@ class AdminFragment : Fragment() {
             listItem -> recipeAdapter.setNewListItems(listItem)
         }
         val userAdapter = AdminUserAdapter(viewModel)
+//---------------------Hier schlät es fehl
+            viewModel.recipes.observe(this, observer)
 
-     /*   if (!(viewModel.recipes!!.value.isNullOrEmpty())) {
-            viewModel.recipes!!.observe(this, observer)
-        }
-
-      */
 
             binding.recyclerViewAdminUsers.setHasFixedSize(true)
             binding.recyclerViewAdminRecipes.setHasFixedSize(true)
