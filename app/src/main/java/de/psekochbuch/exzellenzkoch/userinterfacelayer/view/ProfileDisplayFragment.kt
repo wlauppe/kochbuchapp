@@ -32,8 +32,10 @@ class ProfileDisplayFragment : Fragment() {
         //initialized navcontoller
         navController = findNavController()
 
+
         binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener {
             Toast.makeText(requireContext(), "Nutzer gemeldet", Toast.LENGTH_SHORT).show()
+
             navController.navigateUp()
         }
         binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener {
