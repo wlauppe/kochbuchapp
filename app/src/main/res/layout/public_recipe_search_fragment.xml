@@ -30,11 +30,6 @@
             android:inputType="textPersonName"
             android:hint="@string/recipe_title" />
 
-        <AutoCompleteTextView
-            android:id="@+id/autoCompleteTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <Button
             android:id="@+id/button_search_recipe_search"
             android:layout_width="match_parent"
