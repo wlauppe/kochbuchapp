@@ -4,28 +4,27 @@
 
     <TextView
         android:id="@+id/textView_new_comment"
-        android:textSize="40dp"
-        android:textAlignment="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Neuer Kommentar"
-        android:textStyle="bold"/>
+        android:text="@string/new_comment"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editText_comment_field"
         android:layout_width="match_parent"
-        android:layout_height="305dp"
+        android:layout_height="625dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:text="Das Rezept ist super lecker :D. Bei mir braucht der Kuchen 10 Minuten länger im Ofen."
-        android:textSize="30dp" />
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/button_comment"
-        android:textSize="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="kommentieren" />
+        android:text="@string/comment"
+        android:textSize="20sp" />
 </LinearLayout>

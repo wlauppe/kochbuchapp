@@ -25,7 +25,7 @@
     <string name="friend_requests">Freundschaftsanfragen</string>
     <string name="search_user_button">Nach Nutzer suchen</string>
     <string name="enter_user_id">Gib eine persönliche ID ein</string>
-    <string name="admin_remove_item">löschen</string>
+    <string name="admin_remove_item">Löschen</string>
     <string name="public_recipe_search_title">Suche</string>
     <string name="recipe_title">Titel des Rezeptes</string>
 
@@ -44,4 +44,13 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="new_comment">Neuer Kommentar</string>
+    <string name="comment">Kommentieren</string>
+    <string name="admin_reported_item">TextView</string>
+    <string name="spare_recipe">Entmelden</string>
+    <string name="profile_display_username">Name</string>
+    <string name="profile_display_user_description">Beschreibung</string>
+    <string name="profile_display_erstellte_rezepte">Erstellte Rezepte</string>
+    <string name="flag_user">Nutzer melden</string>
+    <string name="profile_display_edit_profile_button">Profil Bearbeiten</string>
 </resources>

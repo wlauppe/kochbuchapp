@@ -16,6 +16,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayV
 class ProfileDisplayFragment : Fragment() {
     private lateinit var binding: ProfileDisplayFragmentBinding
     private lateinit var viewModel: ProfileDisplayViewmodel
+    private lateinit var  navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,20 +30,57 @@ class ProfileDisplayFragment : Fragment() {
         //Sets according viewmodel from XML to this fragment
         binding.profileDisplayViewmodel = viewModel
         //initialized navcontoller
-        var navController: NavController = findNavController()
+        navController = findNavController()
 
-        binding.buttonReportUser.setOnClickListener {
-            Toast.makeText(requireContext(), "nutzer gemeldet", Toast.LENGTH_SHORT)
+        binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener {
+            Toast.makeText(requireContext(), "Nutzer gemeldet", Toast.LENGTH_SHORT).show()
             navController.navigateUp()
         }
-        binding.buttonEditProfile.setOnClickListener {
+        binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener {
             //if the user wants to edit a profile which is not his he is not allowed
             if (viewModel.isOwner()) {
                 navController.navigate((R.id.action_profileDisplayFragment_to_profileEditFragment))
             }
+
+            class ProfileDisplayFragment : Fragment(), View.OnClickListener {
+                var navController: NavController? = null
+
+                var profileDisplayViewmodel: ProfileDisplayViewmodel? = null
+
+
+                override fun onCreateView(
+                    inflater: LayoutInflater,
+                    container: ViewGroup?,
+                    savedInstanceState: Bundle?
+                ): View? {
+                    var view: View =
+                        inflater.inflate(R.layout.profile_display_fragment, container, false)
+
+                    profileDisplayViewmodel =
+                        ViewModelProvider(this).get(ProfileDisplayViewmodel::class.java)
+
+                    return view
+
+                }
+
+                /**
+                override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+                    super.onViewCreated(view, savedInstanceState)
+                    navController = Navigation.findNavController(view)
+                    view.findViewById<Button>(R.id.goto_recipe_button).setOnClickListener(this)
+                }
+                */
+
+                override fun onClick(v: View?) {
+                    //when (v!!.id) {
+                    //    R.id.goto_recipe_button -> navController!!.navigate(R.id.profile_display_fragment_to_recipe_display_fragment)
+                    //}
+
+                }
+
+
+            }
         }
         return binding.root
     }
-
-
 }

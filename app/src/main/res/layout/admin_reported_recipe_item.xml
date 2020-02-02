@@ -15,8 +15,9 @@
             android:id="@+id/textView_admin_recipeTitel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="25dp"/>
+            android:text="@string/admin_reported_item"
+            android:layout_weight="4"
+            android:textSize="16sp"/>
 
         <Button
             android:id="@+id/button_admin_remove_recipe"
@@ -24,5 +25,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/admin_remove_item" />
+
+        <Button
+            android:id="@+id/button_admin_spare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/spare_recipe" />
     </LinearLayout>
 </layout>
