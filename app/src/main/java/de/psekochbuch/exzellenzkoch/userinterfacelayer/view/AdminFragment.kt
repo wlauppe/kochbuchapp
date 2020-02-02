@@ -38,7 +38,7 @@ class AdminFragment : Fragment() {
         }
         val userAdapter = AdminUserAdapter(viewModel)
 //---------------------Hier schlät es fehl
-            viewModel.recipes.observe(this, observer)
+            //viewModel.recipes.observe(this, observer)
 
 
             binding.recyclerViewAdminUsers.setHasFixedSize(true)

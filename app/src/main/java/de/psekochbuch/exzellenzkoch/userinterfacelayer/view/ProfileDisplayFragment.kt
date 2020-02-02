@@ -32,7 +32,7 @@ class ProfileDisplayFragment : Fragment() {
         var navController: NavController = findNavController()
 
         binding.buttonReportUser.setOnClickListener {
-            Toast.makeText(requireContext(), "nutzer gemeldet", Toast.LENGTH_SHORT)
+            Toast.makeText(requireContext(), "nutzer gemeldet", Toast.LENGTH_SHORT).show()
             navController.navigateUp()
         }
         binding.buttonEditProfile.setOnClickListener {
