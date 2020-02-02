@@ -5,8 +5,9 @@
 
     <data>
         <variable
-            name="CreateRecipeViewModel"
+            name="createRecipeViewModel"
             type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel" />
+
 
     </data>
 
@@ -15,10 +16,154 @@
         android:layout_height="match_parent">
 
 
-        <Button
-            android:id="@+id/button_create_recipe_and_goto_RecipeList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rezept erstellen" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" >
+
+                        <ImageButton
+                            android:id="@+id/imageButton_recipe_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="300dp"
+                            app:srcCompat="@color/colorAccent" />
+
+                        <EditText
+                            android:id="@+id/editText_recipe_title_create_recipe_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:hint="@string/enter_recipe_title"
+
+
+                           />
+
+                        <EditText
+                            android:id="@+id/editText_preparing_time_create_recipe_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="numberDecimal"
+                            android:hint="@string/enter_preparing_time"
+                          />
+
+                        <EditText
+                            android:id="@+id/editText_cooking_time_create_recipe_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="numberDecimal"
+                            android:hint="@string/enter_cooking_time"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="217dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <CheckBox
+                                    android:id="@+id/checkBox_vegan_create_recipe_fragment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/vegan"
+                                   />
+
+                                <CheckBox
+                                    android:id="@+id/checkBox_vegetarian_create_recipe_fragment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/vegetarian"
+                                   />
+
+                                <CheckBox
+                                    android:id="@+id/checkBox_hearty_create_recipe_fragment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="herzhaft"
+                                    />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <CheckBox
+                                    android:id="@+id/checkBox_sweet_create_recipe_fragment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="süß"
+                                    />
+
+                                <CheckBox
+                                    android:id="@+id/checkBox_salty_create_recipe_fragment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="salzig"
+                                    />
+
+                                <CheckBox
+                                    android:id="@+id/checkBox_cheap"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="günstig"
+                                   />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/editText_ingredients_create_recipe_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="textMultiLine"
+                            android:hint="Zutaten durch Komma trennen (Menge, Einheit, Zutat)"
+                            android:textSize="20dp"
+                            android:text=""/>
+
+
+                        <EditText
+                            android:id="@+id/editText_preparation_description_create_recipe_fragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:gravity="start|top"
+                            android:inputType="textMultiLine"
+                            android:hint="@string/preparation_description"
+                           />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <CheckBox
+                                android:id="@+id/checkBox_publish_create_recipe_fragment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="veröffentlichen"
+                                />
+
+                        </LinearLayout>
+
+                <Button
+                    android:id="@+id/button_create_recipe_and_goto_RecipeList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Rezept erstellen / Speichern" />
+            </LinearLayout>
+        </ScrollView>
+
     </LinearLayout>
+
 </layout>

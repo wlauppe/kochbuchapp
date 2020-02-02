@@ -30,21 +30,15 @@ class RecipeListFragment : Fragment() {
         binding = RecipeListFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
         viewModel = ViewModelProvider(this).get(RecipeListViewmodel::class.java)
-
         binding.recyclerViewRecipeListFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
         val adapter = RecipeListAdapter(viewModel)
         binding.recyclerViewRecipeListFragment.adapter = adapter
-
-
         //Add an observer pattern to the Fragment. The Owner is the fragment and the observer are the recipes
         val observer = Observer<List<PrivateRecipe>> { items ->
             adapter.setNewItems(items)
         }
         viewModel.recipes.observe(this, observer)
-
-
         //Sets according viewmodel from XML to this fragment
         binding.recipeListViewModel = viewModel
         //initialized navcontoller
@@ -52,9 +46,7 @@ class RecipeListFragment : Fragment() {
         binding.buttonCreateRecipe.setOnClickListener {
             navController.navigate(R.id.action_recipeListFragment_to_createRecipeFragment)
         }
-
         //Adapter einfügen und verbinden
-
         return binding.root
     }
 
