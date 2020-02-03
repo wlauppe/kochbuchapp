@@ -68,5 +68,8 @@
     <string name="search_ingredients_headline">Gib Zutaten ein, nach denen du suchen willst:</string>
     <string name="editText_hint_search_tags">vegetarisch, Hauptspeise, süß, deftig, Nachtisch, ...</string>
     <string name="search_tags_headline">Welche Tags soll das Rezept haben?</string>
+    <string name="login">Einloggen</string>
+    <string name="login_have_no_account">Ich habe noch keinen Account</string>
+    <string name="password_stars">**********</string>
 
 </resources>
