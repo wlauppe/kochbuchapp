@@ -1,26 +1,26 @@
 package de.psekochbuch.exzellenzkoch.datalayer.localDB.Repositories
 
 import android.app.Application
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.Daos.ShoppingListDao
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.DataBase.WordRoomDatabase
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.ShoppingList
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.DB
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.Daos.*
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 
 
 class ShoppingListRepository(application: Application?) {
-    private val shoppingListDao: ShoppingListDao? = WordRoomDatabase.getDatabase(application!!)?.shoppingListDao();
+    private val shoppingListDao: ShoppingListDao? = DB.getDatabase(application!!)?.shoppingListDao();
 
-    fun insert(shoppingList: ShoppingList?) {
+    fun insert(shoppingList: ShoppingListDB?) {
         if (shoppingList == null)
             return;
-        WordRoomDatabase.databaseWriteExecutor.execute { shoppingListDao?.insert(shoppingList) }
+        DB.databaseWriteExecutor.execute { shoppingListDao?.insert(shoppingList) }
     }
 
 
-    fun get():List<ShoppingList>{
+    fun get():List<ShoppingListDB>{
         return shoppingListDao!!.getShoppingList()
     }
 
-    fun getById(id:Int): ShoppingList {
+    fun getById(id:Int): ShoppingListDB {
         return shoppingListDao!!.getShoppingListItemById(id)
     }
 }
