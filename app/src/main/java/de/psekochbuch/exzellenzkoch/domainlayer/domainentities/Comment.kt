@@ -1,9 +1,7 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-import java.sql.Timestamp
-
 class Comment ( val text : String,
-                val publicationTime : Timestamp ) {
+                val publicationTime : String ) {
 
      private var id: Int? = null
 

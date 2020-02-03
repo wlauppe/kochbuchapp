@@ -3,7 +3,7 @@ package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
 class PublicRecipe ( val title:String,
                      val ingredients: List<IngredientChapter>,
-                     val creationTimeStamp : java.sql.Timestamp,
+                     val creationTimeStamp : String,
                      val preparation:String = "",
                      val taglist:List<String>,
                      val preparationTime:Int = 0,
@@ -17,3 +17,4 @@ class PublicRecipe ( val title:String,
 
 //TODO  val creationTimeStamp kann ich das per Default  auf "now" setzten?
 //TODO warum kann man ein Feld nicht tags nennen?, wäre besser als taglist"
+//TODO für Timestamp die richtige Klasse nehmen, java.security ist definitv falsch.

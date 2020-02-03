@@ -7,8 +7,14 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 //wandelt Recipes in Entities um
 
 class PublicRecipeDtoEntityMapper() {
-    fun toEntity(dto : PublicRecipeDto) : PublicRecipe {
+    //TODO Implement
+    //fun toEntity(dto: PublicRecipeDto): PublicRecipe
 
+
+}
+
+
+        /*
         var ingredients: IngredientAmount
 
         var title: String = dto.title
@@ -27,8 +33,8 @@ class PublicRecipeDtoEntityMapper() {
 
         publicRecipe = PublicRecipe(null, title, rating, preparation,
             tags, prepartionTime, cookingTime, image, portions)
-
-
+*/
+/*
     }
         val recipe = PublicRecipe(
             listOf(),
@@ -53,8 +59,3 @@ class PublicRecipeDtoEntityMapper() {
                  entity.id,
                  entity.title)
             */
-
-
-         }
-
-
