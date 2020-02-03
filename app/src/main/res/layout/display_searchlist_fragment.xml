@@ -25,8 +25,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="61dp"
-            android:layout_marginTop="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
             android:orientation="horizontal">
 
             <TextView
@@ -38,6 +38,11 @@
                 android:text="@string/sorted_after" />
 
         </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView_searchlist_fragment"/>
 
     </LinearLayout>
 </layout>
