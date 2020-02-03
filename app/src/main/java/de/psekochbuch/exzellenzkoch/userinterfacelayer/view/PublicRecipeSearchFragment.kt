@@ -33,7 +33,21 @@ class PublicRecipeSearchFragment : Fragment() {
         //initialized navcontoller
         var navController: NavController = findNavController()
         binding.buttonSearchRecipeSearch.setOnClickListener {
-            navController.navigate(R.id.action_publicRecipeSearchFragment_to_displaySearchListFragment)
+
+
+            //Test Safeargs verknüpft
+            var recipeName:String = binding.editTextSearchRecipeTitle.text.toString()
+            var recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
+            var tags : String = binding.editTextSearchTags.text.toString()
+
+
+//safeargs werden mit dem Bundle geschicht
+            navController.navigate(PublicRecipeSearchFragmentDirections.actionPublicRecipeSearchFragmentToDisplaySearchListFragment()
+                .setIngredients(recipeIngredients).setRecipeTitleToDisplay(recipeName).setTags(tags))
+
+
+
+          //  navController.navigate(R.id.action_publicRecipeSearchFragment_to_displaySearchListFragment)
         }
         return binding.root
     }

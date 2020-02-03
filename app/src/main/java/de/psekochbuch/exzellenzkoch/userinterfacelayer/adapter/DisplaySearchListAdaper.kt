@@ -3,10 +3,13 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistListitemBinding
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
 class DisplaySearchListAdaper(var items: List<String> = emptyList<String>(), var viewModel:DisplaySearchListViewmodel)
@@ -19,13 +22,12 @@ class DisplaySearchListAdaper(var items: List<String> = emptyList<String>(), var
         this.notifyDataSetChanged()
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DisplaySearchListViewHolder {
         val inflater = LayoutInflater.from(parent.context)
          navController = parent.findNavController()
 
         val displaySearchListItemBinding = DisplaySearchlistListitemBinding.inflate(inflater, parent, false)
+
         return DisplaySearchListViewHolder(displaySearchListItemBinding)
 
          }
@@ -38,10 +40,7 @@ class DisplaySearchListAdaper(var items: List<String> = emptyList<String>(), var
     override fun onBindViewHolder(holder: DisplaySearchListViewHolder, position: Int) {
         holder.displaySearchlistListitemBinding.value = items[position]
 
-        holder.displaySearchlistListitemBinding.displaySearchlistLayoutItem.setOnClickListener{}
-        holder.displaySearchlistListitemBinding.displaySearchlistLayoutItem.setOnClickListener {
 
-        }
     }
 
     class DisplaySearchListViewHolder(var displaySearchlistListitemBinding: DisplaySearchlistListitemBinding)

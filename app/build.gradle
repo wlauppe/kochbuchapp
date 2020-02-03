@@ -90,6 +90,8 @@ dependencies {
     //Navgraph
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.0'
+    //SafeArgs
+    apply plugin: "androidx.navigation.safeargs"
 
 
 

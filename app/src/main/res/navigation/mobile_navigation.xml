@@ -13,6 +13,18 @@
         <action
             android:id="@+id/action_displaySearchListFragment_to_recipeDisplayFragment"
             app:destination="@id/recipeDisplayFragment" />
+        <argument
+            android:name="recipeTitleToDisplay"
+            app:argType="string"
+            android:defaultValue='""' />
+        <argument
+            android:name="ingredients"
+            app:argType="string"
+            android:defaultValue='""' />
+        <argument
+            android:name="tags"
+            app:argType="string"
+            android:defaultValue='""' />
     </fragment>
     <fragment
         android:id="@+id/publicRecipeSearchFragment"
@@ -21,11 +33,18 @@
         <action
             android:id="@+id/action_publicRecipeSearchFragment_to_displaySearchListFragment"
             app:destination="@id/displaySearchListFragment" />
+        <argument
+            android:name="recipeTitle"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/recipeDisplayFragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeDisplayFragment"
-        android:label="RecipeDisplayFragment" />
+        android:label="RecipeDisplayFragment" >
+        <argument
+            android:name="publicRecipe"
+            app:argType="de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.LoginFragment"
