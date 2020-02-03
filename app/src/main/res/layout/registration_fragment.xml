@@ -19,6 +19,7 @@
             android:id="@+id/textView_register_fragment_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/register"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -29,84 +30,106 @@
             android:id="@+id/textView_register_email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/email_address_input"
             android:textSize="20sp"
             android:textStyle="normal|bold"
-            app:layout_constraintTop_toBottomOf="@+id/textView_register_fragment_title"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_fragment_title" />
 
         <EditText
             android:id="@+id/editText_register_email_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
 
             android:hint="@string/email_example"
             android:inputType="textEmailAddress"
             android:text="@={viewModel.email}"
-
             android:textSize="20sp"
-            android:textStyle="italic"
-            app:layout_constraintTop_toBottomOf="@+id/textView_register_email_text"
-            tools:layout_editor_absoluteX="-29dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_email_text" />
 
         <TextView
             android:id="@+id/textView_register_userid_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/optional_user_id"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/editText_register_email_input"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_register_email_input" />
 
         <EditText
             android:id="@+id/editText_register_usernid_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
             android:hint="@string/user_id"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:text="@{viewModel.userId}"
             android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/textView_register_userid_text"
-            tools:layout_editor_absoluteX="0dp"
-            android:importantForAutofill="no" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_userid_text" />
 
         <TextView
             android:id="@+id/textView_register_password_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/password_input"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/editText_register_usernid_input"
-            tools:layout_editor_absoluteX="-51dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_register_usernid_input" />
 
         <EditText
             android:id="@+id/editText_register_password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:text="@{viewModel.password}"
-            app:layout_constraintTop_toBottomOf="@+id/textView_register_password_text"
-
-            tools:layout_editor_absoluteX="-27dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_password_text" />
 
         <Button
             android:id="@+id/button_login_fragment_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="8dp"
 
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/register"
-            app:layout_constraintTop_toBottomOf="@+id/editText_register_password_input"
-            tools:layout_editor_absoluteX="-16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_register_password_input" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="2dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -125,10 +126,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="textMultiLine"
                             android:hint="Zutaten durch Komma trennen (Menge, Einheit, Zutat)"
-                            android:textSize="20dp"
-                            android:text=""/>
+                            android:inputType="textMultiLine"
+                            android:text=""
+                            android:textSize="16sp" />
 
 
                         <EditText
