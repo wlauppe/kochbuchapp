@@ -9,11 +9,15 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-@Database(entities = arrayOf(IngredientAmountDB::class, IngredientChapterDB::class, ShoppingListDB::class), version = 2)
+@Database(entities = arrayOf(IngredientAmountDB::class, IngredientChapterDB::class, ShoppingListDB::class, PublicRecipeDB::class, PublicRecipeTagDB::class), version = 2)
 abstract class DB : RoomDatabase() {
     abstract fun ingredientAmountDao(): IngredientAmountDao?
     abstract fun shoppingListDao(): ShoppingListDao?
     abstract fun ingredientChapterDao(): IngredientChapterDao?
+    abstract fun publicRecipeDao(): PublicRecipeDao?
+    abstract fun publicRecipeTagDao(): PublicRecipeTagDao?
+    abstract fun privateRecipeDao(): PrivateRecipeDao?
+    abstract fun privateRecipeTagDao(): PrivateRecipeTagDao?
 
     companion object {
         @Volatile

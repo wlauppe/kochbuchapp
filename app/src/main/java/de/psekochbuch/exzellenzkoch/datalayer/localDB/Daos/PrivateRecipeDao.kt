@@ -7,13 +7,13 @@ import androidx.room.Query
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
 
 @Dao
-interface PublicRecipeDao {
+interface PrivateRecipeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(publicRecipe:PublicRecipeDB):Long
+    fun insert(privateRecipe:PrivateRecipeDB):Long
 
-    @Query("SELECT * from publicRecipe")
-    fun getAll():List<PublicRecipeDB>
+    @Query("SELECT * from privateRecipe")
+    fun getAll():List<PrivateRecipeDB>
 
-    @Query("SELECT * from publicRecipe where id = :id")
-    fun getRecipe(id:Long):PublicRecipeDB
+    @Query("SELECT * from privateRecipe where id = :id")
+    fun getRecipe(id:Long):PrivateRecipeDB
 }
