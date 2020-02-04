@@ -18,8 +18,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="2dp">
+            android:layout_height="match_parent">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -30,7 +29,8 @@
                             android:id="@+id/imageButton_recipe_image"
                             android:layout_width="match_parent"
                             android:layout_height="300dp"
-                            app:srcCompat="@color/colorAccent" />
+                            app:srcCompat="@color/colorAccent"
+                            android:layout_marginTop="10dp"/>
 
                         <EditText
                             android:id="@+id/editText_recipe_title_create_recipe_fragment"
@@ -39,8 +39,9 @@
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:hint="@string/enter_recipe_title"
-
-
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
                            />
 
                         <EditText
@@ -50,7 +51,9 @@
                             android:ems="10"
                             android:inputType="numberDecimal"
                             android:hint="@string/enter_preparing_time"
-                          />
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"/>
 
                         <EditText
                             android:id="@+id/editText_cooking_time_create_recipe_fragment"
@@ -59,12 +62,17 @@
                             android:ems="10"
                             android:inputType="numberDecimal"
                             android:hint="@string/enter_cooking_time"
-                            />
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp">
 
                             <LinearLayout
                                 android:layout_width="217dp"
@@ -89,7 +97,7 @@
                                     android:id="@+id/checkBox_hearty_create_recipe_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="herzhaft"
+                                    android:text="@string/savoury__tag"
                                     />
                             </LinearLayout>
 
@@ -102,21 +110,21 @@
                                     android:id="@+id/checkBox_sweet_create_recipe_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="süß"
+                                    android:text="@string/sweet_tag"
                                     />
 
                                 <CheckBox
                                     android:id="@+id/checkBox_salty_create_recipe_fragment"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="salzig"
+                                    android:text="@string/salty_tag"
                                     />
 
                                 <CheckBox
                                     android:id="@+id/checkBox_cheap"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="günstig"
+                                    android:text="@string/cheap"
                                    />
                             </LinearLayout>
                         </LinearLayout>
@@ -125,11 +133,13 @@
                             android:id="@+id/editText_ingredients_create_recipe_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
                             android:ems="10"
-                            android:hint="Zutaten durch Komma trennen (Menge, Einheit, Zutat)"
+                            android:hint="@string/ingredient_input_description"
                             android:inputType="textMultiLine"
-                            android:text=""
-                            android:textSize="16sp" />
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:text="" />
 
 
                         <EditText
@@ -140,19 +150,23 @@
                             android:gravity="start|top"
                             android:inputType="textMultiLine"
                             android:hint="@string/preparation_description"
-                           />
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp">
 
                             <CheckBox
                                 android:id="@+id/checkBox_publish_create_recipe_fragment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="veröffentlichen"
+                                android:text="@string/publish"
                                 />
 
                         </LinearLayout>
@@ -161,7 +175,12 @@
                     android:id="@+id/button_create_recipe_and_goto_RecipeList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rezept erstellen / Speichern" />
+                    android:text="@string/save"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    />
+
             </LinearLayout>
         </ScrollView>
 
