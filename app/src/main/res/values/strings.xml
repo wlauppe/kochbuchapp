@@ -86,5 +86,6 @@
     <string name="publish">veröffentlichen</string>
     <string name="ingredient_input_description">Schreibe jede Zutat so auf: (Menge, Einheit, Zutat)</string>
     <string name="cheap">günstig</string>
+    <string name="favor">Favorisieren</string>
 
 </resources>
