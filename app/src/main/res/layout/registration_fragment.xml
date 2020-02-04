@@ -7,7 +7,7 @@
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrateViewModel" />
+            type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,107 +16,120 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textView26"
+            android:id="@+id/textView_register_fragment_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/registrate"
+            android:layout_marginTop="8dp"
+            android:text="@string/register"
             android:textAlignment="center"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/textView_register_email_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/email_address"
-            android:textSize="25sp"
-            android:textStyle="italic"
-            app:layout_constraintTop_toBottomOf="@+id/textView26"
-            tools:layout_editor_absoluteX="-16dp" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/email_address_input"
+            android:textSize="20sp"
+            android:textStyle="normal|bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_fragment_title" />
 
         <EditText
-            android:id="@+id/emailEditTxt"
+            android:id="@+id/editText_register_email_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
 
             android:hint="@string/email_example"
             android:inputType="textEmailAddress"
             android:text="@={viewModel.email}"
-
-            android:textSize="25sp"
-            android:textStyle="italic"
-            app:layout_constraintTop_toBottomOf="@+id/textView27"
-            tools:layout_editor_absoluteX="-29dp" />
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_email_text" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/textView_register_userid_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/optional_user_id"
-            android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@+id/emailEditTxt"
-            tools:layout_editor_absoluteX="0dp" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_register_email_input" />
 
         <EditText
-            android:id="@+id/userIdEditTxt"
+            android:id="@+id/editText_register_usernid_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
             android:hint="@string/user_id"
+            android:importantForAutofill="no"
             android:inputType="textPersonName"
             android:text="@{viewModel.userId}"
-            android:textSize="25sp"
-            app:layout_constraintTop_toBottomOf="@+id/textView22"
-            tools:layout_editor_absoluteX="0dp" />
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_userid_text" />
 
         <TextView
-            android:id="@+id/textView29"
+            android:id="@+id/textView_register_password_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-
-            android:text="@string/password"
-            android:textSize="25sp"
-            android:textStyle="italic"
-            app:layout_constraintTop_toBottomOf="@+id/userIdEditTxt"
-            tools:layout_editor_absoluteX="-51dp" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/password_input"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_register_usernid_input" />
 
         <EditText
-            android:id="@+id/editText11"
+            android:id="@+id/editText_register_password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:text="@{viewModel.password}"
-            app:layout_constraintTop_toBottomOf="@+id/textView29"
-
-            tools:layout_editor_absoluteX="-27dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_password_text" />
 
         <Button
-            android:id="@+id/button15"
+            android:id="@+id/button_login_fragment_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:onClick="@{() -> viewModel.registrateOnClick()}"
-            android:text="@string/registrate"
-            app:layout_constraintTop_toBottomOf="@+id/editText11"
-            tools:layout_editor_absoluteX="-16dp" />
+            android:layout_marginStart="8dp"
 
-        <ProgressBar
-            android:id="@+id/registrateProgress"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="@{viewModel.progressBarVisibility ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="-16dp"
-            />
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText_register_password_input" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
