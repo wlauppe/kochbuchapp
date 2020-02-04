@@ -10,24 +10,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:id="@+id/display_searchlist_layout_Item">
 
         <TextView
             android:id="@+id/textView_recipe_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
             android:layout_margin="10dp"
-            android:hint="Test"
-            android:text="@{value}" />
+            android:layout_weight="5"
+            android:text="@{value}"
+            android:textSize="20sp" />
 
 
         <Button
             android:id="@+id/button_open_recipe"
             android:layout_width="141dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
             android:padding="20dp"
-            android:text="öffnen" />
+            android:layout_weight="1"
+            android:text="@string/open" />
     </LinearLayout>
 </layout>

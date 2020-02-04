@@ -24,7 +24,7 @@
     <string name="friend_title">Freunde</string>
     <string name="friend_requests">Freundschaftsanfragen</string>
     <string name="search_button">Suchen</string>
-    <string name="enter_user_id">Gib eine persönliche ID ein</string>
+    <string name="enter_user_id">Gib dir einen Nutzernamen</string>
     <string name="admin_remove_item">Löschen</string>
     <string name="public_recipe_search_title">Suche ein Rezept</string>
     <string name="recipe_title">Titel des Rezeptes</string>
@@ -60,7 +60,8 @@
     <string name="enter_cooking_time">Backzeit eingeben</string>
     <string name="vegan">Vegan</string>
     <string name="vegetarian">vegetarisch</string>
-    <string name="preparation_description">Beschreibe mit ein paar Worten, wie dein Rezept zubereitet wird. \n Überschriften kannst du mit *Überschriftname* kennzeichnen</string>
+    <string name="preparation_description">Beschreibe mit ein paar Worten, wie dein Rezept zubereitet wird.
+                                            Überschriften innerhalb des Textes kannst du durch das Setzen von Sternchen kennzeichnen: *Überschriftname* </string>
     <string name="email_address_input">Gib deine E-Mail Adresse ein</string>
     <string name="password_input">Gib dein Passwort ein</string>
     <string name="search_ingredients">Eier, Lauch, Nudeln, Zucker, ...</string>
@@ -71,5 +72,19 @@
     <string name="login">Einloggen</string>
     <string name="login_have_no_account">Ich habe noch keinen Account</string>
     <string name="password_stars">**********</string>
+    <string name="open">Öffnen</string>
+    <string name="feed">Feed</string>
+    <string name="menu">Menü</string>
+    <string name="write_sth_about_you_headline">Schreibe etwas über dich</string>
+    <string name="i_like_cooking_hint">Ich koche gerne...</string>
+    <string name="change_login_data">Login Daten ändern</string>
+    <string name="save">Speichern</string>
+    <string name="delete_profile">Profil löschen</string>
+    <string name="savoury__tag">herzhaft</string>
+    <string name="sweet_tag">süß</string>
+    <string name="salty_tag">salzig</string>
+    <string name="publish">veröffentlichen</string>
+    <string name="ingredient_input_description">Schreibe jede Zutat so auf: (Menge, Einheit, Zutat)</string>
+    <string name="cheap">günstig</string>
 
 </resources>

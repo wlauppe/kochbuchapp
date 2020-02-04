@@ -13,18 +13,22 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
 
         <TextView
             android:id="@+id/textView_recipe_name_feed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="5"
             android:text="@{value}" />
 
         <Button
             android:id="@+id/button_goto_feed_recipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="öffnen" />
+            android:layout_weight="1"
+            android:text="@string/open" />
     </LinearLayout>
 </layout>
