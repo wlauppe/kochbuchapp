@@ -17,13 +17,6 @@
         android:layout_height="wrap_content"
         android:padding="10dp">
 
-        <Button
-            android:id="@+id/button_edit_recipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/edit_recipe_button" />
-
         <TextView
             android:id="@+id/textView_recipe_title_item"
             android:layout_width="wrap_content"
@@ -32,10 +25,18 @@
             android:text="@{value}" />
 
         <Button
+            android:id="@+id/button_edit_recipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/edit_recipe_button" />
+
+
+        <Button
             android:id="@+id/button_remove_recipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/remove_recipe" />
+            android:text="@string/delete" />
     </LinearLayout>
 </layout>
