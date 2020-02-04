@@ -19,7 +19,6 @@ class ChangePasswordViewmodel(@NonNull application: Application) : AndroidViewMo
     fun onClick() {
         //repo.pwEdit(password)
 
-
     }
 }
 

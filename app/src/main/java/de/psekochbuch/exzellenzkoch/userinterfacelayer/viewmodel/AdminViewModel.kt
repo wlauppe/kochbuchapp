@@ -7,6 +7,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimp
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 
+
 class AdminViewModel : ViewModel() {
 
 
@@ -20,8 +21,9 @@ class AdminViewModel : ViewModel() {
     var users : LiveData<List<User>> = fakreRepo.getUsers()
 
 
-
-
+    /**
+     *
+     */
     fun deleteRecipe(recipeID: Int) {
 
     }

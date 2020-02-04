@@ -9,7 +9,7 @@
     <string name="recipe_list_recipe_title">Meine Rezepte</string>
     <string name="recipe_list_create_recipe_button">Neues Rezept erstellen</string>
     <string name="edit_recipe_button">bearbeiten</string>
-    <string name="remove_recipe">löschen</string>
+    <string name="delete">löschen</string>
     <string name="admin_title">Admin</string>
     <string name="admin_flagged_recipes">Gemeldete Rezepte</string>
     <string name="flagged_users">Gemeldete Nutzer</string>
