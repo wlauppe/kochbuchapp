@@ -23,29 +23,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="407dp"
+                    android:cropToPadding="true"
+                    tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+
                 <TextView
                     android:id="@+id/textView_profile_display_fragment_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
-                    android:text="@string/profile_display_username"
+                    android:text="setLater"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="434dp"
-                    android:cropToPadding="true"
-                    tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"/>
 
                 <TextView
                     android:id="@+id/textView_profile_display_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="@string/profile_display_user_description" />
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:text="setLater" />
 
                 <TextView
                     android:id="@+id/textView_profile_display_fragment_user_recipes"
@@ -54,12 +60,18 @@
                     android:text="@string/profile_display_erstellte_rezepte"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/profileDisplayRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"/>
 
             </LinearLayout>
         </ScrollView>
@@ -73,6 +85,8 @@
                 android:id="@+id/button_profile_display_fragment_flag_user"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
                 android:text="@string/flag_user"
                 app:layout_constraintBaseline_toBaselineOf="@+id/button_profile_display_fragment_edit_profile"
                 app:layout_constraintEnd_toStartOf="@+id/button_profile_display_fragment_edit_profile"
@@ -82,6 +96,8 @@
                 android:id="@+id/button_profile_display_fragment_edit_profile"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
                 android:text="@string/profile_display_edit_profile_button"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

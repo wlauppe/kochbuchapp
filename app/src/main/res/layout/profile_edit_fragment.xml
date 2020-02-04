@@ -20,15 +20,15 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="646dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_save_profile_changes"
             app:layout_constraintEnd_toEndOf="parent"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
@@ -42,27 +42,30 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_user_id"
-                    android:padding="5dp"
+                    android:padding="8dp"
                     android:textAlignment="center"
-                    android:textSize="20dp" />
+                    android:textSize="20sp"
+                    android:inputType="text"/>
 
                 <TextView
                     android:id="@+id/textView_personal_data"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="schreibe etwas über dich"
+                    android:hint="@string/write_sth_about_you_headline"
+                    android:padding="8dp"
                     android:textAlignment="center"
-                    android:textSize="25dp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/editText_user_description"
                     android:layout_width="match_parent"
-                    android:layout_height="108dp"
+                    android:layout_height="wrap_content"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:hint="Hier kann man eine kurze Beschreibung von sich selbst einfügen."
-                    android:inputType="textMultiLine" />
+                    android:hint="@string/i_like_cooking_hint"
+                    android:inputType="textMultiLine"
+                    android:padding="8dp"/>
 
             </LinearLayout>
         </ScrollView>
@@ -71,25 +74,28 @@
             android:id="@+id/button_change_login_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login-Daten ändern"
+            android:layout_marginEnd="2dp"
+            android:text="@string/change_login_data"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button_save_profile_changes" />
+            app:layout_constraintEnd_toEndOf="parent" />
+
 
         <Button
             android:id="@+id/button_save_profile_changes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="speichern"
+            android:layout_marginEnd="1dp"
+            android:text="@string/save"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_change_login_data"
             app:layout_constraintStart_toEndOf="@+id/button_delete_profile" />
-
 
         <Button
             android:id="@+id/button_delete_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Profil löschen"
+            android:layout_marginStart="2dp"
+            android:text="@string/delete_profile"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

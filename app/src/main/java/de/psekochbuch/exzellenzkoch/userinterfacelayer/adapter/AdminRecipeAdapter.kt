@@ -34,7 +34,10 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         return recipes.size
     }
     override fun onBindViewHolder(holder: AdminRecipeViewHolder, position: Int) {
-        holder.adminReportedRecipeItemBinding.value = recipes[position].id.toString()
+        //The admin gets the recipe title and the id
+        val printString: String = recipes[position].title.toString().plus(" ID(").plus(recipes[position].id.toString().plus(")"))
+
+        holder.adminReportedRecipeItemBinding.value = printString
         id = recipes[position].id
         holder.adminReportedRecipeItemBinding.buttonAdminRemoveRecipe.setOnClickListener{
             id?.let { it1 -> viewModel.deleteRecipe(it1) }

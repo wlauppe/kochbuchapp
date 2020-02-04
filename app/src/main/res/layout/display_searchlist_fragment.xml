@@ -17,11 +17,13 @@
 
         <TextView
             android:id="@+id/textView_search_results"
-            android:textSize="40dp"
-            android:textStyle="italic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/search_result_textView" />
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="@string/search_result_textView"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,18 +33,23 @@
 
             <TextView
                 android:id="@+id/textView_sorted_after"
-                android:textSize="20dp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/sorted_after" />
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="@string/sorted_after"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_searchlist_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recyclerView_searchlist_fragment"/>
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_marginTop="10dp"/>
 
     </LinearLayout>
 </layout>
