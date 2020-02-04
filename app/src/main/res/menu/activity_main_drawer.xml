@@ -24,6 +24,13 @@
 
 
             />
+        <item
+            android:id="@+id/feed"
+            android:icon="@drawable/ic_admin_white_24dp"
+            android:title="Feed"
+
+
+            />
    </group>
 
 </menu>

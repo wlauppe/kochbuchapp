@@ -123,5 +123,13 @@
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.AdminFragment"
         android:label="admin_fragment"
         tools:layout="@layout/admin_fragment" />
+    <fragment
+        android:id="@+id/feed"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.Feed"
+        android:label="Feed" >
+        <action
+            android:id="@+id/action_feed_to_recipeDisplayFragment"
+            app:destination="@id/recipeDisplayFragment" />
+    </fragment>
 
 </navigation>

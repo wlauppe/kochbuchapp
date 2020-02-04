@@ -15,20 +15,20 @@
 
         <Button
             android:id="@+id/button_spare_user"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="Button" />
 
         <TextView
             android:id="@+id/textView_user_name"
-            android:layout_width="161dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{ value}" />
+
+            android:text="@{value}" />
 
         <Button
             android:id="@+id/button_remove_user"
-            android:layout_width="match_parent"
+            android:layout_width="172dp"
             android:layout_height="wrap_content"
             android:text="löschen" />
     </LinearLayout>
