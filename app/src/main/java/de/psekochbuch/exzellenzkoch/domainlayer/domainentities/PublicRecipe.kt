@@ -12,7 +12,7 @@ class PublicRecipe constructor(ingredients: List<IngredientChapter>, title:Strin
 
 
 
-    val id: Int? = null
+    var id: Int? = null
     var ingredientChapter: List<IngredientChapter> = ingredients
     var creationTimeStamp: Timestamp? = null
     var title:String? = title

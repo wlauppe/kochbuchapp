@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.DisplaySearchListAdaper
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
@@ -20,23 +21,22 @@ class DisplaySearchListFragment : Fragment() {
         val viewModel = ViewModelProvider(this).get(DisplaySearchListViewmodel::class.java)
         binding.recyclerViewSearchlistFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        var listOfRecipeNames : List<String> = viewModel.items.value!!
+        var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
         val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel)
         binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
-        val observer = Observer<List<String>> { items ->
+        val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)
         }
-        viewModel.items.observe(this.viewLifecycleOwner, observer)
+        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 
+        /*
 //Safeargs werden hier aus dem Bundel gezogem
         var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
         var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
         var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
-
         Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
-
-
+         */
         return binding.root
     }
 

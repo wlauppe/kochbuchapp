@@ -15,6 +15,17 @@ class AdminViewModel : ViewModel() {
 
     var profiles: LiveData<List<User>>? = null
 
+    var first  = "Piroggen"
+    var second = "Pommes"
+    var third = "Käse"
+    var fourth = "Döner"
+    var list = listOf<String>(first,second,third,fourth)
+
+    val items: MutableLiveData<List<String>> = MutableLiveData(list)
+
+
+
+
 
     fun deleteRecipe(recipeID: Int) {
 

@@ -5,6 +5,9 @@
         <variable
             name="recipeListItem"
             type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel" />
+        <variable
+            name="value"
+            type="String" />
 
 
     </data>
@@ -26,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="@{value}" />
 
         <Button
             android:id="@+id/button_remove_recipe"

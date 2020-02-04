@@ -12,13 +12,18 @@ class PublicRecipeFakeRepository : PublicRecipeRepository {
     }
 
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+
         val recipe1 = PublicRecipe(listOf(),"trockener Sandkuchen", 5.0, "Backe backe Kuchen", listOf("trocken","kuchen","ungeniessbar"),5, 2,null, 5);
         //val recipe2 = PublicRecipe(listOf(), "ganz trockener Sandkuchen", 2.0, "Backe backe Kuchen",tags=listOf("trocken","kuchen","ungeniessbar"))
         val recipe2= recipe1
+        val recipe3 = PublicRecipe(listOf(),"trockener Sandkuchen", 5.0, "Backe backe Kuchen", listOf("trocken","kuchen","ungeniessbar"),5, 2,null, 5);
+        val recipe4 = PublicRecipe(listOf(),"trockener Sandkuchen", 5.0, "Backe backe Kuchen", listOf("trocken","kuchen","ungeniessbar"),5, 2,null, 5);
 
-        val list = listOf(recipe1,recipe2)
 
-        val ld = MutableLiveData <List<PublicRecipe>>().apply { list }
+        //setID
+        recipe1.id = 4
+        val list = listOf(recipe1,recipe2, recipe3, recipe4)
+        var ld: MutableLiveData<List<PublicRecipe>> = MutableLiveData(list)
         return ld
     }
 

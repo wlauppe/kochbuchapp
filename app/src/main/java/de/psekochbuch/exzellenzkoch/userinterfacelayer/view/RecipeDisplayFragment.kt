@@ -44,8 +44,10 @@ class RecipeDisplayFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var recipe = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it) }
 
-        Toast.makeText(requireContext(), recipe.toString(), Toast.LENGTH_SHORT).show()
+        //recieving the recipe name through bundle
+        var recipeName = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeTitle }
+
+        Toast.makeText(requireContext(), recipeName.toString(), Toast.LENGTH_SHORT).show()
     }
 }

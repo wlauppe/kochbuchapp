@@ -11,44 +11,40 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListFragmentBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.DisplaySearchListAdaper
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.RecipeListAdapter
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
 class RecipeListFragment : Fragment() {
 
-    private lateinit var binding: RecipeListFragmentBinding
-    private lateinit var viewModel: RecipeListViewmodel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        //binding set to the according Fragment
-        binding = RecipeListFragmentBinding.inflate(inflater, container, false)
-        //viewmodel recieved by viewmodelproviders
-        viewModel = ViewModelProvider(this).get(RecipeListViewmodel::class.java)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val binding = RecipeListFragmentBinding.inflate(inflater, container, false)
+        val viewModel = ViewModelProvider(this).get(RecipeListViewmodel::class.java)
         binding.recyclerViewRecipeListFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val adapter = RecipeListAdapter(viewModel)
-        binding.recyclerViewRecipeListFragment.adapter = adapter
-        //Add an observer pattern to the Fragment. The Owner is the fragment and the observer are the recipes
-        val observer = Observer<List<PrivateRecipe>> { items ->
-            adapter.setNewItems(items)
+        var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
+        val exampleAdapter = RecipeListAdapter(listOfRecipeNames,viewModel)
+        binding.recyclerViewRecipeListFragment.adapter = exampleAdapter
+        val observer = Observer<List<PublicRecipe>> { items ->
+            exampleAdapter.setNewItems(items)
         }
-        viewModel.recipes.observe(this, observer)
-        //Sets according viewmodel from XML to this fragment
-        binding.recipeListViewModel = viewModel
-        //initialized navcontoller
-        var navController: NavController = findNavController()
-        binding.buttonCreateRecipe.setOnClickListener {
-            navController.navigate(R.id.action_recipeListFragment_to_createRecipeFragment)
-        }
-        //Adapter einfügen und verbinden
+        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+        binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
+
+        /*
+//Safeargs werden hier aus dem Bundel gezogem
+        var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
+        var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
+        var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
+        Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
+         */
         return binding.root
     }
-
 
 }

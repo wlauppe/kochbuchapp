@@ -42,8 +42,9 @@
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeDisplayFragment"
         android:label="RecipeDisplayFragment" >
         <argument
-            android:name="publicRecipe"
-            app:argType="de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe" />
+            android:name="recipeTitle"
+            app:argType="string"
+            android:defaultValue="emptyRecipe" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

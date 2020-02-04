@@ -31,14 +31,15 @@ class AdminFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         //RecipeAdapter and Observer
-        val recipeAdapter = AdminRecipeAdapter(viewModel)
+
+        var listOfRecipeNames = viewModel.items
+        val recipeAdapter = AdminRecipeAdapter(listOfRecipeNames.value!!,viewModel)
         val observer = Observer<List<String>> { listItem ->
-            recipeAdapter.setNewListItems(listItem)
+            recipeAdapter.setNewItems(listItem)
         }
         val userAdapter = AdminUserAdapter(viewModel)
-//---------------------Hier schlät es fehl
-        viewModel.recipes.observe(this, observer)
 
+        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
 
         binding.recyclerViewAdminUsers.setHasFixedSize(true)
         binding.recyclerViewAdminRecipes.setHasFixedSize(true)
