@@ -2,47 +2,49 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedUserItemBinding
+import de.psekochbuch.exzellenzkoch.databinding.AdminReportedUserItemBindingImpl
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 
-class AdminUserAdapter(var viewModel: AdminViewModel) :
+class AdminUserAdapter(var recipes: List<User> = emptyList<User>(), var viewModel: AdminViewModel) :
     RecyclerView.Adapter<AdminUserAdapter.AdminUserViewHolder>() {
-
-    var items: List<User> = emptyList()
-
-    fun setNewListItems(newItems: List<User>) {
-        items = newItems
+    //Attributes
+    var navController: NavController? = null
+    var id : String? = null
+    //Methodes
+    fun setNewItems(newItems: List<User>){
+        recipes = newItems
         this.notifyDataSetChanged()
     }
-
-    override fun getItemCount(): Int {
-        return items.size
-    }
-
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): AdminUserAdapter.AdminUserViewHolder {
-
+    //Overridden Methods
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminUserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val itemBinding = AdminReportedUserItemBinding.inflate(inflater, parent, false)
-        return AdminUserAdapter.AdminUserViewHolder(itemBinding)
-
+        navController = parent.findNavController()
+        val adminReportedRecipeItemBinding = AdminReportedUserItemBindingImpl.inflate(inflater, parent, false)
+        return AdminUserViewHolder(adminReportedRecipeItemBinding)
     }
-
-
+    override fun getItemCount(): Int {
+        return recipes.size
+    }
     override fun onBindViewHolder(holder: AdminUserViewHolder, position: Int) {
-        //in the XML the variable value is used for the TextView which is displayed.
-        holder.adminUserIdemBinding.value = items[position].userID
+        holder.adminReportedUserItemBinding.value = recipes[position].userID
+        id = recipes[position].userID
+        holder.adminReportedUserItemBinding.buttonRemoveUser.setOnClickListener{
+            id?.let { it1 -> viewModel.deleteUser(it1) }
 
-        holder.adminUserIdemBinding.buttonRemoveUser.setOnClickListener {
-            viewModel.deleteUser(items[position].userID!!)
+        }
+        holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
+            //spare user
+            viewModel.spareUser(id)
         }
     }
+    class AdminUserViewHolder(var adminReportedUserItemBinding: AdminReportedUserItemBinding)
+        :RecyclerView.ViewHolder(adminReportedUserItemBinding.root)
 
-    class AdminUserViewHolder(val adminUserIdemBinding: AdminReportedUserItemBinding) :
-        RecyclerView.ViewHolder(adminUserIdemBinding.root)
 }

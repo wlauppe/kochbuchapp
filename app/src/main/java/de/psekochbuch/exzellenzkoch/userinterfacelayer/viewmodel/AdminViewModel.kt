@@ -9,20 +9,15 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 
 class AdminViewModel : ViewModel() {
 
-    var mrepoRecipe = PublicRecipeFakeRepository()
 
-    var recipes:MutableLiveData<List<String>> = mrepoRecipe.getPublicRecipesAsStrings()
+    var fakreRepo: PublicRecipeFakeRepository = PublicRecipeFakeRepository()
+    /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
+    * eine Liste an ID`s, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
 
-    var profiles: LiveData<List<User>>? = null
 
-    var first  = "Piroggen"
-    var second = "Pommes"
-    var third = "Käse"
-    var fourth = "Döner"
-    var list = listOf<String>(first,second,third,fourth)
+    var recipes : LiveData<List<PublicRecipe>> = fakreRepo.getPublicRecipes()
 
-    val items: MutableLiveData<List<String>> = MutableLiveData(list)
-
+    var users : LiveData<List<User>> = fakreRepo.getUsers()
 
 
 
@@ -34,4 +29,13 @@ class AdminViewModel : ViewModel() {
     fun deleteUser(userID: String) {
 
     }
+
+    fun spareUser(id : String?){
+
+    }
+    fun spareRecipe(id: Int?){
+
+    }
+
+
 }

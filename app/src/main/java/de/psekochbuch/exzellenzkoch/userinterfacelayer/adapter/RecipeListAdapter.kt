@@ -27,7 +27,6 @@ class RecipeListAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(
         items = newItems
         this.notifyDataSetChanged()
     }
-
     //Overridden Methods
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeListViewHolder {
         val inflater = LayoutInflater.from(parent.context)

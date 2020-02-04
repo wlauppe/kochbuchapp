@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceim
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
 
@@ -36,5 +37,9 @@ class PublicRecipeFakeRepository : PublicRecipeRepository {
 
         val ld = MutableLiveData <List<String>>().apply { list }
         return ld
+    }
+
+    fun getUsers():MutableLiveData<List<User>>{
+        var
     }
 }

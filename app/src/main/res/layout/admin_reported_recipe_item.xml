@@ -4,7 +4,7 @@
     <data>
         <variable
             name="value"
-            type="String" />
+            type="Integer" />
 
 
     </data>
