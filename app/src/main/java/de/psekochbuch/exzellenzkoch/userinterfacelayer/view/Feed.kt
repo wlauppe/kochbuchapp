@@ -4,38 +4,45 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
-import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
+import de.psekochbuch.exzellenzkoch.databinding.AdminFragmentBinding
+import de.psekochbuch.exzellenzkoch.databinding.FeedBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.DisplaySearchListAdaper
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.ProfileDisplayAdapter
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.AdminRecipeAdapter
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.AdminUserAdapter
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.FeedAdapter
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 
-class ProfileDisplayFragment : Fragment() {
+class Feed : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
-        val viewModel = ViewModelProvider(this).get(ProfileDisplayViewmodel::class.java)
-        binding.profileDisplayRecyclerView.layoutManager =
+        val binding = FeedBinding.inflate(inflater, container, false)
+        val viewModel = ViewModelProvider(this).get(FeedViewModel::class.java)
+        binding.recyclerViewFeed.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = ProfileDisplayAdapter(listOfRecipeNames,viewModel)
-        binding.profileDisplayRecyclerView.adapter = exampleAdapter
+
+
+        val exampleAdapter = FeedAdapter(listOfRecipeNames,viewModel)
+
+
+        binding.recyclerViewFeed.adapter = exampleAdapter
+
+
+
         val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)
         }
+
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-        binding.profileDisplayRecyclerView.setHasFixedSize(true)
+        binding.recyclerViewFeed.setHasFixedSize(true)
 
         /*
 //Safeargs werden hier aus dem Bundel gezogem
@@ -46,8 +53,4 @@ class ProfileDisplayFragment : Fragment() {
          */
         return binding.root
     }
-
-
-
-
 }

@@ -17,6 +17,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.AdminUserAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.DisplaySearchListAdaper
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
+import kotlinx.android.synthetic.main.recipe_list_item.*
 
 class AdminFragment : Fragment() {
 
@@ -25,16 +26,30 @@ class AdminFragment : Fragment() {
         val viewModel = ViewModelProvider(this).get(AdminViewModel::class.java)
         binding.recyclerViewAdminRecipes.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding.recyclerViewAdminUsers.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
+        var listOfUser : List<User> = viewModel.users.value!!
+
         val exampleAdapter = AdminRecipeAdapter(listOfRecipeNames,viewModel)
-        var listOfUserNames : List<User> = viewModel.users.value!!
-        val userAdapter = AdminUserAdapter(listOfUserNames, viewModel )
+        val userAdapter = AdminUserAdapter(listOfUser, viewModel )
+
         binding.recyclerViewAdminRecipes.adapter = exampleAdapter
         binding.recyclerViewAdminUsers.adapter = userAdapter
+
+
         val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)
         }
+        val observerUser = Observer<List<User>> {
+                users -> userAdapter.setNewItems(users)
+        }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+        viewModel.users.observe(this.viewLifecycleOwner, observerUser)
+
+        binding.recyclerViewAdminUsers.setHasFixedSize(true)
         binding.recyclerViewAdminRecipes.setHasFixedSize(true)
 
         /*
