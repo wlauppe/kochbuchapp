@@ -23,9 +23,6 @@ class AdminViewModel : ViewModel() {
     var users : LiveData<List<User>> = fakreRepo.getUsers()
 
 
-    /**
-     *
-     */
     fun deleteRecipe(recipeID: Int) {
 
     }

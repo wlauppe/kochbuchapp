@@ -20,8 +20,6 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayVi
 
 class RecipeDisplayFragment : Fragment(){
 
-
-
     private lateinit var binding: RecipeDisplayFragmentBinding
     private lateinit var viewModel: RecipeDisplayViewmodel
 

@@ -57,6 +57,14 @@
                     tools:layout_editor_absoluteX="0dp"
                     tools:layout_editor_absoluteY="417dp" />
 
+                <TextView
+                    android:id="@+id/textView_creation_timestamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="13sp"
+                    android:text="@{value}"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
