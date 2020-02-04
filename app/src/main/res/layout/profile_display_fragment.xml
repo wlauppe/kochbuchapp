@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
-                    android:text="@{value}"
+                    android:text="setLater"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -51,7 +51,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="@{value}" />
+                    android:text="setLater" />
 
                 <TextView
                     android:id="@+id/textView_profile_display_fragment_user_recipes"
