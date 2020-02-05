@@ -30,7 +30,7 @@ class FeedFragment : Fragment() {
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
 
 
-        val exampleAdapter = FeedAdapter(listOfRecipeNames,viewModel)
+        val exampleAdapter = FeedAdapter(listOfRecipeNames,viewModel, requireContext())
 
 
         binding.recyclerViewFeed.adapter = exampleAdapter

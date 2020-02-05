@@ -1,21 +1,25 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedUserItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 
-class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel: AdminViewModel) :
+class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel: AdminViewModel,
+                       context:Context) :
     RecyclerView.Adapter<AdminUserAdapter.AdminUserViewHolder>() {
     //Attributes
     var navController: NavController? = null
     var id : String? = null
+    var context = context
     //Methodes
     fun setNewItems(newUsers: List<User>){
         users = newUsers
@@ -42,6 +46,12 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
             //spare user
             viewModel.spareUser(id)
         }
+        //var urlString = recipes[position].image
+        var imageView = holder.adminReportedUserItemBinding.imageViewAdminUserItem
+        //Dummy
+        var urlString: String = "https://i.ytimg.com/vi/IO5uC2wYaAc/maxresdefault.jpg"
+        Glide.with(context).load(urlString).into(imageView)
+
     }
     class AdminUserViewHolder(var adminReportedUserItemBinding: AdminReportedUserItemBinding)
         :RecyclerView.ViewHolder(adminReportedUserItemBinding.root)
