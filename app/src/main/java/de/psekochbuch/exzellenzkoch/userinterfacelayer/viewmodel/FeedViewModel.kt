@@ -1,12 +1,13 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import androidx.lifecycle.ViewModel
-import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations.PublicRecipeFakeRepository
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
 
 class FeedViewModel: ViewModel() {
 
-    var fakeRepository: PublicRecipeFakeRepository = PublicRecipeFakeRepository()
+    var repository: PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
 
-    var recipes = fakeRepository.getPublicRecipes()
+    var recipes = repository.getPublicRecipes()
 }

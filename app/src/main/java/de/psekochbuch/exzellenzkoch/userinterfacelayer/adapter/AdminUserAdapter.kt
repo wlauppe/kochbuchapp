@@ -36,8 +36,8 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
         return users.size
     }
     override fun onBindViewHolder(holder: AdminUserViewHolder, position: Int) {
-        holder.adminReportedUserItemBinding.value = users[position].userID
-        id = users[position].userID
+        holder.adminReportedUserItemBinding.value = users[position].userId
+        id = users[position].userId
         holder.adminReportedUserItemBinding.buttonRemoveUser.setOnClickListener{
             id?.let { it1 -> viewModel.deleteUser(it1) }
 

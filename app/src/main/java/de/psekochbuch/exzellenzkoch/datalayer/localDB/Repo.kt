@@ -54,7 +54,7 @@ class Repo(application: Application?) {
         DB.databaseWriteExecutor.execute {
             val recipeId:Long? = publicRecipeDao?.insert(PublicRecipeDB(id,publicRecipe.title, publicRecipe.ingredientsText ,publicRecipe.preparation,publicRecipe.picture,publicRecipe.cookingTime,publicRecipe.preparationTime,publicRecipe.user?.userID,publicRecipe.getDateAsLong(),publicRecipe.portions))
             //tags des rezeptes werden hinzugefügt
-            for (tag in publicRecipe.tags!!){
+            for (tag in publicRecipe.taglist!!){
                 publicRecipeTagDao?.insert(PublicRecipeTagDB(0,recipeId!!,tag))
             }
             //chapter werden hinzugefügt
@@ -83,3 +83,4 @@ class Repo(application: Application?) {
         return value.let { Date(it) }
     }
 }
+==== BASE ====
