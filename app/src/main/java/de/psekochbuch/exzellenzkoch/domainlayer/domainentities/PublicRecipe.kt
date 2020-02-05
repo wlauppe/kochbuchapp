@@ -8,17 +8,17 @@ class PublicRecipe (
     /**
      *Id of the recipe
      */
-    var recipeId :Int,
+    val recipeId :Int,
 
     /**
      * Title of the recipe
      */
-    var title:String,
+    val title:String = "",
 
     /**
      * All ingredients as a textline
      */
-    var ingredientsText:String,
+    val ingredientsText:String = "",
 
     val ingredientChapter: List<IngredientChapter> =listOf(),
 
@@ -27,37 +27,37 @@ class PublicRecipe (
     /**
      * Description how to create a meal
      */
-    var preparation:String,
+    val preparation:String = "",
 
     /**
      * Picture of the meal
      */
-    var picture: String,
+    val picture: String = "",
 
     /**
      * Time to cook a meal
      */
-    var cookingTime:Int,
+    val cookingTime:Int = 0,
 
     /**
      * Time to preparate a meal
      */
-    var preparationTime:Int,
+    val preparationTime:Int = 0,
 
     /**
      * The user who create the recipe
      */
-    val user:User?,
+    val user:User = User(),
 
     /**
      * Date when the recipe was created
      */
-    var creationTimeStamp:Date,
+    val creationTimeStamp:Date = Date(0),
 
     /**
      * Count of portions for people
      */
-    var portions:Int
+    val portions:Int = 0
 
 
 )
