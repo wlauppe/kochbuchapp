@@ -53,7 +53,7 @@ class AdminFragment : Fragment() {
         binding.recyclerViewAdminRecipes.setHasFixedSize(true)
 
         /*
-//Safeargs werden hier aus dem Bundel gezogem
+        //Safeargs werden hier aus dem Bundle gezogen
         var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
         var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
         var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
