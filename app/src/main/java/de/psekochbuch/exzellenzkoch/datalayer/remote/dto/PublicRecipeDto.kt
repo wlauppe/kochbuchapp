@@ -29,6 +29,7 @@ data class PublicRecipeDto(
     /**
          * Picture of the Recipe
          */
+    /** TODO var picture muss zukünftig   var imgSrcUrl: String? heissen **/
         var picture:String,
 
     /**

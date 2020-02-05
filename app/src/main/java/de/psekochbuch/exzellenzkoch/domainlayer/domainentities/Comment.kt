@@ -1,17 +1,8 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-class Comment {
+class Comment ( val text : String,
+                val publicationTime : String ) {
+
      private var id: Int? = null
-
-
-    fun getText():String {
-        return ""
-    }
-    fun setText(text: String){
-        //TODO
-    }
-    fun getPublicationTime():Int {
-        return 0 //TODO
-    }
 
 }
