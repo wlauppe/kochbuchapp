@@ -16,6 +16,11 @@
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+
+            android:id="@+id/imageView_Feed_item"/>
 
         <TextView
             android:id="@+id/textView_recipe_name_feed"

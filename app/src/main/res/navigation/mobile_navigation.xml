@@ -125,7 +125,7 @@
         tools:layout="@layout/admin_fragment" />
     <fragment
         android:id="@+id/feed"
-        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.Feed"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragment"
         android:label="Feed" >
         <action
             android:id="@+id/action_feed_to_recipeDisplayFragment"
