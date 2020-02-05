@@ -7,7 +7,9 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFake
 
 object InjectorUtils {
 
-    private fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
+    //TODO sollte irgendwann private werden.
+
+     fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
         return PublicRecipeFakeRepositoryImp.getInstance()
 
     }
