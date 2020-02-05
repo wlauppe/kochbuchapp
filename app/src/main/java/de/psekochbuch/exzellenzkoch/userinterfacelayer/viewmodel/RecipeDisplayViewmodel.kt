@@ -2,22 +2,44 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.media.Image
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations.PublicRecipeFakeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import java.security.Timestamp
 import java.sql.Time
 
 class RecipeDisplayViewmodel : ViewModel() {
 
-    private lateinit var image: LiveData<Image>
-    private lateinit var title: LiveData<String>
-    private lateinit var preparationDescription: LiveData<String>
-    private lateinit var ingredientChapter: LiveData<IngredientChapter>
-    private lateinit var tagsList: LiveData<List<String>>
-    private lateinit var recipeCookTime: LiveData<Int>
-    private lateinit var recipePrepTime: LiveData<Int>
-    private lateinit var creationTime: LiveData<Timestamp>
-    private lateinit var rating: LiveData<Double>
+    //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
+    var recipe :PublicRecipe  = PublicRecipeFakeRepository().getPublicRecipes().value!![0]
+
+     var image: LiveData<String?> = MutableLiveData(recipe.image)
+     var title: LiveData<String> = MutableLiveData(recipe.title)
+     var preparationDescription: LiveData<String> = MutableLiveData(recipe.preparation)
+     //var ingredientChapter: LiveData<IngredientChapter> = MutableLiveData(recipe.ingredientChapter)
+      var tagsList: LiveData<List<String>> = MutableLiveData(recipe.tags)
+      var recipeCookTime: LiveData<Int>  =MutableLiveData(recipe.cookingTime)
+      var recipePrepTime: LiveData<Int> = MutableLiveData(recipe.preparationTime)
+      var creationTime: LiveData<Timestamp> = MutableLiveData(recipe.creationTimeStamp)
+      var rating: LiveData<Double> = MutableLiveData(recipe.rating)
+
+
+    var tagString :String = tagsList.toString()
+    var ingredients = getIngredientsStrings()
+
+    fun getIngredientsStrings():String{
+        var result= ""
+        for(ingredient in recipe.ingredientChapter){
+            for(ingredient in ingredient.ingredients){
+                result.plus(ingredient.toString())
+            }
+        }
+
+
+        return result
+    }
 
 
     fun addToFavourites() {

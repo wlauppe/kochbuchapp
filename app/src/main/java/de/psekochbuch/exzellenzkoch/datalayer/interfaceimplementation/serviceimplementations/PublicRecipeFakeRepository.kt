@@ -13,6 +13,7 @@ class PublicRecipeFakeRepository : PublicRecipeRepository {
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
 
         val recipe1 = PublicRecipe(listOf(),"trockener Sandkuchen", 5.0, "Backe backe Kuchen", listOf("trocken","kuchen","ungeniessbar"),5, 2,null, 5);
+        recipe1.image = "https://i.ytimg.com/vi/uZfco9h0C_s/hqdefault.jpg"
         //val recipe2 = PublicRecipe(listOf(), "ganz trockener Sandkuchen", 2.0, "Backe backe Kuchen",tags=listOf("trocken","kuchen","ungeniessbar"))
         val recipe2= recipe1
         val recipe3 = PublicRecipe(listOf(),"trockener Sandkuchen", 5.0, "Backe backe Kuchen", listOf("trocken","kuchen","ungeniessbar"),5, 2,null, 5);
