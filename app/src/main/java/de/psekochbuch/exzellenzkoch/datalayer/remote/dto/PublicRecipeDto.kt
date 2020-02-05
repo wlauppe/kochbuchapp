@@ -9,7 +9,7 @@ data class PublicRecipeDto(
     /**
          * Id of the recipe
          */
-        val id:Int?,
+        val id:Int,
 
     /**
          * Title of the recipe
