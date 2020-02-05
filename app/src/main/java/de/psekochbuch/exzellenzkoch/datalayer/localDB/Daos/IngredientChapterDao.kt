@@ -12,5 +12,5 @@ interface IngredientChapterDao {
     fun insert(ingredientChapter:IngredientChapterDB):Long
 
     @Query("SELECT * from ingredientChapter where recipeId = :recipeId")
-    fun getIngredientChapterByRecipeId(recipeId:Long):List<IngredientChapterDB>
+    fun getIngredientChapterByRecipeId(recipeId:Int):List<IngredientChapterDB>
 }
