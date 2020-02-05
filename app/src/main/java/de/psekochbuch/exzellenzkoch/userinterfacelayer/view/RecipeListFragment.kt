@@ -29,7 +29,7 @@ class RecipeListFragment : Fragment() {
         binding.recyclerViewRecipeListFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = RecipeListAdapter(listOfRecipeNames,viewModel)
+        val exampleAdapter = RecipeListAdapter(listOfRecipeNames,viewModel, requireContext())
         binding.recyclerViewRecipeListFragment.adapter = exampleAdapter
         val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)

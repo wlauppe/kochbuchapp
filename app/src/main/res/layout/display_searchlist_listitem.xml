@@ -13,6 +13,12 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:id="@+id/display_searchlist_layout_Item">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@mipmap/ic_launcher"
+            android:padding="5dp"
+            android:id="@+id/imageView_display_search_list_item"/>
 
         <TextView
             android:id="@+id/textView_recipe_name"

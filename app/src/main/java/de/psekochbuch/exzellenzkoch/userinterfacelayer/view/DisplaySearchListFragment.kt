@@ -22,7 +22,7 @@ class DisplaySearchListFragment : Fragment() {
         binding.recyclerViewSearchlistFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel)
+        val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel, requireContext())
         binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
         val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)

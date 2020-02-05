@@ -46,7 +46,7 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
             //spare user
             viewModel.spareUser(id)
         }
-        //var urlString = recipes[position].image
+        //var urlString = users[position].img
         var imageView = holder.adminReportedUserItemBinding.imageViewAdminUserItem
         //Dummy
         var urlString: String = "https://i.ytimg.com/vi/IO5uC2wYaAc/maxresdefault.jpg"
