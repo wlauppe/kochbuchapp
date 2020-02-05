@@ -29,7 +29,7 @@ class RecipeListFragment : Fragment() {
         binding.recyclerViewRecipeListFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = RecipeListAdapter(listOfRecipeNames,viewModel)
+        val exampleAdapter = RecipeListAdapter(listOfRecipeNames,viewModel, requireContext())
         binding.recyclerViewRecipeListFragment.adapter = exampleAdapter
         val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)
@@ -42,7 +42,7 @@ class RecipeListFragment : Fragment() {
         }
 
         /*
-//Safeargs werden hier aus dem Bundel gezogem
+        //Safeargs werden hier aus dem Bundle gezogen
         var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
         var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
         var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }

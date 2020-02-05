@@ -1,8 +1,8 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
 
-class IngredientChapter(chapter:String, ingredients:List<IngredientAmount>) {
+class IngredientChapter(val chapter:String = "",
+                        val ingredients:List<IngredientAmount>)
+{
 
-    var chapter:String = chapter
-    var ingredients : List<IngredientAmount> = ingredients
 }

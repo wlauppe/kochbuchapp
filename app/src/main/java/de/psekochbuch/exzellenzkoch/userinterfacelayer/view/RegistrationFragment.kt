@@ -31,7 +31,7 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         //initialized navcontoller
         var navController: NavController = findNavController()
         binding.buttonLoginFragmentRegister.setOnClickListener {
-            navController.navigate(R.id.action_registrationFragment_to_profileDisplayFragment)
+            navController.navigate(R.id.action_registrationFragment_to_profileEditFragment)
         }
         return binding.root
     }

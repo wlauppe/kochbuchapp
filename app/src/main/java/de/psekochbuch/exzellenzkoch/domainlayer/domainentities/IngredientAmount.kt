@@ -1,10 +1,11 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-class IngredientAmount constructor (ingredient:String, quantity:Double, unit: String){ //TODO unit
+class IngredientAmount (val ingredient:String = "",
+                        val quantity:Double = 0.0,
+                        val unit: Unit   )
 
-    public var ingredient:String? = ingredient
-    public var quantity:Double? = quantity
-    public var unit: String =  unit
+//Todo Unit kann man noch nicht mit Konstruktor aufrufen.
 
-    // TODO parser Methode, um IngredientText aus DTO umzuwandeln
-}
+{
+
+       }

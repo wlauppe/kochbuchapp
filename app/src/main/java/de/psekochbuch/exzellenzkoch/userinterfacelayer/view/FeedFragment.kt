@@ -18,7 +18,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.FeedAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 
-class Feed : Fragment() {
+class FeedFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FeedBinding.inflate(inflater, container, false)
@@ -30,7 +30,7 @@ class Feed : Fragment() {
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
 
 
-        val exampleAdapter = FeedAdapter(listOfRecipeNames,viewModel)
+        val exampleAdapter = FeedAdapter(listOfRecipeNames,viewModel, requireContext())
 
 
         binding.recyclerViewFeed.adapter = exampleAdapter

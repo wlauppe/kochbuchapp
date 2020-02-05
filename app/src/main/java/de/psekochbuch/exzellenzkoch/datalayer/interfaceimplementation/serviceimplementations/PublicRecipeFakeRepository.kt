@@ -23,17 +23,22 @@ class PublicRecipeFakeRepository : PublicRecipeRepository {
         recipe3.id = 3
         recipe4.id = 5
         val list = listOf(recipe1,recipe2, recipe3, recipe4)
-        var ld: MutableLiveData<List<PublicRecipe>> = MutableLiveData(list)
+        val ld: MutableLiveData<List<PublicRecipe>> = MutableLiveData(list)
         return ld
     }
 
     fun getUsers():MutableLiveData<List<User>>{
-        var user1 = User("Jürgern", "bild", "Toastbrot")
-        var user2 = User("Bürgern", "bild", "Toast")
-        var user3 = User("Lürgern", "bild", "Moin")
+        val user1 = User("Jürgern", "bild", "Toastbrot")
+        val user2 = User("Bürgern", "bild", "Toast")
+        val user3 = User("Lürgern", "bild", "Moin")
 
         val list = listOf<User>(user1, user2, user3)
         val ld : MutableLiveData<List<User>> = MutableLiveData(list)
         return ld
+    }
+
+    // test for the user fragments
+    fun getUser() :User {
+        return User("Bernd", "bild", "Ich mag Brot")
     }
 }
