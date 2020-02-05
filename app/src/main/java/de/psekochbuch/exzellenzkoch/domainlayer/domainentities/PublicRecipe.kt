@@ -47,7 +47,7 @@ class PublicRecipe (
     /**
      * The user who create the recipe
      */
-    val user:User = User(),
+    val user:User = User("Musterman"),
 
     /**
      * Date when the recipe was created
