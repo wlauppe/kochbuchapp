@@ -16,10 +16,10 @@ class PublicRecipeRepository(application: Application?) {
             return;
         //PublicREcipe entity fehlt ein userid feld (Alle ID sollen Long sein!)
         DB.databaseWriteExecutor.execute {
-            var recipeId:Long? = publicRecipeDao?.insert(PublicRecipeDB(id,publicRecipe.title!!,publicRecipe.preparation!!,publicRecipe.cookingTime!!,publicRecipe.preparationTime!!,1234,42,publicRecipe.portions!!))
+           /* var recipeId:Long? = publicRecipeDao?.insert(PublicRecipeDB(id,publicRecipe.title!!,publicRecipe.preparation!!,publicRecipe.cookingTime!!,publicRecipe.preparationTime!!,1234,42,publicRecipe.portions!!))
             for (tag in publicRecipe.tags!!){
                 publicRecipeTagDao?.insert(PublicRecipeTagDB(0,recipeId!!,tag))
-            }
+            }*/
         }
     }
 
@@ -28,7 +28,8 @@ class PublicRecipeRepository(application: Application?) {
     }
 
     fun getAll():List<PublicRecipe>{
-        return publicRecipeDao?.getAll()?.map{publicRecipeDB -> PublicRecipe(listOf(),publicRecipeDB.title,0.0,publicRecipeDB.preparationDescription,publicRecipeTagDao?.getTagsFromRecipe(publicRecipeDB.id)?.map { tag -> tag.tag }!!,publicRecipeDB.preparationTime,publicRecipeDB.cookingTime,null,publicRecipeDB.portions)}!!
+        //return publicRecipeDao?.getAll()?.map{publicRecipeDB -> PublicRecipe(listOf(),publicRecipeDB.title,0.0,publicRecipeDB.preparationDescription,publicRecipeTagDao?.getTagsFromRecipe(publicRecipeDB.id)?.map { tag -> tag.tag }!!,publicRecipeDB.preparationTime,publicRecipeDB.cookingTime,null,publicRecipeDB.portions)}!!
+        return listOf()
     }
 
 
