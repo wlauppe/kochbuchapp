@@ -32,7 +32,7 @@ class PublicRecipe (
     /**
      * Picture of the meal
      */
-    val picture: String = "",
+    val imgUrl: String = "",
 
     /**
      * Time to cook a meal
