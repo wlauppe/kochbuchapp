@@ -73,6 +73,6 @@ class PublicRecipe (
     val id: Int? = null
 }
 
-//TODO  val creationTimeStamp kann ich das per Default  auf "now" setzten?
+//TODO  val creationTimeStamp kann ich das per Default  auf "now" setzten? JA das ist denke ich gut.
 //TODO warum kann man ein Feld nicht tags nennen?, wäre besser als taglist"
 //TODO für Timestamp die richtige Klasse nehmen, java.security ist definitv falsch.

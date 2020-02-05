@@ -9,10 +9,10 @@ object InjectorUtils {
 
     //TODO sollte irgendwann private werden.
 
-     fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
-        return PublicRecipeFakeRepositoryImp.getInstance()
+     //fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
+      //  return PublicRecipeFakeRepositoryImp.getInstance()
 
-    }
+    //}
 
 
     //Beispiel für eine Viewmodel Factory
