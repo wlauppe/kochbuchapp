@@ -7,8 +7,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 //wandelt Recipes in Entities um
 
 class PublicRecipeDtoEntityMapper() {
-    //TODO Implement
-    //fun toEntity(dto: PublicRecipeDto): PublicRecipe
+
+    fun toEntity(dto: PublicRecipeDto): PublicRecipe {
+        val recipe = PublicRecipe(dto.title)
+        return recipe
+    }
 
 
 }
