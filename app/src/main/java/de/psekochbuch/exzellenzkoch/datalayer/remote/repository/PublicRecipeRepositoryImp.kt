@@ -31,7 +31,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         val recipe2 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
 
         val list = listOf(recipe1, recipe2)
-        val ld = MutableLiveData<List<PublicRecipe>>().apply { list }
+        val ld : MutableLiveData<List<PublicRecipe>> = MutableLiveData(list)
         return ld
     }
 }

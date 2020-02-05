@@ -17,7 +17,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         val recipe3 = PublicRecipe(3,"Bratapfel", imgUrl = "file:///android_asset/bratapfel.png")
         val list = listOf(recipe1,recipe2, recipe3)
 
-        val ld = MutableLiveData <List<PublicRecipe>>().apply { list }
+        val ld : MutableLiveData <List<PublicRecipe>> = MutableLiveData(list) //.apply { list }
         return ld
     }
 

@@ -12,7 +12,7 @@ class UserFakeRepositoryImp : UserRepository  {
         val user3 = User("Lürgern", "bild", "Moin")
 
     val list = listOf<User>(user1, user2, user3)
-    val ld = MutableLiveData <List<User>>().apply { list }
+    val ld : MutableLiveData <List<User>> = MutableLiveData(list)
     return ld
 
     }
