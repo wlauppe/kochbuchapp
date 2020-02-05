@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistListitemBinding
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
@@ -16,12 +18,14 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFra
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
 
-class RecipeListAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel: RecipeListViewmodel) :
+class RecipeListAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel: RecipeListViewmodel,
+                        context:Context) :
     RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
 
     //Attributes
     var navController:NavController ? = null
     var id : Int ? = null
+    var context = context
     //Methodes
     fun setNewItems(newItems: List<PublicRecipe>){
         items = newItems
@@ -47,6 +51,12 @@ class RecipeListAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(
             //delete recipe
             viewModel.deleteRecipe(id)
         }
+        //var urlString = recipes[position].image
+        var imageView = holder.recipeListItemBinding.imageViewRecipeListItem
+        //Dummy
+        var urlString: String = "https://cdn.pixabay.com/photo/2019/04/17/23/52/sun-4135784_1280.png"
+        Glide.with(context).load(urlString).into(imageView)
+
     }
     class RecipeListViewHolder(var recipeListItemBinding: RecipeListItemBinding)
         :RecyclerView.ViewHolder(recipeListItemBinding.root)

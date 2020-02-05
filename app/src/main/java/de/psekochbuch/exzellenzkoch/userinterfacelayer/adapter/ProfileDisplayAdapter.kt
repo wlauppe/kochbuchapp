@@ -16,10 +16,12 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayV
 
 class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(),viewModel: ProfileDisplayViewmodel) :
     RecyclerView.Adapter<ProfileDisplayAdapter.ProfileDisplayViewHolder>() {
+
     //Attributes
     var navController:NavController ? = null
     var id : Int ? = null
-    //Methodes
+
+    //Methods
     fun setNewItems(newItems: List<PublicRecipe>){
         items = newItems
         this.notifyDataSetChanged()

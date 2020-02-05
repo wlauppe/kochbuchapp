@@ -26,11 +26,14 @@ class ProfileDisplayFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this).get(ProfileDisplayViewmodel::class.java)
+        // init binding variable
         binding.profileDisplayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
+        // set input values to show them in the xml
+        val listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
         val exampleAdapter = ProfileDisplayAdapter(listOfRecipeNames,viewModel)
         binding.profileDisplayRecyclerView.adapter = exampleAdapter
+        // set observer
         val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)
         }
