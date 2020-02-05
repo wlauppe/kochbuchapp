@@ -13,7 +13,7 @@ class IngredientAmountRepository(application: Application?) {
     fun insert(ingredientAmount: IngredientAmount?) {
         if (ingredientAmount == null)
             return;
-        DB.databaseWriteExecutor.execute { ingredientAmountDao?.insert(IngredientAmountDB(0,0,ingredientAmount.ingredient!!,ingredientAmount.unit!!,ingredientAmount.quantity!!)) }
+        DB.databaseWriteExecutor.execute { ingredientAmountDao?.insert(IngredientAmountDB(0,0,ingredientAmount.ingredient!!,ingredientAmount.unit.getText(),ingredientAmount.quantity!!)) }
     }
 
 

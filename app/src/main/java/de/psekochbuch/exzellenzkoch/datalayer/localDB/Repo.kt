@@ -52,9 +52,9 @@ class Repo(application: Application?) {
             return;
         //PublicREcipe entity fehlt ein userid feld (Alle ID sollen Long sein!)
         DB.databaseWriteExecutor.execute {
-            val recipeId:Long? = publicRecipeDao?.insert(PublicRecipeDB(id,publicRecipe.title, publicRecipe.ingredientsText ,publicRecipe.preparation,publicRecipe.picture,publicRecipe.cookingTime,publicRecipe.preparationTime,publicRecipe.user?.userID,publicRecipe.getDateAsLong(),publicRecipe.portions))
+            val recipeId:Long? = publicRecipeDao?.insert(PublicRecipeDB(id,publicRecipe.title, publicRecipe.ingredientsText ,publicRecipe.preparation,publicRecipe.imgUrl,publicRecipe.cookingTime,publicRecipe.preparationTime,publicRecipe.user?.userId,publicRecipe.getDateAsLong(),publicRecipe.portions))
             //tags des rezeptes werden hinzugefügt
-            for (tag in publicRecipe.taglist!!){
+            for (tag in publicRecipe.tags){
                 publicRecipeTagDao?.insert(PublicRecipeTagDB(0,recipeId!!,tag))
             }
             //chapter werden hinzugefügt
@@ -83,4 +83,3 @@ class Repo(application: Application?) {
         return value.let { Date(it) }
     }
 }
-==== BASE ====

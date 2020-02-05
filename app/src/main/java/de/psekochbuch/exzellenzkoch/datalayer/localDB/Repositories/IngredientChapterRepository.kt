@@ -17,13 +17,13 @@ class IngredientChapterRepository(application: Application?) {
         DB.databaseWriteExecutor.execute {
             var chapterId:Long? = ingredientChapterDao?.insert(IngredientChapterDB(20,0,ingredientChapter.chapter))
             for (ingredientAmount in ingredientChapter.ingredients){
-                ingredientAmountDao?.insert(IngredientAmountDB(0,chapterId!!,ingredientAmount.ingredient!!,ingredientAmount.unit!!,ingredientAmount.quantity!!))
+                ingredientAmountDao?.insert(IngredientAmountDB(0,chapterId!!,ingredientAmount.ingredient!!,ingredientAmount.unit.getText()!!,ingredientAmount.quantity!!))
             }
         }
     }
 
 
-    fun getIngredientChapterByRecipeId(chapterId:Long):List<IngredientChapterDB>{
+    fun getIngredientChapterByRecipeId(chapterId:Int):List<IngredientChapterDB>{
         return ingredientChapterDao!!.getIngredientChapterByRecipeId(chapterId)
     }
 }
