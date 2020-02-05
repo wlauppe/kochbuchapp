@@ -48,7 +48,7 @@ class Repo(application: Application?) {
         DB.databaseWriteExecutor.execute {
             var recipeId:Long? = publicRecipeDao?.insert(PublicRecipeDB(id,publicRecipe.title!!,publicRecipe.preparation!!,publicRecipe.cookingTime!!,publicRecipe.preparationTime!!,1234,42,publicRecipe.portions!!))
             //tags des rezeptes werden hinzugefügt
-            for (tag in publicRecipe.tags!!){
+            for (tag in publicRecipe.taglist!!){
                 publicRecipeTagDao?.insert(PublicRecipeTagDB(0,recipeId!!,tag))
             }
             //chapter werden hinzugefügt
@@ -63,7 +63,8 @@ class Repo(application: Application?) {
     }
 
     fun getFavorites():List<PublicRecipe>{
-        return publicRecipeDao?.getAll()?.map{publicRecipeDB -> PublicRecipe(getIngredientChapterByRecipeId(publicRecipeDB.id),publicRecipeDB.title,0.0,publicRecipeDB.preparationDescription,publicRecipeTagDao?.getTagsFromRecipe(publicRecipeDB.id)?.map { tag -> tag.tag }!!,publicRecipeDB.preparationTime,publicRecipeDB.cookingTime,null,publicRecipeDB.portions)}!!
+        //TODO Fix
+        //return publicRecipeDao?.getAll()?.map{publicRecipeDB -> PublicRecipe(getIngredientChapterByRecipeId(publicRecipeDB.id),publicRecipeDB.title,0.0,publicRecipeDB.preparationDescription,publicRecipeTagDao?.getTagsFromRecipe(publicRecipeDB.id)?.map { tag -> tag.tag }!!,publicRecipeDB.preparationTime,publicRecipeDB.cookingTime,"",publicRecipeDB.portions)}!!
     }
 
     fun insert(privateRecipe: PrivateRecipe){

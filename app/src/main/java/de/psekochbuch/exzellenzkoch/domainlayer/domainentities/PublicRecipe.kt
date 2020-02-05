@@ -2,15 +2,15 @@ package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
 
 
-class PublicRecipe ( val title:String,
-                     val ingredients: List<IngredientChapter> =listOf(),
-                     val creationTimeStamp : String = "",
-                     val preparation:String = "",
-                     val taglist:List<String> = listOf(),
-                     val preparationTime:Int = 0,
-                     val cookingTime: Int = 0 ,
-                     val imgUrl : String = "",
-                     val portions:Int = 0) {
+class PublicRecipe (val title:String,
+                    val ingredientChapter: List<IngredientChapter> =listOf(),
+                    val creationTimeStamp : String = "",
+                    val preparation:String = "",
+                    val taglist:List<String> = listOf(),
+                    val preparationTime:Int = 0,
+                    val cookingTime: Int = 0,
+                    val imgUrl : String = "",
+                    val portions:Int = 0) {
 
 
     val id: Int? = null
