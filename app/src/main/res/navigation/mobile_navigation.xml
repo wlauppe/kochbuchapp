@@ -77,8 +77,8 @@
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RegistrationFragment"
         android:label="RegistrationFragment" >
         <action
-            android:id="@+id/action_registrationFragment_to_profileDisplayFragment"
-            app:destination="@id/profileDisplayFragment" />
+            android:id="@+id/action_registrationFragment_to_profileEditFragment"
+            app:destination="@id/profileEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileEditFragment"
