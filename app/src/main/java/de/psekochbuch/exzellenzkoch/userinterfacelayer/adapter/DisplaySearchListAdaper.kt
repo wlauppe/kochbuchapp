@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -7,19 +8,22 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistListitemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
-class DisplaySearchListAdaper(var items: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel:DisplaySearchListViewmodel)
+class DisplaySearchListAdaper(var items: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel:DisplaySearchListViewmodel,
+                              context: Context)
     : RecyclerView.Adapter<DisplaySearchListAdaper.DisplaySearchListViewHolder>() {
 
 
     //Attributes
     var navController:NavController ? = null
     var id : Int ? = null
+    var context = context
     //Methodes
     fun setNewItems(newItems: List<PublicRecipe>){
         items = newItems
@@ -45,6 +49,12 @@ class DisplaySearchListAdaper(var items: List<PublicRecipe> = emptyList<PublicRe
          id = items[position].id
         holder.displaySearchlistListitemBinding.displaySearchlistLayoutItem.setOnClickListener{
         }
+        //var urlString = recipes[position].image
+        var imageView = holder.displaySearchlistListitemBinding.imageViewDisplaySearchListItem
+        //Dummy
+        var urlString: String = "https://i.ytimg.com/vi/uZfco9h0C_s/hqdefault.jpg"
+        Glide.with(context).load(urlString).into(imageView)
+
     }
     class DisplaySearchListViewHolder(var displaySearchlistListitemBinding: DisplaySearchlistListitemBinding)
         :RecyclerView.ViewHolder(displaySearchlistListitemBinding.root)

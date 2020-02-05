@@ -77,8 +77,8 @@
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RegistrationFragment"
         android:label="RegistrationFragment" >
         <action
-            android:id="@+id/action_registrationFragment_to_profileDisplayFragment"
-            app:destination="@id/profileDisplayFragment" />
+            android:id="@+id/action_registrationFragment_to_profileEditFragment"
+            app:destination="@id/profileEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileEditFragment"
@@ -125,7 +125,7 @@
         tools:layout="@layout/admin_fragment" />
     <fragment
         android:id="@+id/feed"
-        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.Feed"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragment"
         android:label="Feed" >
         <action
             android:id="@+id/action_feed_to_recipeDisplayFragment"

@@ -33,8 +33,8 @@ class AdminFragment : Fragment() {
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
         var listOfUser : List<User> = viewModel.users.value!!
 
-        val exampleAdapter = AdminRecipeAdapter(listOfRecipeNames,viewModel)
-        val userAdapter = AdminUserAdapter(listOfUser, viewModel )
+        val exampleAdapter = AdminRecipeAdapter(listOfRecipeNames,viewModel, requireContext())
+        val userAdapter = AdminUserAdapter(listOfUser, viewModel, requireContext())
 
         binding.recyclerViewAdminRecipes.adapter = exampleAdapter
         binding.recyclerViewAdminUsers.adapter = userAdapter
@@ -53,7 +53,7 @@ class AdminFragment : Fragment() {
         binding.recyclerViewAdminRecipes.setHasFixedSize(true)
 
         /*
-//Safeargs werden hier aus dem Bundel gezogem
+        //Safeargs werden hier aus dem Bundle gezogen
         var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
         var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
         var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
