@@ -17,7 +17,7 @@ class PublicRecipeRepository(application: Application?) {
         //PublicREcipe entity fehlt ein userid feld (Alle ID sollen Long sein!)
         DB.databaseWriteExecutor.execute {
             var recipeId:Long? = publicRecipeDao?.insert(PublicRecipeDB(id,publicRecipe.title!!,publicRecipe.preparation!!,publicRecipe.cookingTime!!,publicRecipe.preparationTime!!,1234,42,publicRecipe.portions!!))
-            for (tag in publicRecipe.tags!!){
+            for (tag in publicRecipe.taglist!!){
                 publicRecipeTagDao?.insert(PublicRecipeTagDB(0,recipeId!!,tag))
             }
         }
