@@ -12,12 +12,13 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
 
 class RecipeListViewmodel(repository: PublicRecipeRepository) : ViewModel() {
 
-    //var mrepo = PrivateRecipeRepositoryImplementation()
 
-    val repo : PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
-   // var recipes: MutableLiveData<List<PrivateRecipe>> = MutableLiveData()
 
-    var recipes : LiveData<List<PublicRecipe>> = repo.getPublicRecipes()
+  // Alte Variante  val repo : PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
+  //Neue Variante jetzt wird es injected und ist als parameter verfügbar.
+
+
+    var recipes : LiveData<List<PublicRecipe>> = repository.getPublicRecipes()
 
 
     fun getNamesFromRecipes(liveData: LiveData<List<PrivateRecipe>>) {
