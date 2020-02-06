@@ -39,7 +39,7 @@ class RecipeDisplayFragment : Fragment(){
         var navController: NavController = findNavController()
         val imageView = binding.imageViewRecipeImage
 
-        var urlString = viewModel.recipe.image
+        var urlString = viewModel.recipe.imgUrl
         //Dummy
         //var urlString: String = "https://i.ytimg.com/vi/uZfco9h0C_s/hqdefault.jpg"
         context?.let { Glide.with(it).load(urlString).into(imageView) }
