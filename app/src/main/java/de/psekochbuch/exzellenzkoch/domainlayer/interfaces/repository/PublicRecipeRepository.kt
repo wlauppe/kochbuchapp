@@ -33,7 +33,7 @@ interface PublicRecipeRepository {
 
     @Throws
     fun getPublicRecipe(recipeId : Int): LiveData<List<PublicRecipe>>
-    
+
     //Diese Methode löscht das Rezept mit der als Parameter übergebenen recipeId aus der
     //Serverdatenbank.
     @Throws
@@ -46,18 +46,11 @@ interface PublicRecipeRepository {
     suspend fun publishRecipe(publicRecipe: PublicRecipe) : Int
 
 
+    @Throws
     fun setRating(recipeId: Int, userId : String,value : Int)
     // Get gibts, nicht richtig?, recipe hat einfach ein Feld averageRating.
 
     //TODO entweder getRating inkludieren oder besser in PublicRecipe das Feld ratingaverage
 
-
-    /**
-     * Methods we still need:
-     *
-     * reportRecipe()
-     * deleteRecipe(id:String)
-     *
-     */
-
+    suspend fun reporRecipe(RecipeId: Int)
 }
