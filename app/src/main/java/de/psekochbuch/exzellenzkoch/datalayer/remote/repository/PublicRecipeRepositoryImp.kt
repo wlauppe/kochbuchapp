@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
+import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
@@ -29,6 +30,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+        val searchList= retrofit.search(page=1,readCount = 1000)
 
         val dto = retrofit.getRecipe(1)
         val recipe1 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
@@ -49,7 +51,13 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     }
 
     override fun getPublicRecipe(recipeId: Int): LiveData<List<PublicRecipe>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val recipe: LiveData<PublicRecipe> = LiveData {
+            val dto = retrofit.getRecipe(recipeId)
+            //val entity= PublicRecipeDtoEntityMapper().toEntity(dto)
+            val recipe = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
+            emit(recipe)
+        }
+
     }
 
     override fun deleteRecipe(recipeId: Int) {

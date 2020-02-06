@@ -18,7 +18,7 @@ interface PublicRecipeApi {
      * @return The recipe with the specific id
      */
     @GET("recipes/{id}")
-    fun getRecipe(@Path("id") id:Int) : LiveData<PublicRecipeDto>
+    suspend fun getRecipe(@Path("id") id:Int) : PublicRecipeDto
 
     /**
      * POST-Request to add a new recipe.
@@ -26,7 +26,7 @@ interface PublicRecipeApi {
      * @param publicRecipe Recipe to add
      */
     @POST ("recipes")
-    fun addRecipe(@Body publicRecipe: PublicRecipeDto?)
+    suspend fun addRecipe(@Body publicRecipe: PublicRecipeDto?)
 
     /**
      * PUT-Request to update a recipe
@@ -35,7 +35,7 @@ interface PublicRecipeApi {
      * @param id Id of the recipe to update
      */
     @PUT ("recipes/{id}")
-    fun updateRecipe(@Body publicRecipe: PublicRecipeDto?, @Query(value = "id") id:Int)
+    suspend fun updateRecipe(@Body publicRecipe: PublicRecipeDto?, @Query(value = "id") id:Int)
 
     /**
      * DELETE-Request to delete a recipe
@@ -43,10 +43,10 @@ interface PublicRecipeApi {
      * @param id Id of the recipe
      */
     @DELETE ("recipes/{id}")
-    fun deleteRecipe(@Query(value = "id") id:Int)
+    suspend fun deleteRecipe(@Query(value = "id") id:Int)
 
     /**
-     * GET-Request to search a recipe with ciriterias
+     * GET-Request to search a recipe with criteria
      * The URL ends with /api/recipes
      * @param title Optional parameter title to search
      * @param tags Optional parameter tags to search
@@ -57,12 +57,12 @@ interface PublicRecipeApi {
      * @return List of the recipes
      */
     @GET("")
-    fun search(@Query("title") title:Optional<String>,
+    suspend fun search(@Query("title") title:Optional<String>,
                @Query("tags") tags:Optional<List<String>>,
                @Query("ingredients") ingredients:Optional<List<String>>,
                @Query("creationDate") creationDate:Optional<Date>,
                @Query("page") page:Int,
-               @Query("readCount") readCount:Int):Call<List<PublicRecipeDto>?>
+               @Query("readCount") readCount:Int):List<PublicRecipeDto>
 
     /**
      * POST-Request to report a recipe
