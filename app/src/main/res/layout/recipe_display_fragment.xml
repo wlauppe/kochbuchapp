@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="setLater"
+                    android:text="@{recipeDisplayViewModel.title}"
                     android:textAlignment="center"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:textSize="13sp"
-                    android:text="setLater"/>
+                    android:text="setlater"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,7 +78,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="setLater"
+                        android:text="@{recipeDisplayViewModel.recipePrepTime.toString()}"
                         android:textAlignment="center"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="setLater"
+                        android:text="@{recipeDisplayViewModel.recipeCookTime.toString()}"
                         android:textAlignment="center"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -99,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="setLater"
+                    android:text="@{recipeDisplayViewModel.tagsList.toString()}"
                     android:textSize="20sp" />
 
                 <TextView
@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="setLater"
+                    android:text="@{recipeDisplayViewModel.ingredients}"
                     android:textSize="20sp" />
 
                 <TextView
@@ -115,7 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="setLater"
+                    android:text="@{recipeDisplayViewModel.preparationDescription}"
                     android:textSize="20sp" />
             </LinearLayout>
         </ScrollView>

@@ -1,7 +1,10 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
+import android.R.attr.bitmap
+import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.net.Uri
+import android.database.Cursor
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -16,15 +19,14 @@ import androidx.navigation.fragment.findNavController
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.CreateRecipeFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel
-import java.io.File
+
 
 class CreateRecipeFragment : Fragment() {
 
     private lateinit var binding: CreateRecipeFragmentBinding
     private lateinit var viewModel: CreateRecipeViewmodel
 
-    //image
-    var file : File? = null
+
 
     //MEthodes
 
@@ -55,27 +57,13 @@ class CreateRecipeFragment : Fragment() {
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
 
-        //Image
-/*
+        //Image intent
         binding.imageButtonRecipeImage.setOnClickListener{
-            var intent:Intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        file = File(Environment.getExternalStorageState(Environment.getDataDirectory()), "userImg.JPG")
 
-        var tempUri = Uri.fromFile(file)
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, tempUri)
-            startActivityForResult(intent, 0)
         }
-        */
 
         return binding.root
     }
-/*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == 0){
 
-        }
-    }
-
- */
 
 }

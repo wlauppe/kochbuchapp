@@ -6,6 +6,11 @@ class IngredientAmount (val ingredient:String = "",
 
 //Todo Unit kann man noch nicht mit Konstruktor aufrufen.
 
-{
 
-       }
+    override fun toString(): String {
+
+        return  ingredient.plus(quantity.toString()).plus(unit.toString())
+    }
+
+    // TODO parser Methode, um IngredientText aus DTO umzuwandeln
+}

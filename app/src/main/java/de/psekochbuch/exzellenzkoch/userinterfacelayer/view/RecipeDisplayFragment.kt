@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.LoginFragmentBinding
 import de.psekochbuch.exzellenzkoch.databinding.PublicRecipeSearchFragmentBinding
@@ -36,6 +37,13 @@ class RecipeDisplayFragment : Fragment(){
         binding.recipeDisplayViewModel = viewModel
         //initialized navcontoller
         var navController: NavController = findNavController()
+        val imageView = binding.imageViewRecipeImage
+
+        var urlString = viewModel.recipe.image
+        //Dummy
+        //var urlString: String = "https://i.ytimg.com/vi/uZfco9h0C_s/hqdefault.jpg"
+        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
 
         return binding.root
     }
