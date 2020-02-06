@@ -1,8 +1,28 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-class Comment ( val text : String,
-                val publicationTime : String ) {
+import java.util.*
 
-     private var id: Int? = null
+class Comment (
 
+    /**
+     * Id of the comment
+     */
+    val commentId:Int,
+
+    /**
+     * The user which creates the comment
+     */
+    val user: String,
+
+    /**
+     * The comment text
+     */
+    var text:String,
+
+    /**
+     * The date of the comment, when it was created
+     */
+    val publicationTime: Date
+)
+{
 }

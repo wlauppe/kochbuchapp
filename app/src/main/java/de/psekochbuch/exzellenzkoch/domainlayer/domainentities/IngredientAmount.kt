@@ -1,10 +1,23 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-class IngredientAmount (val ingredient:String = "",
-                        val quantity:Double = 0.0,
-                        val unit: Unit   ){
+class IngredientAmount (
 
-//Todo Unit kann man noch nicht mit Konstruktor aufrufen.
+                        /**
+                         * Name of the ingredient
+                         */
+                        var ingredient:String = "",
+
+                        /**
+                         * The quantity of the ingredient
+                         */
+                        var quantity:Double = 0.0,
+
+                        /**
+                         * The unit of the amount from the ingredient
+                         */
+                        var unit:Unit = Unit.Liter
+
+){
 
 
     override fun toString(): String {

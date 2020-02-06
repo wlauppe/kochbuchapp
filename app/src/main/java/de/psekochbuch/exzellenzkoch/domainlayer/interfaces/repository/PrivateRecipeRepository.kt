@@ -10,12 +10,19 @@ interface PrivateRecipeRepository {
      */
     fun getPrivateRecipes(): LiveData<List<PrivateRecipe>>
 
+    fun getPrivateRecipe(id : Int): LiveData<PrivateRecipe>
+
     /**
      * Deletes a private recipe from the local Room DB
      *
      * @param id is the recipe's ID
      */
-    suspend fun deletePrivateRecipe(id:String)
+    suspend fun deletePrivateRecipe(id: Int)
+
+    /**
+     * Updates a recipe in the local Room DB
+     */
+    suspend fun updatePrivateRecipe(id: Int)
 
     /**
      * Adds a new recipe to the local Room DB
@@ -26,6 +33,7 @@ interface PrivateRecipeRepository {
      * Returns only the recipe with the given ID
      */
     fun getRecipe(id:String):LiveData<PrivateRecipe>
+
 
 
 }

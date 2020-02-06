@@ -4,18 +4,34 @@ import android.icu.text.CaseMap
 import android.icu.text.TimeZoneFormat
 import android.widget.ImageView
 import java.sql.Timestamp
+import java.util.*
 
-class PrivateRecipe (var title :String,
-                     var creationDate:Timestamp,
-                     var ingredients:List<IngredientAmount>,
-                     var preparationDescription:String,
-                     var cookingTime:Int,
-                     var preparationTime:Int,
-                     var image:String
-                     ): Recipe() {
+class PrivateRecipe(
+    recipeId: Int,
+    title: String,
+    ingredientsText: String,
+    tags: List<String>,
+    preparation: String,
+    imgUrl: String,
+    cookingTime: Int,
+    preparationTime: Int,
+    creationTimeStamp: Date,
+    portions: Int
+) : Recipe(
+    recipeId,
+    title,
+    ingredientsText,
+    tags,
+    preparation,
+    imgUrl,
+    cookingTime,
+    preparationTime,
+    creationTimeStamp,
+    portions
+) {
 
-    var id: Int?  = null
-    var tags: List<String> = emptyList()
+    //var id: Int?  = null
+
 
 
 

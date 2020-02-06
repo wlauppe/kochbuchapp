@@ -42,7 +42,7 @@ class Repo(application: Application?) {
     }
 
     fun getIngredientChapterByRecipeId(chapterId:Int):List<IngredientChapter>{
-        return ingredientChapterDao!!.getIngredientChapterByRecipeId(chapterId).map{chapter -> IngredientChapter(chapter.title,getIngredientAmountByIngredientChapterId(chapter.id)) }
+        return ingredientChapterDao!!.getIngredientChapterByRecipeId(chapterId).map{chapter -> IngredientChapter(chapterId ,chapter.title,getIngredientAmountByIngredientChapterId(chapter.id)) }
     }
 
 
