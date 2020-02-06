@@ -30,9 +30,9 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
-        val searchList= retrofit.search(page=1,readCount = 1000)
+        //val searchList= retrofit.search(page=1,readCount = 1000)
 
-        val dto = retrofit.getRecipe(1)
+        //val dto = retrofit.getRecipe(1)
         val recipe1 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
         val recipe2 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
 
@@ -50,13 +50,21 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getPublicRecipe(recipeId: Int): LiveData<List<PublicRecipe>> {
-        val recipe: LiveData<PublicRecipe> = LiveData {
+    override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+
+        val recipe = PublicRecipe(2,title ="Test")
+        val ld : MutableLiveData <PublicRecipe> = MutableLiveData(recipe)
+        return ld
+
+           //    return LiveData<recipe
+                /*LiveData<PublicRecipe> = LiveData {
             val dto = retrofit.getRecipe(recipeId)
             //val entity= PublicRecipeDtoEntityMapper().toEntity(dto)
             val recipe = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
             emit(recipe)
         }
+
+                 */
 
     }
 

@@ -33,7 +33,7 @@ interface PublicRecipeRepository {
     fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>
 
     @Throws
-    fun getPublicRecipe(recipeId : Int): LiveData<List<PublicRecipe>>
+    fun getPublicRecipe(recipeId : Int): LiveData<PublicRecipe>
 
     //Diese Methode löscht das Rezept mit der als Parameter übergebenen recipeId aus der
     //Serverdatenbank.

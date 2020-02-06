@@ -14,7 +14,7 @@ class PublicRecipe(
     cookingTime: Int = 0,
     preparationTime: Int = 0,
     /**
-     * The user who create the recipe
+     * The user who creates the recipe
      */
     val user:User = User("Musterman"),
     creationTimeStamp: Date = Date(System.currentTimeMillis()),
