@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -15,7 +16,7 @@ import java.util.*
 class RecipeDisplayViewmodel : ViewModel() {
 
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
-    var recipe :PublicRecipe  = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![2]
+    //var recipe :PublicRecipe  = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![2]
 
      var image: LiveData<String?> = MutableLiveData(recipe.imgUrl)
      var title: LiveData<String> = MutableLiveData(recipe.title)
@@ -41,6 +42,11 @@ class RecipeDisplayViewmodel : ViewModel() {
 
 
         return result
+    }
+
+
+    fun getRecipeByID(id:Int){
+        //Repo Aufruf
     }
 
 

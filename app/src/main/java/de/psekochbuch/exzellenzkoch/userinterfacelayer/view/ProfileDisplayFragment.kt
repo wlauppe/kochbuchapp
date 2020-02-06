@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
@@ -26,6 +27,7 @@ class ProfileDisplayFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this).get(ProfileDisplayViewmodel::class.java)
+        binding.profileDisplayViewmodel = viewModel
         // init binding variable
         binding.profileDisplayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -39,6 +41,17 @@ class ProfileDisplayFragment : Fragment() {
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.profileDisplayRecyclerView.setHasFixedSize(true)
+
+        binding.textViewProfileDisplayDescription.text = viewModel.userDesc.value.toString()
+        binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID.value
+        val imageView = binding.imageView2
+
+        var urlString = viewModel.userImg
+        //Dummy
+        //var urlString: String = "https://i.ytimg.com/vi/uZfco9h0C_s/hqdefault.jpg"
+        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
+
 
         /*
 //Safeargs werden hier aus dem Bundel gezogem

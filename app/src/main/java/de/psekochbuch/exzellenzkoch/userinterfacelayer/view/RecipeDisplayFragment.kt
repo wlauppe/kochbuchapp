@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,20 +41,20 @@ class RecipeDisplayFragment : Fragment(){
         val imageView = binding.imageViewRecipeImage
 
         var urlString = viewModel.recipe.imgUrl
-        //Dummy
-        //var urlString: String = "https://i.ytimg.com/vi/uZfco9h0C_s/hqdefault.jpg"
         context?.let { Glide.with(it).load(urlString).into(imageView) }
-
-
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         //recieving the recipe name through bundle
-        var recipeName = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeTitle }
+        var recipeIDFromFragment = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
+        Toast.makeText(requireContext(), recipeIDFromFragment.toString(), Toast.LENGTH_SHORT).show()
 
-        Toast.makeText(requireContext(), recipeName.toString(), Toast.LENGTH_SHORT).show()
+        if (recipeIDFromFragment != null) {
+            viewModel.getRecipeByID(recipeIDFromFragment)
+        }else{
+            Log.i(tag, "RecipeDisplayFragment Null ID")
+        }
+
     }
 }

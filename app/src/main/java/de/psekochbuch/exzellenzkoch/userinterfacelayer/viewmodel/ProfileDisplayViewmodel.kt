@@ -15,16 +15,19 @@ class ProfileDisplayViewmodel : ViewModel() {
 
     private val recipeRepo = PublicRecipeFakeRepositoryImp()
     private val userRepo = UserFakeRepositoryImp()
+    var user = userRepo.getUsers()
 
     var recipes: LiveData<List<PublicRecipe>> =recipeRepo.getPublicRecipes()
     var userList : LiveData<List<User>> = userRepo.getUsers()
+    var userID : LiveData<String> = MutableLiveData("nutzer ID")
+    var userDesc : LiveData<String> = MutableLiveData("beschreibung")
 
+    var userImg = "https://yt3.ggpht.com/a-/ACSszfEhlI0KLIrMGe6pYgUSgYfAV36seXsy4DgyhQ=s900-mo-c-c0xffffffff-rj-k-no"
     // get exmple user from list
-    var user : User? = userList.value?.get(0)
+  //  var user : User? = userList.value?.get(0)
 
     // set user attributes for the xml
-    var username: String? = user?.userId
-    var userDescription: String? = user?.desc
+
 
 
     fun isOwner(): Boolean {

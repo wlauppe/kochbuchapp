@@ -32,10 +32,7 @@ class DisplaySearchListAdaper(var items: List<PublicRecipe> = emptyList<PublicRe
         val inflater = LayoutInflater.from(parent.context)
          navController = parent.findNavController()
         val displaySearchListItemBinding = DisplaySearchlistListitemBinding.inflate(inflater, parent, false)
-            displaySearchListItemBinding.buttonOpenRecipe.setOnClickListener{
-                //sending the recipename to the recipe display fragment
-                navController!!.navigate(DisplaySearchListFragmentDirections.actionDisplaySearchListFragmentToRecipeDisplayFragment().setRecipeTitle(id.toString()))
-            }
+
         return DisplaySearchListViewHolder(displaySearchListItemBinding)
          }
     override fun getItemCount(): Int {
@@ -43,9 +40,17 @@ class DisplaySearchListAdaper(var items: List<PublicRecipe> = emptyList<PublicRe
     }
     override fun onBindViewHolder(holder: DisplaySearchListViewHolder, position: Int) {
         holder.displaySearchlistListitemBinding.value = items[position].title
+
          id = items[position].recipeId
+
+        holder.displaySearchlistListitemBinding.buttonOpenRecipe.setOnClickListener{
+            //sending the recipename to the recipe display fragment
+            navController!!.navigate(DisplaySearchListFragmentDirections.actionDisplaySearchListFragmentToRecipeDisplayFragment().setRecipeID(id!!))
+        }
         holder.displaySearchlistListitemBinding.displaySearchlistLayoutItem.setOnClickListener{
         }
+
+
         //var urlString = recipes[position].image
         var imageView = holder.displaySearchlistListitemBinding.imageViewDisplaySearchListItem
         //Dummy
