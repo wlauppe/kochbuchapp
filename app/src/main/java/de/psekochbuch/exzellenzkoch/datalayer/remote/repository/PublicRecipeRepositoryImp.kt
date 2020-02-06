@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
@@ -9,6 +10,8 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.invoke
 import java.io.File
 import java.util.*
 
@@ -52,21 +55,21 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
 
-        val recipe = PublicRecipe(2,title ="Test")
+        /* val recipe = PublicRecipe(2,title ="Test")
         val ld : MutableLiveData <PublicRecipe> = MutableLiveData(recipe)
-        return ld
+        return ld */
 
-           //    return LiveData<recipe
-                /*LiveData<PublicRecipe> = LiveData {
+        //    return LiveData<recipe
+        val ldd = liveData(Dispatchers.IO, 20) {
             val dto = retrofit.getRecipe(recipeId)
             //val entity= PublicRecipeDtoEntityMapper().toEntity(dto)
-            val recipe = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
+            val recipe =
+                PublicRecipe(0, "Test", ingredientChapter = listOf(), tags = listOf("sauer,salzig"))
             emit(recipe)
         }
-
-                 */
-
+        return ldd
     }
+
 
     override fun deleteRecipe(recipeId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
