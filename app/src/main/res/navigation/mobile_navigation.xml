@@ -42,9 +42,9 @@
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeDisplayFragment"
         android:label="RecipeDisplayFragment" >
         <argument
-            android:name="recipeTitle"
-            app:argType="string"
-            android:defaultValue="emptyRecipe" />
+            android:name="recipeID"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -122,7 +122,14 @@
         android:id="@+id/adminFragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.AdminFragment"
         android:label="admin_fragment"
-        tools:layout="@layout/admin_fragment" />
+        tools:layout="@layout/admin_fragment" >
+        <action
+            android:id="@+id/action_adminFragment_to_profileDisplayFragment"
+            app:destination="@id/profileDisplayFragment" />
+        <action
+            android:id="@+id/action_adminFragment_to_recipeDisplayFragment"
+            app:destination="@id/recipeDisplayFragment" />
+    </fragment>
     <fragment
         android:id="@+id/feed"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragment"
