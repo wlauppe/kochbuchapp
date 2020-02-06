@@ -86,10 +86,10 @@ dependencies {
     //Lifecycle & Viewmodel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     //Room
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     //Navgraph
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.0'
@@ -101,7 +101,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     //Glide Image Loading
     implementation 'com.github.bumptech.glide:glide:4.11.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    kapt 'com.github.bumptech.glide:compiler:4.11.0'
 
     //Espresso Intents
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.1.0'
@@ -117,7 +117,7 @@ dependencies {
     //implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$version_retrofit_coroutines_adapter"
 
     //Thomas: damit das room testen klappt
-    kapt "android.arch.persistence.room:compiler:1.1.1"
+    kapt "android.arch.persistence.room:compiler:2.2.3"
     //drawerlayout
     implementation "androidx.drawerlayout:drawerlayout:1.0.0"
 }
