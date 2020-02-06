@@ -3,6 +3,7 @@ import androidx.lifecycle.LiveData
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
+import java.io.File
 import java.util.*
 
 interface PublicRecipeRepository {
@@ -47,10 +48,13 @@ interface PublicRecipeRepository {
 
 
     @Throws
-    fun setRating(recipeId: Int, userId : String,value : Int)
+    suspend fun setRating(recipeId: Int, userId : String,value : Int)
     // Get gibts, nicht richtig?, recipe hat einfach ein Feld averageRating.
 
     //TODO entweder getRating inkludieren oder besser in PublicRecipe das Feld ratingaverage
 
-    suspend fun reporRecipe(RecipeId: Int)
+    @Throws
+    suspend fun setImage(recipeId : Int, Image : File)
+
+    suspend fun reportRecipe(RecipeId: Int)
 }

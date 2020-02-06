@@ -4,8 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import java.io.File
+import java.util.*
 
 
 /**
@@ -33,6 +37,39 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         val list = listOf(recipe1, recipe2)
         val ld : MutableLiveData<List<PublicRecipe>> = MutableLiveData(list)
         return ld
+    }
+
+    override fun getPublicRecipes(
+        tags: TagList,
+        ingredients: IngredientChapter,
+        creationDate: Date,
+        sortOrder: String
+    ): LiveData<List<PublicRecipe>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getPublicRecipe(recipeId: Int): LiveData<List<PublicRecipe>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun deleteRecipe(recipeId: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun setRating(recipeId: Int, userId: String, value: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun setImage(recipeId: Int, Image: File) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun reportRecipe(RecipeId: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
 
