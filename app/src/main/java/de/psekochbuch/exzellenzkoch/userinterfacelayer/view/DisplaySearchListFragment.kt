@@ -18,15 +18,24 @@ class DisplaySearchListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DisplaySearchlistFragmentBinding.inflate(inflater, container, false)
+
         val viewModel = ViewModelProvider(this).get(DisplaySearchListViewmodel::class.java)
+
         binding.recyclerViewSearchlistFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        binding.displaySearchListViewmodel = viewModel
+
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
+
         val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel, requireContext())
+
         binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
+
         val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)
         }
+
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 

@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -12,8 +13,10 @@ import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.FeedItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragment
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
 import kotlinx.android.synthetic.main.recipe_list_fragment.view.*
 
 class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel: FeedViewModel
@@ -54,7 +57,11 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
 
 
         holder.feedItemBinding.buttonGotoFeedRecipe.setOnClickListener{
+
             navController?.navigate(R.id.action_feed_to_recipeDisplayFragment)
+        }
+        holder.feedItemBinding.imageViewFeedItem.setOnClickListener{
+//            navController.navigate(FeedFragmentDirections.actionFeedToRecipeDisplayFragment().)
         }
 
     }

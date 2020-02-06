@@ -21,8 +21,9 @@ class DisplaySearchListViewmodel : ViewModel() {
 
     val repository=PublicRecipeFakeRepositoryImp()
 
-    var recipes : LiveData<List<PublicRecipe>> = repository.getPublicRecipes()
+    var recipes  = repository.getPublicRecipes()
     
+
 
 
 
