@@ -25,10 +25,8 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
 
         // For Singleton instantiation
         @Volatile private var instance: PublicRecipeRepository? = null
-
-        fun getInstance() =
-            instance ?: synchronized(this) {
+        fun getInstance() = instance ?: synchronized(this) {
                 instance ?: PublicRecipeFakeRepositoryImp().also { instance = it }
             }
-    }
+   }
 }

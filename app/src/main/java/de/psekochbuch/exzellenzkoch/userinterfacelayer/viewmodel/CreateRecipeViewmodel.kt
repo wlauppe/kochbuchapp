@@ -3,8 +3,11 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import android.widget.CheckBox
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 
-class CreateRecipeViewmodel : ViewModel() {
+class CreateRecipeViewmodel() : ViewModel() {
+    // TODO when class PrivateRecipeRepositoryImp works, set parameter repository:PrivateRecipeRepository
+
 
     //Current title of the Recipe
     var recipeTitle: MutableLiveData<String> = MutableLiveData()

@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ChangePasswordFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ChangePasswordViewmodel
@@ -15,6 +17,9 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ChangePasswordV
 class ChangePasswordFragment : Fragment() {
 
     private lateinit var binding: ChangePasswordFragmentBinding
+    //val viewModel : ChangePasswordViewmodel by viewModels {
+    //    InjectorUtils.provideChangePasswordViewModelFactory(requireContext())
+    //}
     private lateinit var viewModel: ChangePasswordViewmodel
 
     override fun onCreateView(
@@ -25,11 +30,11 @@ class ChangePasswordFragment : Fragment() {
         //binding set to the according Fragment
         binding = ChangePasswordFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
-        viewModel = ViewModelProvider(this).get(ChangePasswordViewmodel::class.java)
+        //viewModel = ViewModelProvider(this).get(ChangePasswordViewmodel::class.java)
         //Sets according viewmodel from XML to this fragment
         binding.changePasswordViewModel = viewModel
         //initialized navcontoller
-        var navController: NavController = findNavController()
+        val navController: NavController = findNavController()
 
 
         binding.buttonChangePassword.setOnClickListener {
