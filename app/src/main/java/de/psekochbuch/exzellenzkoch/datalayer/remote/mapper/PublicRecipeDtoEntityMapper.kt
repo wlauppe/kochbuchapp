@@ -9,7 +9,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 class PublicRecipeDtoEntityMapper() {
 
     fun toEntity(dto: PublicRecipeDto): PublicRecipe {
-        val recipe = PublicRecipe(dto.title)
+        val recipe = PublicRecipe(dto.id,dto.title)
         return recipe
     }
 

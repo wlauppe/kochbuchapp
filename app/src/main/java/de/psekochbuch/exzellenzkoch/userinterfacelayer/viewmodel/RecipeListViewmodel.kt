@@ -5,22 +5,22 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.repository.PrivateRecipeRepositoryImplementation
-import de.psekochbuch.exzellenzkoch.datalayer.interfaceimplementation.serviceimplementations.PublicRecipeFakeRepository
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
 
 
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
 
 class RecipeListViewmodel : ViewModel() {
 
-    var mrepo = PrivateRecipeRepositoryImplementation()
+    //var mrepo = PrivateRecipeRepositoryImplementation()
 
-    val fakeRepo : PublicRecipeFakeRepository = PublicRecipeFakeRepository()
+    val repo : PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
    // var recipes: MutableLiveData<List<PrivateRecipe>> = MutableLiveData()
 
-    var recipes : LiveData<List<PublicRecipe>> = fakeRepo.getPublicRecipes()
+    var recipes : LiveData<List<PublicRecipe>> = repo.getPublicRecipes()
 
 
     fun getNamesFromRecipes(liveData: LiveData<List<PrivateRecipe>>) {

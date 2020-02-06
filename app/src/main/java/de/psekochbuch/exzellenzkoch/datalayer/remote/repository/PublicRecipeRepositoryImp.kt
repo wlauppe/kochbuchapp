@@ -27,11 +27,11 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
 
         val dto = retrofit.getRecipe(1)
-        val recipe1 = PublicRecipe("Test", ingredients=listOf(), taglist=listOf("sauer,salzig"))
-        val recipe2 = PublicRecipe("Test", ingredients=listOf(), taglist=listOf("sauer,salzig"))
+        val recipe1 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
+        val recipe2 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
 
         val list = listOf(recipe1, recipe2)
-        val ld = MutableLiveData<List<PublicRecipe>>().apply { list }
+        val ld : MutableLiveData<List<PublicRecipe>> = MutableLiveData(list)
         return ld
     }
 }
