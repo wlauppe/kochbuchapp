@@ -21,7 +21,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         return ld
     }
 
-   /* companion object {
+   companion object {
 
         // For Singleton instantiation
         @Volatile private var instance: PublicRecipeRepository? = null
@@ -30,5 +30,5 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
             instance ?: synchronized(this) {
                 instance ?: PublicRecipeFakeRepositoryImp().also { instance = it }
             }
-    } */
+    }
 }

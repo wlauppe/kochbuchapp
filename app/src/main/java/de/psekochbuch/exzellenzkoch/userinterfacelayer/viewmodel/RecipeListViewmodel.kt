@@ -1,9 +1,6 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import android.app.Activity
-import android.widget.Toast
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
 
@@ -13,7 +10,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
 
-class RecipeListViewmodel : ViewModel() {
+class RecipeListViewmodel(repository: PublicRecipeRepository) : ViewModel() {
 
     //var mrepo = PrivateRecipeRepositoryImplementation()
 

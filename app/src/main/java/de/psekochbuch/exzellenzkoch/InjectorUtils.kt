@@ -4,25 +4,26 @@ import android.content.Context
 
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewModelFactory
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
 object InjectorUtils {
 
-    //TODO sollte irgendwann private werden.
 
-     //fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
-      //  return PublicRecipeFakeRepositoryImp.getInstance()
+     private fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
+        return PublicRecipeFakeRepositoryImp.getInstance()
 
-    //}
+    }
 
 
     //Beispiel für eine Viewmodel Factory
-    //TODO auf unsere Situation anpassen:
-  /*  fun provideGardenPlantingListViewModelFactory(
+
+   fun provideRecipeListViewmodelFactory(
         context: Context
-    ): GardenPlantingListViewModelFactory {
-        val repository = getGardenPlantingRepository(context)
-        return GardenPlantingListViewModelFactory(repository)
+    ): RecipeListViewModelFactory {
+        val repository = getPublicRecipeRepository(context)
+        return RecipeListViewModelFactory(repository)
     }
-   */
 
 }
