@@ -11,6 +11,8 @@ interface UserRepository {
 
     fun getUsers(): LiveData<List<User>>
 
+    fun getUsers(userIdPraefix: String): LiveData<List<User>>
+
     suspend fun reportUser(user: User)
 
     @Throws
@@ -21,4 +23,13 @@ interface UserRepository {
 
     @Throws
     suspend fun updateUser(user : User)
+
+    fun getReportedUsers() : LiveData<List<User>>
+
+    @Throws
+    suspend fun reportUser(userId: String)
+
+    @Throws
+    suspend fun unreportUser(userId : String)
+
 }
