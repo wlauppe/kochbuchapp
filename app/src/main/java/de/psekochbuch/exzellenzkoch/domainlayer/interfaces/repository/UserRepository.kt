@@ -11,12 +11,14 @@ interface UserRepository {
 
     fun getUsers(): LiveData<List<User>>
 
+    suspend fun reportUser(user: User)
 
-    /**
-     * Methods we still need:
-     *
-     * reportUser()
-     * deleteUser(id:String)
-     *
-     */
+    @Throws
+    suspend fun deleteUser(userId : String)
+
+    @Throws
+    suspend fun addUser(userId : String)
+
+    @Throws
+    suspend fun updateUser(user : User)
 }
