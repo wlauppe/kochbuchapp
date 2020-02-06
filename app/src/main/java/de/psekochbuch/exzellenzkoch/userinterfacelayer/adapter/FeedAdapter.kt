@@ -8,13 +8,9 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.FeedItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragment
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
-import kotlinx.android.synthetic.main.recipe_list_fragment.view.*
 
 class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel: FeedViewModel
 , context: Context) :
@@ -43,8 +39,8 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
         return recipes.size
     }
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.feedItemBinding.value = recipes[position].id.toString()
-        id = recipes[position].id
+        holder.feedItemBinding.value = recipes[position].recipeId.toString()
+        id = recipes[position].recipeId
 
         //var urlString = recipes[position].image
         var imageView = holder.feedItemBinding.imageViewFeedItem

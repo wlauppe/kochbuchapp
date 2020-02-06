@@ -3,16 +3,12 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
-import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistListitemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 
 class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel: AdminViewModel,
@@ -39,10 +35,10 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
     }
     override fun onBindViewHolder(holder: AdminRecipeViewHolder, position: Int) {
         //The admin gets the recipe title and the id
-        val printString: String = recipes[position].title.toString().plus(" ID(").plus(recipes[position].id.toString().plus(")"))
+        val printString: String = recipes[position].title.toString().plus(" ID(").plus(recipes[position].recipeId.toString().plus(")"))
 
         holder.adminReportedRecipeItemBinding.value = printString
-        id = recipes[position].id
+        id = recipes[position].recipeId
         holder.adminReportedRecipeItemBinding.buttonAdminRemoveRecipe.setOnClickListener{
             id?.let { it1 -> viewModel.deleteRecipe(it1) }
         }

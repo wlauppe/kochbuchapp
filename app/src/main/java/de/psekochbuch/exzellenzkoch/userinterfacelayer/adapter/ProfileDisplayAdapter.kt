@@ -2,16 +2,12 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistListitemBinding
 import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 
 class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(),viewModel: ProfileDisplayViewmodel) :
@@ -39,7 +35,7 @@ class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicReci
     }
     override fun onBindViewHolder(holder: ProfileDisplayViewHolder, position: Int) {
         holder.profileDisplayRecipeItemBinding.value = items[position].title
-        id = items[position].id
+        id = items[position].recipeId
         holder.profileDisplayRecipeItemBinding.buttonGoto.setOnClickListener{
             navController!!.navigate(R.id.action_profileDisplayFragment_to_recipeDisplayFragment)
         }
