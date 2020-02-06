@@ -16,7 +16,8 @@ import java.util.*
 class RecipeDisplayViewmodel : ViewModel() {
 
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
-    //var recipe :PublicRecipe  = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![2]
+    
+    var recipe :PublicRecipe  = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![2]
 
      var image: LiveData<String?> = MutableLiveData(recipe.imgUrl)
      var title: LiveData<String> = MutableLiveData(recipe.title)
