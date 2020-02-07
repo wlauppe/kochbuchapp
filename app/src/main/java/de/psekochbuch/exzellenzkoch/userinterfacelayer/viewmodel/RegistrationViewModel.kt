@@ -18,6 +18,16 @@ class RegistrationViewModel : ViewModel() {
     var progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun registerOnClick() {
+
+
+        if(userId.value != ""){
+            //Repo anfrage, ob ID schon existiert
+            //-> 5 Sekunden Wartezeit für Serverantwort
+            //boolean abfrage der SErverantwort
+                //-> falls ja : Toast ausgabe und return
+                //-> falls nein: unterer code
+
+        }
         //email.postValue("bal")
         progressBarVisibility.postValue(true)
         val em = email.value

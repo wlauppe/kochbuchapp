@@ -125,6 +125,10 @@
         <action
             android:id="@+id/action_createRecipeFragment_to_recipeListFragment"
             app:destination="@id/recipeListFragment" />
+        <argument
+            android:name="recipeID"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/adminFragment"

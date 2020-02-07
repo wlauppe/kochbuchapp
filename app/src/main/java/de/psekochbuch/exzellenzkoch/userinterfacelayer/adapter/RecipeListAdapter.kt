@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
 
@@ -38,17 +39,24 @@ class RecipeListAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
         holder.recipeListItemBinding.value = items[position].title
         id = items[position].recipeId
+
+
+        //Clicklistener--------------------
         holder.recipeListItemBinding.buttonEditRecipe.setOnClickListener{
             //safe args to send Recipe data to editRecipe Fragment
+            RecipeListFragmentDirections
+                .actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(items[position].recipeId)
         }
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
-            //delete recipe
-            viewModel.deleteRecipe(id)
+            viewModel.deleteRecipe(items[position].recipeId)
+            items[position].title.plus("(gelöscht)")
         }
-        //var urlString = recipes[position].image
-        var imageView = holder.recipeListItemBinding.imageViewRecipeListItem
-        //Dummy
 
+
+
+        //GLide-------------
+
+        var imageView = holder.recipeListItemBinding.imageViewRecipeListItem
         "https://cdn.pixabay.com/photo/2019/04/17/23/52/sun-4135784_1280.png".let {
             Glide.with(context).load(it).into(imageView)
         }

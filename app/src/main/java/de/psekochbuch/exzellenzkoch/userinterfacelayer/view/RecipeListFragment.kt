@@ -42,10 +42,13 @@ class RecipeListFragment : Fragment() {
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
+
+        //ClickListener ----------------
         binding.buttonCreateRecipe.setOnClickListener{
             val navController:NavController = findNavController()
             navController.navigate(R.id.action_recipeListFragment_to_createRecipeFragment)
         }
+
 
         /*
         //Safeargs werden hier aus dem Bundle gezogen
