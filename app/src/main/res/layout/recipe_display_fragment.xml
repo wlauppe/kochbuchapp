@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_recipe_favourite"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -42,47 +42,61 @@
                     tools:layout_editor_absoluteY="0dp"
                     tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-                <TextView
-                    android:id="@+id/textView_recipe_title"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="@{recipeDisplayViewModel.title}"
-                    android:textAlignment="center"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    tools:layout_conversion_absoluteHeight="27dp"
-                    tools:layout_conversion_absoluteWidth="411dp"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="417dp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingRight="10dp"
+                    android:paddingLeft="10dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView_recipe_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5"
+                        android:padding="10dp"
+                        android:text="@{recipeDisplayViewModel.title}"
+                        android:textAlignment="center"
+                        android:textSize="25sp"
+                        android:textStyle="bold"
+                        tools:layout_conversion_absoluteHeight="27dp"
+                        tools:layout_conversion_absoluteWidth="411dp"
+                        tools:layout_editor_absoluteX="0dp"
+                        tools:layout_editor_absoluteY="417dp" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:paddingRight="10dp"
+                        app:srcCompat="@android:drawable/btn_star_big_on" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView_creation_timestamp"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textSize="13sp"
-                    android:text="@{recipeDisplayViewModel.creationDate}"/>
+                    android:padding="10dp"
+                    android:text="@{recipeDisplayViewModel.creationDate}"
+                    android:textAlignment="center"
+                    android:textSize="13sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/textView_recipe_prep_time_Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="number"
-                        android:text="Vorbereitungszeit: "
+                        android:text="@string/preparationtime"
                         android:textAlignment="center"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp"
+                        android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/textView_recipe_prep_time"
@@ -93,7 +107,8 @@
                         android:text="@{recipeDisplayViewModel.recipePrepTime.toString()}"
                         android:textAlignment="center"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="TextViewEdits" />
 
                     <TextView
                         android:id="@+id/textView_recipe_cook_time_title"
@@ -101,10 +116,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:inputType="number"
-                        android:text="Backzeit: "
+                        android:text="@string/cookingtime"
                         android:textAlignment="center"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
+                        android:textSize="20sp"
+                        android:textStyle="normal"
+                        tools:ignore="TextViewEdits" />
 
                     <TextView
                         android:id="@+id/textView_recipe_cook_time"
@@ -115,7 +131,8 @@
                         android:text="@{recipeDisplayViewModel.recipeCookTime.toString()}"
                         android:textAlignment="center"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:ignore="TextViewEdits" />
                 </LinearLayout>
 
                 <TextView
@@ -123,14 +140,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:textAlignment="center"
                     android:text="@{recipeDisplayViewModel.tagsList.toString()}"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="italic" />
 
                 <TextView
                     android:id="@+id/textView_ingredient_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:padding="10dp"
                     android:text="@{recipeDisplayViewModel.ingredients}"
                     android:textSize="20sp" />
 
@@ -139,23 +160,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:paddingBottom="20dp"
+                    android:padding="10dp"
                     android:text="@{recipeDisplayViewModel.preparationDescription}"
                     android:textSize="20sp" />
             </LinearLayout>
         </ScrollView>
-
-        <Button
-            android:id="@+id/button_recipe_favourite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="4dp"
-            android:text="@string/favor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

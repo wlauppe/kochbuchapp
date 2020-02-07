@@ -8,8 +8,8 @@
         android:layout_height="wrap_content"
         android:text="@string/new_comment"
         android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="normal"
+        android:textSize="20sp" />
 
     <EditText
         android:id="@+id/editText_comment_field"
