@@ -29,17 +29,29 @@ class RecipeDisplayFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //binding set to the according Fragment
-        binding = RecipeDisplayFragmentBinding.inflate(inflater, container, false)
+
         //viewmodel recieved by viewmodelproviders
         viewModel = ViewModelProvider(this).get(RecipeDisplayViewmodel::class.java)
+        var recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
+        viewModel.setRecipeByID(recipeID)
+        Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
+
+        //binding set to the according Fragment
+        binding = RecipeDisplayFragmentBinding.inflate(inflater, container, false)
+
         //Sets according viewmodel from XML to this fragment
         binding.recipeDisplayViewModel = viewModel
+
+
+
         //initialized navcontoller
         var navController: NavController = findNavController()
         val imageView = binding.imageViewRecipeImage
-
         var urlString = viewModel.recipe.imgUrl
+
+        if(urlString == ""){
+            urlString = "https://lh6.googleusercontent.com/proxy/V0UtHt8D7ZorPIVIFl-dMrihaZW-fpXlxCkE30bBCCAugVjuMwhMkC-Tg9UJiQ-ZmhQ8rr9qAgo3P91g9uu3o5250INWJtsbx-jzTWtKCVSsL-SR_gA=w1200-h630-p-k-no-nu"
+        }
         //Dummy
         //var urlString: String = "https://i.ytimg.com/vi/uZfco9h0C_s/hqdefault.jpg"
         context?.let { Glide.with(it).load(urlString).into(imageView) }
@@ -51,9 +63,8 @@ class RecipeDisplayFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         //recieving the recipe name through bundle
-        var recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
-        viewModel.setRecipeByID(id)
 
-        Toast.makeText(requireContext(), viewModel.recipe.recipeId.toString(), Toast.LENGTH_SHORT).show()
+
+       // Toast.makeText(requireContext(), viewModel.recipe.recipeId.toString(), Toast.LENGTH_SHORT).show()
     }
 }
