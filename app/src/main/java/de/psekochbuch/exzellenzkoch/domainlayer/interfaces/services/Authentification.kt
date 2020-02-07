@@ -41,6 +41,9 @@ interface Authentification {
      */
     suspend fun deleteUser()
 
+    fun isAdmin(userId : String) : Boolean
+
+
     /**
      * The user can edit it's userID and description
      */
