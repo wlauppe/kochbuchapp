@@ -49,8 +49,8 @@ class ProfileEditFragment : Fragment() {
 
                 //sending the userID to the ChangePW fragment
                 navController!!.navigate(
-                    AdminFragmentDirections
-                        .actionAdminFragmentToProfileDisplayFragment()
+                    ProfileEditFragmentDirections
+                        .actionProfileEditFragmentToChangePasswordFragment()
                         .setUserID(userID)
                 )
         }
