@@ -57,9 +57,10 @@ class ProfileDisplayFragment : Fragment() {
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
         //Glide------------------------------------------------
         binding.textViewProfileDisplayDescription.text = viewModel.userDesc.value.toString()
+
         binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID.value
         val imageView = binding.imageView2
-        var urlString = viewModel.userImg
+        var urlString = viewModel.userImg.value
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
 
