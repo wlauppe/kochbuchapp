@@ -43,7 +43,7 @@ class PublicRecipeSearchFragment : Fragment() {
 
 //safeargs werden mit dem Bundle geschicht
             navController.navigate(PublicRecipeSearchFragmentDirections.actionPublicRecipeSearchFragmentToDisplaySearchListFragment()
-                .setIngredients(recipeIngredients).setRecipeTitleToDisplay(recipeName).setTags(tags))
+                .setIngredients(recipeIngredients).setRecipeTitle(recipeName).setTags(tags))
 
 
 

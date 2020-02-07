@@ -14,7 +14,7 @@
             android:id="@+id/action_displaySearchListFragment_to_recipeDisplayFragment"
             app:destination="@id/recipeDisplayFragment" />
         <argument
-            android:name="recipeTitleToDisplay"
+            android:name="recipeTitle"
             app:argType="string"
             android:defaultValue='""' />
         <argument
@@ -97,6 +97,10 @@
         <action
             android:id="@+id/action_profileEditFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+        <argument
+            android:name="userID"
+            app:argType="string"
+            android:defaultValue='""' />
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"

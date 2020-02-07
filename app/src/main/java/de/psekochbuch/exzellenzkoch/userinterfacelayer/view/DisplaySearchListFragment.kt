@@ -17,19 +17,22 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchLi
 class DisplaySearchListFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DisplaySearchlistFragmentBinding.inflate(inflater, container, false)
+
 
         val viewModel = ViewModelProvider(this).get(DisplaySearchListViewmodel::class.java)
 
+        var recipeSearchTitle = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
+        var recipeSearchingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
+        var recipeSearchTags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
+        viewModel.searchRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
+        //Toast.makeText(context, recipeSearchTitle.plus(recipeSearchingredients).plus(recipeSearchTags), Toast.LENGTH_LONG).show() checked
+
+        val binding = DisplaySearchlistFragmentBinding.inflate(inflater, container, false)
         binding.recyclerViewSearchlistFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
         binding.displaySearchListViewmodel = viewModel
-
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-
         val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel, requireContext())
-
         binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
 
         val observer = Observer<List<PublicRecipe>> { items ->
