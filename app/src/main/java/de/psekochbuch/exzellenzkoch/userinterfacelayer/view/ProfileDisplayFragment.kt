@@ -36,7 +36,7 @@ class ProfileDisplayFragment : Fragment() {
         //SafeArge--------------------------------
         var userID = arguments?.let { ProfileDisplayFragmentArgs.fromBundle(it).userID }
         viewModel.setUserByID(userID!!)
-       // Toast.makeText(requireContext(), userID.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), userID.toString(), Toast.LENGTH_SHORT).show()
 
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
         binding.profileDisplayViewmodel = viewModel
@@ -56,11 +56,11 @@ class ProfileDisplayFragment : Fragment() {
              viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
         //Glide------------------------------------------------
-        binding.textViewProfileDisplayDescription.text = viewModel.userDesc.value.toString()
+        binding.textViewProfileDisplayDescription.text = viewModel.userDesc
 
-        binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID.value
+        binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID
         val imageView = binding.imageView2
-        var urlString = viewModel.userImg.value
+        var urlString = viewModel.userImg
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
         binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener{

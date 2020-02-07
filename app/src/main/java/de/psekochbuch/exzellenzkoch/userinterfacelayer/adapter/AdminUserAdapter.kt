@@ -56,11 +56,12 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
             )
             }
 
-
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user
             viewModel.unreportUser(id)
         }
+
+
         //var urlString
         var urlString = ""
 
