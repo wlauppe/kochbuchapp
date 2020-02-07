@@ -63,6 +63,15 @@ class ProfileDisplayFragment : Fragment() {
         var urlString = viewModel.userImg.value
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
+        binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener{
+            val navController = findNavController()
+            navController.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToProfileEditFragment().setUserID(userID))
+        }
+
+        binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener{
+            viewModel.flagUserById()
+        }
+
 
 
 

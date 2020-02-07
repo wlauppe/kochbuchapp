@@ -71,31 +71,33 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="8dp"
-                    android:paddingRight="8dp" />
+                    android:paddingRight="8dp" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/button_profile_display_fragment_edit_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:text="@string/profile_display_edit_profile_button" />
+
+                    <Button
+                        android:id="@+id/button_profile_display_fragment_flag_user"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flag_user" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/button_profile_display_fragment_edit_profile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                android:text="@string/profile_display_edit_profile_button" />
-
-            <Button
-                android:id="@+id/button_profile_display_fragment_flag_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/flag_user" />
-
-        </LinearLayout>
 
     </LinearLayout>
 </layout>

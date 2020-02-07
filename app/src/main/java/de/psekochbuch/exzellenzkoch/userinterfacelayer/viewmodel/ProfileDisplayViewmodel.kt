@@ -1,5 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -44,6 +46,18 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
         this.userDesc = MutableLiveData(user.value!!.description)
         this.userImg = MutableLiveData(user.value!!.imgUrl)
 
+
+    }
+
+     fun flagUserById(){
+        if(userID.value.isNullOrBlank()){
+            return
+
+
+        }
+      
+         //Coroutine
+        //userRepo.reportUser(userID.value!!)
 
     }
 }
