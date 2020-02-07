@@ -25,8 +25,8 @@ class ProfileEditViewmodel : ViewModel() {
 
         this.user = user
         this.userID = MutableLiveData(user.value!!.userId)
-        this.userDesc = MutableLiveData(user.value!!.desc)
-        this.userImgURL = MutableLiveData(user.value!!.img)
+        this.userDesc = MutableLiveData(user.value!!.description)
+        this.userImgURL = MutableLiveData(user.value!!.imgUrl)
 
     }
 }

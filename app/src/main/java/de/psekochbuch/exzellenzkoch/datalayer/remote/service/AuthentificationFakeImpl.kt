@@ -32,6 +32,10 @@ class AuthentificationFakeImpl:Authentification {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun isAdmin(userId: String): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun editUser(userId: String, description: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
