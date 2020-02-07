@@ -21,7 +21,7 @@ class RecipeDisplayViewmodel : ViewModel() {
 
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
 
-    var recipe :PublicRecipe  = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![3]
+    var recipe :PublicRecipe  = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![2]
 
 
 
@@ -51,21 +51,60 @@ class RecipeDisplayViewmodel : ViewModel() {
         return result
     }
 
-
+//Dummy MEthode
     fun setRecipeByID(id:Int?){
+//Get PublicRecipeFrom Repo and set it as the current Recipe
 
-        var repo = PublicRecipeFakeRepositoryImp()
-        var recipeList = repo.getPublicRecipes().value
-        if(recipeList.isNullOrEmpty()){
-            return
-        }else{
-            for(recipe in recipeList){
-                if(recipe.recipeId == id){
-                   this.recipe = recipe
-                    return
-                }
-            }
-        }
+
+    if(id == 1){
+        this.recipe =  PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![0]
+        image = MutableLiveData(recipe.imgUrl)
+        title = MutableLiveData(recipe.title)
+        preparationDescription = MutableLiveData(recipe.preparation)
+        ingredientChapter = MutableLiveData(recipe.ingredientChapter)
+        tagsList = MutableLiveData(recipe.tags)
+        recipeCookTime =MutableLiveData(recipe.cookingTime)
+        recipePrepTime = MutableLiveData(recipe.preparationTime)
+        creationTime = MutableLiveData(recipe.creationTimeStamp)
+    }
+    if(id == 2){
+        this.recipe = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![1]
+        image = MutableLiveData(recipe.imgUrl)
+        title = MutableLiveData(recipe.title)
+        preparationDescription = MutableLiveData(recipe.preparation)
+        ingredientChapter = MutableLiveData(recipe.ingredientChapter)
+        tagsList = MutableLiveData(recipe.tags)
+        recipeCookTime =MutableLiveData(recipe.cookingTime)
+        recipePrepTime = MutableLiveData(recipe.preparationTime)
+        creationTime = MutableLiveData(recipe.creationTimeStamp)
+    }
+    if(id == 3){
+        this.recipe = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![2]
+        image = MutableLiveData(recipe.imgUrl)
+        title = MutableLiveData(recipe.title)
+        preparationDescription = MutableLiveData(recipe.preparation)
+        ingredientChapter = MutableLiveData(recipe.ingredientChapter)
+        tagsList = MutableLiveData(recipe.tags)
+        recipeCookTime =MutableLiveData(recipe.cookingTime)
+        recipePrepTime = MutableLiveData(recipe.preparationTime)
+        creationTime = MutableLiveData(recipe.creationTimeStamp)
+    }
+    if(id == 4){
+        this.recipe = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![3]
+        image = MutableLiveData(recipe.imgUrl)
+        title = MutableLiveData(recipe.title)
+        preparationDescription = MutableLiveData(recipe.preparation)
+        ingredientChapter = MutableLiveData(recipe.ingredientChapter)
+        tagsList = MutableLiveData(recipe.tags)
+        recipeCookTime =MutableLiveData(recipe.cookingTime)
+        recipePrepTime = MutableLiveData(recipe.preparationTime)
+        creationTime = MutableLiveData(recipe.creationTimeStamp)
+    }
+
+
+
+
+
     }
 
 

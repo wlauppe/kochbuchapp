@@ -27,6 +27,7 @@ class ProfileDisplayFragment : Fragment() {
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
         val viewModel = ViewModelProvider(this).get(ProfileDisplayViewmodel::class.java)
         // init binding variable
+
         binding.profileDisplayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         // set input values to show them in the xml
