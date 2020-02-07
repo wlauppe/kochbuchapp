@@ -32,6 +32,9 @@ interface Authentification {
     suspend fun getToken():JsonToken
 
 
+    fun isAdmin(userId : String) : Boolean
+
+
     /**
      * Methods still needed:
      *
