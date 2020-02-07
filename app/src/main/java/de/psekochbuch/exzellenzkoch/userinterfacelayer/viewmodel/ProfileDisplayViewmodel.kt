@@ -23,7 +23,6 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
     var userRepo = UserFakeRepositoryImp()
 
 
-
     //User Information LiveData
     private lateinit var user: User
         var userList : LiveData<List<User>> = userRepo.getUsers()
@@ -48,16 +47,14 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
 
 
     //Recipe Information LiveData
-    var recipes: LiveData<List<PublicRecipe>> =recipeRepo.getPublicRecipes()
-
-
+    var recipes: LiveData<List<PublicRecipe>> = recipeRepo.getPublicRecipes()
 
 
     fun isOwner(): Boolean {
         return true // TODO implement
     }
 
-    fun setUserByID(id:String){
+    fun setUserByID(id: String) {
         var user = userRepo.getUser(id)
         this.userID = MutableLiveData(user.value!!.userId)
         this.userDesc = MutableLiveData(user.value!!.description)
@@ -75,12 +72,12 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
          //Coroutine
          //userRepo.reportUser(userID.value!!)
 
-         viewModelScope.launch {
-             try {
-                 userRepo.reportUser(userID.value!!)
-             } catch (error: Error) {
-                 _errorLiveDataString.value = error.message
-             }
+        viewModelScope.launch {
+            try {
+                userRepo.reportUser(userID.value!!)
+            } catch (error: Error) {
+                _errorLiveDataString.value = error.message
+            }
 
 
          }

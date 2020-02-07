@@ -56,5 +56,10 @@ interface PublicRecipeRepository {
     @Throws
     suspend fun setImage(recipeId : Int, Image : File)
 
+    @Throws
     suspend fun reportRecipe(RecipeId: Int)
+
+    @Throws
+    suspend fun unreporRecipe(RecipeId : Int)
+
 }
