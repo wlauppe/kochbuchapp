@@ -48,10 +48,9 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
         holder.feedItemBinding.value = recipes[position].recipeId.toString()
         id = recipes[position].recipeId
 
-        //var urlString = recipes[position].image
+
+        var urlString = recipes[position].imgUrl
         var imageView = holder.feedItemBinding.imageViewFeedItem
-        //Dummy
-        var urlString: String = "https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
         Glide.with(context).load(urlString).into(imageView)
 
 

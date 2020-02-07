@@ -45,7 +45,7 @@ class ProfileDisplayFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         // set input values to show them in the xml
         val listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = ProfileDisplayAdapter(listOfRecipeNames,viewModel)
+        val exampleAdapter = ProfileDisplayAdapter(listOfRecipeNames,viewModel, requireContext())
 
         //Adapter--------------------------------------------
         binding.profileDisplayRecyclerView.adapter = exampleAdapter
@@ -65,30 +65,11 @@ class ProfileDisplayFragment : Fragment() {
 
 
 
-        /*
-//Safeargs werden hier aus dem Bundel gezogem
-        var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
-        var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
-        var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
-        Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
-         */
+
         return binding.root
     }
 
-    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        var userIDFromFragment = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
-        Toast.makeText(requireContext(), userIDFromFragment.toString(), Toast.LENGTH_SHORT).show()
 
-        if (userIDFromFragment != null) {
-            viewModel.getRecipeByID(recipeIDFromFragment)
-        }else{
-            Log.i(tag, "RecipeDisplayFragment Null ID")
-        }
-    }
-
-
-     */
 
 
 

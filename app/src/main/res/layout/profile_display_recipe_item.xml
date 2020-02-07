@@ -14,16 +14,28 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/ic_launcher"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:id="@+id/imageView_profile_display_recipe"/>
+
+
         <TextView
             android:id="@+id/textView_recipe_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="5"
+            android:layout_gravity="center"
+            android:textSize="20dp"
             android:text="@{value}" />
 
         <Button
             android:id="@+id/button_goto"
             android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/open" />
