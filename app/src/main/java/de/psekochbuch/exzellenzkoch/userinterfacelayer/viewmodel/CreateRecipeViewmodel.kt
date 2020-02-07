@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 
-class CreateRecipeViewmodel() : ViewModel() {
-    // TODO when class PrivateRecipeRepositoryImp works, set parameter repository:PrivateRecipeRepository
+class CreateRecipeViewmodel(repository:PrivateRecipeRepository) : ViewModel() {
 
 
     //Current title of the Recipe

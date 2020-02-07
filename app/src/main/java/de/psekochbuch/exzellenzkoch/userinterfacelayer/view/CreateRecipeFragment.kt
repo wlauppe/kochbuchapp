@@ -26,13 +26,6 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeVie
 class CreateRecipeFragment : Fragment() {
 
     private lateinit var binding: CreateRecipeFragmentBinding
-    private lateinit var viewModel: CreateRecipeViewmodel
-
-    /* Preset code when PrivateRecipeRepositoryImp works
-    val viewModel : CreateRecipeViewmodel by viewModels {
-        InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
-    }
-    */
 
     //MEthodes
 
@@ -44,7 +37,10 @@ class CreateRecipeFragment : Fragment() {
         //binding set to the according Fragment
         binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
-        viewModel = ViewModelProvider(this).get(CreateRecipeViewmodel::class.java)
+        val viewModel : CreateRecipeViewmodel by viewModels {
+            InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
+        }
+
         //Sets according viewmodel from XML to this fragment
         binding.createRecipeViewModel = viewModel
         //initialized navcontoller
