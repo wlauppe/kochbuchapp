@@ -26,9 +26,7 @@ object InjectorUtils {
              //return PublicRecipeFakeRepositoryImp.getInstance()
              return PublicRecipeRepositoryImp.getInstance()
          }
-         private fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
-             return PublicRecipeFakeRepositoryImp.getInstance()
-         }
+
 
          private fun getUserRepository(context: Context): UserRepository {
              return UserFakeRepositoryImp.getInstance()

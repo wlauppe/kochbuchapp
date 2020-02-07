@@ -23,17 +23,13 @@
             android:src="@mipmap/ic_launcher"
             android:layout_gravity="center"
             android:padding="5dp"
-            android:layout_gravity="center"
             android:id="@+id/imageView_Feed_item"/>
 
         <TextView
             android:id="@+id/textView_recipe_name_feed"
             android:layout_width="wrap_content"
-            android:textSize="25dp"
-            android:layout_marginLeft="5dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_weight="5"
             android:textSize="20dp"
             android:layout_marginLeft="5dp"

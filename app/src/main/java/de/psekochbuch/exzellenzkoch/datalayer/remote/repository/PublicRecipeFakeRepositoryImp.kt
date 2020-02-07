@@ -7,8 +7,6 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.Unit
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import java.io.File
@@ -26,7 +24,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
 
         var munit = Unit.EssLöffel
         var ingredient = IngredientAmount("ingredientAmount", 4.4, munit)
-        var ingredientChapter = IngredientChapter("ingredientChapter", listOf(ingredient))
+        var ingredientChapter = IngredientChapter(4, "test", listOf(ingredient))
         var listTags = listOf<String>("tag2", "tag 4","tag2", "tag 4","tag2", "tag 4")
         var recipe4 = PublicRecipe(4, "Tabak", "zutatenText hier kann alles drinnstehen", listOf(ingredientChapter), listTags,"zubereitungsbeschreibung hier kann auch alles stehen",imgUrl = "file:///android_asset/exampleimages/quiche.png")
 
