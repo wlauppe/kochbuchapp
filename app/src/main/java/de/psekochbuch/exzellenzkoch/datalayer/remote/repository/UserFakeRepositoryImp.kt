@@ -23,6 +23,10 @@ class UserFakeRepositoryImp : UserRepository  {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun getUser(UserId: String): LiveData<User> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun deleteUser(userId: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
