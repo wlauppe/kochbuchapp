@@ -31,9 +31,17 @@ class ProfileEditFragment : Fragment() {
         binding.profileEditViewmodel = viewModel
         //initialized navcontoller
         var navController: NavController = findNavController()
+
         binding.buttonChangeLoginData.setOnClickListener {
-            navController.navigate(R.id.action_profileEditFragment_to_changePasswordFragment)
+
+                //sending the recipename to the user display fragment
+                navController!!.navigate(
+                    AdminFragmentDirections
+                        .actionAdminFragmentToProfileDisplayFragment()
+                        .setUserID(binding.textViewEnterUserID.text.toString())
+                )
         }
+
         binding.buttonSaveProfileChanges.setOnClickListener {
             navController.navigate(R.id.action_profileEditFragment_to_profileDisplayFragment)
         }

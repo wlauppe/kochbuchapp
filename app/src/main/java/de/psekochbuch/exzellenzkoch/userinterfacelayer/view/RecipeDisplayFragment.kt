@@ -33,9 +33,11 @@ class RecipeDisplayFragment : Fragment(){
 
         //viewmodel recieved by viewmodelproviders
         viewModel = ViewModelProvider(this).get(RecipeDisplayViewmodel::class.java)
+        //SafeArgs---------------------------
         var recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
         viewModel.setRecipeByID(recipeID)
         Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
+
 
         //binding set to the according Fragment
         binding = RecipeDisplayFragmentBinding.inflate(inflater, container, false)
@@ -58,7 +60,7 @@ class RecipeDisplayFragment : Fragment(){
         context?.let { Glide.with(it).load(urlString).into(imageView) }
         return binding.root
     }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //recieving the recipe name through bundle
         var recipeIDFromFragment = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
@@ -75,4 +77,6 @@ class RecipeDisplayFragment : Fragment(){
 
        // Toast.makeText(requireContext(), viewModel.recipe.recipeId.toString(), Toast.LENGTH_SHORT).show()
     }
+
+     */
 }

@@ -34,4 +34,8 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
     fun isOwner(): Boolean {
         return true // TODO implement
     }
+
+    fun setUserByID(id:String){
+
+    }
 }

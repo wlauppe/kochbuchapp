@@ -12,6 +12,8 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
 
 class RecipeListViewmodel(repository: PublicRecipeRepository) : ViewModel() {
 
+    var repo = repository
+
 
 
   // Alte Variante  val repo : PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
@@ -20,14 +22,9 @@ class RecipeListViewmodel(repository: PublicRecipeRepository) : ViewModel() {
     var recipes : LiveData<List<PublicRecipe>> = repository.getPublicRecipes()
 
 
-    fun getNamesFromRecipes(liveData: LiveData<List<PublicRecipe>>) {
-
-    }
 
     fun deleteRecipe(id: Int?) {
-
-        //TODO
-
+        repo.deleteRecipe(id!!)
     }
 
 

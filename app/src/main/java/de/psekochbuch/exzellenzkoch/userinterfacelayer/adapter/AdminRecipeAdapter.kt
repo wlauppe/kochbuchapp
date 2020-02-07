@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.AdminFragmentDirections
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 
 class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel: AdminViewModel,
@@ -43,9 +45,21 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         holder.adminReportedRecipeItemBinding.buttonAdminRemoveRecipe.setOnClickListener{
             id?.let { it1 -> viewModel.deleteRecipe(it1) }
         }
-        holder.adminReportedRecipeItemBinding.adminReportedRecipeItemLayout.setOnClickListener{
-            navController!!.navigate(R.id.action_adminFragment_to_recipeDisplayFragment)
+        //holder.adminReportedRecipeItemBinding.adminReportedRecipeItemLayout.setOnClickListener{
+        //    navController!!.navigate(R.id.action_adminFragment_to_recipeDisplayFragment)
+        //}
+
+//SafeArgs-----------------------------------------------
+        holder.adminReportedRecipeItemBinding.imageViewAdminRecipeItem.setOnClickListener {
+            //sending the recipename to the recipe display fragment
+            navController!!.navigate(
+                AdminFragmentDirections
+                    .actionAdminFragmentToRecipeDisplayFragment()
+                    .setRecipeID(recipes[position].recipeId
+                    )
+            )
         }
+
         holder.adminReportedRecipeItemBinding.buttonAdminSpare.setOnClickListener{
             viewModel.unreportRecipe(id)
         }
