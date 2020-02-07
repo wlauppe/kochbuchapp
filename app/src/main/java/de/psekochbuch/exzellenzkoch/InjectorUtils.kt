@@ -6,7 +6,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositories.IngredientAmo
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModelFactory
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.AdminViewModelFactory
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
@@ -64,7 +64,9 @@ object InjectorUtils {
              context: Context
          ): AdminViewModelFactory {
              val recipeRepo = getPublicRecipeRepository(context)
-             return AdminViewModelFactory(recipeRepo)
+             return AdminViewModelFactory(
+                 recipeRepo
+             )
          }
 
 }
