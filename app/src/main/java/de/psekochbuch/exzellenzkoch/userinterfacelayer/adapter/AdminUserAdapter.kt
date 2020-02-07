@@ -12,6 +12,8 @@ import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedUserItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.AdminFragmentDirections
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 
 class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel: AdminViewModel,
@@ -43,9 +45,17 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
             id?.let { it1 -> viewModel.deleteUser(it1) }
 
         }
-        holder.adminReportedUserItemBinding.adminReportedUserItemLayout.setOnClickListener{
-            navController!!.navigate(R.id.action_adminFragment_to_profileDisplayFragment)
-        }
+//safeArgs -------------------------------------------
+        holder.adminReportedUserItemBinding.imageViewAdminUserItem.setOnClickListener {
+                //sending the recipename to the user display fragment
+            navController!!.navigate(
+                AdminFragmentDirections
+                    .actionAdminFragmentToProfileDisplayFragment()
+                    .setUserID(users[position].userId
+                    )
+            )
+            }
+
 
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user

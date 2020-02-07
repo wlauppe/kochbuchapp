@@ -6,10 +6,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import de.psekochbuch.exzellenzkoch.InjectorUtils
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 
 class ChangePasswordViewmodel(@NonNull application: Application) : AndroidViewModel(application) {
 
     var password: MutableLiveData<String>? = null
+    var user: User? = null
 
 
     fun changePassword() {
@@ -20,6 +22,10 @@ class ChangePasswordViewmodel(@NonNull application: Application) : AndroidViewMo
 
     fun onClick() {
         //repo.pwEdit(password)
+
+    }
+
+    fun setUserById(userID:String){
 
     }
 }

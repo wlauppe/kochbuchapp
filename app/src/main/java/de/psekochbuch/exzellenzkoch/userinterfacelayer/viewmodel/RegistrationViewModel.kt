@@ -27,6 +27,7 @@ class RegistrationViewModel : ViewModel() {
                 .register(em, pw) { it, result ->
                     if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
                         Log.d(TAG, "Registration erfolgreich")
+
                         progressBarVisibility.postValue(false)
                     } else {
                         progressBarVisibility.postValue(false)
@@ -34,5 +35,9 @@ class RegistrationViewModel : ViewModel() {
                 }
         }
         progressBarVisibility.postValue(false)
+    }
+
+    fun registrationSuccess():Boolean{
+        return true
     }
 }
