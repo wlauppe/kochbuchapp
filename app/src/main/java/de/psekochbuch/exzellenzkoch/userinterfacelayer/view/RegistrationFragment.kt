@@ -32,7 +32,9 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         var navController: NavController = findNavController()
         binding.buttonRegisterFragmentRegister.setOnClickListener {
             viewModel.registerOnClick()
-            navController.navigate(R.id.action_registrationFragment_to_profileEditFragment)
+
+            var userID = "Udo"
+            navController.navigate(RegistrationFragmentDirections.actionRegistrationFragmentToProfileEditFragment().setUserID(userID))
         }
 
 

@@ -7,7 +7,7 @@ import java.sql.Timestamp
 import java.util.*
 
 class PrivateRecipe(
-    recipeId: Int,
+    recipeId: Int = 0,
     title: String,
     ingredientsText: String,
     tags: List<String>,

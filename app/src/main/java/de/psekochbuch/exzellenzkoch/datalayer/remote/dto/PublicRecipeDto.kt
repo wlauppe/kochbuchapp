@@ -60,7 +60,7 @@ data class PublicRecipeDto(
     /**
          * The average rating of the recipe
          */
-        var ratingAvg:Int,
+        var ratingAvg:Double,
 
     /**
          * Ingredientschapters of the recipe

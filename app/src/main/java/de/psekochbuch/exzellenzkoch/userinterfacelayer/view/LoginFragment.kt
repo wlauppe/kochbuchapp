@@ -31,7 +31,7 @@ class LoginFragment : Fragment() {
         //initialized navcontoller
         var navController: NavController = findNavController()
         binding.buttonLoginFragmentLogin.setOnClickListener {
-            navController.navigate(R.id.action_loginFragment_to_profileDisplayFragment)
+            navController.navigate(LoginFragmentDirections.actionLoginFragmentToProfileDisplayFragment().setUserID("Udo"))
         }
         binding.buttonLoginFragmentRegister.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_registrationFragment)

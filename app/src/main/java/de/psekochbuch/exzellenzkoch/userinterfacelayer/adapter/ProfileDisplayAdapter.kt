@@ -1,21 +1,25 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ProfileDisplayFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 
-class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(),viewModel: ProfileDisplayViewmodel) :
+class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(),viewModel: ProfileDisplayViewmodel, context: Context) :
     RecyclerView.Adapter<ProfileDisplayAdapter.ProfileDisplayViewHolder>() {
 
     //Attributes
     var navController:NavController ? = null
     var id : Int ? = null
+    var context = context
 
     //Methods
     fun setNewItems(newItems: List<PublicRecipe>){
@@ -36,8 +40,15 @@ class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicReci
     override fun onBindViewHolder(holder: ProfileDisplayViewHolder, position: Int) {
         holder.profileDisplayRecipeItemBinding.value = items[position].title
         id = items[position].recipeId
+
+        var urlString = items[position].imgUrl
+        var imageView = holder.profileDisplayRecipeItemBinding.imageViewProfileDisplayRecipe
+        Glide.with(context).load(urlString).into(imageView)
+
+
         holder.profileDisplayRecipeItemBinding.buttonGoto.setOnClickListener{
-            navController!!.navigate(R.id.action_profileDisplayFragment_to_recipeDisplayFragment)
+
+            navController!!.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToRecipeDisplayFragment().setRecipeID(items[position].recipeId))
         }
     }
     class ProfileDisplayViewHolder(var profileDisplayRecipeItemBinding: ProfileDisplayRecipeItemBinding)

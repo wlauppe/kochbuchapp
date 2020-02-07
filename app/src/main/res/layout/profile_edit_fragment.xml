@@ -42,6 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_user_id"
+                    android:text="@{ProfileEditViewmodel.userID}"
                     android:padding="8dp"
                     android:textAlignment="center"
                     android:textSize="20sp"
@@ -64,6 +65,7 @@
                     android:ems="10"
                     android:gravity="start|top"
                     android:hint="@string/i_like_cooking_hint"
+                    android:text="@{ProfileEditViewmodel.userDesc}"
                     android:inputType="textMultiLine"
                     android:padding="8dp"/>
 

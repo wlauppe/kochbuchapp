@@ -7,9 +7,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
 class UserFakeRepositoryImp : UserRepository  {
+
+
     override fun getUsers(): LiveData<List<User>> {
         val user1 = User("Jürgern", "bild", "Toastbrot")
-        val user2 = User("Bürgern", "bild", "Toast")
+        val user2 = User("Bürgern", "file:///android_asset/exampleimages/quiche.png", "Toast")
         val user3 = User("Lürgern", "bild", "Moin")
 
     val list = listOf<User>(user1, user2, user3)
@@ -21,6 +23,11 @@ class UserFakeRepositoryImp : UserRepository  {
 
     override fun getUsers(userIdPraefix: String): LiveData<List<User>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getUser(UserId: String): LiveData<User> {
+        var mld = MutableLiveData(getUsers().value!![1])
+        return mld
     }
 
     override suspend fun deleteUser(userId: String) {
