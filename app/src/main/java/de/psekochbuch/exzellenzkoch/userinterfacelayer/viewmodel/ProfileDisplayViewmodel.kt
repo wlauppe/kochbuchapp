@@ -10,8 +10,9 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeReposito
 
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
-class ProfileDisplayViewmodel : ViewModel() {
+class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
 
     private val recipeRepo = PublicRecipeFakeRepositoryImp()
     private val userRepo = UserFakeRepositoryImp()
