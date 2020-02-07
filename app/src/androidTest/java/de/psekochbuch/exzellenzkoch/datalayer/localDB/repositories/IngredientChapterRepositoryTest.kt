@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.datalayer.localDB.Repositories
+package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositories
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider

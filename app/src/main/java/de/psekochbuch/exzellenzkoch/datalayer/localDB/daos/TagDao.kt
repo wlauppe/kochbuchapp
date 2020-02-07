@@ -1,11 +1,11 @@
-package de.psekochbuch.exzellenzkoch.datalayer.localDB.Daos
+package de.psekochbuch.exzellenzkoch.datalayer.localDB.daos
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.*
 
 @Dao
 interface TagDao {

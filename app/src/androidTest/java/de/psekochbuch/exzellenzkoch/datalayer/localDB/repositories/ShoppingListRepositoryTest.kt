@@ -1,8 +1,8 @@
-package de.psekochbuch.exzellenzkoch.datalayer.localDB.Repositories
+package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositories
 
 import android.app.Application
 import androidx.test.core.app.ApplicationProvider
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.*
 import org.junit.Assert.*
 import org.junit.Test
 

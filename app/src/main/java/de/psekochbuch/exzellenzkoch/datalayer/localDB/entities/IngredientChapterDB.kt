@@ -1,7 +1,6 @@
-package de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities
+package de.psekochbuch.exzellenzkoch.datalayer.localDB.entities
 
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
 
