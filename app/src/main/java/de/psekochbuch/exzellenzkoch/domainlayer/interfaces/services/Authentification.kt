@@ -31,12 +31,19 @@ interface Authentification {
      */
     suspend fun getToken():JsonToken
 
+    /**
+     * Set a new password for the current user
+     */
+    suspend fun editPassword()
 
     /**
-     * Methods still needed:
-     *
-     * deleteUser()
-     * editUser()
-     *editPassword()
+     * Delete all data of the user
      */
+    suspend fun deleteUser()
+
+    /**
+     * The user can edit it's userID and description
+     */
+    suspend fun editUser(userId:String, description:String)
+
 }

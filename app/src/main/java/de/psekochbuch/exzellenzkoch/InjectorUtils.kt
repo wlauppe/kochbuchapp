@@ -10,9 +10,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
 
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationFakeImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.*
 
 
@@ -42,6 +44,11 @@ object InjectorUtils {
         return TagFakeRepositoryImp.getInstance()
     }
 
+    // For Login, Register and ChangePassword
+    private fun getAuthentification(context: Context): Authentification {
+        return AuthentificationFakeImpl.getInstance()
+    }
+
     /*
      * Weitere Repos hier einfügen:
      * LOCAL: IngredientChapterRepository, PublicRecipeRepository, ShoppingListRepository
@@ -54,8 +61,10 @@ object InjectorUtils {
         return RecipeListViewModelFactory(repository)
     }
 
-    fun provideChangePasswordViewModelFactory(context: Context): ChangePasswordViewModelFactory? {
-        return null // TODO return Application
+
+    fun provideChangePasswordViewModelFactory(context: Context): ChangePasswordViewModelFactory {
+        val authentification = getAuthentification(context)
+        return ChangePasswordViewModelFactory(authentification)
     }
 
     fun provideCreateRecipeViewModelFactory(context: Context): CreateRecipeViewModelFactory {
@@ -76,7 +85,8 @@ object InjectorUtils {
 
     fun provideAdminViewModelFactory(context: Context): AdminViewModelFactory {
         val recipeRepo = getPublicRecipeRepository(context)
-        return AdminViewModelFactory(recipeRepo)
+        val userRepo = getUserRepository(context)
+        return AdminViewModelFactory(recipeRepo, userRepo)
     }
 
     fun provideProfileDisplaViewModelFactory(context: Context): ProfileDisplayViewModelFactory {

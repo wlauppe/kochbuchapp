@@ -14,9 +14,9 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
 
-class AdminViewModel(publicRecipeRepo : PublicRecipeRepository) : ViewModel() {
+class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRepository) : ViewModel() {
 
-    var userRepo: UserRepository = UserFakeRepositoryImp()
+    //var userRepo: UserRepository = UserFakeRepositoryImp()
 
     //var publicRecipeRepo : PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
     /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
