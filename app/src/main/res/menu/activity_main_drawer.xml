@@ -5,6 +5,12 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/feed"
+            android:icon="@drawable/ic_rss_feed_white_24dp"
+            android:title="Feed"
+            />
+
+        <item
             android:id="@+id/loginFragment"
             android:icon="@drawable/ic_login_white_24dp"
             android:title="Login" />
@@ -21,15 +27,6 @@
             android:id="@+id/adminFragment"
             android:icon="@drawable/ic_admin_white_24dp"
             android:title="Adminbereich"
-
-
-            />
-        <item
-            android:id="@+id/feed"
-            android:icon="@drawable/ic_admin_white_24dp"
-            android:title="Feed"
-
-
             />
    </group>
 

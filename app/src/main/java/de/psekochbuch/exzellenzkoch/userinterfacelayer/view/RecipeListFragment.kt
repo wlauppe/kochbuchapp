@@ -30,7 +30,7 @@ class RecipeListFragment : Fragment() {
         //val viewModel = ViewModelProvider(this).get(RecipeListViewmodel::class.java)
         val viewModel : RecipeListViewmodel by viewModels {
         InjectorUtils.provideRecipeListViewmodelFactory(requireContext())
-    }
+        }
 
         binding.recyclerViewRecipeListFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

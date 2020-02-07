@@ -11,10 +11,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/admin_reported_recipe_item_layout">
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@mipmap/ic_launcher"
             android:padding="5dp"
             android:id="@+id/imageView_admin_recipe_item"/>
@@ -34,6 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_delete_forever_black_24dp"
             android:text="@string/admin_remove_item" />
 
         <Button
@@ -41,6 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_check_black_24dp"
             android:text="@string/spare_recipe" />
     </LinearLayout>
 </layout>

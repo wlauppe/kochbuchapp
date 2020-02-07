@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.Daos.*
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.Entities.*
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.*
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

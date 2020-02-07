@@ -60,11 +60,11 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         return ld */
 
         //    return LiveData<recipe
-        val ldd = liveData(Dispatchers.IO, 20) {
+        val ldd = liveData(Dispatchers.IO, 1000) {
             val dto = retrofit.getRecipe(recipeId)
             //val entity= PublicRecipeDtoEntityMapper().toEntity(dto)
             val recipe =
-                PublicRecipe(0, "Test", ingredientChapter = listOf(), tags = listOf("sauer,salzig"))
+                PublicRecipe(1, "Realrepositorytest", ingredientChapter = listOf(), tags = listOf("sauer,salzig"))
             emit(recipe)
         }
         return ldd
@@ -89,6 +89,17 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override suspend fun reportRecipe(RecipeId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile private var instance: PublicRecipeRepository? = null
+
+        fun getInstance() =
+            instance ?: synchronized(this) {
+                instance ?: PublicRecipeRepositoryImp().also { instance = it }
+            }
     }
 }
 
