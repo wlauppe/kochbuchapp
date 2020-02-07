@@ -64,10 +64,15 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
             viewModel.unreportRecipe(id)
         }
 
-        //var urlString = recipes[position].image
+        //var urlString
+        var urlString = ""
+
         var imageView = holder.adminReportedRecipeItemBinding.imageViewAdminRecipeItem
-        //Dummy
-        var urlString: String = "https://pbs.twimg.com/profile_images/1186876544263872512/MA8AZsIV_400x400.jpg"
+        if (recipes[position].imgUrl == "") {
+            urlString = "file:///android_asset/exampleimages/quiche.png"
+        } else {
+            urlString = recipes[position].imgUrl
+        }
         Glide.with(context).load(urlString).into(imageView)
 
 
