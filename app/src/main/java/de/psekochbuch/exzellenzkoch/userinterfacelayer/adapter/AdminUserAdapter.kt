@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedUserItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -42,6 +43,10 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
             id?.let { it1 -> viewModel.deleteUser(it1) }
 
         }
+        holder.adminReportedUserItemBinding.adminReportedUserItemLayout.setOnClickListener{
+            navController!!.navigate(R.id.action_adminFragment_to_profileDisplayFragment)
+        }
+
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user
             viewModel.spareUser(id)

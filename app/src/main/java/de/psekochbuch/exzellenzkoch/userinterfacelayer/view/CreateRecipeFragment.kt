@@ -13,9 +13,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.CreateRecipeFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel
@@ -26,7 +28,11 @@ class CreateRecipeFragment : Fragment() {
     private lateinit var binding: CreateRecipeFragmentBinding
     private lateinit var viewModel: CreateRecipeViewmodel
 
-
+    /* Preset code when PrivateRecipeRepositoryImp works
+    val viewModel : CreateRecipeViewmodel by viewModels {
+        InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
+    }
+    */
 
     //MEthodes
 

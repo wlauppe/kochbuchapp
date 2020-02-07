@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
@@ -41,6 +42,9 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         id = recipes[position].recipeId
         holder.adminReportedRecipeItemBinding.buttonAdminRemoveRecipe.setOnClickListener{
             id?.let { it1 -> viewModel.deleteRecipe(it1) }
+        }
+        holder.adminReportedRecipeItemBinding.adminReportedRecipeItemLayout.setOnClickListener{
+            navController!!.navigate(R.id.action_adminFragment_to_recipeDisplayFragment)
         }
         holder.adminReportedRecipeItemBinding.buttonAdminSpare.setOnClickListener{
             viewModel.spareRecipe(id)
