@@ -41,8 +41,8 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
         var user = userRepo.getUser(id)
 
         this.userID = MutableLiveData(user.value!!.userId)
-        this.userDesc = MutableLiveData(user.value!!.desc)
-        this.userImg = MutableLiveData(user.value!!.img)
+        this.userDesc = MutableLiveData(user.value!!.description)
+        this.userImg = MutableLiveData(user.value!!.imgUrl)
 
 
     }
