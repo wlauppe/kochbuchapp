@@ -24,7 +24,8 @@ class UserFakeRepositoryImp : UserRepository  {
     }
 
     override fun getUser(UserId: String): LiveData<User> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var mld = MutableLiveData(getUsers().value!![1])
+        return mld
     }
 
     override suspend fun deleteUser(userId: String) {
@@ -49,10 +50,6 @@ class UserFakeRepositoryImp : UserRepository  {
 
     override suspend fun unreportUser(userId: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-     fun getUserByID(id:String) : LiveData<User>{
-        var mld = MutableLiveData(getUsers().value!![1])
-         return mld
     }
 
     companion object {

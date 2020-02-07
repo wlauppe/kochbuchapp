@@ -7,7 +7,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeReposito
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 
 class ProfileEditViewmodel : ViewModel() {
-    var user : LiveData<User> = UserFakeRepositoryImp().getUserByID("")
+    var user : LiveData<User> = UserFakeRepositoryImp().getUser("")
 
         //LiveData
         var userID : LiveData<String> = MutableLiveData("")
@@ -21,7 +21,7 @@ class ProfileEditViewmodel : ViewModel() {
     }
 
     fun setUserByID(id:String){
-        var user = UserFakeRepositoryImp().getUserByID(id)
+        var user = UserFakeRepositoryImp().getUser(id)
 
         this.user = user
         this.userID = MutableLiveData(user.value!!.userId)
