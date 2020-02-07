@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
 class UserFakeRepositoryImp : UserRepository  {
@@ -16,4 +17,16 @@ class UserFakeRepositoryImp : UserRepository  {
     return ld
 
     }
+
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile private var instance: UserRepository? = null
+
+        fun getInstance() =
+            instance ?: synchronized(this) {
+                instance ?: UserFakeRepositoryImp().also { instance = it }
+            }
+    }
+
 }

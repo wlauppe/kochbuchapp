@@ -17,7 +17,6 @@ class RecipeListViewmodel(repository: PublicRecipeRepository) : ViewModel() {
   // Alte Variante  val repo : PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
   //Neue Variante jetzt wird es injected und ist als parameter verfügbar.
 
-
     var recipes : LiveData<List<PublicRecipe>> = repository.getPublicRecipes()
 
 
