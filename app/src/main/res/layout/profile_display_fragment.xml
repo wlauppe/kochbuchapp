@@ -16,7 +16,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+          >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -34,36 +35,36 @@
                     android:id="@+id/textView_profile_display_fragment_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:padding="4dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:text="@{profileDisplayViewmodel.userID}"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView_profile_display_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="@{profileDisplayViewmodel.userDesc}" />
+                    android:text="@{profileDisplayViewmodel.userDesc}"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/textView_profile_display_fragment_user_recipes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:text="@string/profile_display_erstellte_rezepte"
                     android:textAlignment="center"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"/>
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/profileDisplayRecyclerView"
@@ -71,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="8dp"
-                    android:paddingRight="8dp"/>
+                    android:paddingRight="8dp" />
 
             </LinearLayout>
         </ScrollView>
@@ -79,17 +80,17 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+           >
 
             <Button
                 android:id="@+id/button_profile_display_fragment_flag_user"
-                android:layout_width="0dp"
+                android:layout_width="231dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
                 android:text="@string/flag_user"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/button_profile_display_fragment_edit_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button

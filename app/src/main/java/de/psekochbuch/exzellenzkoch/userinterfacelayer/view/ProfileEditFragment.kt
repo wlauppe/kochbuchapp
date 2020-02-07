@@ -47,11 +47,11 @@ class ProfileEditFragment : Fragment() {
 
         binding.buttonChangeLoginData.setOnClickListener {
 
-                //sending the recipename to the user display fragment
+                //sending the userID to the ChangePW fragment
                 navController!!.navigate(
                     AdminFragmentDirections
                         .actionAdminFragmentToProfileDisplayFragment()
-                        .setUserID(binding.textViewEnterUserID.text.toString())
+                        .setUserID(userID)
                 )
         }
 
