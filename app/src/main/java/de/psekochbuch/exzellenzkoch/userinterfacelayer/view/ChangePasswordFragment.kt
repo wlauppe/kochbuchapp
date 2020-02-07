@@ -20,13 +20,16 @@ class ChangePasswordFragment : Fragment() {
     //val viewModel : ChangePasswordViewmodel by viewModels {
     //    InjectorUtils.provideChangePasswordViewModelFactory(requireContext())
     //}
-    private lateinit var viewModel: ChangePasswordViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //viewmodel
+        val viewModel : ChangePasswordViewmodel by viewModels {
+            InjectorUtils.provideChangePasswordViewModelFactory(requireContext())
+        }
         //binding set to the according Fragment
         binding = ChangePasswordFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
