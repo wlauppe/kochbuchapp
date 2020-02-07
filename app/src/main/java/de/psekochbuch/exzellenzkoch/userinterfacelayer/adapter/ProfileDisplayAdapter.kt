@@ -50,6 +50,7 @@ class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicReci
 
             navController!!.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToRecipeDisplayFragment().setRecipeID(items[position].recipeId))
         }
+
     }
     class ProfileDisplayViewHolder(var profileDisplayRecipeItemBinding: ProfileDisplayRecipeItemBinding)
         :RecyclerView.ViewHolder(profileDisplayRecipeItemBinding.root)
