@@ -34,12 +34,23 @@ class CreateRecipeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //binding set to the according Fragment
-        binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
-        //viewmodel recieved by viewmodelproviders
         val viewModel : CreateRecipeViewmodel by viewModels {
             InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
         }
+
+        //SafeArgs---------------------------
+        var recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
+
+        if(recipeID != null) {
+            viewModel.setRecipeByID(recipeID)
+            Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
+
+        }
+
+        //binding set to the according Fragment
+        binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
+        //viewmodel recieved by viewmodelproviders
+
 
         //Sets according viewmodel from XML to this fragment
         binding.createRecipeViewModel = viewModel
@@ -56,6 +67,8 @@ class CreateRecipeFragment : Fragment() {
                 "Rezept zur Rezeptliste hinzugefügt",
                 Toast.LENGTH_SHORT
             ).show()
+            viewModel.saveRecipe()
+
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
 

@@ -24,7 +24,9 @@ class RecipeListViewmodel(repository: PublicRecipeRepository) : ViewModel() {
 
 
     fun deleteRecipe(id: Int?) {
-        repo.deleteRecipe(id!!)
+       // repo.deleteRecipe(id!!)
+
+
     }
 
 
