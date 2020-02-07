@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModelProvider
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel
 
-class CreateRecipeViewModelFactory (private val repository: PrivateRecipeRepository): ViewModelProvider.NewInstanceFactory() {
+class CreateRecipeViewModelFactory (private val repository: PrivateRecipeRepository)
+    :ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return CreateRecipeViewmodel() as T
-        // TODO when class PrivateRecipeRepositoryImp works, set parameter repository:PrivateRecipeRepository
+        return CreateRecipeViewmodel(repository) as T
     }
 }

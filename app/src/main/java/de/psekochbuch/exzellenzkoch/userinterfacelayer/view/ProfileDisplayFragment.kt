@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
@@ -28,8 +30,9 @@ class ProfileDisplayFragment : Fragment() {
     var viewModel : ProfileDisplayViewmodel? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        val viewModel = ViewModelProvider(this).get(ProfileDisplayViewmodel::class.java)
+    val viewModel : ProfileDisplayViewmodel by viewModels {
+            InjectorUtils.provideProfileDisplaViewModelFactory(requireContext())
+        }
         //SafeArge--------------------------------
         var userID = arguments?.let { ProfileDisplayFragmentArgs.fromBundle(it).userID }
         viewModel.setUserByID(userID!!)

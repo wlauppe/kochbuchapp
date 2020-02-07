@@ -59,7 +59,7 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
 
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user
-            viewModel.spareUser(id)
+            viewModel.unreportUser(id)
         }
         //var urlString = users[position].img
         var imageView = holder.adminReportedUserItemBinding.imageViewAdminUserItem

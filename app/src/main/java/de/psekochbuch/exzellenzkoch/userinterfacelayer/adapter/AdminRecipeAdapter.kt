@@ -61,7 +61,7 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         }
 
         holder.adminReportedRecipeItemBinding.buttonAdminSpare.setOnClickListener{
-            viewModel.spareRecipe(id)
+            viewModel.unreportRecipe(id)
         }
 
         //var urlString = recipes[position].image
