@@ -13,6 +13,8 @@ interface UserRepository {
 
     fun getUsers(userIdPraefix: String): LiveData<List<User>>
 
+    fun getUser(UserId: String): LiveData<User>
+
     @Throws
     suspend fun deleteUser(userId : String)
 

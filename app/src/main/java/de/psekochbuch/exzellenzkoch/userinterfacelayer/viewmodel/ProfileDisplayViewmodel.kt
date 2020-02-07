@@ -38,7 +38,7 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
     }
 
     fun setUserByID(id:String){
-        var user = userRepo.getUserByID(id)
+        var user = userRepo.getUser(id)
 
         this.userID = MutableLiveData(user.value!!.userId)
         this.userDesc = MutableLiveData(user.value!!.desc)
