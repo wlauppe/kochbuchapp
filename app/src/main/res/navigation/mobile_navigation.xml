@@ -105,7 +105,7 @@
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ChangePasswordFragment"
-        android:label="Login Daten ändern" >
+        android:label="Neues Passwort setzen" >
         <action
             android:id="@+id/action_changePasswordFragment_to_profileDisplayFragment"
             app:destination="@id/profileDisplayFragment" />

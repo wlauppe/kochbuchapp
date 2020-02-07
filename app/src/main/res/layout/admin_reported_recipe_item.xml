@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -12,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/admin_reported_recipe_item_layout">
+        android:id="@+id/admin_reported_recipe_item_layout"
+        android:padding="10dp">
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -27,25 +29,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:textSize="16sp"
+            android:layout_gravity="center"
             android:text="@{value}"/>
 
 
-        <Button
+        <ImageButton
             android:id="@+id/button_admin_remove_recipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:drawableStart="@drawable/ic_delete_forever_black_24dp"
-            android:text="@string/admin_remove_item" />
+            app:srcCompat="@drawable/ic_delete_forever_black_24dp" />
 
-        <Button
+        <ImageButton
             android:id="@+id/button_admin_spare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:drawableStart="@drawable/ic_check_black_24dp"
-            android:text="@string/spare_recipe" />
+            app:srcCompat="@drawable/ic_check_black_24dp" />
+
     </LinearLayout>
 </layout>
