@@ -42,6 +42,9 @@ class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicReci
         id = items[position].recipeId
 
         var urlString = items[position].imgUrl
+        if(urlString == ""){
+            urlString == "file:///android_asset/exampleimages/quiche.png"
+        }
         var imageView = holder.profileDisplayRecipeItemBinding.imageViewProfileDisplayRecipe
         Glide.with(context).load(urlString).into(imageView)
 
