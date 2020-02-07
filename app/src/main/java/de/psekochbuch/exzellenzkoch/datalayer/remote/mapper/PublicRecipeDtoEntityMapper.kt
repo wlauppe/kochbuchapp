@@ -1,19 +1,24 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.mapper
 
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.IngredientChapterDto
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.IngredientDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.PublicRecipeDto
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.RecipeTagDto
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.*
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.Unit
+import java.util.*
 
 //wandelt Recipes in Entities um
 
-class PublicRecipeDtoEntityMapper() {
+class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>(){
 
-    fun toEntity(dto: PublicRecipeDto): PublicRecipe {
-        val recipe = PublicRecipe(dto.id,dto.title)
-        return recipe
+    override fun toEntity(dto: PublicRecipeDto): PublicRecipe {
+        return PublicRecipe(dto.id,dto.title,dto.ingredientsText,dto.ingredientChapter?.map {chapter -> IngredientChapter(chapter.id,chapter.name,chapter.ingredient?.map{ingredient -> IngredientAmount(ingredient.nameIngredient,ingredient.amount,Unit.valueOf(ingredient.unit))}!!)}!!,dto.recipeTag?.map{tag -> tag.name}!!,dto.preparationDescription,dto.picture,dto.cookingTime,dto.preparationTime, User(dto.userId!!),dto.creationDate,dto.portions,dto.ratingAvg)
     }
 
-
+    override fun toDto(entity: PublicRecipe): PublicRecipeDto {
+        return PublicRecipeDto(entity.recipeId,entity.title,entity.ingredientsText,entity.preparation,entity.imgUrl,entity.cookingTime,entity.preparationTime,entity.user.userId,entity.creationTimeStamp,entity.portions,entity.avgRating,entity.ingredientChapter.map { chapter -> IngredientChapterDto(chapter.chapterId,chapter.chapter,chapter.ingredients.map { ingredient -> IngredientDto(chapter.chapterId,ingredient.ingredient,ingredient.quantity,ingredient.unit.getText())})},entity.tags.map {tag -> RecipeTagDto(tag)})
+    }
 }
 
 
