@@ -1,16 +1,12 @@
 package de.psekochbuch.exzellenzkoch
 
-import android.app.Application
 import android.content.Context
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.Repositories.IngredientAmountRepository
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositories.IngredientAmountRepository
 
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
 
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModelFactory
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
