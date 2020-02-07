@@ -36,7 +36,7 @@ class ProfileDisplayFragment : Fragment() {
         //SafeArge--------------------------------
         var userID = arguments?.let { ProfileDisplayFragmentArgs.fromBundle(it).userID }
         viewModel.setUserByID(userID!!)
-        Toast.makeText(requireContext(), userID.toString(), Toast.LENGTH_SHORT).show()
+       // Toast.makeText(requireContext(), userID.toString(), Toast.LENGTH_SHORT).show()
 
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
         binding.profileDisplayViewmodel = viewModel

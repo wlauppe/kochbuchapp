@@ -27,8 +27,8 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
     //User Information LiveData
     private lateinit var user: User
         var userList : LiveData<List<User>> = userRepo.getUsers()
-        var userID : LiveData<String> = MutableLiveData("nutzer ID")
-        var userDesc : LiveData<String> = MutableLiveData("beschreibung")
+        var userID : LiveData<String> = MutableLiveData()
+        var userDesc : LiveData<String> = MutableLiveData()
         var userImg : LiveData<String> = MutableLiveData("")
 
 
@@ -59,7 +59,6 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
 
     fun setUserByID(id:String){
         var user = userRepo.getUser(id)
-
         this.userID = MutableLiveData(user.value!!.userId)
         this.userDesc = MutableLiveData(user.value!!.description)
         this.userImg = MutableLiveData(user.value!!.imgUrl)
@@ -67,13 +66,12 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
 
     }
 
-     fun flagUserById(){
-        if(userID.value.isNullOrBlank()){
-            return
+     fun flagUserById() {
+         if (userID.value.isNullOrBlank()) {
+             return
 
 
-        }
-
+         }
          //Coroutine
          //userRepo.reportUser(userID.value!!)
 
@@ -85,6 +83,6 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
              }
 
 
-         
-    }
+         }
+     }
 }

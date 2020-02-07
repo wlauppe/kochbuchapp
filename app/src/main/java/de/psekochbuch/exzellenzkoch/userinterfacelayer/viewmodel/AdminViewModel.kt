@@ -15,6 +15,8 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserReposi
 
 
 class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRepository) : ViewModel() {
+    var rRepo = publicRecipeRepo
+    var uRepo = userRepo
 
     //var userRepo: UserRepository = UserFakeRepositoryImp()
 
@@ -46,17 +48,21 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
 
 
     fun deleteRecipe(recipeID: Int) {
+        rRepo.deleteRecipe(recipeID)
 
     }
 
     fun deleteUser(userID: String) {
+        //uRepo.deleteUser(userID)
 
     }
 
     fun unreportUser(id : String?){
+      //  uRepo.unreportUser(id)
 
     }
     fun unreportRecipe(id: Int?){
+
 
     }
 
