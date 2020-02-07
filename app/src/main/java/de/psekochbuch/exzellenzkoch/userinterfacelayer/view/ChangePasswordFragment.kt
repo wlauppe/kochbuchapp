@@ -18,17 +18,19 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ChangePasswordV
 
 class ChangePasswordFragment : Fragment() {
 
-    var viewModel: ChangePasswordViewmodel? = null
-
+    private lateinit var binding: ChangePasswordFragmentBinding
+    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //viewmodel
+        val viewModel : ChangePasswordViewmodel by viewModels {
+            InjectorUtils.provideChangePasswordViewModelFactory(requireContext())
+        }
         //binding set to the according Fragment
-
-        viewModel = ViewModelProvider(this).get(ChangePasswordViewmodel::class.java)
-        var userID = arguments?.let { ChangePasswordFragmentArgs.fromBundle(it).userID }
+        var userID = arguments?.let {ChangePasswordFragmentArgs.fromBundle(it).userID }
         if (userID != null) {
             viewModel!!.setUserById(userID)
         }else{
