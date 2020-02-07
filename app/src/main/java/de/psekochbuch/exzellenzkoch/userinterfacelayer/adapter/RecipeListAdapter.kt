@@ -44,8 +44,9 @@ class RecipeListAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(
         //Clicklistener--------------------
         holder.recipeListItemBinding.buttonEditRecipe.setOnClickListener{
             //safe args to send Recipe data to editRecipe Fragment
-            RecipeListFragmentDirections
-                .actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(items[position].recipeId)
+            navController!!.navigate(RecipeListFragmentDirections
+                .actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(items[position].recipeId))
+
         }
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
             viewModel.deleteRecipe(items[position].recipeId)

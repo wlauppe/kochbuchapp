@@ -39,6 +39,7 @@
                             android:ems="10"
                             android:inputType="textPersonName"
                             android:hint="@string/enter_recipe_title"
+                            android:text="@{createRecipeViewModel.recipeTitle}"
                             android:layout_marginTop="10dp"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"
@@ -51,6 +52,7 @@
                             android:ems="10"
                             android:inputType="numberDecimal"
                             android:hint="@string/enter_preparing_time"
+                            android:text="@{createRecipeViewModel.preparationTime.toString()}"
                             android:layout_marginTop="10dp"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"/>
@@ -62,6 +64,7 @@
                             android:ems="10"
                             android:inputType="numberDecimal"
                             android:hint="@string/enter_cooking_time"
+                            android:text="@{createRecipeViewModel.cookingTime.toString()}"
                             android:layout_marginTop="10dp"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"/>
@@ -136,10 +139,11 @@
                             android:layout_marginTop="10dp"
                             android:ems="10"
                             android:hint="@string/ingredient_input_description"
+
                             android:inputType="textMultiLine"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"
-                            android:text="" />
+                            android:text="@{createRecipeViewModel.ingredients}" />
 
 
                         <EditText
@@ -150,6 +154,7 @@
                             android:gravity="start|top"
                             android:inputType="textMultiLine"
                             android:hint="@string/preparation_description"
+                            android:text="@{createRecipeViewModel.preparationDescription}"
                             android:layout_marginTop="10dp"
                             android:paddingLeft="8dp"
                             android:paddingRight="8dp"/>
