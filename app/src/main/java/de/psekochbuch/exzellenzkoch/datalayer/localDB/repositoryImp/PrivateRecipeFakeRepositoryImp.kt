@@ -28,4 +28,12 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
     override fun getRecipe(id: String): LiveData<PrivateRecipe> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile private var instance: PrivateRecipeRepository? = null
+        fun getInstance() = instance ?: synchronized(this) {
+            instance ?: PrivateRecipeFakeRepositoryImp().also { instance = it }
+        }
+    }
 }
