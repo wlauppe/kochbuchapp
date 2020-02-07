@@ -23,13 +23,12 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
     var userRepo = UserFakeRepositoryImp()
 
 
-
     //User Information LiveData
     private lateinit var user: User
-        var userList : LiveData<List<User>> = userRepo.getUsers()
-        var userID : LiveData<String> = MutableLiveData("nutzer ID")
-        var userDesc : LiveData<String> = MutableLiveData("beschreibung")
-        var userImg : LiveData<String> = MutableLiveData("")
+    var userList: LiveData<List<User>> = userRepo.getUsers()
+    var userID: LiveData<String> = MutableLiveData("nutzer ID")
+    var userDesc: LiveData<String> = MutableLiveData("beschreibung")
+    var userImg: LiveData<String> = MutableLiveData("")
 
 
     /*
@@ -48,16 +47,14 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
 
 
     //Recipe Information LiveData
-    var recipes: LiveData<List<PublicRecipe>> =recipeRepo.getPublicRecipes()
-
-
+    var recipes: LiveData<List<PublicRecipe>> = recipeRepo.getPublicRecipes()
 
 
     fun isOwner(): Boolean {
         return true // TODO implement
     }
 
-    fun setUserByID(id:String){
+    fun setUserByID(id: String) {
         var user = userRepo.getUser(id)
 
         this.userID = MutableLiveData(user.value!!.userId)
@@ -67,24 +64,24 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
 
     }
 
-     fun flagUserById(){
-        if(userID.value.isNullOrBlank()){
+    fun flagUserById() {
+        if (userID.value.isNullOrBlank()) {
             return
 
 
         }
 
-         //Coroutine
-         //userRepo.reportUser(userID.value!!)
+        //Coroutine
+        //userRepo.reportUser(userID.value!!)
 
-         viewModelScope.launch {
-             try {
-                 userRepo.reportUser(userID.value!!)
-             } catch (error: Error) {
-                 _errorLiveDataString.value = error.message
-             }
+        viewModelScope.launch {
+            try {
+                userRepo.reportUser(userID.value!!)
+            } catch (error: Error) {
+                _errorLiveDataString.value = error.message
+            }
 
 
-         
+        }
     }
 }
