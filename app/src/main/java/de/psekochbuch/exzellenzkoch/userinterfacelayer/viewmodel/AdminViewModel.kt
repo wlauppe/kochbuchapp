@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
 
@@ -27,6 +28,23 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository) : ViewModel() {
     var users : LiveData<List<User>> = userRepo.getUsers()
 
 
+    /* fun refreshTitle() {
+
+
+        viewModelScope.launch {
+            try {
+               // _spinner.value = true
+                repository.reportUser()
+            } catch (error: TitleRefreshError) {
+                _snackBar.value = error.message
+            } finally {
+               // _spinner.value = false
+            }
+        }
+        */
+
+
+
     fun deleteRecipe(recipeID: Int) {
 
     }
@@ -35,10 +53,10 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository) : ViewModel() {
 
     }
 
-    fun spareUser(id : String?){
+    fun unreportUser(id : String?){
 
     }
-    fun spareRecipe(id: Int?){
+    fun unreportRecipe(id: Int?){
 
     }
 
