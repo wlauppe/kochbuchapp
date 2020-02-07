@@ -13,10 +13,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
 
-class AdminViewModel : ViewModel() {
+class AdminViewModel(publicRecipeRepo : PublicRecipeRepository) : ViewModel() {
 
     var userRepo: UserRepository = UserFakeRepositoryImp()
-    var publicRecipeRepo : PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
+
+    //var publicRecipeRepo : PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
     /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
     * eine Liste an ID`s, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
 

@@ -21,8 +21,7 @@ class RecipeListViewmodel(repository: PublicRecipeRepository) : ViewModel() {
     var recipes : LiveData<List<PublicRecipe>> = repository.getPublicRecipes()
 
 
-    fun getNamesFromRecipes(liveData: LiveData<List<PrivateRecipe>>) {
-        //TODO
+    fun getNamesFromRecipes(liveData: LiveData<List<PublicRecipe>>) {
 
     }
 

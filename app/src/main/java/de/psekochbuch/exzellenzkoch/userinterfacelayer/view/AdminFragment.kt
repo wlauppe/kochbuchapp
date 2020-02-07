@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.databinding.AdminFragmentBinding
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -23,7 +25,13 @@ class AdminFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = AdminFragmentBinding.inflate(inflater, container, false)
-        val viewModel = ViewModelProvider(this).get(AdminViewModel::class.java)
+        //val viewModel = ViewModelProvider(this).get(AdminViewModel::class.java)
+        //viewmodel recieved by viewmodelproviders
+
+        val viewModel : AdminViewModel by viewModels {
+            InjectorUtils.provideAdminViewModelFactory(requireContext())
+        }
+
         binding.recyclerViewAdminRecipes.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
