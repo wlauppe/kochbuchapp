@@ -46,6 +46,7 @@ object InjectorUtils {
 
     // For Login, Register and ChangePassword
     private fun getAuthentification(context: Context): Authentification {
+        // TODO testweise FakeImpl genutzt
         return AuthentificationFakeImpl.getInstance()
     }
 
@@ -60,7 +61,6 @@ object InjectorUtils {
         val repository = getPublicRecipeRepository(context)
         return RecipeListViewModelFactory(repository)
     }
-
 
     fun provideChangePasswordViewModelFactory(context: Context): ChangePasswordViewModelFactory {
         val authentification = getAuthentification(context)

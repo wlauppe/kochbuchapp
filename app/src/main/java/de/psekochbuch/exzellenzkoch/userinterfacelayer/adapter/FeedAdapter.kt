@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.FeedItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragment
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
@@ -45,19 +46,35 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
         return recipes.size
     }
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.feedItemBinding.value = recipes[position].recipeId.toString()
+        holder.feedItemBinding.value = recipes[position].title
         id = recipes[position].recipeId
 
 
-        var urlString = recipes[position].imgUrl
+        //var urlString
+        var urlString = ""
+
         var imageView = holder.feedItemBinding.imageViewFeedItem
+        if (recipes[position].imgUrl == "") {
+            urlString = "file:///android_asset/exampleimages/quiche.png"
+        } else {
+            urlString = recipes[position].imgUrl
+        }
         Glide.with(context).load(urlString).into(imageView)
 
 
-        holder.feedItemBinding.buttonGotoFeedRecipe.setOnClickListener{
 
-            navController?.navigate(R.id.action_feed_to_recipeDisplayFragment)
+        holder.feedItemBinding.buttonGotoFeedRecipe.setOnClickListener {
+            //sending the recipename to the recipe display fragment
+            navController!!.navigate(
+                FeedFragmentDirections
+                    .actionFeedToRecipeDisplayFragment()
+                    .setRecipeID(recipes[position].recipeId
+                    )
+            )
         }
+
+
+
         holder.feedItemBinding.imageViewFeedItem.setOnClickListener{
 //            navController.navigate(FeedFragmentDirections.actionFeedToRecipeDisplayFragment().)
         }

@@ -56,15 +56,21 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
             )
             }
 
-
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user
             viewModel.unreportUser(id)
         }
-        //var urlString = users[position].img
+
+
+        //var urlString
+        var urlString = ""
+
         var imageView = holder.adminReportedUserItemBinding.imageViewAdminUserItem
-        //Dummy
-        var urlString: String = "https://i.ytimg.com/vi/IO5uC2wYaAc/maxresdefault.jpg"
+        if (users[position].imgUrl == "") {
+            urlString = "file:///android_asset/exampleimages/quiche.png"
+        } else {
+            urlString = users[position].imgUrl
+        }
         Glide.with(context).load(urlString).into(imageView)
 
     }

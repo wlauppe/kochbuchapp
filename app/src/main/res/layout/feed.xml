@@ -18,11 +18,11 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/feed"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textStyle="bold"
-            android:textSize="20sp" />
+            android:padding="10dp"
+            android:text="@string/feed_headline"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="normal" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
