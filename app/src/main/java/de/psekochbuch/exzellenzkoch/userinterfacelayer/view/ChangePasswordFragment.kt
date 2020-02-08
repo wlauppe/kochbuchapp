@@ -43,7 +43,7 @@ class ChangePasswordFragment : Fragment() {
         val navController: NavController = findNavController()
         binding.buttonChangePassword.setOnClickListener {
             //Change PW
-            viewModel!!.changePassword()
+            viewModel.changePassword()
             //navigate to Profile display Fragment
             navController.navigate(R.id.action_changePasswordFragment_to_profileDisplayFragment)
         }

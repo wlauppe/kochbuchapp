@@ -8,12 +8,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
 
-class RecipeListAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel: RecipeListViewmodel,
+class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe>(), var viewModel: RecipeListViewmodel,
                         context:Context) :
     RecyclerView.Adapter<RecipeListAdapter.RecipeListViewHolder>() {
 
@@ -22,7 +23,7 @@ class RecipeListAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(
     var id : Int ? = null
     var context = context
     //Methodes
-    fun setNewItems(newItems: List<PublicRecipe>){
+    fun setNewItems(newItems: List<PrivateRecipe>){
         items = newItems
         this.notifyDataSetChanged()
     }

@@ -7,10 +7,11 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFake
 
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
 
-class RecipeListViewmodel(repository: PublicRecipeRepository) : ViewModel() {
+class RecipeListViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
 
     var repo = repository
 
@@ -19,7 +20,7 @@ class RecipeListViewmodel(repository: PublicRecipeRepository) : ViewModel() {
   // Alte Variante  val repo : PublicRecipeRepository = PublicRecipeFakeRepositoryImp()
   //Neue Variante jetzt wird es injected und ist als parameter verfügbar.
 
-    var recipes : LiveData<List<PublicRecipe>> = repository.getPublicRecipes()
+    var recipes : LiveData<List<PrivateRecipe>> = repository.getPrivateRecipes()
 
 
 

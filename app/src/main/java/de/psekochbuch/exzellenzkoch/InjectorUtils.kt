@@ -58,7 +58,7 @@ object InjectorUtils {
 
     //Beispiel für eine Viewmodel Factory
     fun provideRecipeListViewmodelFactory(context: Context): RecipeListViewModelFactory {
-        val repository = getPublicRecipeRepository(context)
+        val repository = getPrivateRecipeRepository(context)
         return RecipeListViewModelFactory(repository)
     }
 
