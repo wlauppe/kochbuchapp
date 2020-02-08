@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.LoginFragmentBinding
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewmodel
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: LoginFragmentBinding
-    private lateinit var viewModel: LoginViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +25,10 @@ class LoginFragment : Fragment() {
         //binding set to the according Fragment
         binding = LoginFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
-        viewModel = ViewModelProvider(this).get(LoginViewmodel::class.java)
+        val viewModel : LoginViewModel by viewModels {
+            InjectorUtils.provideLoginViewModelFactory(requireContext())
+        }
+
         //Sets according viewmodel from XML to this fragment
         binding.loginviewModel = viewModel
         //initialized navcontoller
