@@ -60,6 +60,6 @@ interface PublicRecipeRepository {
     suspend fun reportRecipe(RecipeId: Int)
 
     @Throws
-    suspend fun unreporRecipe(RecipeId : Int)
+    suspend fun unreportRecipe(RecipeId : Int)
 
 }

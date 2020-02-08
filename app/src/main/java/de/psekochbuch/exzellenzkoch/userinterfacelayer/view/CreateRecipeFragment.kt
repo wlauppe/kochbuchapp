@@ -44,7 +44,6 @@ class CreateRecipeFragment : Fragment() {
         if(recipeID != null) {
             viewModel.setRecipeByID(recipeID)
             Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
-
         }
 
         //binding set to the according Fragment

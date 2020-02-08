@@ -54,13 +54,18 @@ class RecipeListAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(
         }
 
 
-
-        //GLide-------------
+        //var urlString
+        var urlString = ""
 
         var imageView = holder.recipeListItemBinding.imageViewRecipeListItem
-        "https://cdn.pixabay.com/photo/2019/04/17/23/52/sun-4135784_1280.png".let {
-            Glide.with(context).load(it).into(imageView)
+        if (items[position].imgUrl == "") {
+            urlString = "file:///android_asset/exampleimages/quiche.png"
+        } else {
+            urlString = items[position].imgUrl
         }
+        Glide.with(context).load(urlString).into(imageView)
+
+
 
     }
     class RecipeListViewHolder(var recipeListItemBinding: RecipeListItemBinding)

@@ -31,7 +31,7 @@
             android:layout_weight="4"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:text="@{ value}" />
+            android:text="@{value}" />
 
 
         <ImageButton
