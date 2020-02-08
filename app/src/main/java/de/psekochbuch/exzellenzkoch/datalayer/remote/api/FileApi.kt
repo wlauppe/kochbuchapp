@@ -13,8 +13,8 @@ import java.util.*
 
 // TODO Serverapi anpassen
 
-/*
-@GET("api/images")
+
+/*@GET("api/images")
 /**
  * Interface for the api from the picturesfiles
  */
@@ -28,7 +28,7 @@ interface FileApi {
      * @param userId The id of the user, which uploaded the picture
      * @return The picture
      */
-    @GetMapping("/{userId}/{imageName}")
+    @GetMapping("{imageName}")
     @ResponseBody
     fun getImage(@PathVariable imageName:String, @PathVariable userId:String) : ResponseEntity<InputStreamResource>?
 
@@ -39,7 +39,7 @@ interface FileApi {
      * @param recipeId The id of the recipe, which has the picture
      * @return The Online-Url of the File
      */
-    @PostMapping("/{recipeId}")
+    @PostMapping("{recipeId}")
     @ResponseBody
     fun addImage(@RequestParam("file") file: MultipartFile, @PathVariable recipeId:Int) :FileDto?
 
@@ -50,7 +50,7 @@ interface FileApi {
      * @param recipeId The id of the recipe
      * @return The Online-Url of the File
      */
-    @PutMapping("/{recipeId}")
+    @PutMapping("{recipeId}")
     @ResponseBody
     fun updateImage(@RequestParam("file") file: MultipartFile, @PathVariable recipeId:Int) :FileDto?
 
@@ -60,7 +60,7 @@ interface FileApi {
      * @param recipeId The id of the recipe
      * @return Empty Url
      */
-    @DeleteMapping("/{recipeId}")
+    @DeleteMapping("{recipeId}")
     fun deleteRecipe(@PathVariable  recipeId:Int) :FileDto?
 }
 
