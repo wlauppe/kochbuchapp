@@ -5,11 +5,12 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 
 class UserDtoEntityMapper() : EntityMapper<User,UserDto>(){
     override fun toEntity(dto: UserDto): User {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return User(dto.userId,dto.imageUrl,dto.description)
     }
 
     override fun toDto(entitiy: User): UserDto {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return UserDto(entitiy.userId,entitiy.imgUrl,entitiy.description)
+
     }
 //die entities passen irgendwie nicht so mit den dtos überein
 }

@@ -30,6 +30,11 @@ class PrivateRecipe(
     portions
 ) {
 
+fun convertToPublicRepipe() : PublicRecipe
+{
+    return PublicRecipe(title="Todo")
+
+}
     //var id: Int?  = null
     //Thomas: var id:Int = 0 macht sinn, denn die DB weist wenn die id 0 ist dem rezept eine generierte id zu
 

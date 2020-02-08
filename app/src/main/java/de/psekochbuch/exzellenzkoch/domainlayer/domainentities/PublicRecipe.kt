@@ -4,7 +4,7 @@ import java.util.*
 
 
 class PublicRecipe(
-    recipeId: Int,
+    recipeId: Int=0,
     title: String = "",
     ingredientsText: String = "",
     val ingredientChapter: List<IngredientChapter> = listOf(),
