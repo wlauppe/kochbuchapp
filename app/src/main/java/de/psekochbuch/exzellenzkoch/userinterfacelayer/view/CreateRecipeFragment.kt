@@ -17,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.CreateRecipeFragmentBinding
@@ -71,10 +72,19 @@ class CreateRecipeFragment : Fragment() {
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
 
+
         //Image intent
         binding.imageButtonRecipeImage.setOnClickListener{
+          var imgUrl =  viewModel.getImage()
 
         }
+        val imageView = binding.imageButtonRecipeImage
+        var urlString = viewModel.imageUrl.value
+        if(urlString == ""){
+            urlString = "file:///android_asset/exampleimages/quiche.png"
+        }
+        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
 
         return binding.root
     }

@@ -1,9 +1,12 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -39,7 +42,39 @@ class DisplaySearchListFragment : Fragment() {
             exampleAdapter.setNewItems(items)
         }
 
-        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+        //spinner
+
+
+        val options = arrayOf("Bewertung", "Datum", "Vegan", "Günstig", "vegetarisch", "süß", "Magnus")
+        val spinner = binding.spinnerSortOptions
+
+        if (spinner != null) {
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, options)
+            spinner.adapter = arrayAdapter
+
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.sortBy(options[position])
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // Code to perform some action when nothing is selected
+                }
+            }
+        }
+
+
+
+
+
+
+
+            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 
         /*
