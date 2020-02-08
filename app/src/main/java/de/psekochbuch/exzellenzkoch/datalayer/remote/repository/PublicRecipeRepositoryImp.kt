@@ -1,5 +1,5 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
-
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
@@ -10,8 +10,10 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.errors.NetworkError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.invoke
+import kotlinx.coroutines.withTimeout
 import java.io.File
 import java.util.*
 
@@ -71,9 +73,17 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     }
 
 
-    override fun deleteRecipe(recipeId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
+    override suspend fun  deleteRecipe(recipeId: Int) {
+             try {
+                val result = withTimeout(5_000) {
+                    retrofit.deleteRecipe(recipeId)
+                }
+            } catch (error: Throwable) {
+                throw NetworkError("Unable to delete recipe", error)
+            }
+        }
+
 
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
