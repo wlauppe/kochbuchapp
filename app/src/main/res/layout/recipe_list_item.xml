@@ -45,5 +45,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/delete" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_recipe_list"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 </layout>
