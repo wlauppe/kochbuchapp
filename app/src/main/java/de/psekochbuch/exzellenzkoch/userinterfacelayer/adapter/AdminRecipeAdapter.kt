@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -43,7 +44,9 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         holder.adminReportedRecipeItemBinding.value = printString
         id = recipes[position].recipeId
         holder.adminReportedRecipeItemBinding.buttonAdminRemoveRecipe.setOnClickListener{
-            id?.let { it1 -> viewModel.deleteRecipe(it1) }
+            viewModel.deleteRecipe(recipes[position].recipeId)
+            Toast.makeText(context, recipes[position].recipeId.toString().plus(" gelöscht"), Toast.LENGTH_SHORT).show()
+
         }
         //holder.adminReportedRecipeItemBinding.adminReportedRecipeItemLayout.setOnClickListener{
         //    navController!!.navigate(R.id.action_adminFragment_to_recipeDisplayFragment)
@@ -61,9 +64,9 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         }
 
         holder.adminReportedRecipeItemBinding.buttonAdminSpare.setOnClickListener{
-            viewModel.unreportRecipe(id)
+            viewModel.unreportRecipe(recipes[position].recipeId!!)
+            Toast.makeText(context, recipes[position].title.plus(" freigegeben"), Toast.LENGTH_SHORT).show()
         }
-
         //var urlString
         var urlString = ""
 

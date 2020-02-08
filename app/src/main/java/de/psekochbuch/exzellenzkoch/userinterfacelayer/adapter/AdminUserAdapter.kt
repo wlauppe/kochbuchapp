@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -41,13 +42,17 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
     override fun onBindViewHolder(holder: AdminUserViewHolder, position: Int) {
         holder.adminReportedUserItemBinding.value = users[position].userId
         id = users[position].userId
+
         holder.adminReportedUserItemBinding.buttonRemoveUser.setOnClickListener{
-            id?.let { it1 -> viewModel.deleteUser(it1) }
+            viewModel.deleteUser(users[position].userId)
+            Toast.makeText(context, users[position].userId.plus(" gelöscht"), Toast.LENGTH_SHORT).show()
+
 
         }
 //safeArgs -------------------------------------------
         holder.adminReportedUserItemBinding.imageViewAdminUserItem.setOnClickListener {
                 //sending the recipename to the user display fragment
+
             navController!!.navigate(
                 AdminFragmentDirections
                     .actionAdminFragmentToProfileDisplayFragment()
@@ -58,7 +63,10 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
 
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user
-            viewModel.unreportUser(id)
+            viewModel.unreportUser(users[position].userId)
+            Toast.makeText(context, users[position].userId.plus(" freigegeben"), Toast.LENGTH_SHORT).show()
+
+
         }
 
 

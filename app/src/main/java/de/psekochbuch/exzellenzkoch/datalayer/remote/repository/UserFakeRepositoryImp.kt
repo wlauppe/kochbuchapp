@@ -10,9 +10,9 @@ class UserFakeRepositoryImp : UserRepository  {
 
 
     override fun getUsers(): LiveData<List<User>> {
-        val user1 = User("Jürgern", "bild", "Toastbrot")
-        val user2 = User("Bürgern", "file:///android_asset/exampleimages/quiche.png", "Toast")
-        val user3 = User("Lürgern", "bild", "Moin")
+        val user1 = User("Jürgen", "bild", "Toastbrot")
+        val user2 = User("Udo", "file:///android_asset/exampleimages/quiche.png", "Toast")
+        val user3 = User("Olaf", "bild", "Moin")
 
     val list = listOf<User>(user1, user2, user3)
     val ld : MutableLiveData <List<User>> = MutableLiveData(list)
