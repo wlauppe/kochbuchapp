@@ -8,13 +8,13 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFake
 
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationFakeImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModelFactory
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.*
 
 
@@ -62,6 +62,11 @@ object InjectorUtils {
         return RecipeListViewModelFactory(repository)
     }
 
+    fun provideLoginViewModelFactory(context: Context): LoginViewModelFactory {
+        val authentification = getAuthentification(context)
+        return LoginViewModelFactory(authentification)
+    }
+
     fun provideChangePasswordViewModelFactory(context: Context): ChangePasswordViewModelFactory {
         val authentification = getAuthentification(context)
         return ChangePasswordViewModelFactory(authentification)
@@ -89,8 +94,25 @@ object InjectorUtils {
         return AdminViewModelFactory(recipeRepo, userRepo)
     }
 
-    fun provideProfileDisplaViewModelFactory(context: Context): ProfileDisplayViewModelFactory {
+    fun provideProfileDisplayViewModelFactory(context: Context): ProfileDisplayViewModelFactory {
         val repository = getUserRepository(context)
         return ProfileDisplayViewModelFactory(repository)
     }
+
+    fun providePublicRecipeSearchViewModelFactory(context: Context)
+            :PublicRecipeSearchViewModelFactory {
+        val repository = getPublicRecipeRepository(context)
+        return PublicRecipeSearchViewModelFactory(repository)
+    }
+
+    fun provideSearchWithTagsViewModelFactory(context: Context):SearchWithTagsViewModelFactory {
+        val repository = getEditTagRepository(context)
+        return SearchWithTagsViewModelFactory(repository)
+    }
+
+    fun provideUserSearchViewModelFactory(context: Context):UserSearchViewModelFactory {
+        val repository = getUserRepository(context)
+        return UserSearchViewModelFactory(repository)
+    }
+
 }

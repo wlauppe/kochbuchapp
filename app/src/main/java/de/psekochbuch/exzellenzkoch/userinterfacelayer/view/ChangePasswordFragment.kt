@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ChangePasswordFragmentBinding
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ChangePasswordViewmodel
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ChangePasswordViewModel
 
 class ChangePasswordFragment : Fragment() {
 
@@ -26,7 +24,7 @@ class ChangePasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         //viewmodel
-        val viewModel : ChangePasswordViewmodel by viewModels {
+        val viewModel : ChangePasswordViewModel by viewModels {
             InjectorUtils.provideChangePasswordViewModelFactory(requireContext())
         }
         //binding set to the according Fragment

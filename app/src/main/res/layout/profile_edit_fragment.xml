@@ -11,7 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -35,6 +35,7 @@
                     android:id="@+id/imageView_user_img"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:cropToPadding="true"
                     app:srcCompat="@android:color/holo_green_light" />
 
                 <EditText

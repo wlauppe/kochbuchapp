@@ -4,8 +4,9 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 
-class LoginViewmodel() : ViewModel() {
+class LoginViewModel(authentification: Authentification) : ViewModel() {
 
 
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
