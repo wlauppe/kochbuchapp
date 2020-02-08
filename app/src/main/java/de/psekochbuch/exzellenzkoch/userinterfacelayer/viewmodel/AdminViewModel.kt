@@ -44,8 +44,6 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
 
 
     /* fun refreshTitle() {
-
-
         viewModelScope.launch {
             try {
                // _spinner.value = true
@@ -116,8 +114,6 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }
-
-
         }
     }
 
