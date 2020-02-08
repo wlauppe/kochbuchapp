@@ -8,7 +8,6 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFake
 
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationFakeImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
@@ -104,6 +103,16 @@ object InjectorUtils {
             :PublicRecipeSearchViewModelFactory {
         val repository = getPublicRecipeRepository(context)
         return PublicRecipeSearchViewModelFactory(repository)
+    }
+
+    fun provideSearchWithTagsViewModelFactory(context: Context):SearchWithTagsViewModelFactory {
+        val repository = getEditTagRepository(context)
+        return SearchWithTagsViewModelFactory(repository)
+    }
+
+    fun provideUserSearchViewModelFactory(context: Context):UserSearchViewModelFactory {
+        val repository = getUserRepository(context)
+        return UserSearchViewModelFactory(repository)
     }
 
 }

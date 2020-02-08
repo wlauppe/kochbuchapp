@@ -38,7 +38,7 @@ class PublicRecipeSearchFragment : Fragment() {
         binding.buttonSearchRecipeSearch.setOnClickListener {
 
 
-            //Test Safeargs 
+            //Test Safeargs
             var recipeName:String = binding.editTextSearchRecipeTitle.text.toString()
             var recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
             var tags : String = binding.editTextSearchTags.text.toString()

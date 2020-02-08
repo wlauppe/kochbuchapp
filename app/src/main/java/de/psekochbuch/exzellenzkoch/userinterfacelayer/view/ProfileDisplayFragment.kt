@@ -20,7 +20,8 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayV
 class ProfileDisplayFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    val viewModel : ProfileDisplayViewmodel by viewModels {
+        //ViewModel
+        val viewModel : ProfileDisplayViewmodel by viewModels {
             InjectorUtils.provideProfileDisplayViewModelFactory(requireContext())
         }
         //SafeArge--------------------------------
