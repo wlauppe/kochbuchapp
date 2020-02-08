@@ -6,6 +6,7 @@ import retrofit2.http.*
 import java.util.*
 
 
+
 /**
  * Interface for the api from the picturesfiles
  */
@@ -14,6 +15,10 @@ import java.util.*
 
 /*
 @GET("api/images")
+/**
+ * Interface for the api from the picturesfiles
+ */
+@RequestMapping("api/images")
 interface FileApi {
 
     /**
@@ -35,7 +40,6 @@ interface FileApi {
      * @return The Online-Url of the File
      */
     @PostMapping("/{recipeId}")
-    
     @ResponseBody
     fun addImage(@RequestParam("file") file: MultipartFile, @PathVariable recipeId:Int) :FileDto?
 
@@ -59,6 +63,7 @@ interface FileApi {
     @DeleteMapping("/{recipeId}")
     fun deleteRecipe(@PathVariable  recipeId:Int) :FileDto?
 }
+
 
 */
 
