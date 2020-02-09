@@ -38,7 +38,7 @@ interface PublicRecipeRepository {
     //Diese Methode löscht das Rezept mit der als Parameter übergebenen recipeId aus der
     //Serverdatenbank.
     @Throws
-    fun deleteRecipe(recipeId : Int)
+    suspend fun deleteRecipe(recipeId : Int)
 
 
     //veröffentlicht ein Rezept, wenn Id null ist, neu, ansonsten unter der alten Id

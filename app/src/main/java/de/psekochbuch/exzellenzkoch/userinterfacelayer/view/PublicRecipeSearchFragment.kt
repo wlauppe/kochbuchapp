@@ -34,14 +34,14 @@ class PublicRecipeSearchFragment : Fragment() {
         //Sets according viewmodel from XML to this fragment
         binding.publicRecipeSearchViewModel = viewModel
         //initialized navcontoller
-        var navController: NavController = findNavController()
+        val navController: NavController = findNavController()
         binding.buttonSearchRecipeSearch.setOnClickListener {
 
 
             //Test Safeargs
-            var recipeName:String = binding.editTextSearchRecipeTitle.text.toString()
-            var recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
-            var tags : String = binding.editTextSearchTags.text.toString()
+            val recipeName:String = binding.editTextSearchRecipeTitle.text.toString()
+            val recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
+            val tags : String = binding.editTextSearchTags.text.toString()
 
 
             //safeargs sent with bundle

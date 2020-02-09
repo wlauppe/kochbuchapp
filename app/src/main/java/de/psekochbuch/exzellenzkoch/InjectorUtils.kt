@@ -1,7 +1,6 @@
 package de.psekochbuch.exzellenzkoch
 
 import android.content.Context
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositories.IngredientAmountRepository
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.TagFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
@@ -14,7 +13,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRec
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModelFactory
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.LoginViewModelFactory
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.*
 
 
@@ -29,10 +28,6 @@ object InjectorUtils {
         return UserFakeRepositoryImp.getInstance()
     }
 
-    private fun getIngredientAmountRepository(context: Context): IngredientAmountRepository? {
-        return null //IngredientAmountRepository()
-        // TODO Instance return, dazu companion obj in IngAmRepo und dann not null
-    }
 
     private fun getPrivateRecipeRepository(context: Context): PrivateRecipeRepository {
         // TODO Testweise Fakerepo benutzt
@@ -64,7 +59,9 @@ object InjectorUtils {
 
     fun provideLoginViewModelFactory(context: Context): LoginViewModelFactory {
         val authentification = getAuthentification(context)
-        return LoginViewModelFactory(authentification)
+        return LoginViewModelFactory(
+            authentification
+        )
     }
 
     fun provideChangePasswordViewModelFactory(context: Context): ChangePasswordViewModelFactory {

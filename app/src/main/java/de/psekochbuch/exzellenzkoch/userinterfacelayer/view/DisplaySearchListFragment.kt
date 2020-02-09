@@ -52,6 +52,10 @@ class DisplaySearchListFragment : Fragment(){
     }
 
 
+        //spinner
+        //val options = arrayOf("Bewertung", "Datum", "Vegan", "Günstig", "vegetarisch", "süß", "Magnus")
+       // val spinner = binding.spinnerSortOptions
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val options = arrayOf("Bewertung", "Datum", "Vegan", "Günstig", "vegetarisch", "süß", "Magnus")
