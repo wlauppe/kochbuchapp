@@ -1,8 +1,9 @@
-package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
+package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModel
 
 class LoginViewModelFactory(private val authentification: Authentification)
     :ViewModelProvider.NewInstanceFactory() {

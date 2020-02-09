@@ -14,7 +14,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRec
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModelFactory
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.LoginViewModelFactory
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.*
 
 
@@ -64,7 +64,9 @@ object InjectorUtils {
 
     fun provideLoginViewModelFactory(context: Context): LoginViewModelFactory {
         val authentification = getAuthentification(context)
-        return LoginViewModelFactory(authentification)
+        return LoginViewModelFactory(
+            authentification
+        )
     }
 
     fun provideChangePasswordViewModelFactory(context: Context): ChangePasswordViewModelFactory {
