@@ -86,5 +86,6 @@
     <string name="login_english">Login</string>
     <string name="search_suche">Suche</string>
     <string name="admin_menu_title">Adminbereich</string>
+    <string name="search_results">Suchergebnisse</string>
 
 </resources>

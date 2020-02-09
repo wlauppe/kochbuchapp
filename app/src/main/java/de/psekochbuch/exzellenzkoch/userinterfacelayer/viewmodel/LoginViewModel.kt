@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 class LoginViewModel(authentification: Authentification) : ViewModel() {
 
@@ -27,4 +28,9 @@ class LoginViewModel(authentification: Authentification) : ViewModel() {
     fun login() {
 
     }
+
+    private fun onLoginSuccess() {
+        R.id
+    }
+
 }

@@ -32,7 +32,7 @@ class LoginFragment : Fragment() {
         //Sets according viewmodel from XML to this fragment
         binding.loginviewModel = viewModel
         //initialized navcontoller
-        var navController: NavController = findNavController()
+        val navController: NavController = findNavController()
         binding.buttonLoginFragmentLogin.setOnClickListener {
             navController.navigate(LoginFragmentDirections.actionLoginFragmentToProfileDisplayFragment().setUserID("Udo"))
         }
@@ -41,6 +41,5 @@ class LoginFragment : Fragment() {
         }
         return binding.root
     }
-
 
 }

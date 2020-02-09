@@ -36,23 +36,27 @@ class MainActivity : AppCompatActivity() {
             // menu should be considered as top level destinations.
             appBarConfiguration = AppBarConfiguration(
                 setOf(
-                    R.id.publicRecipeSearchFragment, R.id.loginFragment, R.id.adminFragment, R.id.feed
+                    // shown in drawer
+                    R.id.publicRecipeSearchFragment, R.id.loginFragment, R.id.adminFragment,
+                    R.id.feed, R.id.recipeListFragment,
+                    // need direct access to drawer
+                    R.id.displaySearchListFragment, R.id.profileDisplayFragment,
+                    R.id.recipeDisplayFragment, R.id.registrationFragment, R.id.profileEditFragment,
+                    R.id.changePasswordFragment
                 ), drawerLayout
+
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
+            invalidateOptionsMenu()
         }
 
-        override fun onCreateOptionsMenu(menu: Menu): Boolean {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            menuInflater.inflate(R.menu.main, menu)
-            return true
-        }
 
         override fun onSupportNavigateUp(): Boolean {
             val navController = findNavController(R.id.nav_host_fragment)
             return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
         }
+
 
         //setSupportActionBar(findViewById(R.id.my_toolbar))
 
