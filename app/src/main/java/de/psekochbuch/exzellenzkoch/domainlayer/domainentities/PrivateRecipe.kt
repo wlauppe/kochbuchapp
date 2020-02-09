@@ -1,9 +1,5 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-import android.icu.text.CaseMap
-import android.icu.text.TimeZoneFormat
-import android.widget.ImageView
-import java.sql.Timestamp
 import java.util.*
 
 class PrivateRecipe(
@@ -30,14 +26,56 @@ class PrivateRecipe(
     portions
 ) {
 
-fun convertToPublicRepipe() : PublicRecipe
-{
-    return PublicRecipe(title="Todo")
+    fun convertToPublicRepipe() : PublicRecipe
+    {
+        return PublicRecipe(0, title, ingredientsText, stringtochapters(ingredientsText),tags, preparation, imgUrl, cookingTime, preparationTime, User("Max Mustermann"),Date(System.currentTimeMillis()))
+    }
 
-}
-    //var id: Int?  = null
-    //Thomas: var id:Int = 0 macht sinn, denn die DB weist wenn die id 0 ist dem rezept eine generierte id zu
+    fun stringtochapters(toParse: String): List<IngredientChapter>{
+        val toParseChapters = toParse.split("#").toList()
+        return toParseChapters.map(::stringtochapter);
+    }
 
+    fun stringtochapter(toParse: String): IngredientChapter{
+        val ingredients = toParse.split("\n")
+        return IngredientChapter(0, ingredients[0], ingredients.subList(1, ingredients.size).map(::stringtoingredient));
+    }
+
+    fun stringtoingredient(toParse: String): IngredientAmount {
+        for (i in toParse.length downTo 1) {
+            try {
+                val number = getNumber(toParse.substring(0, i))
+                return IngredientAmount(toParse.substring(i, toParse.length), number, Unit.KeineEinheit)
+            } catch (e: IllegalArgumentException) {
+                continue
+            }
+            break
+        }
+        throw IllegalArgumentException()
+    }
+
+    fun zahlgetrennt(toParse: String, trenner: String): Boolean {
+        val geteilt = toParse.split(trenner).toTypedArray()
+        if (geteilt.size != 2) return false
+        try {
+            geteilt[0].toLong()
+            geteilt[1].toLong()
+        } catch (n: NumberFormatException) {
+            return false
+        }
+        return true
+    }
+
+    fun getNumber(toParse: String): Double {
+        val withoutWS = toParse.replace(" ", "")
+        if (zahlgetrennt(withoutWS, ".")) return withoutWS.toDouble()
+        if (zahlgetrennt(withoutWS, ",")) return withoutWS.replace(',', '.').toDouble()
+        if (zahlgetrennt(withoutWS, "/")) {
+            val numbers = withoutWS.split("/").toTypedArray()
+            return numbers[0].toLong() / numbers[1].toLong().toDouble()
+        }
+        throw IllegalArgumentException()
+    }
 
 
 }
