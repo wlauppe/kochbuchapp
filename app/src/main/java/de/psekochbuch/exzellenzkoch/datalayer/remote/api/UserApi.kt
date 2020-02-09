@@ -42,5 +42,5 @@ interface UserApi {
      * @param userId The id of the user
      */
     @GET("users/{userId}")
-    fun getUser(@Path ("userId") userId: String) : UserDto?
+    fun getUser(@Path ("userId") userId: String) : LiveData<UserDto>
 }
