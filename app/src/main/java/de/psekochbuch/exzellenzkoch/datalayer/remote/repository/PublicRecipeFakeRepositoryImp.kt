@@ -48,7 +48,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun deleteRecipe(recipeId: Int) {
+    override suspend fun deleteRecipe(recipeId: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
