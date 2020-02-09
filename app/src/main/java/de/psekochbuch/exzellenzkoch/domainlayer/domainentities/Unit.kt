@@ -30,6 +30,11 @@ enum class Unit(unit:String) {
         override fun getText(): String {
             return "Prise"
         }
+    },
+    KeineEinheit(""){
+        override fun getText(): String{
+            return "";
+        }
     };
 
     abstract fun getText():String

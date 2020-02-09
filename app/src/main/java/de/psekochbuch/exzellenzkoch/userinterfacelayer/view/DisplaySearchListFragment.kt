@@ -1,9 +1,12 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -21,9 +24,9 @@ class DisplaySearchListFragment : Fragment() {
 
         val viewModel = ViewModelProvider(this).get(DisplaySearchListViewmodel::class.java)
 
-        var recipeSearchTitle = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
-        var recipeSearchingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
-        var recipeSearchTags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
+        val recipeSearchTitle = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
+        val recipeSearchingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
+        val recipeSearchTags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
         viewModel.searchRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
         //Toast.makeText(context, recipeSearchTitle.plus(recipeSearchingredients).plus(recipeSearchTags), Toast.LENGTH_LONG).show() checked
 
@@ -31,7 +34,7 @@ class DisplaySearchListFragment : Fragment() {
         binding.recyclerViewSearchlistFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.displaySearchListViewmodel = viewModel
-        var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
+        val listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
         val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel, requireContext())
         binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
 
@@ -39,11 +42,33 @@ class DisplaySearchListFragment : Fragment() {
             exampleAdapter.setNewItems(items)
         }
 
+        //spinner
+        val options = arrayOf("Bewertung", "Datum", "Vegan", "Günstig", "vegetarisch", "süß", "Magnus")
+        val spinner = binding.spinnerSortOptions
+
+        if (spinner != null) {
+            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, options)
+            spinner.adapter = arrayAdapter
+            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.sortBy(options[position])
+                }
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    viewModel.sortBy("Datum")
+                }
+            }
+        }
+
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 
         /*
-//Safeargs werden hier aus dem Bundel gezogem
+        //Safeargs werden hier aus dem Bundel gezogem
         var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
         var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
         var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
@@ -51,8 +76,5 @@ class DisplaySearchListFragment : Fragment() {
          */
         return binding.root
     }
-
-
-
 
 }

@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView_sorted_after"
@@ -28,6 +28,13 @@
                 android:padding="10dp"
                 android:text="@string/sorted_after"
                 android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/spinner_sort_options"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbarSize="20dp"
+                android:layout_weight="1" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

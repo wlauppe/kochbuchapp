@@ -224,5 +224,13 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
 
     }
 
+    /**
+     * starts an intent and gets back the path to the pic.
+     * @return the locale path to the image
+     */
+    fun getImage():String{
+    return ""
+    }
+
 
 }

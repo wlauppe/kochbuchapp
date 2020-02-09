@@ -1,9 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,7 +23,7 @@ class ProfileDisplayFragment : Fragment() {
             InjectorUtils.provideProfileDisplayViewModelFactory(requireContext())
         }
         //SafeArge--------------------------------
-        var userID = arguments?.let { ProfileDisplayFragmentArgs.fromBundle(it).userID }
+        val userID = arguments?.let { ProfileDisplayFragmentArgs.fromBundle(it).userID }
         viewModel.setUserByID(userID!!)
         Toast.makeText(requireContext(), userID.toString(), Toast.LENGTH_SHORT).show()
 
@@ -51,8 +49,9 @@ class ProfileDisplayFragment : Fragment() {
 
         binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID
         val imageView = binding.imageView2
-        var urlString = viewModel.userImg
+        val urlString = viewModel.userImg
         context?.let { Glide.with(it).load(urlString).into(imageView) }
+
 
         binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener{
             val navController = findNavController()
@@ -63,14 +62,8 @@ class ProfileDisplayFragment : Fragment() {
             viewModel.flagUserById()
         }
 
-
-
-
         return binding.root
     }
-
-
-
 
 
 }

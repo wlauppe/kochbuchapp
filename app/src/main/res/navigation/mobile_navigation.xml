@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/displaySearchListFragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragment"
-        android:label="Suche" >
+        android:label="@string/search_results" >
         <action
             android:id="@+id/action_displaySearchListFragment_to_recipeDisplayFragment"
             app:destination="@id/recipeDisplayFragment" />
@@ -45,6 +45,9 @@
             android:name="recipeID"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_recipeDisplayFragment_to_displaySearchListFragment"
+            app:destination="@id/displaySearchListFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

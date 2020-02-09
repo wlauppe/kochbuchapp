@@ -12,11 +12,14 @@ import java.util.*
 class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
 
     private val creationTimestamp: Date = Date()
-    private val rec:PrivateRecipe = PrivateRecipe(0, "Kartoffelklöße",
+     var rec:PrivateRecipe = PrivateRecipe(0, "Kartoffelklöße",
         "3 große Kartoffeln", listOf("herzhaft, deftig"), "kochen",
         "file:///android_asset/exampleimages/quiche.png", 20, 24, creationTimestamp,
         5)
+
+
     private val rec2 = rec
+
     private val list = listOf(rec, rec2)
     private val ld : MutableLiveData<List<PrivateRecipe>> = MutableLiveData(list)
 
