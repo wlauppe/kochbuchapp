@@ -12,7 +12,6 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.errors.Net
 import kotlinx.coroutines.coroutineScope
 
 class UserRepositoryImp : UserRepository  {
-    val recipeMapper = PublicRecipeDtoEntityMapper()
     val userMapper = UserDtoEntityMapper()
 
     val token = null
@@ -31,7 +30,11 @@ class UserRepositoryImp : UserRepository  {
     }
 
     override fun getUser(userId: String): LiveData<User> {
-        return userMapper.toLiveEntity(retrofit.getUser(userId))
+        try{
+            return userMapper.toLiveEntity(retrofit.getUser(userId).body()!!)
+        } catch (error: Throwable) {
+        throw NetworkError("Unable to delete User with userId " + userId, error)
+        }
     }
 
     override suspend fun deleteUser(userId: String) {

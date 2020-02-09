@@ -26,7 +26,6 @@ import java.util.*
  */
 class PublicRecipeRepositoryImp : PublicRecipeRepository {
     val recipeMapper = PublicRecipeDtoEntityMapper()
-    val userMapper = UserDtoEntityMapper()
 
     val token = null
     //TODO token von Authentification Interface bekommen.
