@@ -1,8 +1,10 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.R.attr.bitmap
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -23,12 +25,16 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.CreateRecipeFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel
 
+import android.os.Build.*
+import android.Manifest
+import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker.checkSelfPermission
 
 class CreateRecipeFragment : Fragment() {
 
     private lateinit var binding: CreateRecipeFragmentBinding
 
-    //MEthodes
+    //Methods
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,10 +80,35 @@ class CreateRecipeFragment : Fragment() {
 
 
         //Image intent
-        binding.imageButtonRecipeImage.setOnClickListener{
+        /*binding.imageButtonRecipeImage.setOnClickListener{
           var imgUrl =  viewModel.getImage()
 
         }
+        */
+
+        //BUTTON CLICK
+        binding.imageButtonRecipeImage.setOnClickListener {
+            //check runtime permission
+            if (VERSION.SDK_INT >= VERSION_CODES.M){
+                if (ContextCompat.checkSelfPermission(requireContext(),Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                    PackageManager.PERMISSION_DENIED){
+                    //permission denied
+                    val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE);
+                    //show popup to request runtime permission
+                    requestPermissions(permissions, PERMISSION_CODE);
+                }
+                else{
+                    //permission already granted
+                    pickImageFromGallery();
+                }
+            }
+            else{
+                //system OS is < Marshmallow
+                pickImageFromGallery();
+            }
+        }
+
+
         val imageView = binding.imageButtonRecipeImage
         var urlString = viewModel.imageUrl.value
         if(urlString == ""){
@@ -89,5 +120,49 @@ class CreateRecipeFragment : Fragment() {
         return binding.root
     }
 
+
+    //Ab hier ist der Image Picker Code
+
+    // Creating our Share Intent
+    private fun pickImageFromGallery() {
+        //Intent to pick image
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_PICK_CODE)
+    }
+
+    companion object {
+        //image pick code
+        private val IMAGE_PICK_CODE = 1000;
+        //Permission code
+        private val PERMISSION_CODE = 1001;
+    }
+
+    //handle requested permission result
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when(requestCode){
+            PERMISSION_CODE -> {
+                if (grantResults.size >0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED){
+                    //permission from popup granted
+                    pickImageFromGallery()
+                }
+                else{
+                    //permission from popup denied
+                    Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    //handle result of picked image
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
+            //TODO image müsste hier noch wieder gespeichert und an Glide übergeben werden. 
+           //imageView.setImageURI(data?.data)
+
+
+        }
+    }
 
 }
