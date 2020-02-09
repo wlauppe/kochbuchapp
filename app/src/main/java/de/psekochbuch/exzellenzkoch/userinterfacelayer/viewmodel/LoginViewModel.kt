@@ -30,7 +30,7 @@ class LoginViewModel(authentification: Authentification) : ViewModel() {
     }
 
     private fun onLoginSuccess() {
-        R.id
+        
     }
 
 }

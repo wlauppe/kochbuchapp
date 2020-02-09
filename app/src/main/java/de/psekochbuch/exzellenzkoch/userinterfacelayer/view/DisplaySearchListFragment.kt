@@ -56,10 +56,8 @@ class DisplaySearchListFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         val options = arrayOf("Bewertung", "Datum", "Vegan", "Günstig", "vegetarisch", "süß", "Magnus")
         var spinner = bindingTwo.spinnerSortOptions
-
         if(savedInstanceState == null){
             this.onCreate(bundle)
-
         }
         if (spinner != null) {
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, options)

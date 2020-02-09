@@ -14,14 +14,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 
 class DisplaySearchListViewmodel : ViewModel() {
 
-
     //var fakreRepo: PublicRecipeFakeRepository = PublicRecipeFakeRepository()
     /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
     * eine Liste an ID`s, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
-
     val repository=PublicRecipeFakeRepositoryImp()
     var recipes : LiveData<List<PublicRecipe>> = repository.getPublicRecipes()
-
 
     fun searchRecipes(title: String?, ingredients: String?, tags: String?){
         var ingredientList = emptyList<String>()
@@ -39,8 +36,6 @@ class DisplaySearchListViewmodel : ViewModel() {
         // recipes = repository.search(title, ingredientList, tagList)
        recipes = repository.getPublicRecipes()
     }
-
-
     fun sortBy(sortOption:String){
 
     }
