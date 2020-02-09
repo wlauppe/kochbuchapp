@@ -39,4 +39,9 @@ class DisplaySearchListViewmodel : ViewModel() {
         // recipes = repository.search(title, ingredientList, tagList)
         recipes = repository.getPublicRecipes()
     }
+
+
+    fun sortBy(sortOption:String){
+
+    }
 }

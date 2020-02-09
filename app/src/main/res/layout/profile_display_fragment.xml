@@ -26,7 +26,7 @@
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="407dp"
                     android:cropToPadding="true"
                     tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
 
@@ -68,16 +68,17 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/profileDisplayRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="500dp"
                     android:layout_marginTop="10dp"
                     android:paddingLeft="8dp"
-                    android:paddingRight="8dp" >
+                    android:paddingRight="8dp">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="vertical">
 
                     <Button
@@ -86,12 +87,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
+                        android:padding="10dp"
                         android:text="@string/profile_display_edit_profile_button" />
 
                     <Button
                         android:id="@+id/button_profile_display_fragment_flag_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="10dp"
                         android:text="@string/flag_user" />
 
                 </LinearLayout>

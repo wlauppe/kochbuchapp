@@ -28,7 +28,7 @@ class ChangePasswordFragment : Fragment() {
             InjectorUtils.provideChangePasswordViewModelFactory(requireContext())
         }
         //binding set to the according Fragment
-        var userID = arguments?.let {ChangePasswordFragmentArgs.fromBundle(it).userID }
+        val userID = arguments?.let {ChangePasswordFragmentArgs.fromBundle(it).userID }
         if (userID != null) {
             viewModel!!.setUserById(userID)
         }else{
@@ -36,7 +36,7 @@ class ChangePasswordFragment : Fragment() {
         }
 
 
-       var  binding = ChangePasswordFragmentBinding.inflate(inflater, container, false)
+       val  binding = ChangePasswordFragmentBinding.inflate(inflater, container, false)
         //Sets according viewmodel from XML to this fragment
         binding.changePasswordViewModel = viewModel
         //initialized navcontoller
