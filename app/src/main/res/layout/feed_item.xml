@@ -33,6 +33,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="5"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             android:textSize="20sp"
             android:text="@{value}" />
 

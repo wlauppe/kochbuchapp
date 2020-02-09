@@ -63,7 +63,14 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
            * @param id the id of the recipe
            */
     fun deleteRecipe(recipeID: Int) {
-      //  rRepo.deleteRecipe(recipeID)
+        viewModelScope.launch {
+            try {
+                rRepo.deleteRecipe(recipeID)
+            } catch (error: Error) {
+                _errorLiveDataString.value = error.message
+            }
+        }
+
 
     }
 
