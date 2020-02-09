@@ -37,7 +37,7 @@ class DisplaySearchListViewmodel : ViewModel() {
         }
        // return repository.search(title, ingredientList, tagList)
         // recipes = repository.search(title, ingredientList, tagList)
-        recipes = repository.getPublicRecipes()
+       recipes = repository.getPublicRecipes()
     }
 
 

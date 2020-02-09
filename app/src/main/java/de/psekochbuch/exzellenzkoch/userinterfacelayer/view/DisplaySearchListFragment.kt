@@ -16,24 +16,29 @@ import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.DisplaySearchListAdaper
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
+import kotlinx.android.synthetic.main.display_searchlist_fragment.*
 
-class DisplaySearchListFragment : Fragment() {
+class DisplaySearchListFragment : Fragment(){
+    private lateinit var bindingTwo : DisplaySearchlistFragmentBinding
+    private lateinit var viewmodelTwo : DisplaySearchListViewmodel
+    var bundle: Bundle? = null
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-
+        bundle = savedInstanceState
         val viewModel = ViewModelProvider(this).get(DisplaySearchListViewmodel::class.java)
+        viewmodelTwo = viewModel
 
         var recipeSearchTitle = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
         var recipeSearchingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
         var recipeSearchTags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
         viewModel.searchRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
-        //Toast.makeText(context, recipeSearchTitle.plus(recipeSearchingredients).plus(recipeSearchTags), Toast.LENGTH_LONG).show() checked
-
         val binding = DisplaySearchlistFragmentBinding.inflate(inflater, container, false)
         binding.recyclerViewSearchlistFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.displaySearchListViewmodel = viewModel
+        bindingTwo = binding
+        bindingTwo.displaySearchListViewmodel = viewmodelTwo
         var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
         val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel, requireContext())
         binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
@@ -41,17 +46,24 @@ class DisplaySearchListFragment : Fragment() {
         val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)
         }
+        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+        binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
+        return binding.root
+    }
 
-        //spinner
 
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val options = arrayOf("Bewertung", "Datum", "Vegan", "Günstig", "vegetarisch", "süß", "Magnus")
-        val spinner = binding.spinnerSortOptions
+        var spinner = bindingTwo.spinnerSortOptions
 
+        if(savedInstanceState == null){
+            this.onCreate(bundle)
+
+        }
         if (spinner != null) {
             val arrayAdapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, options)
             spinner.adapter = arrayAdapter
-
             spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>,
@@ -59,9 +71,8 @@ class DisplaySearchListFragment : Fragment() {
                     position: Int,
                     id: Long
                 ) {
-                    viewModel.sortBy(options[position])
+                    viewmodelTwo.sortBy(options[position])
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>) {
                     // Code to perform some action when nothing is selected
                 }
@@ -70,21 +81,6 @@ class DisplaySearchListFragment : Fragment() {
 
 
 
-
-
-
-
-            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-        binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
-
-        /*
-//Safeargs werden hier aus dem Bundel gezogem
-        var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
-        var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
-        var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
-        Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
-         */
-        return binding.root
     }
 
 

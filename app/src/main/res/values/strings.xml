@@ -84,4 +84,10 @@
     <string name="cookingtime">Backzeit:</string>
     <string name="preparationtime">Vorbereitungszeit:</string>
 
+    <string-array name="spinner">
+        <item>vegan</item>
+        <item>vegetarisch</item>
+        <item>süß</item>
+    </string-array>
+
 </resources>
