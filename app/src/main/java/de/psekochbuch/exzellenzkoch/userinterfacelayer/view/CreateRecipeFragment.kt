@@ -158,7 +158,10 @@ class CreateRecipeFragment : Fragment() {
     //handle result of picked image
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            //TODO image müsste hier noch wieder gespeichert und an Glide übergeben werden. 
+            //TODO image müsste hier noch wieder gespeichert und an Glide übergeben werden.
+
+            val imageView = binding.imageButtonRecipeImage
+            context?.let{Glide.with(it).load(data?.data).into(imageView)}
            //imageView.setImageURI(data?.data)
 
 
