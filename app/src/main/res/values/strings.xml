@@ -83,5 +83,8 @@
     <string name="favor">Favorisieren</string>
     <string name="cookingtime">Backzeit:</string>
     <string name="preparationtime">Vorbereitungszeit:</string>
+    <string name="login_english">Login</string>
+    <string name="search_suche">Suche</string>
+    <string name="admin_menu_title">Adminbereich</string>
 
 </resources>

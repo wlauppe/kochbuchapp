@@ -7,26 +7,26 @@
         <item
             android:id="@+id/feed"
             android:icon="@drawable/ic_rss_feed_white_24dp"
-            android:title="Feed"
+            android:title="@string/feed"
             />
 
         <item
             android:id="@+id/loginFragment"
             android:icon="@drawable/ic_login_white_24dp"
-            android:title="Login" />
+            android:title="@string/login_english" />
         <item
             android:id="@+id/recipeListFragment"
             android:icon="@drawable/ic_list_white_24dp"
-            android:title="Meine Rezepte" />
+            android:title="@string/recipe_list_recipe_title" />
 
         <item
             android:id="@+id/publicRecipeSearchFragment"
             android:icon="@drawable/ic_search_white_24dp"
-            android:title="Suche" />
+            android:title="@string/search_suche" />
         <item
             android:id="@+id/adminFragment"
             android:icon="@drawable/ic_admin_white_24dp"
-            android:title="Adminbereich"
+            android:title="@string/admin_menu_title"
             />
    </group>
 
