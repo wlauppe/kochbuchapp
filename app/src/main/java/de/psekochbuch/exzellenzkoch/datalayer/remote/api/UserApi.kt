@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.api
 
 import androidx.lifecycle.LiveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.UserDto
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -42,5 +43,5 @@ interface UserApi {
      * @param userId The id of the user
      */
     @GET("users/{userId}")
-    fun getUser(@Path ("userId") userId: String) : UserDto?
+    fun getUser(@Path ("userId") userId: String) : Response<LiveData<UserDto>>
 }
