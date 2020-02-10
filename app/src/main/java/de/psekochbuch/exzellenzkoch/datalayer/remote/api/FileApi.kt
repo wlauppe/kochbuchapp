@@ -38,12 +38,12 @@ interface FileApi {
 
 
 
-    @DELETE("/{filePath")
+    @DELETE("{filePath")
     suspend fun deleteImage(@Path("filePath") filePath: String, @Path("userId") userId: String): Response<FileDto>
 
 
 
-    @POST("api/images")
+    @POST("images")
     @Multipart
     suspend fun addImage(@Part file: MultipartBody.Part) : FileDto
 

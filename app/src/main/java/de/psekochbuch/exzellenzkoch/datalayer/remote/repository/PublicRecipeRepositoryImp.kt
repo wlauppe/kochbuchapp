@@ -1,21 +1,16 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
-import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.errors.NetworkError
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.invoke
 import kotlinx.coroutines.withTimeout
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -34,7 +29,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     val token = null
     //TODO token von Authentification Interface bekommen.
 
-    val retrofit: PublicRecipeApi =
+    val recipeApiService: PublicRecipeApi =
         ApiServiceBuilder(token).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
 
     val fileApiService: FileApi =
@@ -47,8 +42,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
-        TODO()
-        //val searchList= retrofit.search(page=1,readCount = 1000)
+
+       // val searchList= recipeApiService.search(page=1,readCount = 1000)
 
         //val dto = retrofit.getRecipe(1)
         val recipe1 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
@@ -72,7 +67,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         try{
-            return recipeMapper.toLiveEntity(retrofit.getRecipe(recipeId).body()!!)
+            return recipeMapper.toLiveEntity(recipeApiService.getRecipe(recipeId).body()!!)
         } catch(error: NullPointerException){
             throw NetworkError("Server sent Nullpointer",error)
         }
@@ -86,7 +81,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     override suspend fun  deleteRecipe(recipeId: Int) {
         try {
             val result = withTimeout(5_000) {
-                retrofit.deleteRecipe(recipeId)
+                recipeApiService.deleteRecipe(recipeId)
             }
         } catch (error: Throwable) {
             throw NetworkError("Unable to delete recipe", error)
@@ -96,7 +91,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
         try{
-            coroutineScope{retrofit.addRecipe(recipeMapper.toDto(publicRecipe))}
+            coroutineScope{recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))}
         } catch (error: Throwable) {
             throw NetworkError("Unable to publish recipe", error)
         }
@@ -124,7 +119,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override suspend fun reportRecipe(recipeId: Int) {
         try{
-            coroutineScope{retrofit.reportRecipe(recipeId)}
+            coroutineScope{recipeApiService.reportRecipe(recipeId)}
         } catch (error: Throwable) {
             throw NetworkError("Unable to report recipe", error)
         }
