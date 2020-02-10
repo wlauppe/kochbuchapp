@@ -1,16 +1,12 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import android.util.Log
-import android.widget.Toast
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
-
-
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
@@ -22,7 +18,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
 
     private val recipeRepo = PublicRecipeFakeRepositoryImp()
     //private val userRepo = repository
-    var userRepo = UserFakeRepositoryImp()
+    var userRepo = repository
 
 
     //User Information LiveData
