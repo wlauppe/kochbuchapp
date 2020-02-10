@@ -56,6 +56,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         //die ganzen optional sachen brauchen api 24
         try{
             // retrofit.search(Optional.of("titell"),)
+
         } catch (error: Throwable) {
             throw NetworkError("Unable to write this method", error)
         }
