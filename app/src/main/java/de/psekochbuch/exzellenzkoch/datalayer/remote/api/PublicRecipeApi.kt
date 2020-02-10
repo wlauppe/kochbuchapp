@@ -18,8 +18,8 @@ interface PublicRecipeApi {
      * @param id Id of the recipe
      * @return The recipe with the specific id
      */
-    @GET("recipes/{id}")
-    suspend fun getRecipe(@Path("id") id:Int) : Response<LiveData<PublicRecipeDto>>
+    @GET("api/recipes/{id}")
+    fun getRecipe(@Path("id") id:Int) : LiveData<PublicRecipeDto>
 
     /**
      * POST-Request to add a new recipe.
