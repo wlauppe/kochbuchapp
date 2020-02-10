@@ -55,33 +55,14 @@ class DisplaySearchListFragment : Fragment(){
     }
 
 
-        //spinner
-        //val options = arrayOf("Bewertung", "Datum", "Vegan", "Günstig", "vegetarisch", "süß", "Magnus")
-       // val spinner = binding.spinnerSortOptions
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val options = arrayOf("Bewertung", "Datum", "Vegan", "Günstig", "vegetarisch", "süß", "Magnus")
-        var spinner = bindingTwo.spinnerSortOptions
-        if(savedInstanceState == null){
-            this.onCreate(bundle)
+        binding.radioButtonVegan.setOnClickListener{
+            viewModel.sortByVegan()
         }
-        if (spinner != null) {
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, options)
-            spinner.adapter = arrayAdapter
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View,
-                    position: Int,
-                    id: Long
-                ) {
-                    viewmodelTwo.sortBy(options[position])
-                }
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    // Code to perform some action when nothing is selected
-                }
-            }
+        binding.radioButtonVegetarian.setOnClickListener{
+            viewModel.sortByVegetarian()
+        }
+        binding.radioButtonDate.setOnClickListener{
+            viewModel.sortByDate()
         }
 
 

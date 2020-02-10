@@ -31,7 +31,13 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
         // recipes = repository.search(title, ingredientList, tagList)
        recipes = repository.getPublicRecipes()
     }
-    fun sortBy(sortOption:String){
+
+
+    fun sortByVegan(){
 
     }
+    fun sortByVegetarian(){
+
+    }
+    fun sortByDate(){}
 }
