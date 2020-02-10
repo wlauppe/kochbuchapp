@@ -35,19 +35,16 @@ object InjectorUtils {
 
 
     private fun getPrivateRecipeRepository(context: Context): PrivateRecipeRepository {
-        // TODO Testweise Fakerepo benutzt
         return PrivateRecipeRepositoryImp.getInstance()
     }
 
     private fun getEditTagRepository(context: Context): TagRepository {
-        // TODO Testweise Fakerepo benutzt
         return TagFakeRepositoryImp()
 
     }
 
     // For Login, Register and ChangePassword
     private fun getAuthentification(context: Context): Authentification {
-        // TODO testweise FakeImpl genutzt
         return AuthentificationFakeImpl()
     }
 
