@@ -8,7 +8,8 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
 class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
-    var user : LiveData<User> = UserFakeRepositoryImp().getUser("")
+    var repo = repo
+    var user : LiveData<User> = repo.getUser("")
 
         //LiveData
         var userID : LiveData<String> = MutableLiveData("")
@@ -32,7 +33,7 @@ class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
      * @param id:
      */
     fun setUserByID(id:String){
-        var user = UserFakeRepositoryImp().getUser(id)
+        var user = repo.getUser(id)
         if(user.value!!.userId == ""){
 
         }

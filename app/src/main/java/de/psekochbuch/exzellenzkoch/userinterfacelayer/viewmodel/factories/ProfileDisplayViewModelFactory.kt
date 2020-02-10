@@ -2,7 +2,6 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
