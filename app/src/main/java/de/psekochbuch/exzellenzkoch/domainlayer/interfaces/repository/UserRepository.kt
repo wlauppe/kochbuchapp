@@ -23,7 +23,7 @@ interface UserRepository {
     suspend fun deleteUser(userId : String)
 
     @Throws
-    suspend fun addUser(userId : String)
+    suspend fun addUser(userId : String): String
 
     @Throws
     suspend fun updateUser(user : User)

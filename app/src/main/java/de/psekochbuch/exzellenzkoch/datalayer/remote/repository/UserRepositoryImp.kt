@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 import androidx.lifecycle.LiveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.UserApi
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.CustomTokenDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.UserDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.EntityMapper
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
@@ -40,8 +41,8 @@ class UserRepositoryImp : UserRepository  {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun addUser(userId: String) {
-        retrofit.addUser(userId)
+    override suspend fun addUser(userId: String) :String {
+        return retrofit.addUser(userId).customToken
     }
 
     override suspend fun updateUser(user: User) {

@@ -38,7 +38,7 @@ class UserFakeRepositoryImp : UserRepository  {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun addUser(userId: String) {
+    override suspend fun addUser(userId: String) : String{
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
