@@ -1,12 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import android.app.Application
-import androidx.annotation.NonNull
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 

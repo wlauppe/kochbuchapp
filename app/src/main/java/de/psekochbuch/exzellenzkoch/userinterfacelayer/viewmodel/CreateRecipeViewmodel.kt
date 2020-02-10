@@ -1,14 +1,10 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import android.widget.CheckBox
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.TagFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
-import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
