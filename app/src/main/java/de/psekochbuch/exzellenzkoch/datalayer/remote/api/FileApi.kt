@@ -10,9 +10,6 @@ import java.util.*
 
 
 
-
-// TODO Serverapi anpassen
-
 /**
  * Interface for the api from the picturesfiles
  */
@@ -50,7 +47,7 @@ interface FileApi {
 
     @Multipart
     @POST("api/images")
-    fun addImage(@Part("image\;filename=file.jpg\"") file: RequestBody)
+    fun addImage(@Part("image;filename=file.jpg\"") file: RequestBody)
 
 }
 
@@ -78,5 +75,3 @@ interface FileApi {
     */
 
 
-
-*/
