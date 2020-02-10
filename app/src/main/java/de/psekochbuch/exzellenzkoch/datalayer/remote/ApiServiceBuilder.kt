@@ -55,7 +55,7 @@ class ApiServiceBuilder(firebaseToken:String?) {
             retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(createHttpClient())
-                .addConverterFactory(MoshiConverterFactory.create(moshi)).addCallAdapterFactory(LiveDataCallAdapterFactory())
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
         } else {
             retrofit = Retrofit.Builder().baseUrl(BASE_URL)
