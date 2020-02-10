@@ -10,9 +10,6 @@ import java.util.*
 
 
 
-/**
- * Interface for the api from the picturesfiles
- */
 
 // TODO Serverapi anpassen
 
@@ -22,7 +19,7 @@ import java.util.*
 
 interface FileApi {
 
-    /**
+    /* GET Brauchen wir erst mal nicht, das macht Glide.
      * GET-Request to gets the file with the url
      * The URL ends with api/images/userid/imageName
      * @param imageName Name form the picture
@@ -33,7 +30,7 @@ interface FileApi {
     //@GET("/{userId}/{imageName}")
     //fun getImage(@Path( "imageName") imageName : String, @Path("userId") userId : String) : Response<LiveData<>>
 
-    /**
+    /*
      * POST-Request to add an image to a recipe
      * The URL ends with api/images/recipeId
      * @param file Picture to store
@@ -44,15 +41,18 @@ interface FileApi {
     //pass it like this
     /*File file = new File("/storage/emulated/0/Download/Corrections 6.jpg");
     RequestBody requestFile =
-    RequestBody.create(MediaType.parse("multipart/form-data"), file)
-*/
+    RequestBody.create(MediaType.parse("multipart/form-data"), file) */
 
-    /*
+
+    @DELETE("/{userId}/{imageName}")
+    suspend fun deleteRecipe(@Path("imageName") imageName: String, @Path("userId") userId: String): Response<FileDto>
+
+
     @Multipart
     @POST("api/images")
-    fun addImage(@Part("description" RequestBody description,
-        @Part("file")
-        @Part("file") RequestBody file ): FileDto
+    fun addImage(@Part("image\;filename=file.jpg\"") file: RequestBody)
+
+}
 
     /**
      * PUT-Request to update an image from a recipe
@@ -63,7 +63,7 @@ interface FileApi {
      * @return The Online-Url of the File
      */
 
-
+/* PUT brauchen wir auch erst mal nicht, können ja die URL neu setzen
     @PutMapping("/{userId}/{imageName}")
     @ResponseBody
     fun updateImage(@RequestParam("file") file: MultipartFile, @PathVariable imageName:String, @PathVariable userId:String) :FileDto?
@@ -75,7 +75,8 @@ interface FileApi {
      * @param userId The id of the user, which uploaded the picture
      * @return Empty Url
      */
-    @DeleteMapping("/{userId}/{imageName}")
-    fun deleteRecipe(@PathVariable imageName:String, @PathVariable userId:String) : FileDto?
-}
+    */
+
+
+
 */
