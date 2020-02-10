@@ -79,8 +79,17 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
      */
 
-    override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
-        try{
+    override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+        //Jetzt mal mit LiveData Builder
+        val lData = liveData(Dispatchers.IO, 1000) {
+            val dto = recipeApiService.getRecipe(recipeId)
+            val entity = PublicRecipeDtoEntityMapper().toEntity(dto)
+            emit(entity)
+        }
+        return lData
+    }
+
+       /* try{
             return recipeMapper.toLiveEntity(recipeApiService.getRecipe(recipeId))
         } catch(error: NullPointerException){
             throw NetworkError("Server sent Nullpointer",error)
@@ -88,7 +97,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         catch (error: Throwable) {
             throw NetworkError("Unable to get recipe with id:" + recipeId, error)
         }
-    }
+    }*/
 
 
 
