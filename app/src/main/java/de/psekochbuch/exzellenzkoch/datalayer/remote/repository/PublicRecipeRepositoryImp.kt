@@ -81,9 +81,12 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         //Jetzt mal mit LiveData Builder
-        val lData = liveData(Dispatchers.IO, 1000) {
-            val dto = recipeApiService.getRecipe(recipeId)
-            val entity = PublicRecipeDtoEntityMapper().toEntity(dto)
+            val lData = liveData(Dispatchers.IO, 1000) {
+            val response = recipeApiService.getRecipe(recipeId)
+                if (!response.isSuccessful) throw error("response not successful")
+
+
+                val entity = PublicRecipeDtoEntityMapper().toEntity(response.body()!!)
             emit(entity)
         }
         //return MutableLiveData<PublicRecipe>(PublicRecipe(0,"Title"))

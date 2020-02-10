@@ -19,7 +19,7 @@ import java.util.*
 
 class ApiServiceBuilder(firebaseToken:String?) {
     var retrofit: Retrofit? = null
-    private val BASE_URL = "http://193.196.38.185:8080/api/"
+    private val BASE_URL = "http://193.196.38.185:8080/"
     //Thomas: Ich bin mir recht sicher dass die URL http://193.196.38.185:8080/ sein muss(vlt ohne "/" am schluss)
     //private val BASE_URL = "http://192.168.0.110:8080/api/"
     private val token = firebaseToken
