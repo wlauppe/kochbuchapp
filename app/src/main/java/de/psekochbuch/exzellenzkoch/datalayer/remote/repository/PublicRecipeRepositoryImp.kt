@@ -68,16 +68,20 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         } catch (error: Throwable) {
             throw NetworkError("Unable to write this method", error)
         }
-    }if (token != null) {
+    }
+
+    /* if (token != null) {
             retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(createHttpClient())
                 .addConverterFactory(MoshiConverterFactory.create(moshi)).addCallAdapterFactory(LiveDataCallAdapterFactory())
                 .build()
 
+     */
+
     override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         try{
-            return recipeMapper.toLiveEntity(recipeApiService.getRecipe(recipeId).body()!!)
+            return recipeMapper.toLiveEntity(recipeApiService.getRecipe(recipeId))
         } catch(error: NullPointerException){
             throw NetworkError("Server sent Nullpointer",error)
         }
