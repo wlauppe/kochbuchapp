@@ -18,7 +18,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
 
     private val recipeRepo = PublicRecipeFakeRepositoryImp()
     //private val userRepo = repository
-    var userRepo = repository
+    var userRepo = userRepository
 
 
     //User Information LiveData

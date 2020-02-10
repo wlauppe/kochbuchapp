@@ -5,11 +5,13 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 
 
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
-class RegistrationViewModel : ViewModel() {
+class RegistrationViewModel(authentification:Authentification, repo:UserRepository) : ViewModel() {
 
 
     var email: MutableLiveData<String> = MutableLiveData()

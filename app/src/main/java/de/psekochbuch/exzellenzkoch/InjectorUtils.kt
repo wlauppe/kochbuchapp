@@ -118,4 +118,15 @@ object InjectorUtils {
         return RecipeDisplayViewModelFactory(repo)
     }
 
+    fun provideProfileEditViewModelFactory(context: Context):ProfileEditViewModelFactory {
+        val repo = getUserRepository(context)
+        return ProfileEditViewModelFactory(repo)
+    }
+
+    fun provideRegistrationViewModelFactory(context: Context):RegistrationViewModelFactory {
+        val auth = getAuthentification(context)
+        val repo = getUserRepository(context)
+        return RegistrationViewModelFactory(auth, repo)
+    }
+
 }

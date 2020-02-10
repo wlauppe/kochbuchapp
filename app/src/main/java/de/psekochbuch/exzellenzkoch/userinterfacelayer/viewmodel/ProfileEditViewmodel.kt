@@ -5,8 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
-class ProfileEditViewmodel : ViewModel() {
+class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
     var user : LiveData<User> = UserFakeRepositoryImp().getUser("")
 
         //LiveData

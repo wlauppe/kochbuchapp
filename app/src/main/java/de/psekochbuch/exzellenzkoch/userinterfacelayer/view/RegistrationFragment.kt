@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RegistrationFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrationViewModel
@@ -15,7 +17,6 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrationVie
 class RegistrationFragment : Fragment(R.layout.registration_fragment) {
 
     private lateinit var binding: RegistrationFragmentBinding
-    private lateinit var viewModel: RegistrationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,7 +26,11 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         //binding set to the according Fragment
         binding = RegistrationFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
-        viewModel = ViewModelProvider(this).get(RegistrationViewModel::class.java)
+        //viewmodel recieved by Factory
+        val viewModel : RegistrationViewModel by viewModels {
+            InjectorUtils.provideRegistrationViewModelFactory(requireContext())
+        }
+
         //Sets according viewmodel from XML to this fragment
         binding.viewModel = viewModel
         //initialized navcontoller
