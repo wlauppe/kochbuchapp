@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
 /**
@@ -18,28 +19,46 @@ class AuthentificationImpl
 {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    /**
-     *Registrate a new User at Firebase and at the backendserver
-     *
-     * @param [email] The email of the User
-     * @param [password] The password of the User
-     * @param callback Return the token
-     */
-    fun register(email:String, password:String, callback : (String?, AuthenticationResult) -> Unit)
-    {
-
-        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
-            if(task.isSuccessful) {
-                Log.d(TAG, "createUserWithEmail:success")
-                auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
-                    callback(it.result?.token, AuthenticationResult.REGISTRATIONSUCCESS)
+    companion object {
+        /**
+         *Registrate a new User at Firebase and at the backendserver
+         *
+         * @param [email] The email of the User
+         * @param [password] The password of the User
+         * @param callback Return the token
+         */
+        fun register(
+            email: String,
+            password: String,
+            userId: String,
+            callback: (String?, AuthenticationResult) -> Unit
+        ) {
+            val auth: FirebaseAuth = FirebaseAuth.getInstance()
+            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "createUserWithEmail:success")
+                    auth.currentUser?.getIdToken(false)?.addOnCompleteListener { token ->
+                        val user = auth.currentUser
+                        if (user != null && userId != "") {
+                            user.updateProfile(
+                                UserProfileChangeRequest.Builder().setDisplayName(
+                                    userId
+                                ).build()
+                            ).addOnSuccessListener {
+                                callback(
+                                    token.result?.token,
+                                    AuthenticationResult.REGISTRATIONSUCCESS
+                                )
+                            }
+                        }
+                    }
+                } else {
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    //if(task.exception.)
+                    callback(null, AuthenticationResult.REGISTRATIONFAILED)
                 }
-            } else {
-                Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                //if(task.exception.)
-                callback(null, AuthenticationResult.REGISTRATIONFAILED)
-            }
 
+            }
         }
     }
 
