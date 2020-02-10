@@ -54,7 +54,7 @@ interface PublicRecipeRepository {
     //TODO entweder getRating inkludieren oder besser in PublicRecipe das Feld ratingaverage
 
     @Throws
-    suspend fun setImage(recipeId : Int, Image : File)
+    suspend fun setImage(recipeId : Int, ImageUrl : String)
 
     @Throws
     suspend fun reportRecipe(RecipeId: Int)

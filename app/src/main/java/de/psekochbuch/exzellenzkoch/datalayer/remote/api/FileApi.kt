@@ -42,12 +42,12 @@ interface FileApi {
 
 
     @DELETE("/{userId}/{imageName}")
-    suspend fun deleteRecipe(@Path("imageName") imageName: String, @Path("userId") userId: String): Response<FileDto>
+    suspend fun deleteImage(@Path("imageName") imageName: String, @Path("userId") userId: String): Response<FileDto>
 
 
     @Multipart
     @POST("api/images")
-    fun addImage(@Part("image;filename=file.jpg\"") file: RequestBody)
+    suspend fun addImage(@Part("image;filename=file.jpg\"") file: RequestBody)
 
 }
 

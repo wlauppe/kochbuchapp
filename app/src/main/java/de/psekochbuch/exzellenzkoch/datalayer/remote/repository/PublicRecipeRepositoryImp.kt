@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
+import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
@@ -32,6 +33,10 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     val retrofit: PublicRecipeApi =
         ApiServiceBuilder(token).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
+
+    val fileApiService: FileApi =
+        ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
+
 
     override suspend fun removePublicRecipe(recipe: PublicRecipe) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -101,8 +106,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun setImage(recipeId: Int, Image: File) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun setImage(recipeId: Int, ImageUrl: String) {
+
     }
 
     override suspend fun reportRecipe(recipeId: Int) {
