@@ -1,10 +1,15 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import org.junit.Test
 
 import org.junit.Assert.*
+import org.junit.Rule
 
 class PublicRecipeRepositoryImpTest {
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+
 
     @Test
     fun getPublicRecipe() {
@@ -12,7 +17,7 @@ class PublicRecipeRepositoryImpTest {
             val repo = PublicRecipeRepositoryImp()
             val lrecipe=repo.getPublicRecipe(1)
             lrecipe.observeForever{}
-            //assertEquals(lrecipe.value!!.recipeId,"1")
+            assertEquals(lrecipe.value!!.recipeId,"1")
 
         }
 
