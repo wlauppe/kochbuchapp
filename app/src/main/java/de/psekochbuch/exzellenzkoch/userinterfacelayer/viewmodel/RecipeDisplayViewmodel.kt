@@ -11,109 +11,70 @@ import java.util.*
 
 class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
-    var repo = PublicRecipeRepositoryImp()
+    var repo = repository
 
 
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
 
-    var recipe :PublicRecipe  = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![2]
+    var recipe :PublicRecipe? = null
 
-
-
-     var image: LiveData<String?> = MutableLiveData(recipe.imgUrl)
-     var title: LiveData<String> = MutableLiveData(recipe.title)
-     var preparationDescription: LiveData<String> = MutableLiveData(recipe.preparation)
-     var ingredientChapter= MutableLiveData(recipe.ingredientChapter)
-      var tagsList: LiveData<List<String>> = MutableLiveData(recipe.tags)
-      var recipeCookTime: LiveData<Int>  =MutableLiveData(recipe.cookingTime)
-      var recipePrepTime: LiveData<Int> = MutableLiveData(recipe.preparationTime)
-      var creationTime: LiveData<Date> = MutableLiveData(recipe.creationTimeStamp)
-
+//LiveData Attributes
+     var image: MutableLiveData<String?> = MutableLiveData(recipe?.imgUrl)
+     var title: LiveData<String> = MutableLiveData(recipe?.title)
+     var preparationDescription: LiveData<String> = MutableLiveData(recipe?.preparation)
+     var ingredientChapter= MutableLiveData(recipe?.ingredientChapter)
+      var tagsList: LiveData<List<String>> = MutableLiveData(recipe?.tags)
+      var recipeCookTime: LiveData<Int>  =MutableLiveData(recipe?.cookingTime)
+      var recipePrepTime: LiveData<Int> = MutableLiveData(recipe?.preparationTime)
+      var creationTime: LiveData<Date> = MutableLiveData(recipe?.creationTimeStamp)
     var creationDate = "Erstellungsdatum: 2020"
       //var rating: LiveData<Double> = MutableLiveData(recipe.rating)
 
+    //Attributes
+    var id = 0
 
-    var tagString :String = tagsList.toString()
     var ingredients = getIngredientsStrings()
 
-    fun getIngredientsStrings():String{
+
+   private fun getIngredientsStrings():String{
         var result= ""
-        for(ingredient in recipe.ingredientChapter){
-            for(ingredient in ingredient.ingredients){
-                result.plus(ingredient.toString())
-            }
-        }
+       if(recipe != null){
+           for(ingredient in recipe!!.ingredientChapter){
+               for(ingredient in ingredient.ingredients){
+                   result.plus(ingredient.toString())
+               }
+           }
+       }
         return result
     }
 
-//Dummy MEthode
+
+    //Get PublicRecipeFrom Repo and set it as the current Recipe
     fun setRecipeByID(id:Int?){
-//Get PublicRecipeFrom Repo and set it as the current Recipe
+    if(id == null){
+        return
+    }
+    this.id = id
 
+   var recipe = repo.getPublicRecipe(id)
 
-    if(id == 1){
-        this.recipe =  PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![0]
-        image = MutableLiveData(recipe.imgUrl)
-        title = MutableLiveData(recipe.title)
-        preparationDescription = MutableLiveData(recipe.preparation)
-        ingredientChapter = MutableLiveData(recipe.ingredientChapter)
-        tagsList = MutableLiveData(recipe.tags)
-        recipeCookTime =MutableLiveData(recipe.cookingTime)
-        recipePrepTime = MutableLiveData(recipe.preparationTime)
-        creationTime = MutableLiveData(recipe.creationTimeStamp)
+    if(recipe.value == null){
+        return
     }
-    if(id == 2){
-        this.recipe = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![1]
-        image = MutableLiveData(recipe.imgUrl)
-        title = MutableLiveData(recipe.title)
-        preparationDescription = MutableLiveData(recipe.preparation)
-        ingredientChapter = MutableLiveData(recipe.ingredientChapter)
-        tagsList = MutableLiveData(recipe.tags)
-        recipeCookTime =MutableLiveData(recipe.cookingTime)
-        recipePrepTime = MutableLiveData(recipe.preparationTime)
-        creationTime = MutableLiveData(recipe.creationTimeStamp)
-    }
-    if(id == 3){
-        this.recipe = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![2]
-        image = MutableLiveData(recipe.imgUrl)
-        title = MutableLiveData(recipe.title)
-        preparationDescription = MutableLiveData(recipe.preparation)
-        ingredientChapter = MutableLiveData(recipe.ingredientChapter)
-        tagsList = MutableLiveData(recipe.tags)
-        recipeCookTime =MutableLiveData(recipe.cookingTime)
-        recipePrepTime = MutableLiveData(recipe.preparationTime)
-        creationTime = MutableLiveData(recipe.creationTimeStamp)
-    }
-    if(id == 4){
-        this.recipe = PublicRecipeFakeRepositoryImp().getPublicRecipes().value!![3]
-        image = MutableLiveData(recipe.imgUrl)
-        title = MutableLiveData(recipe.title)
-        preparationDescription = MutableLiveData(recipe.preparation)
-        ingredientChapter = MutableLiveData(recipe.ingredientChapter)
-        tagsList = MutableLiveData(recipe.tags)
-        recipeCookTime =MutableLiveData(recipe.cookingTime)
-        recipePrepTime = MutableLiveData(recipe.preparationTime)
-        creationTime = MutableLiveData(recipe.creationTimeStamp)
+        image = MutableLiveData(recipe.value!!.imgUrl)
+        title = MutableLiveData(recipe.value!!.title)
+        preparationDescription = MutableLiveData(recipe.value!!.preparation)
+        ingredientChapter = MutableLiveData(recipe.value!!.ingredientChapter)
+        tagsList = MutableLiveData(recipe.value!!.tags)
+        recipeCookTime =MutableLiveData(recipe.value!!.cookingTime)
+        recipePrepTime = MutableLiveData(recipe.value!!.preparationTime)
+        creationTime = MutableLiveData(recipe.value!!.creationTimeStamp)
     }
 
-
-
-
-
-    }
-
-
-    fun getRecipeByID(id:Int){
-        //Repo Aufruf
-    }
-
-
+//Wunschkriterium
     fun addToFavourites() {
-        // TODO
+        //repo.addToFacourites(id)
     }
 
-    fun ingredientChapterToString() {
-        // TODO
-    }
 
 }

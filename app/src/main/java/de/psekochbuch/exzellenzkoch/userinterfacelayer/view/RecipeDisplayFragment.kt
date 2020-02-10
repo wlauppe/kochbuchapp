@@ -47,13 +47,13 @@ class RecipeDisplayFragment : Fragment(){
         //initialized navcontoller
         var navController: NavController = findNavController()
         val imageView = binding.imageViewRecipeImage
-        var urlString = viewModel.recipe.imgUrl
+        var urlString = viewModel.recipe?.imgUrl
 
         if(urlString == ""){
             urlString = "https://lh6.googleusercontent.com/proxy/V0UtHt8D7ZorPIVIFl-dMrihaZW-fpXlxCkE30bBCCAugVjuMwhMkC-Tg9UJiQ-ZmhQ8rr9qAgo3P91g9uu3o5250INWJtsbx-jzTWtKCVSsL-SR_gA=w1200-h630-p-k-no-nu"
         }
         //Dummy
-        //var urlString: String = "https://i.ytimg.com/vi/uZfco9h0C_s/hqdefault.jpg"
+
         context?.let { Glide.with(it).load(urlString).into(imageView) }
         return binding.root
     }
