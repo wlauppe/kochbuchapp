@@ -14,11 +14,16 @@ import java.util.*
 
 
 class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
-    suspend override  fun removePublicRecipe(recipe: PublicRecipe) {
 
-    }
+    var entries = 1
+    lateinit var recipeList : MutableList<PublicRecipe>
 
-    override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+
+
+    init {
+
+     var entries = 1
+
         val recipe1 = PublicRecipe(1,"trockener Sandkuchen")
         val recipe2 = PublicRecipe(2,"Quiche", imgUrl = "file:///android_asset/exampleimages/quiche.png")
 
@@ -30,8 +35,34 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
 
         val recipe3 = PublicRecipe(3,"Bratapfel", imgUrl = "file:///android_asset/exampleimages/bratapfel.png")
         val list = listOf(recipe1,recipe2, recipe3, recipe4)
+        var recipeList : MutableList<PublicRecipe> = mutableListOf<PublicRecipe>()
+        recipeList.add(recipe1)
+        recipeList.add(recipe2)
+        recipeList.add(recipe3)
 
-        val ld : MutableLiveData <List<PublicRecipe>> = MutableLiveData(list) //.apply { list }
+    }
+
+suspend override  fun removePublicRecipe(recipe: PublicRecipe) {}
+
+
+
+    override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+        /*val recipe1 = PublicRecipe(1,"trockener Sandkuchen")
+        val recipe2 = PublicRecipe(2,"Quiche", imgUrl = "file:///android_asset/exampleimages/quiche.png")
+
+        val munit = Unit.EssLöffel
+        val ingredient = IngredientAmount("ingredientAmount", 4.4, munit)
+        val ingredientChapter = IngredientChapter(4, "test", listOf(ingredient))
+        val listTags = listOf<String>("tag2", "tag 4","tag2", "tag 4","tag2", "tag 4")
+        val recipe4 = PublicRecipe(4, "Tabak", "zutatenText hier kann alles drinnstehen", listOf(ingredientChapter), listTags,"zubereitungsbeschreibung hier kann auch alles stehen",imgUrl = "file:///android_asset/exampleimages/quiche.png")
+
+        val recipe3 = PublicRecipe(3,"Bratapfel", imgUrl = "file:///android_asset/exampleimages/bratapfel.png")
+        val list = listOf(recipe1,recipe2, recipe3, recipe4)
+
+
+         */
+
+        val ld : MutableLiveData <List<PublicRecipe>> = MutableLiveData(recipeList) //.apply { list }
         return ld
     }
 
