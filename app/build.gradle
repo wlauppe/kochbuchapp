@@ -42,6 +42,12 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+    android {
+        // ...
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
+    }
 }
 
 dependencies {
