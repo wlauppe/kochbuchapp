@@ -1,16 +1,21 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
+import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.errors.NetworkError
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.invoke
 import kotlinx.coroutines.withTimeout
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -63,7 +68,12 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         } catch (error: Throwable) {
             throw NetworkError("Unable to write this method", error)
         }
-    }
+    }if (token != null) {
+            retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(createHttpClient())
+                .addConverterFactory(MoshiConverterFactory.create(moshi)).addCallAdapterFactory(LiveDataCallAdapterFactory())
+                .build()
 
     override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         try{
