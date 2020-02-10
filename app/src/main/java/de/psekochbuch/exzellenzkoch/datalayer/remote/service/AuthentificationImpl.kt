@@ -60,6 +60,29 @@ class AuthentificationImpl
 
             }
         }
+
+        /**
+         * Give the JWT-token of the active user
+         *
+         * @param callback Return the token
+         */
+        fun getToken(callback: (String?) -> Unit) {
+            val auth: FirebaseAuth = FirebaseAuth.getInstance()
+            auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
+                callback(it.result?.token)
+            }
+        }
+
+        fun authWithCustomToken(token:String, callback: () -> Unit)
+        {
+            val auth: FirebaseAuth = FirebaseAuth.getInstance()
+            auth.signInWithCustomToken(token).addOnCompleteListener {
+                if(it.isSuccessful)
+                {
+                    callback()
+                }
+            }
+        }
     }
 
     /**
@@ -132,15 +155,5 @@ class AuthentificationImpl
         auth.currentUser?.delete()
     }
 
-    /**
-     * Give the JWT-token of the active user
-     *
-     * @param callback Return the token
-     */
-    fun getToken(callback: (String?) -> Unit)
-    {
-        auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
-            callback(it.result?.token)
-        }
-    }
+
 }

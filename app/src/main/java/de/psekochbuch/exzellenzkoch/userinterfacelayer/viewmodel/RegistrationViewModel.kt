@@ -10,6 +10,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryIm
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 
 
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
@@ -45,7 +46,18 @@ class RegistrationViewModel() : ViewModel() {
                                         userRepository.setToken(it)
                                         viewModelScope.launch {
                                             try {
-                                                userRepository.addUser(id)
+                                                 val token = userRepository.addUser(id)
+                                                AuthentificationImpl.authWithCustomToken(token) {
+                                                    AuthentificationImpl.getToken {
+                                                        if(it.equals(token))
+                                                        {
+                                                            val t = true
+                                                        }
+                                                        else {
+                                                            val x = false
+                                                        }
+                                                    }
+                                                }
                                             }catch (e: Exception)
                                             {
 
