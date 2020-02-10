@@ -87,5 +87,6 @@
     <string name="search_suche">Suche</string>
     <string name="admin_menu_title">Adminbereich</string>
     <string name="search_results">Suchergebnisse</string>
+    <string name="date">Datum</string>
 
 </resources>

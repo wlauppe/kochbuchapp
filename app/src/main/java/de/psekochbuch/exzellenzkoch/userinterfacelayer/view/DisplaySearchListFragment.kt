@@ -42,26 +42,14 @@ class DisplaySearchListFragment : Fragment() {
             exampleAdapter.setNewItems(items)
         }
 
-        //spinner
-        val options = arrayOf("Bewertung", "Datum", "Vegan", "Günstig", "vegetarisch", "süß", "Magnus")
-        val spinner = binding.spinnerSortOptions
-
-        if (spinner != null) {
-            val arrayAdapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, options)
-            spinner.adapter = arrayAdapter
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View,
-                    position: Int,
-                    id: Long
-                ) {
-                    viewModel.sortBy(options[position])
-                }
-                override fun onNothingSelected(parent: AdapterView<*>) {
-                    viewModel.sortBy("Datum")
-                }
-            }
+        binding.radioButtonVegan.setOnClickListener{
+            viewModel.sortByVegan()
+        }
+        binding.radioButtonVegetarian.setOnClickListener{
+            viewModel.sortByVegetarian()
+        }
+        binding.radioButtonDate.setOnClickListener{
+            viewModel.sortByDate()
         }
 
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)

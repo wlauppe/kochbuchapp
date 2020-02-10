@@ -41,7 +41,11 @@ class DisplaySearchListViewmodel : ViewModel() {
     }
 
 
-    fun sortBy(sortOption:String){
+    fun sortByVegan(){
 
     }
+    fun sortByVegetarian(){
+
+    }
+    fun sortByDate(){}
 }
