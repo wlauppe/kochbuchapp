@@ -4,7 +4,6 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 
 

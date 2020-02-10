@@ -95,7 +95,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         return 0
     }
 
-
     override suspend fun setRating(recipeId: Int, userId: String, value: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
