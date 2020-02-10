@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.api
 
 import androidx.lifecycle.LiveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.FileDto
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
@@ -41,9 +42,10 @@ interface FileApi {
     suspend fun deleteImage(@Path("imageName") imageName: String, @Path("userId") userId: String): Response<FileDto>
 
 
-    @Multipart
+
     @POST("api/images")
-    suspend fun addImage(@Part("image;filename=file.jpg\"") file: RequestBody)
+    @Multipart
+    suspend fun addImage(@Part file: MultipartBody.Part) : FileDto
 
 }
 
