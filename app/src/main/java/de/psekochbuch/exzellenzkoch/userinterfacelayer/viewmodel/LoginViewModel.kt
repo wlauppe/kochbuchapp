@@ -4,6 +4,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 
 
@@ -33,6 +34,7 @@ class LoginViewModel(authentification: Authentification) : ViewModel() {
      * Change the "Login" Button in the menu to "Logout" when logged in
      */
     private fun onLoginSuccess() {
+
     }
 
 }

@@ -185,7 +185,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
      * @return Tag list List<String>
      */
     fun getCheckedTags(): List<String> {
-        var result = mutableListOf<String>()
+        val result = mutableListOf<String>()
 
         if (this.tagCheckBoxVegan.value!!) {
             result.add("vegan")
@@ -206,8 +206,6 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         if (this.tagCheckBoxVegetarian.value!!) {
             result.add("vegetarisch")
         }
-
-
 
         return result
     }
