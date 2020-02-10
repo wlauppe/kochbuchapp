@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository
 
 import androidx.lifecycle.LiveData
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.UserDto
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 
 interface UserRepository {
@@ -14,6 +15,9 @@ interface UserRepository {
     fun getUsers(userIdPraefix: String): LiveData<List<User>>
 
     fun getUser(UserId: String): LiveData<User>
+
+    @Throws
+    suspend fun checkUser(userId:String): User?
 
     @Throws
     suspend fun deleteUser(userId : String)

@@ -19,6 +19,9 @@ interface UserApi {
     @POST("users")
     fun createUser(@Path("") @Body user: UserDto)
 
+    @POST("users/{userId}")
+    suspend fun addUser(@Path ("userId") userId:String) :UserDto
+
     /**
      * PUT-Request to update an user
      * The URL ends with /api/users/{userId}
@@ -42,5 +45,5 @@ interface UserApi {
      * @param userId The id of the user
      */
     @GET("users/{userId}")
-    fun getUser(@Path ("userId") userId: String) : UserDto?
+    suspend fun getUser(@Path ("userId") userId: String) : UserDto
 }
