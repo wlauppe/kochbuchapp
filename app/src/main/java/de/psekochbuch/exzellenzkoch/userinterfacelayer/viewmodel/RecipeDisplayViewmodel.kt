@@ -21,7 +21,15 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
     var recipe :PublicRecipe? = null
 
-//LiveData Attributes
+    private val _errorLiveDataString = MutableLiveData<String?>()
+    /**
+     * Request a snackbar to display a string.
+     */
+    val errorLiveDataString: LiveData<String?>
+        get() = _errorLiveDataString
+
+
+    //LiveData Attributes
      var image: MutableLiveData<String?> = MutableLiveData(recipe?.imgUrl)
      var title: LiveData<String> = MutableLiveData(recipe?.title)
      var preparationDescription: LiveData<String> = MutableLiveData(recipe?.preparation)
@@ -72,7 +80,26 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
     if(id == null){
         return
     }
+        var recipe : LiveData<PublicRecipe> = MutableLiveData()
     this.id = id
+        //coroutine
+        viewModelScope.launch {
+            try {
+                recipe = repo.getPublicRecipe(id)
+
+                image = MutableLiveData(recipe.value!!.imgUrl)
+                title = MutableLiveData(recipe.value!!.title)
+                preparationDescription = MutableLiveData(recipe.value!!.preparation)
+                ingredientChapter = MutableLiveData(recipe.value!!.ingredientChapter)
+                tagsList = MutableLiveData(recipe.value!!.tags)
+                recipeCookTime =MutableLiveData(recipe.value!!.cookingTime)
+                recipePrepTime = MutableLiveData(recipe.value!!.preparationTime)
+                creationTime = MutableLiveData(recipe.value!!.creationTimeStamp)
+
+            } catch (error: Error) {
+                _errorLiveDataString.value = error.message
+            }
+        }
 
         var recipe: LiveData<PublicRecipe> = MutableLiveData()
         viewModelScope.launch {
