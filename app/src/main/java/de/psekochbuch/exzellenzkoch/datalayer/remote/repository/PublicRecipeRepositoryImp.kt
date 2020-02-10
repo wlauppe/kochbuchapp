@@ -63,7 +63,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         try{
-            return recipeMapper.toLiveEntity(retrofit.getRecipe(recipeId).body()!!)
+            return recipeMapper.toLiveEntity(retrofit.getRecipe(recipeId))
         } catch(error: NullPointerException){
             throw NetworkError("Server sent Nullpointer",error)
         }
