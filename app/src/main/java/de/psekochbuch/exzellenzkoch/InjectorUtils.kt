@@ -97,10 +97,10 @@ object InjectorUtils {
         return ProfileDisplayViewModelFactory(userRepository, recipeRepository)
     }
 
-    fun providePublicRecipeSearchViewModelFactory(context: Context)
-            :PublicRecipeSearchViewModelFactory {
+    fun provideDisplaySearchListViewModelFactory(context: Context)
+            :DisplaySearchListViewModelFactory {
         val repository = getPublicRecipeRepository(context)
-        return PublicRecipeSearchViewModelFactory(repository)
+        return DisplaySearchListViewModelFactory(repository)
     }
 
     fun provideSearchWithTagsViewModelFactory(context: Context):SearchWithTagsViewModelFactory {
