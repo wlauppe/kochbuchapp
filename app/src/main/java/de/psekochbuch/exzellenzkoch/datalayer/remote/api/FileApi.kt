@@ -38,8 +38,8 @@ interface FileApi {
 
 
 
-    @DELETE("/{userId}/{imageName}")
-    suspend fun deleteImage(@Path("imageName") imageName: String, @Path("userId") userId: String): Response<FileDto>
+    @DELETE("/{filePath")
+    suspend fun deleteImage(@Path("filePath") filePath: String, @Path("userId") userId: String): Response<FileDto>
 
 
 
