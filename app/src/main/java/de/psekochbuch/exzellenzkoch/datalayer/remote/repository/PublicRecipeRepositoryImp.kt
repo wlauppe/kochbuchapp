@@ -17,6 +17,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.invoke
 import kotlinx.coroutines.withTimeout
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import java.io.File
 import java.lang.NullPointerException
 import java.util.*
@@ -107,7 +109,12 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     }
 
     override suspend fun setImage(recipeId: Int, ImageUrl: String) {
-
+        //versuche es erst mal mit einem vordefinierten Image
+        //später könnte man direkt ImageUrl übergeben.
+        val CustomUrl = "file:///android_asset/exampleimages/quiche.png"
+        val file : File = File(CustomUrl)
+        val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+        fileApiService.addImage(requestFile)
     }
 
     override suspend fun reportRecipe(recipeId: Int) {

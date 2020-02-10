@@ -35,10 +35,6 @@ interface FileApi {
      */
 
 
-    //pass it like this
-    /*File file = new File("/storage/emulated/0/Download/Corrections 6.jpg");
-    RequestBody requestFile =
-    RequestBody.create(MediaType.parse("multipart/form-data"), file) */
 
 
     @DELETE("/{userId}/{imageName}")
