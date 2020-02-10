@@ -9,12 +9,13 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepo
 
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import java.security.Timestamp
 import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RecipeDisplayViewmodel : ViewModel() {
+class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
     var repo = PublicRecipeRepositoryImp()
 

@@ -13,10 +13,12 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeReposito
 
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
+class ProfileDisplayViewmodel(userRepository:UserRepository,
+                              recipeRepository: PublicRecipeRepository) : ViewModel() {
 
     private val recipeRepo = PublicRecipeFakeRepositoryImp()
     //private val userRepo = repository

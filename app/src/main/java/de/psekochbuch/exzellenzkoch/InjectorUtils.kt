@@ -92,8 +92,9 @@ object InjectorUtils {
     }
 
     fun provideProfileDisplayViewModelFactory(context: Context): ProfileDisplayViewModelFactory {
-        val repository = getUserRepository(context)
-        return ProfileDisplayViewModelFactory(repository)
+        val userRepository = getUserRepository(context)
+        val recipeRepository = getPublicRecipeRepository(context)
+        return ProfileDisplayViewModelFactory(userRepository, recipeRepository)
     }
 
     fun providePublicRecipeSearchViewModelFactory(context: Context)
@@ -110,6 +111,11 @@ object InjectorUtils {
     fun provideUserSearchViewModelFactory(context: Context):UserSearchViewModelFactory {
         val repository = getUserRepository(context)
         return UserSearchViewModelFactory(repository)
+    }
+
+    fun provideRecipeDisplayViewModelFactory(context: Context):RecipeDisplayViewModelFactory {
+        val repo = getPublicRecipeRepository(context)
+        return RecipeDisplayViewModelFactory(repo)
     }
 
 }
