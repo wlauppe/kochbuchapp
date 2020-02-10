@@ -51,9 +51,6 @@ class DisplaySearchListFragment : Fragment(){
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
-        return binding.root
-    }
-
 
         binding.radioButtonVegan.setOnClickListener{
             viewModel.sortByVegan()
@@ -64,12 +61,11 @@ class DisplaySearchListFragment : Fragment(){
         binding.radioButtonDate.setOnClickListener{
             viewModel.sortByDate()
         }
-
-
+        return binding.root
+    }
 
     }
 
 
 
 
-}

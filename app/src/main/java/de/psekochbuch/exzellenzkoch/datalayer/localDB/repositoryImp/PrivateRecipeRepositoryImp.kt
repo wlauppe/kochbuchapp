@@ -52,4 +52,15 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     fun transformListPrivateRecipeDBToListPrivateRecipeDB(recipes:List<PrivateRecipeDB>):List<PrivateRecipe>{
         return recipes.map(::transformPrivateRecipeDBToPrivateRecipe)
     }
+
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile private var instance: PrivateRecipeRepository? = null
+
+        fun getInstance() =
+            instance ?: synchronized(this) {
+                instance ?: PrivateRecipeRepositoryImp(application = Application()).also { instance = it }
+            }
+    }
 }

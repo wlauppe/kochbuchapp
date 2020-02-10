@@ -69,6 +69,16 @@ class UserRepositoryImp : UserRepository  {
     override suspend fun unreportUser(userId: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile private var instance: UserRepository? = null
+
+        fun getInstance() =
+            instance ?: synchronized(this) {
+                instance ?: UserRepositoryImp().also { instance = it }
+            }
+    }
 
 
 }

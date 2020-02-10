@@ -27,8 +27,6 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
      */
     val errorLiveDataString: LiveData<String?>
         get() = _errorLiveDataString
-
-
     //LiveData Attributes
      var image: MutableLiveData<String?> = MutableLiveData(recipe?.imgUrl)
      var title: LiveData<String> = MutableLiveData(recipe?.title)
@@ -43,20 +41,6 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
     //Attributes
     var id = 0
-
-    /*
-* This variable is private because we don't want to expose MutableLiveData
-*
-* MutableLiveData allows anyone to set a value, and MainViewModel is the only
-* class that should be setting values.
-*/
-
-    private val _errorLiveDataString = MutableLiveData<String?>()
-    /**
-     * Request a snackbar to display a string.
-     */
-    val errorLiveDataString: LiveData<String?>
-        get() = _errorLiveDataString
 
 
     var ingredients = getIngredientsStrings()
@@ -80,39 +64,18 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
     if(id == null){
         return
     }
-        var recipe : LiveData<PublicRecipe> = MutableLiveData()
-    this.id = id
-        //coroutine
+       var  recipeLiveData: LiveData<PublicRecipe> = MutableLiveData()
         viewModelScope.launch {
             try {
-                recipe = repo.getPublicRecipe(id)
-
-                image = MutableLiveData(recipe.value!!.imgUrl)
-                title = MutableLiveData(recipe.value!!.title)
-                preparationDescription = MutableLiveData(recipe.value!!.preparation)
-                ingredientChapter = MutableLiveData(recipe.value!!.ingredientChapter)
-                tagsList = MutableLiveData(recipe.value!!.tags)
-                recipeCookTime =MutableLiveData(recipe.value!!.cookingTime)
-                recipePrepTime = MutableLiveData(recipe.value!!.preparationTime)
-                creationTime = MutableLiveData(recipe.value!!.creationTimeStamp)
-
-            } catch (error: Error) {
-                _errorLiveDataString.value = error.message
-            }
-        }
-
-        var recipe: LiveData<PublicRecipe> = MutableLiveData()
-        viewModelScope.launch {
-            try {
-                recipe = repo.getPublicRecipe(id)
-                image = MutableLiveData(recipe.value!!.imgUrl)
-                title = MutableLiveData(recipe.value!!.title)
-                preparationDescription = MutableLiveData(recipe.value!!.preparation)
-                ingredientChapter = MutableLiveData(recipe.value!!.ingredientChapter)
-                tagsList = MutableLiveData(recipe.value!!.tags)
-                recipeCookTime =MutableLiveData(recipe.value!!.cookingTime)
-                recipePrepTime = MutableLiveData(recipe.value!!.preparationTime)
-                creationTime = MutableLiveData(recipe.value!!.creationTimeStamp)
+                recipeLiveData = repo.getPublicRecipe(id)
+                image = MutableLiveData(recipeLiveData.value!!.imgUrl)
+                title = MutableLiveData(recipeLiveData.value!!.title)
+                preparationDescription = MutableLiveData(recipeLiveData.value!!.preparation)
+                ingredientChapter = MutableLiveData(recipeLiveData.value!!.ingredientChapter)
+                tagsList = MutableLiveData(recipeLiveData.value!!.tags)
+                recipeCookTime =MutableLiveData(recipeLiveData.value!!.cookingTime)
+                recipePrepTime = MutableLiveData(recipeLiveData.value!!.preparationTime)
+                creationTime = MutableLiveData(recipeLiveData.value!!.creationTimeStamp)
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }

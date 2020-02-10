@@ -2,13 +2,18 @@ package de.psekochbuch.exzellenzkoch
 
 import android.content.Context
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeFakeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.TagFakeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.TagRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationFakeImpl
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
@@ -20,29 +25,30 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.*
 object InjectorUtils {
 
     private fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
-        return PublicRecipeFakeRepositoryImp.getInstance()
+        return PublicRecipeRepositoryImp.getInstance()
         //return PublicRecipeRepositoryImp.getInstance()
     }
 
     private fun getUserRepository(context: Context): UserRepository {
-        return UserFakeRepositoryImp.getInstance()
+        return UserRepositoryImp.getInstance()
     }
 
 
     private fun getPrivateRecipeRepository(context: Context): PrivateRecipeRepository {
         // TODO Testweise Fakerepo benutzt
-        return PrivateRecipeFakeRepositoryImp.getInstance()
+        return PrivateRecipeRepositoryImp.getInstance()
     }
 
     private fun getEditTagRepository(context: Context): TagRepository {
         // TODO Testweise Fakerepo benutzt
-        return TagFakeRepositoryImp.getInstance()
+        return TagFakeRepositoryImp()
+
     }
 
     // For Login, Register and ChangePassword
     private fun getAuthentification(context: Context): Authentification {
         // TODO testweise FakeImpl genutzt
-        return AuthentificationFakeImpl.getInstance()
+        return AuthentificationFakeImpl()
     }
 
     /*

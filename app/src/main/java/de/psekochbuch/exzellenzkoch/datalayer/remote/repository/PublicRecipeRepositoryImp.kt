@@ -39,7 +39,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
-        TODO()
+
         //val searchList= retrofit.search(page=1,readCount = 1000)
 
         //val dto = retrofit.getRecipe(1)
@@ -64,7 +64,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         try{
             return recipeMapper.toLiveEntity(retrofit.getRecipe(recipeId).body()!!)
-        } catch(error: NullPointerException){
+        } catch(error: Exception){
             throw NetworkError("Server sent Nullpointer",error)
         }
         catch (error: Throwable) {

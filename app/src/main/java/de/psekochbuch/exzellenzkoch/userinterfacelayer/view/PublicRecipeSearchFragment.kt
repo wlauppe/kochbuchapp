@@ -31,7 +31,7 @@ class PublicRecipeSearchFragment : Fragment() {
             InjectorUtils.provideDisplaySearchListViewModelFactory(requireContext())
         }
         //Sets according viewmodel from XML to this fragment
-        binding.publicRecipeSearchViewModel = viewModel
+        binding.displaySearchListViewmodel = viewModel
         //initialized navcontoller
         val navController: NavController = findNavController()
         binding.buttonSearchRecipeSearch.setOnClickListener {
