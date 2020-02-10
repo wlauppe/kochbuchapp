@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.api
 import androidx.lifecycle.LiveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.PublicRecipeDto
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 import java.util.*
 
@@ -18,7 +19,7 @@ interface PublicRecipeApi {
      * @return The recipe with the specific id
      */
     @GET("recipes/{id}")
-    suspend fun getRecipe(@Path("id") id:Int) : PublicRecipeDto
+    suspend fun getRecipe(@Path("id") id:Int) : Response<LiveData<PublicRecipeDto>>
 
     /**
      * POST-Request to add a new recipe.
@@ -62,7 +63,7 @@ interface PublicRecipeApi {
                @Query("ingredients") ingredients:Optional<List<String>>,
                @Query("creationDate") creationDate:Optional<Date>,
                @Query("page") page:Int,
-               @Query("readCount") readCount:Int):List<PublicRecipeDto>
+               @Query("readCount") readCount:Int):Response<LiveData<List<PublicRecipeDto>>>
 
     /**
      * POST-Request to report a recipe

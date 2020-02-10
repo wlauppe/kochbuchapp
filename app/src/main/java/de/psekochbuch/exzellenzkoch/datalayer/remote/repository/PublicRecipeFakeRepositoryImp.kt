@@ -14,12 +14,48 @@ import java.util.*
 
 
 class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
-    suspend override  fun removePublicRecipe(recipe: PublicRecipe) {
+  lateinit private var recipeList : MutableList<PublicRecipe>
+    var entries = 1
+    //var recipeList : MutableList<PublicRecipe>
 
-    }
+    init {
+    val recipe1 = PublicRecipe(1, "trockener Sandkuchen")
+    val recipe2 =
+        PublicRecipe(2, "Quiche", imgUrl = "file:///android_asset/exampleimages/quiche.png")
+
+    val munit = Unit.EssLöffel
+    val ingredient = IngredientAmount("ingredientAmount", 4.4, munit)
+    val ingredientChapter = IngredientChapter(4, "test", listOf(ingredient))
+    val listTags = listOf<String>("tag2", "tag 4", "tag2", "tag 4", "tag2", "tag 4")
+    val recipe4 = PublicRecipe(
+        4,
+        "Tabak",
+        "zutatenText hier kann alles drinnstehen",
+        listOf(ingredientChapter),
+        listTags,
+        "zubereitungsbeschreibung hier kann auch alles stehen",
+        imgUrl = "file:///android_asset/exampleimages/quiche.png"
+    )
+
+    val recipe3 = PublicRecipe(
+        3,
+        "Bratapfel",
+        imgUrl = "file:///android_asset/exampleimages/bratapfel.png"
+    )
+    val list = listOf(recipe1, recipe2, recipe3, recipe4)
+    var recipeList: MutableList<PublicRecipe> = mutableListOf<PublicRecipe>()
+    recipeList.add(recipe1)
+    recipeList.add(recipe2)
+    recipeList.add(recipe3)
+    recipeList.add(recipe4)
+}
+
+suspend override  fun removePublicRecipe(recipe: PublicRecipe) {}
+
+
 
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
-        val recipe1 = PublicRecipe(1,"trockener Sandkuchen")
+        /*val recipe1 = PublicRecipe(1,"trockener Sandkuchen")
         val recipe2 = PublicRecipe(2,"Quiche", imgUrl = "file:///android_asset/exampleimages/quiche.png")
 
         val munit = Unit.EssLöffel
@@ -31,7 +67,10 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         val recipe3 = PublicRecipe(3,"Bratapfel", imgUrl = "file:///android_asset/exampleimages/bratapfel.png")
         val list = listOf(recipe1,recipe2, recipe3, recipe4)
 
-        val ld : MutableLiveData <List<PublicRecipe>> = MutableLiveData(list) //.apply { list }
+
+         */
+
+        val ld : MutableLiveData <List<PublicRecipe>> = MutableLiveData(recipeList) //.apply { list }
         return ld
     }
 
@@ -44,8 +83,8 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
-        //TODO
+    override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun deleteRecipe(recipeId: Int) {
@@ -77,7 +116,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         // For Singleton instantiation
         @Volatile private var instance: PublicRecipeRepository? = null
         fun getInstance() = instance ?: synchronized(this) {
-                instance ?: PublicRecipeFakeRepositoryImp().also { instance = it }
+            instance ?: PublicRecipeFakeRepositoryImp().also { instance = it }
             }
    }
 }
