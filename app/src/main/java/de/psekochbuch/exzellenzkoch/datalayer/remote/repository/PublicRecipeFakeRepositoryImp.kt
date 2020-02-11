@@ -24,6 +24,15 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     var entries = 1
     //var recipeList : MutableList<PublicRecipe>
 
+    //helper function die beim Adden die ids dass sie richtig sind anpasst.
+    private fun addToList (recipe : PublicRecipe){
+        var myrecipe = recipe
+        val newid=recipeList.size+1
+        myrecipe.recipeId=newid
+        recipeList.add(myrecipe)
+
+    }
+
     init {
         Log.w(TAG, "Starte init Block")
         val recipe1 = PublicRecipe(1, "trockener Sandkuchen")
@@ -49,13 +58,13 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
             "Bratapfel",
             imgUrl = "file:///android_asset/exampleimages/bratapfel.png"
         )
-        val list = listOf(recipe1, recipe2, recipe3, recipe4)
+        //val list = listOf(recipe1, recipe2, recipe3, recipe4)
         // recipeList = mutableListOf<PublicRecipe>()
         Log.w(TAG, "Versuche auf Recipelistzuzugreifen")
-        recipeList.add(recipe1)
-        recipeList.add(recipe2)
-        recipeList.add(recipe3)
-        recipeList.add(recipe4)
+        addToList(recipe1)
+        addToList(recipe2)
+        addToList(recipe3)
+        addToList(recipe4)
         Log.w(TAG, "Habe habe jetzt zugegriffen")
     }
 
@@ -86,7 +95,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
 
         Log.w(TAG, "Id von erstem aus der List ist $recipeList[1].recipeId()")
         val recipe1 = PublicRecipe(1, "extra tockener Sandkuchen")
-        recipeList.add(recipe1)
+        addToList(recipe1)
         val ld: MutableLiveData<List<PublicRecipe>> = MutableLiveData(recipeList)
         return ld
     }
