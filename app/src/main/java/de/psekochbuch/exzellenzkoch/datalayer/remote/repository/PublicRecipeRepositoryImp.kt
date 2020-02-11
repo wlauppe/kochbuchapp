@@ -34,7 +34,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     val token = null
     //TODO token von Authentification Interface bekommen.
 
-    val retrofit: PublicRecipeApi =
+    val recipeApiService: PublicRecipeApi =
         ApiServiceBuilder(token).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
 
     val fileApiService: FileApi =
@@ -47,8 +47,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
-        TODO()
-        //val searchList= retrofit.search(page=1,readCount = 1000)
+
+       // val searchList= recipeApiService.search(page=1,readCount = 1000)
 
         //val dto = retrofit.getRecipe(1)
         val recipe1 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
@@ -60,7 +60,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     }
 
     override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>{
-        TODO()
+        TODO("implementieren")
         //die ganzen optional sachen brauchen api 24
         try{
             // retrofit.search(Optional.of("titell"),)
@@ -70,23 +70,45 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
-    override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
-        try{
-            return recipeMapper.toLiveEntity(retrofit.getRecipe(recipeId).body()!!)
+    /* if (token != null) {
+            retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .client(createHttpClient())
+                .addConverterFactory(MoshiConverterFactory.create(moshi)).addCallAdapterFactory(LiveDataCallAdapterFactory())
+                .build()
+
+     */
+
+    override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+        //Jetzt mal mit LiveData Builder
+            val lData = liveData(Dispatchers.IO, 1000) {
+            val response = recipeApiService.getRecipe(recipeId)
+                if (!response.isSuccessful) throw error("response not successful")
+
+
+                val entity = PublicRecipeDtoEntityMapper().toEntity(response.body()!!)
+            emit(entity)
+        }
+        //return MutableLiveData<PublicRecipe>(PublicRecipe(0,"Title"))
+        return lData
+    }
+
+       /* try{
+            return recipeMapper.toLiveEntity(recipeApiService.getRecipe(recipeId))
         } catch(error: NullPointerException){
             throw NetworkError("Server sent Nullpointer",error)
         }
         catch (error: Throwable) {
             throw NetworkError("Unable to get recipe with id:" + recipeId, error)
         }
-    }
+    }*/
 
 
 
     override suspend fun  deleteRecipe(recipeId: Int) {
         try {
             val result = withTimeout(5_000) {
-                retrofit.deleteRecipe(recipeId)
+                recipeApiService.deleteRecipe(recipeId)
             }
         } catch (error: Throwable) {
             throw NetworkError("Unable to delete recipe", error)
@@ -96,7 +118,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
         try{
-            coroutineScope{retrofit.addRecipe(recipeMapper.toDto(publicRecipe))}
+            coroutineScope{recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))}
         } catch (error: Throwable) {
             throw NetworkError("Unable to publish recipe", error)
         }
@@ -124,7 +146,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override suspend fun reportRecipe(recipeId: Int) {
         try{
-            coroutineScope{retrofit.reportRecipe(recipeId)}
+            coroutineScope{recipeApiService.reportRecipe(recipeId)}
         } catch (error: Throwable) {
             throw NetworkError("Unable to report recipe", error)
         }

@@ -44,7 +44,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+    override  fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
