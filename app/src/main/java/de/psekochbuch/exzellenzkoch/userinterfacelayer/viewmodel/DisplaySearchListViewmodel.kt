@@ -2,9 +2,11 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import java.util.*
 
 class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
 
@@ -32,11 +34,31 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
     }
 
 
-    fun sortByVegan(){
+    fun sortByVegan(): List<PublicRecipe>{
+        var sortedList  = mutableListOf<PublicRecipe>()
+        if(recipes.value != null) {
+            for (recipe in recipes.value!!) {
+                if(recipe.tags.contains("vegan")) {
+                    sortedList.add(recipe)
+                }
+            }
+        }
+        return sortedList
+
 
     }
-    fun sortByVegetarian(){
-
+    fun sortByVegetarian() : List<PublicRecipe>{
+        var sortedList  = mutableListOf<PublicRecipe>()
+        if(recipes.value != null) {
+            for (recipe in recipes.value!!) {
+                if(recipe.tags.contains("vegetarisch")) {
+                    sortedList.add(recipe)
+                }
+            }
+        }
+        return sortedList
     }
-    fun sortByDate(){}
+    fun sortByDate() {
+        
+    }
 }
