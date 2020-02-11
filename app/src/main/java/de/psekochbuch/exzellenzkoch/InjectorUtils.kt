@@ -30,7 +30,8 @@ object InjectorUtils {
     }
 
     private fun getUserRepository(context: Context): UserRepository {
-        return UserRepositoryImp.getInstance()
+        return UserFakeRepositoryImp.getInstance()
+        //return UserRepositoryImp.getInstance()
     }
 
 
