@@ -34,7 +34,8 @@ import androidx.core.content.PermissionChecker.checkSelfPermission
 class CreateRecipeFragment : Fragment() {
 
     private lateinit var binding: CreateRecipeFragmentBinding
-    var data : Uri? = null
+
+    var viewModelTemp : CreateRecipeViewmodel? = null
 
     //Methods
 
@@ -46,12 +47,16 @@ class CreateRecipeFragment : Fragment() {
         val viewModel : CreateRecipeViewmodel by viewModels {
             InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
         }
+        viewModelTemp = viewModel
 
         //SafeArgs---------------------------
         var recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
 
         if(recipeID != null) {
-            viewModel.setRecipeByID(recipeID)
+            if(recipeID != 0){
+                viewModel.setRecipeByID(recipeID)
+            }
+           // Toast.makeText(context,recipeID.toString(), Toast.LENGTH_SHORT).show()
 
            // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
         }
@@ -59,8 +64,6 @@ class CreateRecipeFragment : Fragment() {
         //binding set to the according Fragment
         binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
-
-
         //Sets according viewmodel from XML to this fragment
         binding.createRecipeViewModel = viewModel
         //initialized navcontoller
@@ -71,17 +74,13 @@ class CreateRecipeFragment : Fragment() {
         val imageView = binding.imageButtonRecipeImage
         var urlString = viewModel.imageUrl
         if(urlString == ""){
-            urlString = "file:///android_asset/exampleimages/quiche.png"
+            urlString = "file:///android_asset/exampleimages/vegetables.jpg"
         }
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             //Create Recipe
-            Toast.makeText(
-                requireContext(),
-                "Rezept zur Rezeptliste hinzugefügt",
-                Toast.LENGTH_SHORT
-            ).show()
+           // Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe()
 
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
@@ -117,14 +116,11 @@ class CreateRecipeFragment : Fragment() {
             }
         }
 
-        viewModel.imageUrl = data.toString()
-
         return binding.root
     }
 
 
     //Ab hier ist der Image Picker Code
-
     // Creating our Share Intent
     private fun pickImageFromGallery() {
         //Intent to pick image
@@ -164,7 +160,8 @@ class CreateRecipeFragment : Fragment() {
 
             val imageView = binding.imageButtonRecipeImage
             context?.let{Glide.with(it).load(data?.data).into(imageView)}
-            this.data = data?.data
+            imageView.setImageURI(data?.data)
+            viewModelTemp!!.imageUrl = data?.data.toString()
            //imageView.setImageURI(data?.data)
         }
     }
