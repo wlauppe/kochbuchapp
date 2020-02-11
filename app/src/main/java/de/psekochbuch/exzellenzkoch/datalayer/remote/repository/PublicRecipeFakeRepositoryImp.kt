@@ -110,11 +110,13 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+        Log.w(TAG, "getPublicRecipe, recipeId $recipeId aufgerufen")
         for(recipe in recipeList){
             if (recipe.recipeId == recipeId){
                 return MutableLiveData(recipe)
             }
         }
+       Log.w(TAG, "Id nicht gefunden, gebe irgendwas zurück")
         val recipe = recipeList.get(recipeId)
         val ld: MutableLiveData<PublicRecipe> = MutableLiveData(recipe)
         return ld
