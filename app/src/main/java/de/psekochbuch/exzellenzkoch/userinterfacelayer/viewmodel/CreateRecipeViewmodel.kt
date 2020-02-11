@@ -125,10 +125,8 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
                 _errorLiveDataString.value = error.message
             }
         }
-
-
         if (this.tagCheckBoxPublish.value!!) {
-            newRecipe.convertToPublicRepipe()
+            var convertedPublicRecipe = newRecipe.convertToPublicRepipe()
         }
     }
 
