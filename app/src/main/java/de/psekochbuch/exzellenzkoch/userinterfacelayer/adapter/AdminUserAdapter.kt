@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavController
@@ -36,9 +37,11 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
         val adminReportedUserItemBinding = AdminReportedUserItemBinding.inflate(inflater, parent, false)
         return AdminUserViewHolder(adminReportedUserItemBinding)
     }
+
     override fun getItemCount(): Int {
         return users.size
     }
+
     override fun onBindViewHolder(holder: AdminUserViewHolder, position: Int) {
         holder.adminReportedUserItemBinding.value = users[position].userId
         id = users[position].userId
@@ -46,11 +49,10 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
         holder.adminReportedUserItemBinding.buttonRemoveUser.setOnClickListener{
             viewModel.deleteUser(users[position].userId)
             Toast.makeText(context, users[position].userId.plus(" gelöscht"), Toast.LENGTH_SHORT).show()
-
-
         }
-//safeArgs -------------------------------------------
-        holder.adminReportedUserItemBinding.imageViewAdminUserItem.setOnClickListener {
+
+        //safeArgs -------------------------------------------
+        holder.adminReportedUserItemBinding.adminReportedUserItemLayout.setOnClickListener {
                 //sending the recipename to the user display fragment
 
             navController!!.navigate(
@@ -59,7 +61,7 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
                     .setUserID(users[position].userId
                     )
             )
-            }
+        }
 
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user
@@ -73,7 +75,7 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
         //var urlString
         var urlString = ""
 
-        var imageView = holder.adminReportedUserItemBinding.imageViewAdminUserItem
+        val imageView = holder.adminReportedUserItemBinding.imageViewAdminUserItem
         if (users[position].imgUrl == "") {
             urlString = "file:///android_asset/exampleimages/quiche.png"
         } else {
@@ -84,5 +86,5 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
     }
     class AdminUserViewHolder(var adminReportedUserItemBinding: AdminReportedUserItemBinding)
         :RecyclerView.ViewHolder(adminReportedUserItemBinding.root)
-
+    
 }

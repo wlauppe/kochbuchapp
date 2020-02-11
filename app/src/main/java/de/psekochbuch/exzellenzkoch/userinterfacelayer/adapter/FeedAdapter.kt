@@ -63,7 +63,7 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
 
 
 
-        holder.feedItemBinding.buttonGotoFeedRecipe.setOnClickListener {
+        holder.feedItemBinding.feedLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(
                 FeedFragmentDirections
@@ -73,11 +73,6 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
             )
         }
 
-
-
-        holder.feedItemBinding.imageViewFeedItem.setOnClickListener{
-//            navController.navigate(FeedFragmentDirections.actionFeedToRecipeDisplayFragment().)
-        }
 
     }
     class FeedViewHolder(var feedItemBinding: FeedItemBinding)

@@ -43,7 +43,7 @@ class DisplaySearchListAdaper(
 
     override fun onBindViewHolder(holder: DisplaySearchListViewHolder, position: Int) {
         holder.displaySearchlistListitemBinding.value = items[position].title
-        holder.displaySearchlistListitemBinding.buttonOpenRecipe.setOnClickListener {
+        holder.displaySearchlistListitemBinding.displaySearchlistLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(DisplaySearchListFragmentDirections
                 .actionDisplaySearchListFragmentToRecipeDisplayFragment()
