@@ -24,7 +24,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     var entries = 1
     //var recipeList : MutableList<PublicRecipe>
 
-    init {
+    fun initialise() {
         Log.w(TAG, "Starte init Block")
         val recipe1 = PublicRecipe(1, "trockener Sandkuchen")
         val recipe2 =
@@ -78,6 +78,12 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         Log.w(TAG, "Auf get Public Recipes wurde jetzt zugegriffen")
         entries = recipeList.size
         Log.w(TAG, "entries = $entries")
+        Log.w(TAG, "Gebe Folgende Werte zurück")
+
+        for(recipe in recipeList) {
+            Log.w(TAG, "rezept id: ${recipe.recipeId}, Titel ${recipe.title}, ImageURL ${recipe.imgUrl}")
+        }
+
         Log.w(TAG, "Id von erstem aus der List ist $recipeList[1].recipeId()")
 
         val recipe1 = PublicRecipe(1, "extra tockener Sandkuchen")
