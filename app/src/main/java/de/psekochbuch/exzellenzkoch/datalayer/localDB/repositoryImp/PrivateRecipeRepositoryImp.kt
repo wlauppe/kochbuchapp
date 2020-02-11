@@ -16,19 +16,6 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     private val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(application!!)?.privateRecipeDao();
     private val privateRecipeTagDao: PrivateRecipeTagDao? = DB.getDatabase(application!!)?.privateRecipeTagDao();
 
-    fun insert(recipe:PrivateRecipeDB){
-        privateRecipeDao?.insert(recipe)
-    }
-
-
-    fun get(id:Int):LiveData<PrivateRecipe>{
-        val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
-        val liveData = MutableLiveData<PrivateRecipe>()
-        liveData.postValue(recipe)
-      //  return Transformations.map(liveData,::transformPrivateRecipeDBToPrivateRecipe)
-        return liveData
-    }
-
     override fun getPrivateRecipes(): LiveData<List<PrivateRecipe>> {
         val recipes = transformListPrivateRecipeDBToListPrivateRecipeDB(privateRecipeDao?.getAll()!!)
         val liveData = MutableLiveData<List<PrivateRecipe>>()
@@ -53,10 +40,6 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     }
 
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
-        DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
-    }
-
-    fun insertPrivateRecipeeeeeeeeee(privateRecipe:PrivateRecipe){
         DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
     }
 
