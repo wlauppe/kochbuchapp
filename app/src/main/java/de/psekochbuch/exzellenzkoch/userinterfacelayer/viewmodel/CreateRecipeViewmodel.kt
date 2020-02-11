@@ -1,19 +1,19 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import android.util.Log
-import android.widget.Toast
-import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import kotlinx.coroutines.launch
 import java.util.*
 
-class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
-    var repo = repository
+class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
+                            publicRepository: PublicRecipeRepository) : ViewModel() {
+    var privateRepo = privateRepository
+    var publicRepo = publicRepository
     var recipe: LiveData<PrivateRecipe> = MutableLiveData()
     var recipeID = 0
 
@@ -70,7 +70,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
     fun setRecipeByID(id: Int) {
         // var  recipe = repo.getPrivateRecipe(id)
         recipeID = id
-        var recipe = repo.getPrivateRecipe(recipeID)
+        var recipe = privateRepo.getPrivateRecipe(recipeID)
         if(recipe.value == null){
             return
         }
@@ -120,7 +120,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         //Coroutine
         viewModelScope.launch {
             try {
-                repo.insertPrivateRecipe(newRecipe)
+                privateRepo.insertPrivateRecipe(newRecipe)
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }
