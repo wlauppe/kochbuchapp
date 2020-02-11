@@ -47,7 +47,7 @@ interface UserApi {
      * @param userId The id of the user
      */
     @GET("users/{userId}")
-    suspend fun getUser(@Path ("userId") userId: String) : UserDto
+    suspend fun checkUser(@Path ("userId") userId: String) : UserDto
 
 
 

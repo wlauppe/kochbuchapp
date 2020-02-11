@@ -39,7 +39,7 @@ class UserRepositoryImp : UserRepository  {
     }
 
     override suspend fun checkUser(userId: String): User? {
-        val user = retrofit.getUser(userId)
+        val user = retrofit.checkUser(userId)
         if(user != null) {
             return UserDtoEntityMapper().toEntity(user)
         }
