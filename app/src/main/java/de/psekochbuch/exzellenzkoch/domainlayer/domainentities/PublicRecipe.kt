@@ -4,33 +4,22 @@ import java.util.*
 
 
 class PublicRecipe(
-    recipeId: Int=0,
-    title: String = "",
-    ingredientsText: String = "",
+    var recipeId: Int=0,
+    val title: String = "",
+    val ingredientsText: String = "",
     val ingredientChapter: List<IngredientChapter> = listOf(),
-    tags: List<String> = listOf(),
-    preparation: String = "",
-    imgUrl: String = "",
-    cookingTime: Int = 0,
-    preparationTime: Int = 0,
+    val tags: List<String> = listOf(),
+    val preparation: String = "",
+    val imgUrl: String = "",
+    val cookingTime: Int = 0,
+    val preparationTime: Int = 0,
     /**
      * The user who creates the recipe
      */
     val user:User = User("Musterman"),
-    creationTimeStamp: Date = Date(System.currentTimeMillis()),
-    portions: Int = 0,
+    val creationTimeStamp: Date = Date(System.currentTimeMillis()),
+    val portions: Int = 0,
     val avgRating : Double = 0.0
-) : Recipe(
-    recipeId,
-    title,
-    ingredientsText,
-    tags,
-    preparation,
-    imgUrl,
-    cookingTime,
-    preparationTime,
-    creationTimeStamp,
-    portions
 )
 {
     /**
