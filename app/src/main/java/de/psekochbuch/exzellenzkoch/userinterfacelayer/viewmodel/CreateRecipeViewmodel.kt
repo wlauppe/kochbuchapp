@@ -3,13 +3,15 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
     var repo = repository
-    var recipe: MutableLiveData<PrivateRecipe?> = MutableLiveData()
+    var recipe: LiveData<PrivateRecipe> = MutableLiveData()
     var recipeID = 0
 
     /*
@@ -29,7 +31,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
 
     //Current title of the Recipe
     var recipeTitle: LiveData<String> = MutableLiveData("")
-    var imageUrl: LiveData<String> = MutableLiveData("")
+    var imageUrl: String = ""
     //Current Preparation Time of the Reci
     var preparationTime: LiveData<Int> = MutableLiveData(0)
     //current cookingTime for the Recipe
@@ -62,25 +64,13 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
     fun setRecipeByID(id: Int) {
         // var  recipe = repo.getPrivateRecipe(id)
         recipeID = id
-
-        //Dummy
-        var tags = listOf<String>("eins", "zwei")
-        var recipe = MutableLiveData(
-            PrivateRecipe(
-                0,
-                "Tomaten",
-                "zutaten, Karotten",
-                tags,
-                "zubereitungs",
-                "",
-                4,
-                2,
-                Date(),
-                2
-            )
-        )
+        var recipe = repo.getPrivateRecipe(recipeID)
+        if(recipe.value == null){
+            return
+        }
+        var tags = recipe.value!!.tags
         // The livedata attributes are set with the recipe contents
-        this.imageUrl = MutableLiveData(recipe.value!!.imgUrl)
+        this.imageUrl = recipe.value!!.imgUrl
         this.recipeTitle = MutableLiveData(recipe.value!!.title)
         preparationDescription = MutableLiveData(recipe.value!!.preparation)
         this.ingredients = MutableLiveData(recipe.value!!.ingredientsText)
@@ -138,46 +128,20 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
      *
      */
     fun saveRecipe() {
-        var title: String = this.recipeTitle.value!!
-        var ingredientsText: String = this.ingredients.value!!
-        var tags: List<String> = getCheckedTags()
-        var preparation: String = this.preparationDescription.value!!
-        var imgUrl: String = this.imageUrl.value!!
-        var cookingTime: Int = this.cookingTime.value!!
-        var preparationTime: Int = this.preparationTime.value!!
-        var creationTimeStamp: Date = Date()
-        var portions: Int = this.portions.value!!
+            var newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl,this.cookingTime.value!!, this.preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
+
+        //Coroutine
+        viewModelScope.launch {
+            try {
+                repo.insertPrivateRecipe(newRecipe)
+            } catch (error: Error) {
+                _errorLiveDataString.value = error.message
+            }
+        }
 
         if (this.tagCheckBoxPublish.value!!) {
             convertToPublicRecipe()
         }
-
-        /*
-        if (repo.getPrivateRecipe(recipeID).value == null) {
-
-            var newRecipe = PrivateRecipe(
-                0,
-                title,
-                ingredientsText,
-                tags,
-                preparation,
-                imgUrl,
-                cookingTime,
-                preparationTime,
-                Date(),
-                portions
-            )
-            //coroutine
-            viewModelScope.launch {
-                try {
-                    repo.insertPrivateRecipe(newRecipe)
-                } catch (error: Error) {
-                    _errorLiveDataString.value = error.message
-                }
-            }
-        }
-         */
-
     }
 
     /**
@@ -192,7 +156,6 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         }
         if (this.tagCheckBoxCheap.value!!) {
             result.add("günstig")
-
         }
         if (this.tagCheckBoxHearty.value!!) {
             result.add("herzhaft")
