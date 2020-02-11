@@ -36,6 +36,7 @@ class PublicRecipeSearchFragment : Fragment() {
         val navController: NavController = findNavController()
         binding.buttonSearchRecipeSearch.setOnClickListener {
 
+            binding.progressBarPublicRecipeSearch.visibility.or(1)
 
             //Test Safeargs
             val recipeName:String = binding.editTextSearchRecipeTitle.text.toString()
