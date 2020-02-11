@@ -50,7 +50,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
             imgUrl = "file:///android_asset/exampleimages/bratapfel.png"
         )
         val list = listOf(recipe1, recipe2, recipe3, recipe4)
-         recipeList = mutableListOf<PublicRecipe>()
+        // recipeList = mutableListOf<PublicRecipe>()
         Log.w(TAG, "Versuche auf Recipelistzuzugreifen")
         recipeList.add(recipe1)
         recipeList.add(recipe2)
@@ -79,10 +79,9 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         entries = recipeList.size
         Log.w(TAG, "entries = $entries")
         Log.w(TAG, "Id von erstem aus der List ist $recipeList[1].recipeId()")
-
         val recipe1 = PublicRecipe(1, "extra tockener Sandkuchen")
         recipeList.add(recipe1)
-        val ld: MutableLiveData<List<PublicRecipe>> = MutableLiveData(recipeList) //.apply { list }
+        val ld: MutableLiveData<List<PublicRecipe>> = MutableLiveData(recipeList)
         return ld
     }
 
