@@ -12,14 +12,7 @@ interface PublicRecipeRepository {
      * Deletes the given recipe from the server.
      * Only authors or admins can delete recipes.
      */
-    suspend fun removePublicRecipe(recipe: PublicRecipe)
 
-    /**
-     * Get a number of recipes from the server.
-     * This method may use paging to load the requested recipes.
-     *
-     * TODO Suchparameter und Pagingparameter in Methodenkopf (nullables)
-     */
     @Throws
     fun getPublicRecipes(): LiveData<List<PublicRecipe>>
 
@@ -35,11 +28,8 @@ interface PublicRecipeRepository {
     @Throws
     fun getPublicRecipe(recipeId : Int): LiveData<PublicRecipe>
 
-    //Diese Methode löscht das Rezept mit der als Parameter übergebenen recipeId aus der
-    //Serverdatenbank.
     @Throws
-    suspend fun deleteRecipe(recipeId : Int)
-
+    suspend fun  deleteRecipe(recipeId: Int)
 
     //veröffentlicht ein Rezept, wenn Id null ist, neu, ansonsten unter der alten Id
     //gibt die Id des neuen Rezepts zurück.

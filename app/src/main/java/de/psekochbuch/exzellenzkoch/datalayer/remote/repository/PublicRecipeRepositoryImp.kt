@@ -41,10 +41,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
 
 
-    override suspend fun removePublicRecipe(recipe: PublicRecipe) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
 
