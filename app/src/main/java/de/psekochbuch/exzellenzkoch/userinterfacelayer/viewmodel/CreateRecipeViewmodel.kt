@@ -126,45 +126,28 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
      *
      */
     fun saveRecipe() {
-        var title: String = this.recipeTitle.value!!
-        var ingredientsText: String = this.ingredients.value!!
-        var tags: List<String> = getCheckedTags()
-        var preparation: String = this.preparationDescription.value!!
-        var imgUrl: String = this.imageUrl
-        var cookingTime: Int = this.cookingTime.value!!
-        var preparationTime: Int = this.preparationTime.value!!
-        var creationTimeStamp: Date = Date()
-        var portions: Int = this.portions.value!!
+        if(repo.getPrivateRecipe(recipeID) == null){
+            var tempRecipeLD = repo.getPrivateRecipe(recipeID)
+            if(this.imageUrl.isNullOrEmpty() || this.imageUrl.isNullOrBlank()){
 
-        if (this.tagCheckBoxPublish.value!!) {
-            convertToPublicRecipe()
-        }
-
-        /*
-        if (repo.getPrivateRecipe(recipeID).value == null) {
-
-            var newRecipe = PrivateRecipe(
-                0,
-                title,
-                ingredientsText,
-                tags,
-                preparation,
-                imgUrl,
-                cookingTime,
-                preparationTime,
-                Date(),
-                portions
-            )
-            //coroutine
-            viewModelScope.launch {
-                try {
-                    repo.insertPrivateRecipe(newRecipe)
-                } catch (error: Error) {
-                    _errorLiveDataString.value = error.message
-                }
             }
+            var newRecipe = PrivateRecipe(tempRecipeLD.value!!.recipeId, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl,this.cookingTime.value!!, this.preparationTime.value!!, Date(), this.portions.value!!)
+
+        }else{
+            var title: String = this.recipeTitle.value!!
+            var ingredientsText: String = this.ingredients.value!!
+            var tags: List<String> = getCheckedTags()
+            var preparation: String = this.preparationDescription.value!!
+            var imgUrl: String = this.imageUrl
+            var cookingTime: Int = this.cookingTime.value!!
+            var preparationTime: Int = this.preparationTime.value!!
+            var creationTimeStamp: Date = Date()
+            var portions: Int = this.portions.value!!
+            if (this.tagCheckBoxPublish.value!!) {
+                convertToPublicRecipe()
+            }
+
         }
-         */
 
     }
 
@@ -180,7 +163,6 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         }
         if (this.tagCheckBoxCheap.value!!) {
             result.add("günstig")
-
         }
         if (this.tagCheckBoxHearty.value!!) {
             result.add("herzhaft")

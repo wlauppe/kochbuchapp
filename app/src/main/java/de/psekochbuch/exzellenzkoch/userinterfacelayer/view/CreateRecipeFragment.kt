@@ -27,12 +27,14 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeVie
 
 import android.os.Build.*
 import android.Manifest
+import android.net.Uri
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
 
 class CreateRecipeFragment : Fragment() {
 
     private lateinit var binding: CreateRecipeFragmentBinding
+    var data : Uri? = null
 
     //Methods
 
@@ -115,8 +117,7 @@ class CreateRecipeFragment : Fragment() {
             }
         }
 
-
-
+        viewModel.imageUrl = data.toString()
 
         return binding.root
     }
@@ -163,9 +164,8 @@ class CreateRecipeFragment : Fragment() {
 
             val imageView = binding.imageButtonRecipeImage
             context?.let{Glide.with(it).load(data?.data).into(imageView)}
+            this.data = data?.data
            //imageView.setImageURI(data?.data)
-
-
         }
     }
 
