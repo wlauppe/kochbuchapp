@@ -35,7 +35,8 @@ object InjectorUtils {
 
 
     private fun getPrivateRecipeRepository(context: Context): PrivateRecipeRepository {
-        return PrivateRecipeRepositoryImp.getInstance()
+        return PrivateRecipeFakeRepositoryImp.getInstance()
+        //return PrivateRecipeRepositoryImp.getInstance()
     }
 
     private fun getEditTagRepository(context: Context): TagRepository {
