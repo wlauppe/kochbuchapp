@@ -3,11 +3,12 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
-class ProfileEditViewmodel : ViewModel() {
-    var user : LiveData<User> = UserFakeRepositoryImp().getUser("")
+class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
+    var repo = repo
+    var user : LiveData<User> = repo.getUser("")
 
         //LiveData
         var userID : LiveData<String> = MutableLiveData("")
@@ -31,7 +32,7 @@ class ProfileEditViewmodel : ViewModel() {
      * @param id:
      */
     fun setUserByID(id:String){
-        var user = UserFakeRepositoryImp().getUser(id)
+        var user = repo.getUser(id)
         if(user.value!!.userId == ""){
 
         }

@@ -1,31 +1,24 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import android.util.Log
-import android.widget.Toast
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
-
-
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
+class ProfileDisplayViewmodel(userRepository:UserRepository,
+                              recipeRepository: PublicRecipeRepository) : ViewModel() {
 
-    private val recipeRepo = PublicRecipeFakeRepositoryImp()
-    //private val userRepo = repository
-    var userRepo = UserFakeRepositoryImp()
-
+    private val recipeRepo = recipeRepository
+    var userRepo = userRepository
 
     //User Information LiveData
     private lateinit var user: User
-        var userList : List<User> = userRepo.getUsers().value!!
         var userID : String = ""
         var userDesc : String = ""
         var userImg : String = ""
@@ -59,27 +52,19 @@ class ProfileDisplayViewmodel(repository:UserRepository) : ViewModel() {
         this.userID = user.value!!.userId
         this.userDesc =user.value!!.description
         this.userImg = user.value!!.imgUrl
-
-
     }
 
      fun flagUserById() {
          if (userID.isNullOrBlank()) {
              return
-
-
          }
          //Coroutine
-         //userRepo.reportUser(userID.value!!)
-
         viewModelScope.launch {
             try {
                 userRepo.reportUser(userID)
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }
-
-
          }
      }
 }

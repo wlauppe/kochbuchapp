@@ -1,14 +1,10 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import android.widget.CheckBox
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.TagFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
-import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
@@ -189,7 +185,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
      * @return Tag list List<String>
      */
     fun getCheckedTags(): List<String> {
-        var result = mutableListOf<String>()
+        val result = mutableListOf<String>()
 
         if (this.tagCheckBoxVegan.value!!) {
             result.add("vegan")
@@ -210,8 +206,6 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         if (this.tagCheckBoxVegetarian.value!!) {
             result.add("vegetarisch")
         }
-
-
 
         return result
     }

@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="publicRecipeSearchViewModel"
-            type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.PublicRecipeSearchViewmodel" />
+            name="displaySearchListViewmodel"
+            type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel" />
         <variable
             name="title"
             type="String" />
