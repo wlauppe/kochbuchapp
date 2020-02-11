@@ -75,6 +75,15 @@ class DisplaySearchListFragment : Fragment(){
         }
         binding.radioButtonDate.setOnClickListener{
             viewModel.sortByDate()
+
+            var sortedRecipesDate =  viewmodelTwo.recipes.value!!
+            val adapterDate = DisplaySearchListAdaper(sortedRecipesDate,viewmodelTwo, requireContext())
+            binding.recyclerViewSearchlistFragment.adapter = adapterDate
+            val observer = Observer<List<PublicRecipe>> { items ->
+                exampleAdapter.setNewItems(items)
+            }
+            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+
         }
         return binding.root
     }

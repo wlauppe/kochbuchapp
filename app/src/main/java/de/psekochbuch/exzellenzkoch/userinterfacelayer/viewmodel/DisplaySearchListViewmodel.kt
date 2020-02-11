@@ -59,6 +59,6 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
         return sortedList
     }
     fun sortByDate() {
-        
+
     }
 }
