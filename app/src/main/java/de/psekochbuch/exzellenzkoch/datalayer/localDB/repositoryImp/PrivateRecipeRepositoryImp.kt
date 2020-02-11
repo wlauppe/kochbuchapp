@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.DB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.PrivateRecipeDao
@@ -15,12 +16,31 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     private val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(application!!)?.privateRecipeDao();
     private val privateRecipeTagDao: PrivateRecipeTagDao? = DB.getDatabase(application!!)?.privateRecipeTagDao();
 
+    fun insert(recipe:PrivateRecipeDB){
+        privateRecipeDao?.insert(recipe)
+    }
+
+
+    fun get(id:Int):LiveData<PrivateRecipe>{
+        val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+        val liveData = MutableLiveData<PrivateRecipe>()
+        liveData.postValue(recipe)
+      //  return Transformations.map(liveData,::transformPrivateRecipeDBToPrivateRecipe)
+        return liveData
+    }
+
     override fun getPrivateRecipes(): LiveData<List<PrivateRecipe>> {
-        return Transformations.map(privateRecipeDao?.getAll()!!,::transformListPrivateRecipeDBToListPrivateRecipeDB)
+        val recipes = transformListPrivateRecipeDBToListPrivateRecipeDB(privateRecipeDao?.getAll()!!)
+        val liveData = MutableLiveData<List<PrivateRecipe>>()
+        liveData.postValue(recipes)
+        return liveData
     }
 
     override fun getPrivateRecipe(id: Int): LiveData<PrivateRecipe> {
-        return Transformations.map(privateRecipeDao?.getRecipe(id.toLong())!!,::transformPrivateRecipeDBToPrivateRecipe)
+        val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+        val liveData = MutableLiveData<PrivateRecipe>()
+        liveData.postValue(recipe)
+        return liveData
     }
 
     override suspend fun deletePrivateRecipe(id: Int) {
@@ -29,7 +49,6 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     }
 
     override suspend fun updatePrivateRecipe(privateRecipe: PrivateRecipe) {
-        privateRecipe
        //Was ist denn hiermit gemeint? Falls damit das überschreiben eines rezeptes gemeient ist, das passiet automatisch wenn man das in die insert Methode einfügt, da dies bei collision einfach überschreibet
     }
 
@@ -38,7 +57,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     }
 
     override fun getRecipe(id: Int): LiveData<PrivateRecipe> {
-        TODO()   //Wieso ist denn einmal die id ein Int und eimal ein String?
+        TODO()
     }
 
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{
