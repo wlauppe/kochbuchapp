@@ -49,9 +49,9 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
 
         }
 
-//SafeArgs-----------------------------------------------
-        holder.adminReportedRecipeItemBinding.imageViewAdminRecipeItem.setOnClickListener {
-            //sending the recipe name to the recipe display fragment
+        //SafeArgs-----------------------------------------------
+        holder.adminReportedRecipeItemBinding.adminReportedRecipeItemLayout.setOnClickListener {
+            //sending the recipename to the recipe display fragment
             navController!!.navigate(
                 AdminFragmentDirections
                     .actionAdminFragmentToRecipeDisplayFragment()
@@ -67,7 +67,7 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         //var urlString
         var urlString = ""
 
-        var imageView = holder.adminReportedRecipeItemBinding.imageViewAdminRecipeItem
+        val imageView = holder.adminReportedRecipeItemBinding.imageViewAdminRecipeItem
         if (recipes[position].imgUrl == "") {
             urlString = "file:///android_asset/exampleimages/quiche.png"
         } else {

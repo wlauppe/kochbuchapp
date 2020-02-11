@@ -4,9 +4,6 @@
 
     <data>
         <variable
-            name="feedViewModel"
-            type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel" />
-        <variable
             name="value"
             type="String" />
 
@@ -15,8 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp">
+        android:padding="10dp"
+        android:id="@+id/feed_layout_item">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="100dp"
@@ -37,13 +34,6 @@
             android:paddingRight="2dp"
             android:textSize="20sp"
             android:text="@{value}" />
-
-        <ImageButton
-            android:id="@+id/button_goto_feed_recipe"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
     </LinearLayout>
 </layout>

@@ -45,7 +45,7 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
 
 
         //Clicklistener--------------------
-        holder.recipeListItemBinding.buttonEditRecipe.setOnClickListener{
+        holder.recipeListItemBinding.recipeListLayoutItem.setOnClickListener{
             //safe args to send Recipe data to editRecipe Fragment
             navController!!.navigate(RecipeListFragmentDirections
                 .actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(items[position].recipeId))
@@ -59,7 +59,7 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
         //var urlString
         var urlString = ""
 
-        var imageView = holder.recipeListItemBinding.imageViewRecipeListItem
+        val imageView = holder.recipeListItemBinding.imageViewRecipeListItem
         if (items[position].imgUrl == "") {
             urlString = "file:///android_asset/exampleimages/vegetables.jpg"
         } else {

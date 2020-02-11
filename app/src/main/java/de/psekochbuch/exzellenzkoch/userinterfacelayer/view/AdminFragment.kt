@@ -38,8 +38,8 @@ class AdminFragment : Fragment() {
         binding.recyclerViewAdminUsers.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
-        var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-        var listOfUser : List<User> = viewModel.users.value!!
+        val listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
+        val listOfUser : List<User> = viewModel.users.value!!
 
         val exampleAdapter = AdminRecipeAdapter(listOfRecipeNames,viewModel, requireContext())
         val userAdapter = AdminUserAdapter(listOfUser, viewModel, requireContext())
