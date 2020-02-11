@@ -59,11 +59,14 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     Log.w(TAG,"Habe habe jetzt zugegriffen")
 }
 
-suspend override  fun removePublicRecipe(recipe: PublicRecipe) {}
+suspend override  fun removePublicRecipe(recipe: PublicRecipe) {
+    recipeList.remove(recipe)
+}
 
 
 
-    override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+
+ override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
         /*val recipe1 = PublicRecipe(1,"trockener Sandkuchen")
         val recipe2 = PublicRecipe(2,"Quiche", imgUrl = "file:///android_asset/exampleimages/quiche.png")
 
@@ -83,7 +86,7 @@ suspend override  fun removePublicRecipe(recipe: PublicRecipe) {}
         Log.w(TAG, "entries = $entries" )
         Log.w(TAG,"Id von erstem aus der List ist $recipeList[1].recipeId()")
 
-        val recipe1 = PublicRecipe(1, "trockener Sandkuchen")
+        val recipe1 = PublicRecipe(1, "extra tockener Sandkuchen")
         recipeList.add(recipe1)
         val ld : MutableLiveData <List<PublicRecipe>> = MutableLiveData(recipeList) //.apply { list }
         return ld
@@ -99,16 +102,11 @@ suspend override  fun removePublicRecipe(recipe: PublicRecipe) {}
     }
 
     override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val recipe = recipeList.get(recipeId)
+        val ld : MutableLiveData<PublicRecipe> = MutableLiveData(recipe)
+        return ld
     }
 
-    override suspend fun deleteRecipe(recipeId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override suspend fun setRating(recipeId: Int, userId: String, value: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
