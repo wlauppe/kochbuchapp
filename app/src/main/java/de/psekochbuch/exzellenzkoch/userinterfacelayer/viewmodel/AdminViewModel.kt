@@ -23,10 +23,7 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
 
 
     var recipes : LiveData<List<PublicRecipe>> = rRepo.getPublicRecipes()
-
     var users : LiveData<List<User>> = userRepo.getUsers()
-
-
 
     /*
   * This variable is private because we don't want to expose MutableLiveData

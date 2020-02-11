@@ -23,6 +23,7 @@ class DisplaySearchListAdaper(
     var context = context
     //Methodes
     fun setNewItems(newItems: List<PublicRecipe>) {
+        items = emptyList()
         items = newItems
         this.notifyDataSetChanged()
     }
