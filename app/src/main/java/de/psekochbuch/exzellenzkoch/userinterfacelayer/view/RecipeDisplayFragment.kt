@@ -33,7 +33,7 @@ class RecipeDisplayFragment : Fragment(){
         //SafeArgs---------------------------
         var recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
         viewModel.setRecipeByID(recipeID)
-        Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
+       // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
 
 
         //binding set to the according Fragment
@@ -46,36 +46,13 @@ class RecipeDisplayFragment : Fragment(){
 
         //initialized navcontoller
         var navController: NavController = findNavController()
+
         val imageView = binding.imageViewRecipeImage
         var urlString = viewModel.recipe?.imgUrl
-
-        if(urlString == ""){
-            urlString = "https://lh6.googleusercontent.com/proxy/V0UtHt8D7ZorPIVIFl-dMrihaZW-fpXlxCkE30bBCCAugVjuMwhMkC-Tg9UJiQ-ZmhQ8rr9qAgo3P91g9uu3o5250INWJtsbx-jzTWtKCVSsL-SR_gA=w1200-h630-p-k-no-nu"
+        if(urlString == "" || urlString.isNullOrBlank()||urlString.isNullOrEmpty()){
+            urlString = "https://cdn.pixabay.com/photo/2015/05/04/10/16/vegetables-752153_1280.jpg"
         }
-        //Dummy
-
         context?.let { Glide.with(it).load(urlString).into(imageView) }
         return binding.root
     }
-    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //recieving the recipe name through bundle
-        var recipeIDFromFragment = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
-        Toast.makeText(requireContext(), recipeIDFromFragment.toString(), Toast.LENGTH_SHORT).show()
-
-        if (recipeIDFromFragment != null) {
-            viewModel.getRecipeByID(recipeIDFromFragment)
-        }else{
-            Log.i(tag, "RecipeDisplayFragment Null ID")
-        }
-
-        //recieving the recipe name through bundle
-
-
-       // Toast.makeText(requireContext(), viewModel.recipe.recipeId.toString(), Toast.LENGTH_SHORT).show()
-    }
-
-     */
-
-
 }

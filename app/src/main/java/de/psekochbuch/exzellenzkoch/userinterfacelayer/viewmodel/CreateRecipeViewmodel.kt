@@ -9,7 +9,7 @@ import java.util.*
 
 class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
     var repo = repository
-    var recipe: MutableLiveData<PrivateRecipe?> = MutableLiveData()
+    var recipe: LiveData<PrivateRecipe> = MutableLiveData()
     var recipeID = 0
 
     /*
@@ -29,7 +29,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
 
     //Current title of the Recipe
     var recipeTitle: LiveData<String> = MutableLiveData("")
-    var imageUrl: LiveData<String> = MutableLiveData("")
+    var imageUrl: String = ""
     //Current Preparation Time of the Reci
     var preparationTime: LiveData<Int> = MutableLiveData(0)
     //current cookingTime for the Recipe
@@ -62,25 +62,13 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
     fun setRecipeByID(id: Int) {
         // var  recipe = repo.getPrivateRecipe(id)
         recipeID = id
-
-        //Dummy
-        var tags = listOf<String>("eins", "zwei")
-        var recipe = MutableLiveData(
-            PrivateRecipe(
-                0,
-                "Tomaten",
-                "zutaten, Karotten",
-                tags,
-                "zubereitungs",
-                "",
-                4,
-                2,
-                Date(),
-                2
-            )
-        )
+        var recipe = repo.getPrivateRecipe(recipeID)
+        if(recipe.value == null){
+            return
+        }
+        var tags = recipe.value!!.tags
         // The livedata attributes are set with the recipe contents
-        this.imageUrl = MutableLiveData(recipe.value!!.imgUrl)
+        this.imageUrl = recipe.value!!.imgUrl
         this.recipeTitle = MutableLiveData(recipe.value!!.title)
         preparationDescription = MutableLiveData(recipe.value!!.preparation)
         this.ingredients = MutableLiveData(recipe.value!!.ingredientsText)
@@ -142,7 +130,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         var ingredientsText: String = this.ingredients.value!!
         var tags: List<String> = getCheckedTags()
         var preparation: String = this.preparationDescription.value!!
-        var imgUrl: String = this.imageUrl.value!!
+        var imgUrl: String = this.imageUrl
         var cookingTime: Int = this.cookingTime.value!!
         var preparationTime: Int = this.preparationTime.value!!
         var creationTimeStamp: Date = Date()

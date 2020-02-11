@@ -50,7 +50,8 @@ class CreateRecipeFragment : Fragment() {
 
         if(recipeID != null) {
             viewModel.setRecipeByID(recipeID)
-            Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
+
+           // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
         }
 
         //binding set to the according Fragment
@@ -65,6 +66,12 @@ class CreateRecipeFragment : Fragment() {
 
         //binding viewmodel with xml components
 
+        val imageView = binding.imageButtonRecipeImage
+        var urlString = viewModel.imageUrl
+        if(urlString == ""){
+            urlString = "file:///android_asset/exampleimages/quiche.png"
+        }
+        context?.let { Glide.with(it).load(urlString).into(imageView) }
 
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             //Create Recipe
@@ -109,12 +116,6 @@ class CreateRecipeFragment : Fragment() {
         }
 
 
-        val imageView = binding.imageButtonRecipeImage
-        var urlString = viewModel.imageUrl.value
-        if(urlString == ""){
-            urlString = "file:///android_asset/exampleimages/quiche.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
 
 
         return binding.root
