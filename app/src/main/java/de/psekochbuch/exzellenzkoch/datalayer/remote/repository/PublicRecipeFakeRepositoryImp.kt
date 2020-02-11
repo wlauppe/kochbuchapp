@@ -1,24 +1,31 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.Unit
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import java.io.File
 import java.util.*
+import kotlin.Int
+import kotlin.String
+import kotlin.TODO
+import kotlin.also
+import kotlin.synchronized
 
 
 class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
-  lateinit private var recipeList : MutableList<PublicRecipe>
+    private val TAG = "FakeRepositoryImp"
+ private var recipeList : MutableList<PublicRecipe> = mutableListOf()
     var entries = 1
     //var recipeList : MutableList<PublicRecipe>
 
     init {
+        Log.w(TAG,"Starte init Block")
     val recipe1 = PublicRecipe(1, "trockener Sandkuchen")
     val recipe2 =
         PublicRecipe(2, "Quiche", imgUrl = "file:///android_asset/exampleimages/quiche.png")
@@ -44,10 +51,12 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     )
     val list = listOf(recipe1, recipe2, recipe3, recipe4)
     var recipeList: MutableList<PublicRecipe> = mutableListOf<PublicRecipe>()
+    Log.w(TAG,"Versuche auf Recipelistzuzugreifen")
     recipeList.add(recipe1)
     recipeList.add(recipe2)
     recipeList.add(recipe3)
     recipeList.add(recipe4)
+    Log.w(TAG,"Habe habe jetzt zugegriffen")
 }
 
 suspend override  fun removePublicRecipe(recipe: PublicRecipe) {}
@@ -69,7 +78,13 @@ suspend override  fun removePublicRecipe(recipe: PublicRecipe) {}
 
 
          */
+        Log.w(TAG,"Auf get Public Recipes wurde jetzt zugegriffen")
+        entries = recipeList.size
+        Log.w(TAG, "entries = $entries" )
+        Log.w(TAG,"Id von erstem aus der List ist $recipeList[1].recipeId()")
 
+        val recipe1 = PublicRecipe(1, "trockener Sandkuchen")
+        recipeList.add(recipe1)
         val ld : MutableLiveData <List<PublicRecipe>> = MutableLiveData(recipeList) //.apply { list }
         return ld
     }
