@@ -73,16 +73,29 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
 
     }
 
-    override suspend fun updatePrivateRecipe(id: Int) {
-        TODO()
+    override suspend fun updatePrivateRecipe(privateRecipe: PrivateRecipe) {
+        recipeList.set(privateRecipe.recipeId,privateRecipe)
+
     }
+
 
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        addToList(privateRecipe)
+
     }
 
-    override fun getRecipe(id: String): LiveData<PrivateRecipe> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getRecipe(recipeId: Int): LiveData<PrivateRecipe> {
+
+        for(recipe in recipeList){
+            if (recipe.recipeId == recipeId){
+                return MutableLiveData(recipe)
+            }
+        }
+        val recipe = recipeList.get(recipeId)
+        val ld: MutableLiveData<PrivateRecipe> = MutableLiveData(recipe)
+        return ld
+
+
     }
     companion object {
 
