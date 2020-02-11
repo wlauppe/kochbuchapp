@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -50,6 +51,7 @@ class DisplaySearchListAdaper(
                 .setRecipeID(items[position].recipeId
                 )
             )
+            //Toast.makeText(context, items[position].recipeId.toString(), Toast.LENGTH_SHORT).show()
         }
         //var urlString
         var urlString = ""

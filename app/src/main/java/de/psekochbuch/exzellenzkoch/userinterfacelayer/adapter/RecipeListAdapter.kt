@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +40,7 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
     }
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
         holder.recipeListItemBinding.value = items[position].title
+
         id = items[position].recipeId
 
 
@@ -47,7 +49,6 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
             //safe args to send Recipe data to editRecipe Fragment
             navController!!.navigate(RecipeListFragmentDirections
                 .actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(items[position].recipeId))
-
         }
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
             viewModel.deleteRecipe(items[position].recipeId)
@@ -60,7 +61,7 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
 
         var imageView = holder.recipeListItemBinding.imageViewRecipeListItem
         if (items[position].imgUrl == "") {
-            urlString = "file:///android_asset/exampleimages/quiche.png"
+            urlString = "file:///android_asset/exampleimages/vegetables.jpg"
         } else {
             urlString = items[position].imgUrl
         }

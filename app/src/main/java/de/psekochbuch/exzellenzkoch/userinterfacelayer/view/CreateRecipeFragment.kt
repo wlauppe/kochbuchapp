@@ -53,7 +53,10 @@ class CreateRecipeFragment : Fragment() {
         var recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
 
         if(recipeID != null) {
-            viewModel.setRecipeByID(recipeID)
+            if(recipeID != 0){
+                viewModel.setRecipeByID(recipeID)
+            }
+           // Toast.makeText(context,recipeID.toString(), Toast.LENGTH_SHORT).show()
 
            // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
         }
@@ -61,8 +64,6 @@ class CreateRecipeFragment : Fragment() {
         //binding set to the according Fragment
         binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
-
-
         //Sets according viewmodel from XML to this fragment
         binding.createRecipeViewModel = viewModel
         //initialized navcontoller
@@ -73,7 +74,7 @@ class CreateRecipeFragment : Fragment() {
         val imageView = binding.imageButtonRecipeImage
         var urlString = viewModel.imageUrl
         if(urlString == ""){
-            urlString = "file:///android_asset/exampleimages/quiche.png"
+            urlString = "file:///android_asset/exampleimages/vegetables.jpg"
         }
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
@@ -120,7 +121,6 @@ class CreateRecipeFragment : Fragment() {
 
 
     //Ab hier ist der Image Picker Code
-
     // Creating our Share Intent
     private fun pickImageFromGallery() {
         //Intent to pick image

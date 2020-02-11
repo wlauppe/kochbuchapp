@@ -1,5 +1,8 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+import android.util.Log
+import android.widget.Toast
+import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,7 +33,8 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
 
 
     //Current title of the Recipe
-    var recipeTitle: LiveData<String> = MutableLiveData("")
+
+    var recipeTitle: MutableLiveData<String> = MutableLiveData("")
     var imageUrl: String = ""
     //Current Preparation Time of the Reci
     var preparationTime: LiveData<Int> = MutableLiveData(0)
@@ -78,9 +82,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         this.cookingTime = MutableLiveData(recipe.value!!.cookingTime)
         this.preparationTime = MutableLiveData(recipe.value!!.preparationTime)
         this.portions = MutableLiveData(recipe.value!!.portions)
-
         //set the checkboxes with the settet tags
-
         if (tags.contains("vegan")) {
             this.tagCheckBoxVegan.value = true
         }
@@ -99,27 +101,6 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         if (tags.contains("salzig")) {
             this.tagCheckBoxSalty.value = true
         }
-
-
-        /* var recipetemp = repo.getPrivateRecipe(id).value
-         this.recipe = MutableLiveData(recipetemp)
-         this.preparationTime = MutableLiveData(recipe.value!!.preparationTime)
-         this.cookingTime = MutableLiveData(recipe.value!!.cookingTime)
-         this.preparationDescription = MutableLiveData(recipe.value!!.preparation)
-         this.ingredients = MutableLiveData(recipe.value!!.ingredientsText)
-         tagsSet()
-
-
-     }
-
-     fun tagsSet(){
-         var tags = recipe.value!!.tags
-         if(tags.contains("vegan")){
-             this.tagCheckBoxVegan.value!!.isChecked = true
-         }
-         //...
-
-         */
     }
 
     /**
@@ -128,8 +109,8 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
      *
      */
     fun saveRecipe() {
-            var newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl,this.cookingTime.value!!, this.preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
 
+            var newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl,this.cookingTime.value!!, this.preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
         //Coroutine
         viewModelScope.launch {
             try {
