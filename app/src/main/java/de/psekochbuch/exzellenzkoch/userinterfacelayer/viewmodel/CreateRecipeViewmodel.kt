@@ -90,7 +90,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         if (tags.contains("vegan")) {
             this.tagCheckBoxVegan.value = true
         }
-        if (tags.contains("vegetarian")) {
+        if (tags.contains("vegetarisch")) {
             this.tagCheckBoxVegetarian.value = true
         }
         if (tags.contains("günstig")) {
@@ -116,6 +116,7 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
 
 
             var newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl, Integer.parseInt(this.cookingTime.value!!),Integer.parseInt(this.preparationTime.value!!), Date(System.currentTimeMillis()), portions = this.portions.value!!)
+
         //Coroutine
         viewModelScope.launch {
             try {
@@ -125,8 +126,9 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
             }
         }
 
+
         if (this.tagCheckBoxPublish.value!!) {
-            convertToPublicRecipe()
+            newRecipe.convertToPublicRepipe()
         }
     }
 
@@ -155,7 +157,6 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         if (this.tagCheckBoxVegetarian.value!!) {
             result.add("vegetarisch")
         }
-
         return result
     }
 
