@@ -18,7 +18,7 @@ interface PublicRecipeApi {
      * @param id Id of the recipe
      * @return The recipe with the specific id
      */
-    @GET("api/recipes/{id}")
+    @GET("recipes/{id}")
     suspend fun getRecipe(@Path("id") id:Int) : Response<PublicRecipeDto>
 
     /**
