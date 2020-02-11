@@ -153,7 +153,7 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$arch_version"
 
     ///####END Lifecycle
-    
+
     //Thomas: damit das room testen klappt
     kapt "android.arch.persistence.room:compiler:2.2.3"
     //drawerlayout

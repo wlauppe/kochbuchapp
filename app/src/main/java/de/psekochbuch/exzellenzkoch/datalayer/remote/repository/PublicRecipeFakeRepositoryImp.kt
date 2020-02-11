@@ -123,13 +123,13 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
             }
         }
        Log.w(TAG, "Id nicht gefunden, gebe irgendwas zurück")
-        val recipe = recipeList.get(recipeId)
+        val recipe = recipeList.get(recipeId-1)
         val ld: MutableLiveData<PublicRecipe> = MutableLiveData(recipe)
         return ld
     }
 
     override suspend fun deleteRecipe(recipeId: Int) {
-        val recipe = recipeList.get(recipeId)
+        val recipe = recipeList.get(recipeId-1)
         recipeList.remove(recipe)
     }
 
