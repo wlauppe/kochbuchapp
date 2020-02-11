@@ -7,8 +7,6 @@
         <variable
             name="createRecipeViewModel"
             type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel" />
-
-
     </data>
 
     <LinearLayout
@@ -108,7 +106,7 @@
                         android:paddingRight="10dp"
                         android:text="Backzeit: "
                         android:textAlignment="center"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <EditText
                         android:id="@+id/editText_cooking_time_create_recipe_fragment"
@@ -166,96 +164,9 @@
                             android:id="@+id/checkBox_hearty_create_recipe_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/textView3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAlignment="center"
-                                android:textSize="20dp"
-                                android:layout_marginTop="10dp"
-                                android:text="Zubereitungszeit (Minuten):" />
-
-                            <EditText
-                                android:id="@+id/editText_preparing_time_create_recipe_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:ems="10"
-                                android:hint="@string/enter_preparing_time"
-                                android:inputType="number"
-                                android:paddingLeft="8dp"
-                                android:paddingRight="8dp"
-                                android:text="@={createRecipeViewModel.preparationTime}" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:id="@+id/textView_cooking_time_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAlignment="center"
-                                android:textSize="20dp"
-                                android:layout_marginTop="10dp"
-                                android:text="Backzeit (Minuten) : " />
-
-                            <EditText
-                                android:id="@+id/editText_cooking_time_create_recipe_fragment"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:ems="10"
-                                android:hint="@string/enter_cooking_time"
-                                android:inputType="number"
-                                android:paddingLeft="8dp"
-                                android:paddingRight="8dp"
-                                android:text="@={createRecipeViewModel.cookingTime}" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:layout_marginTop="10dp"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp">
-
-                            <LinearLayout
-                                android:layout_width="217dp"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-                                <CheckBox
-                                    android:id="@+id/checkBox_vegan_create_recipe_fragment"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:checked="@={createRecipeViewModel.tagCheckBoxVegan}"
-
-                                    android:text="@string/vegan"
-                                   />
-
-                                <CheckBox
-                                    android:id="@+id/checkBox_vegetarian_create_recipe_fragment"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:checked="@{createRecipeViewModel.tagCheckBoxVegetarian}"
-                                    android:text="@string/vegetarian"
-                                   />
-
-                                <CheckBox
-                                    android:id="@+id/checkBox_hearty_create_recipe_fragment"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:checked="@{createRecipeViewModel.tagCheckBoxHearty}"
-                                    android:text="@string/savoury__tag"
-                                    />
-                            </LinearLayout>
+                            android:text="@string/savoury__tag"/>
+                        </LinearLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -286,41 +197,8 @@
                                     android:text="@string/cheap"
                                    />
                             </LinearLayout>
-                        </LinearLayout>
 
-                        <EditText
-                            android:id="@+id/editText_ingredients_create_recipe_fragment"
-                            android:checked="@{createRecipeViewModel.tagCheckBoxHearty}"
-                            android:text="@string/savoury__tag" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <CheckBox
-                            android:id="@+id/checkBox_sweet_create_recipe_fragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:checked="@{createRecipeViewModel.tagCheckBoxSweet}"
-                            android:text="@string/sweet_tag" />
-
-                        <CheckBox
-                            android:id="@+id/checkBox_salty_create_recipe_fragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:checked="@{createRecipeViewModel.tagCheckBoxSalty}"
-                            android:text="@string/salty_tag" />
-
-                        <CheckBox
-                            android:id="@+id/checkBox_cheap"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:checked="@{createRecipeViewModel.tagCheckBoxCheap}"
-                            android:text="@string/cheap" />
-                    </LinearLayout>
-                </LinearLayout>
 
                 <EditText
                     android:id="@+id/editText_ingredients_create_recipe_fragment"
@@ -333,7 +211,6 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="@{createRecipeViewModel.ingredients}" />
-
 
                 <EditText
                     android:id="@+id/editText_preparation_description_create_recipe_fragment"
