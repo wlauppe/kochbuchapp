@@ -37,17 +37,19 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
     var recipeTitle: MutableLiveData<String> = MutableLiveData("")
     var imageUrl: String = ""
     //Current Preparation Time of the Reci
-    var preparationTime: LiveData<Int> = MutableLiveData(0)
+    var preparationTime: MutableLiveData<String> = MutableLiveData("0")
+
     //current cookingTime for the Recipe
-    var cookingTime: LiveData<Int> = MutableLiveData(0)
+    var cookingTime: MutableLiveData<String> = MutableLiveData("0")
+
     //current tags for the Recipe
-    var tagList: LiveData<List<String>> = MutableLiveData(emptyList())
+    var tagList: MutableLiveData<List<String>> = MutableLiveData(emptyList())
     //current preparation description for the recipe
-    var preparationDescription: LiveData<String> = MutableLiveData("")
+    var preparationDescription: MutableLiveData<String> = MutableLiveData("")
     //current ingredients for the recipe as String
-    var ingredients: LiveData<String> = MutableLiveData("")
+    var ingredients: MutableLiveData<String> = MutableLiveData("")
     //current number of portions for the recipe
-    var portions: LiveData<Int> = MutableLiveData(0)
+    var portions: MutableLiveData<Int> = MutableLiveData(0)
 
 
     //Checkboxes for the recipe tags
@@ -79,8 +81,10 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         preparationDescription = MutableLiveData(recipe.value!!.preparation)
         this.ingredients = MutableLiveData(recipe.value!!.ingredientsText)
         this.tagList = MutableLiveData(recipe.value!!.tags)
-        this.cookingTime = MutableLiveData(recipe.value!!.cookingTime)
-        this.preparationTime = MutableLiveData(recipe.value!!.preparationTime)
+        this.cookingTime = MutableLiveData(recipe.value!!.cookingTime.toString())
+
+        this.preparationTime = MutableLiveData(recipe.value!!.preparationTime.toString())
+
         this.portions = MutableLiveData(recipe.value!!.portions)
         //set the checkboxes with the settet tags
         if (tags.contains("vegan")) {
@@ -110,7 +114,8 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
      */
     fun saveRecipe() {
 
-            var newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl,this.cookingTime.value!!, this.preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
+
+            var newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl, Integer.parseInt(this.cookingTime.value!!),Integer.parseInt(this.preparationTime.value!!), Date(System.currentTimeMillis()), portions = this.portions.value!!)
         //Coroutine
         viewModelScope.launch {
             try {
