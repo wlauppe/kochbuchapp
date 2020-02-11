@@ -28,21 +28,13 @@
 
         <TextView
             android:id="@+id/textView_recipe_title_item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="20sp"
             android:layout_weight="5"
             android:text="@{value}" />
-
-
-        <ImageButton
-            android:id="@+id/button_edit_recipe"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_edit_black_24dp" />
 
 
         <ImageButton
