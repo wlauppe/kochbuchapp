@@ -7,6 +7,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.Unit
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import java.io.File
@@ -101,18 +102,19 @@ suspend override  fun removePublicRecipe(recipe: PublicRecipe) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+    override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         val recipe = recipeList.get(recipeId)
         val ld : MutableLiveData<PublicRecipe> = MutableLiveData(recipe)
         return ld
     }
 
 
+
     override suspend fun setRating(recipeId: Int, userId: String, value: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun setImage(recipeId: Int, Image: File) {
+    override suspend fun setImage(recipeId: Int, ImageUrl: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
