@@ -27,12 +27,15 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeVie
 
 import android.os.Build.*
 import android.Manifest
+import android.net.Uri
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
 
 class CreateRecipeFragment : Fragment() {
 
     private lateinit var binding: CreateRecipeFragmentBinding
+
+    var viewModelTemp : CreateRecipeViewmodel? = null
 
     //Methods
 
@@ -44,13 +47,15 @@ class CreateRecipeFragment : Fragment() {
         val viewModel : CreateRecipeViewmodel by viewModels {
             InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
         }
+        viewModelTemp = viewModel
 
         //SafeArgs---------------------------
         var recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
 
         if(recipeID != null) {
             viewModel.setRecipeByID(recipeID)
-            Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
+
+           // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
         }
 
         //binding set to the according Fragment
@@ -65,14 +70,16 @@ class CreateRecipeFragment : Fragment() {
 
         //binding viewmodel with xml components
 
+        val imageView = binding.imageButtonRecipeImage
+        var urlString = viewModel.imageUrl
+        if(urlString == ""){
+            urlString = "file:///android_asset/exampleimages/quiche.png"
+        }
+        context?.let { Glide.with(it).load(urlString).into(imageView) }
 
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             //Create Recipe
-            Toast.makeText(
-                requireContext(),
-                "Rezept zur Rezeptliste hinzugefügt",
-                Toast.LENGTH_SHORT
-            ).show()
+           // Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe()
 
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
@@ -107,15 +114,6 @@ class CreateRecipeFragment : Fragment() {
                 pickImageFromGallery();
             }
         }
-
-
-        val imageView = binding.imageButtonRecipeImage
-        var urlString = viewModel.imageUrl.value
-        if(urlString == ""){
-            urlString = "file:///android_asset/exampleimages/quiche.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
-
 
         return binding.root
     }
@@ -162,9 +160,9 @@ class CreateRecipeFragment : Fragment() {
 
             val imageView = binding.imageButtonRecipeImage
             context?.let{Glide.with(it).load(data?.data).into(imageView)}
+            imageView.setImageURI(data?.data)
+            viewModelTemp!!.imageUrl = data?.data.toString()
            //imageView.setImageURI(data?.data)
-
-
         }
     }
 
