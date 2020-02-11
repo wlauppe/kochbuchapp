@@ -50,7 +50,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
             imgUrl = "file:///android_asset/exampleimages/bratapfel.png"
         )
         val list = listOf(recipe1, recipe2, recipe3, recipe4)
-        var recipeList: MutableList<PublicRecipe> = mutableListOf<PublicRecipe>()
+         recipeList = mutableListOf<PublicRecipe>()
         Log.w(TAG, "Versuche auf Recipelistzuzugreifen")
         recipeList.add(recipe1)
         recipeList.add(recipe2)
