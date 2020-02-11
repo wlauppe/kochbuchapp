@@ -24,7 +24,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     var entries = 1
     //var recipeList : MutableList<PublicRecipe>
 
-    fun initialise() {
+    init {
         Log.w(TAG, "Starte init Block")
         val recipe1 = PublicRecipe(1, "trockener Sandkuchen")
         val recipe2 =
