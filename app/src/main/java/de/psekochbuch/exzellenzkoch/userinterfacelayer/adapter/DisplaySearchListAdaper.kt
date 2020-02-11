@@ -23,6 +23,7 @@ class DisplaySearchListAdaper(
     var context = context
     //Methodes
     fun setNewItems(newItems: List<PublicRecipe>) {
+        items = emptyList()
         items = newItems
         this.notifyDataSetChanged()
     }
@@ -36,16 +37,12 @@ class DisplaySearchListAdaper(
         return DisplaySearchListViewHolder(displaySearchListItemBinding)
     }
 
-
-
     override fun getItemCount(): Int {
         return items.size
     }
 
     override fun onBindViewHolder(holder: DisplaySearchListViewHolder, position: Int) {
         holder.displaySearchlistListitemBinding.value = items[position].title
-
-
         holder.displaySearchlistListitemBinding.buttonOpenRecipe.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(DisplaySearchListFragmentDirections

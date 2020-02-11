@@ -3,28 +3,17 @@ package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 import java.util.*
 
 class PrivateRecipe(
-    recipeId: Int = 0,
-    title: String,
-    ingredientsText: String,
-    tags: List<String>,
-    preparation: String,
-    imgUrl: String,
-    cookingTime: Int,
-    preparationTime: Int,
-    creationTimeStamp: Date,
-    portions: Int
-) : Recipe(
-    recipeId,
-    title,
-    ingredientsText,
-    tags,
-    preparation,
-    imgUrl,
-    cookingTime,
-    preparationTime,
-    creationTimeStamp,
-    portions
-) {
+    var recipeId: Int = 0,
+    val title: String,
+    val ingredientsText: String,
+    val tags: List<String>,
+    val preparation: String,
+    val imgUrl: String,
+    val cookingTime: Int,
+    val preparationTime: Int,
+    val creationTimeStamp: Date,
+    val portions: Int
+)  {
 
     fun convertToPublicRepipe() : PublicRecipe
     {

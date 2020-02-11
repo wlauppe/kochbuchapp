@@ -28,7 +28,8 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
     }
 
-    override suspend fun updatePrivateRecipe(id: Int) {
+    override suspend fun updatePrivateRecipe(privateRecipe: PrivateRecipe) {
+        privateRecipe
        //Was ist denn hiermit gemeint? Falls damit das überschreiben eines rezeptes gemeient ist, das passiet automatisch wenn man das in die insert Methode einfügt, da dies bei collision einfach überschreibet
     }
 
@@ -36,7 +37,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
     }
 
-    override fun getRecipe(id: String): LiveData<PrivateRecipe> {
+    override fun getRecipe(id: Int): LiveData<PrivateRecipe> {
         TODO()   //Wieso ist denn einmal die id ein Int und eimal ein String?
     }
 

@@ -53,13 +53,37 @@ class DisplaySearchListFragment : Fragment(){
         binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 
         binding.radioButtonVegan.setOnClickListener{
-            viewModel.sortByVegan()
+           var sortedRecipes =  viewmodelTwo.sortByVegan()
+            val adapter = DisplaySearchListAdaper(sortedRecipes,viewmodelTwo, requireContext())
+            binding.recyclerViewSearchlistFragment.adapter = adapter
+
+            val observer = Observer<List<PublicRecipe>> { items ->
+                exampleAdapter.setNewItems(items)
+            }
+            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+
         }
         binding.radioButtonVegetarian.setOnClickListener{
-            viewModel.sortByVegetarian()
+            var sortedRecipesVegetarian =  viewmodelTwo.sortByVegetarian()
+            val adapterVegetarian = DisplaySearchListAdaper(sortedRecipesVegetarian,viewmodelTwo, requireContext())
+            binding.recyclerViewSearchlistFragment.adapter = adapterVegetarian
+            val observer = Observer<List<PublicRecipe>> { items ->
+                exampleAdapter.setNewItems(items)
+            }
+            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+
         }
         binding.radioButtonDate.setOnClickListener{
             viewModel.sortByDate()
+
+            var sortedRecipesDate =  viewmodelTwo.recipes.value!!
+            val adapterDate = DisplaySearchListAdaper(sortedRecipesDate,viewmodelTwo, requireContext())
+            binding.recyclerViewSearchlistFragment.adapter = adapterDate
+            val observer = Observer<List<PublicRecipe>> { items ->
+                exampleAdapter.setNewItems(items)
+            }
+            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+
         }
         return binding.root
     }
