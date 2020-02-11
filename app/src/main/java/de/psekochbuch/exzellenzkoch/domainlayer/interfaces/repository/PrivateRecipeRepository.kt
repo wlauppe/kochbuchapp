@@ -22,7 +22,7 @@ interface PrivateRecipeRepository {
     /**
      * Updates a recipe in the local Room DB
      */
-    suspend fun updatePrivateRecipe(id: Int)
+    suspend fun updatePrivateRecipe(privateRecipe: PrivateRecipe)
 
     /**
      * Adds a new recipe to the local Room DB
@@ -32,7 +32,7 @@ interface PrivateRecipeRepository {
     /**
      * Returns only the recipe with the given ID
      */
-    fun getRecipe(id:String):LiveData<PrivateRecipe>
+    fun getRecipe(id:Int):LiveData<PrivateRecipe>
 
 
 
