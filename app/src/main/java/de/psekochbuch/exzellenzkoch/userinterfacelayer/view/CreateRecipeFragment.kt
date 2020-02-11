@@ -34,7 +34,8 @@ import androidx.core.content.PermissionChecker.checkSelfPermission
 class CreateRecipeFragment : Fragment() {
 
     private lateinit var binding: CreateRecipeFragmentBinding
-    var data : Uri? = null
+
+    var viewModelTemp : CreateRecipeViewmodel? = null
 
     //Methods
 
@@ -46,6 +47,7 @@ class CreateRecipeFragment : Fragment() {
         val viewModel : CreateRecipeViewmodel by viewModels {
             InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
         }
+        viewModelTemp = viewModel
 
         //SafeArgs---------------------------
         var recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
@@ -77,11 +79,7 @@ class CreateRecipeFragment : Fragment() {
 
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             //Create Recipe
-            Toast.makeText(
-                requireContext(),
-                "Rezept zur Rezeptliste hinzugefügt",
-                Toast.LENGTH_SHORT
-            ).show()
+           // Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe()
 
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
@@ -116,8 +114,6 @@ class CreateRecipeFragment : Fragment() {
                 pickImageFromGallery();
             }
         }
-
-        viewModel.imageUrl = data.toString()
 
         return binding.root
     }
@@ -164,7 +160,8 @@ class CreateRecipeFragment : Fragment() {
 
             val imageView = binding.imageButtonRecipeImage
             context?.let{Glide.with(it).load(data?.data).into(imageView)}
-            this.data = data?.data
+            imageView.setImageURI(data?.data)
+            viewModelTemp!!.imageUrl = data?.data.toString()
            //imageView.setImageURI(data?.data)
         }
     }

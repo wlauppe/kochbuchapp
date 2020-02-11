@@ -3,8 +3,10 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
@@ -126,29 +128,20 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
      *
      */
     fun saveRecipe() {
-        if(repo.getPrivateRecipe(recipeID) == null){
-            var tempRecipeLD = repo.getPrivateRecipe(recipeID)
-            if(this.imageUrl.isNullOrEmpty() || this.imageUrl.isNullOrBlank()){
+            var newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl,this.cookingTime.value!!, this.preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
 
+        //Coroutine
+        viewModelScope.launch {
+            try {
+                repo.insertPrivateRecipe(newRecipe)
+            } catch (error: Error) {
+                _errorLiveDataString.value = error.message
             }
-            var newRecipe = PrivateRecipe(tempRecipeLD.value!!.recipeId, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl,this.cookingTime.value!!, this.preparationTime.value!!, Date(), this.portions.value!!)
-
-        }else{
-            var title: String = this.recipeTitle.value!!
-            var ingredientsText: String = this.ingredients.value!!
-            var tags: List<String> = getCheckedTags()
-            var preparation: String = this.preparationDescription.value!!
-            var imgUrl: String = this.imageUrl
-            var cookingTime: Int = this.cookingTime.value!!
-            var preparationTime: Int = this.preparationTime.value!!
-            var creationTimeStamp: Date = Date()
-            var portions: Int = this.portions.value!!
-            if (this.tagCheckBoxPublish.value!!) {
-                convertToPublicRecipe()
-            }
-
         }
 
+        if (this.tagCheckBoxPublish.value!!) {
+            convertToPublicRecipe()
+        }
     }
 
     /**
