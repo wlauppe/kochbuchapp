@@ -9,7 +9,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.Unit
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
-import java.io.File
+
 import java.util.*
 import kotlin.Int
 import kotlin.String
@@ -102,6 +102,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override suspend fun deleteRecipe(recipeId: Int) {
+        val recipe = recipeList.get(recipeId)
         recipeList.remove(recipe)
     }
 
