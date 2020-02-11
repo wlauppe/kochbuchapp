@@ -238,6 +238,7 @@
                         android:id="@+id/checkBox_publish_create_recipe_fragment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:checked="@={createRecipeViewModel.tagCheckBoxPublish}"
                         android:text="@string/publish" />
 
                 </LinearLayout>

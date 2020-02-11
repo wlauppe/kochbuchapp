@@ -74,6 +74,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if(recipe.value == null){
             return
         }
+
         var tags = recipe.value!!.tags
         // The livedata attributes are set with the recipe contents
         this.imageUrl = recipe.value!!.imgUrl
@@ -127,6 +128,14 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         }
         if (this.tagCheckBoxPublish.value!!) {
             var convertedPublicRecipe = newRecipe.convertToPublicRepipe()
+            //Coroutine
+            viewModelScope.launch {
+                try {
+                    publicRepo.publishRecipe(convertedPublicRecipe)
+                } catch (error: Error) {
+                    _errorLiveDataString.value = error.message
+                }
+            }
         }
     }
 

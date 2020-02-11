@@ -134,7 +134,8 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        addToList(publicRecipe)
+        return publicRecipe.recipeId
     }
 
 
