@@ -22,7 +22,7 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
     var navController:NavController ? = null
     var id : Int? = null
     var context = context
-    //Methodes
+    //Methods
     fun setNewItems(newItems: List<PublicRecipe>){
         recipes = newItems
         this.notifyDataSetChanged()
@@ -45,15 +45,12 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         id = recipes[position].recipeId
         holder.adminReportedRecipeItemBinding.buttonAdminRemoveRecipe.setOnClickListener{
             viewModel.deleteRecipe(recipes[position].recipeId)
-            Toast.makeText(context, recipes[position].recipeId.toString().plus(" gelöscht"), Toast.LENGTH_SHORT).show()
+         //   Toast.makeText(context, recipes[position].recipeId.toString().plus(" gelöscht"), Toast.LENGTH_SHORT).show()
 
         }
-        //holder.adminReportedRecipeItemBinding.adminReportedRecipeItemLayout.setOnClickListener{
-        //    navController!!.navigate(R.id.action_adminFragment_to_recipeDisplayFragment)
-        //}
 
-//SafeArgs-----------------------------------------------
-        holder.adminReportedRecipeItemBinding.imageViewAdminRecipeItem.setOnClickListener {
+        //SafeArgs-----------------------------------------------
+        holder.adminReportedRecipeItemBinding.adminReportedRecipeItemLayout.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(
                 AdminFragmentDirections
@@ -70,9 +67,9 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         //var urlString
         var urlString = ""
 
-        var imageView = holder.adminReportedRecipeItemBinding.imageViewAdminRecipeItem
+        val imageView = holder.adminReportedRecipeItemBinding.imageViewAdminRecipeItem
         if (recipes[position].imgUrl == "") {
-            urlString = "file:///android_asset/exampleimages/quiche.png"
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         } else {
             urlString = recipes[position].imgUrl
         }

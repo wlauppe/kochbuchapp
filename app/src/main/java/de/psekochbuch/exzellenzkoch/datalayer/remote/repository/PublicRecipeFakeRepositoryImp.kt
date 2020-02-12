@@ -43,21 +43,27 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         val ingredient = IngredientAmount("ingredientAmount", 4.4, munit)
         val ingredientChapter = IngredientChapter(4, "test", listOf(ingredient))
         val listTags = listOf<String>("tag2", "vegan", "vegetarisch", "tag 4", "tag2", "tag 4")
+
+        val listTagsTwo = listOf<String>("tag2", "vegetarisch", "tag 4", "tag2", "tag 4")
+
+        val listTagsThree = listOf<String>("tag2", "vegetarisch", "vegan", "tag2", "tag 4")
         val recipe4 = PublicRecipe(
             4,
-            "Tabak",
+            "Leckeres Gemüse",
             "zutatenText hier kann alles drinnstehen",
             listOf(ingredientChapter),
-            listTags,
+            listTagsTwo,
             "zubereitungsbeschreibung hier kann auch alles stehen",
-            imgUrl = "file:///android_asset/exampleimages/quiche.png"
+            imgUrl = "https://so-gesund.com/wp-content/uploads/2017/03/Obst.jpg"
         )
 
         val recipe3 = PublicRecipe(
             3,
             "Bratapfel",
+            "", listOf(ingredientChapter) ,listTagsThree,
             imgUrl = "file:///android_asset/exampleimages/bratapfel.png"
         )
+
         //val list = listOf(recipe1, recipe2, recipe3, recipe4)
         // recipeList = mutableListOf<PublicRecipe>()
         Log.w(TAG, "Versuche auf Recipelistzuzugreifen")
@@ -110,23 +116,26 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+        Log.w(TAG, "getPublicRecipe, recipeId $recipeId aufgerufen")
         for(recipe in recipeList){
             if (recipe.recipeId == recipeId){
                 return MutableLiveData(recipe)
             }
         }
-        val recipe = recipeList.get(recipeId)
+       Log.w(TAG, "Id nicht gefunden, gebe irgendwas zurück")
+        val recipe = recipeList.get(recipeId-1)
         val ld: MutableLiveData<PublicRecipe> = MutableLiveData(recipe)
         return ld
     }
 
     override suspend fun deleteRecipe(recipeId: Int) {
-        val recipe = recipeList.get(recipeId)
+        val recipe = recipeList.get(recipeId-1)
         recipeList.remove(recipe)
     }
 
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        addToList(publicRecipe)
+        return publicRecipe.recipeId
     }
 
 

@@ -3,13 +3,18 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import kotlinx.coroutines.launch
 import java.util.*
 
-class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
-    var repo = repository
-    var recipe: MutableLiveData<PrivateRecipe?> = MutableLiveData()
+class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
+                            publicRepository: PublicRecipeRepository) : ViewModel() {
+    var privateRepo = privateRepository
+    var publicRepo = publicRepository
+    var recipe: LiveData<PrivateRecipe> = MutableLiveData()
     var recipeID = 0
 
     /*
@@ -28,20 +33,23 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
 
 
     //Current title of the Recipe
-    var recipeTitle: LiveData<String> = MutableLiveData("")
-    var imageUrl: LiveData<String> = MutableLiveData("")
+
+    var recipeTitle: MutableLiveData<String> = MutableLiveData("")
+    var imageUrl: String = ""
     //Current Preparation Time of the Reci
-    var preparationTime: LiveData<Int> = MutableLiveData(0)
+    var preparationTime: MutableLiveData<String> = MutableLiveData("0")
+
     //current cookingTime for the Recipe
-    var cookingTime: LiveData<Int> = MutableLiveData(0)
+    var cookingTime: MutableLiveData<String> = MutableLiveData("0")
+
     //current tags for the Recipe
-    var tagList: LiveData<List<String>> = MutableLiveData(emptyList())
+    var tagList: MutableLiveData<List<String>> = MutableLiveData(emptyList())
     //current preparation description for the recipe
-    var preparationDescription: LiveData<String> = MutableLiveData("")
+    var preparationDescription: MutableLiveData<String> = MutableLiveData("")
     //current ingredients for the recipe as String
-    var ingredients: LiveData<String> = MutableLiveData("")
+    var ingredients: MutableLiveData<String> = MutableLiveData("")
     //current number of portions for the recipe
-    var portions: LiveData<Int> = MutableLiveData(0)
+    var portions: MutableLiveData<Int> = MutableLiveData(0)
 
 
     //Checkboxes for the recipe tags
@@ -62,39 +70,28 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
     fun setRecipeByID(id: Int) {
         // var  recipe = repo.getPrivateRecipe(id)
         recipeID = id
+        var recipe = privateRepo.getPrivateRecipe(recipeID)
+        if(recipe.value == null){
+            return
+        }
 
-        //Dummy
-        var tags = listOf<String>("eins", "zwei")
-        var recipe = MutableLiveData(
-            PrivateRecipe(
-                0,
-                "Tomaten",
-                "zutaten, Karotten",
-                tags,
-                "zubereitungs",
-                "",
-                4,
-                2,
-                Date(),
-                2
-            )
-        )
+        var tags = recipe.value!!.tags
         // The livedata attributes are set with the recipe contents
-        this.imageUrl = MutableLiveData(recipe.value!!.imgUrl)
+        this.imageUrl = recipe.value!!.imgUrl
         this.recipeTitle = MutableLiveData(recipe.value!!.title)
         preparationDescription = MutableLiveData(recipe.value!!.preparation)
         this.ingredients = MutableLiveData(recipe.value!!.ingredientsText)
         this.tagList = MutableLiveData(recipe.value!!.tags)
-        this.cookingTime = MutableLiveData(recipe.value!!.cookingTime)
-        this.preparationTime = MutableLiveData(recipe.value!!.preparationTime)
+        this.cookingTime = MutableLiveData(recipe.value!!.cookingTime.toString())
+
+        this.preparationTime = MutableLiveData(recipe.value!!.preparationTime.toString())
+
         this.portions = MutableLiveData(recipe.value!!.portions)
-
         //set the checkboxes with the settet tags
-
         if (tags.contains("vegan")) {
             this.tagCheckBoxVegan.value = true
         }
-        if (tags.contains("vegetarian")) {
+        if (tags.contains("vegetarisch")) {
             this.tagCheckBoxVegetarian.value = true
         }
         if (tags.contains("günstig")) {
@@ -109,27 +106,6 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         if (tags.contains("salzig")) {
             this.tagCheckBoxSalty.value = true
         }
-
-
-        /* var recipetemp = repo.getPrivateRecipe(id).value
-         this.recipe = MutableLiveData(recipetemp)
-         this.preparationTime = MutableLiveData(recipe.value!!.preparationTime)
-         this.cookingTime = MutableLiveData(recipe.value!!.cookingTime)
-         this.preparationDescription = MutableLiveData(recipe.value!!.preparation)
-         this.ingredients = MutableLiveData(recipe.value!!.ingredientsText)
-         tagsSet()
-
-
-     }
-
-     fun tagsSet(){
-         var tags = recipe.value!!.tags
-         if(tags.contains("vegan")){
-             this.tagCheckBoxVegan.value!!.isChecked = true
-         }
-         //...
-
-         */
     }
 
     /**
@@ -138,46 +114,29 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
      *
      */
     fun saveRecipe() {
-        var title: String = this.recipeTitle.value!!
-        var ingredientsText: String = this.ingredients.value!!
-        var tags: List<String> = getCheckedTags()
-        var preparation: String = this.preparationDescription.value!!
-        var imgUrl: String = this.imageUrl.value!!
-        var cookingTime: Int = this.cookingTime.value!!
-        var preparationTime: Int = this.preparationTime.value!!
-        var creationTimeStamp: Date = Date()
-        var portions: Int = this.portions.value!!
 
-        if (this.tagCheckBoxPublish.value!!) {
-            convertToPublicRecipe()
+
+            var newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl, Integer.parseInt(this.cookingTime.value!!),Integer.parseInt(this.preparationTime.value!!), Date(System.currentTimeMillis()), portions = this.portions.value!!)
+
+        //Coroutine
+        viewModelScope.launch {
+            try {
+                privateRepo.insertPrivateRecipe(newRecipe)
+            } catch (error: Error) {
+                _errorLiveDataString.value = error.message
+            }
         }
-
-        /*
-        if (repo.getPrivateRecipe(recipeID).value == null) {
-
-            var newRecipe = PrivateRecipe(
-                0,
-                title,
-                ingredientsText,
-                tags,
-                preparation,
-                imgUrl,
-                cookingTime,
-                preparationTime,
-                Date(),
-                portions
-            )
-            //coroutine
+        if (this.tagCheckBoxPublish.value!!) {
+            var convertedPublicRecipe = newRecipe.convertToPublicRepipe()
+            //Coroutine
             viewModelScope.launch {
                 try {
-                    repo.insertPrivateRecipe(newRecipe)
+                    publicRepo.publishRecipe(convertedPublicRecipe)
                 } catch (error: Error) {
                     _errorLiveDataString.value = error.message
                 }
             }
         }
-         */
-
     }
 
     /**
@@ -192,7 +151,6 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         }
         if (this.tagCheckBoxCheap.value!!) {
             result.add("günstig")
-
         }
         if (this.tagCheckBoxHearty.value!!) {
             result.add("herzhaft")
@@ -206,7 +164,6 @@ class CreateRecipeViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         if (this.tagCheckBoxVegetarian.value!!) {
             result.add("vegetarisch")
         }
-
         return result
     }
 

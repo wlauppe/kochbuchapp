@@ -38,6 +38,7 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         binding.buttonRegisterFragmentRegister.setOnClickListener {
             viewModel.registerOnClick()
 
+            // TODO useless var??
             var userID = "Udo"
             navController.navigate(RegistrationFragmentDirections.actionRegistrationFragmentToProfileEditFragment().setUserID(userID))
         }

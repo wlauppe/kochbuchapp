@@ -17,11 +17,12 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
     private val recipeRepo = recipeRepository
     var userRepo = userRepository
 
+
     //User Information LiveData
-    private lateinit var user: User
-        var userID : String = ""
-        var userDesc : String = ""
-        var userImg : String = ""
+    var user: User? = null
+        var userID: LiveData<String> = MutableLiveData(user?.userId)
+        var userDesc : LiveData<String> = MutableLiveData(user?.description)
+        var userImg : LiveData<String> = MutableLiveData(user?.imgUrl)
 
 
     /*
@@ -48,20 +49,26 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
     }
 
     fun setUserByID(id: String) {
-        var user = userRepo.getUser(id)
-        this.userID = user.value!!.userId
-        this.userDesc =user.value!!.description
-        this.userImg = user.value!!.imgUrl
+        if (id == "") {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                val user = userRepo.getUser(id)
+                userDesc = MutableLiveData(user.value!!.description)
+
+            } catch (error: Error) {
+                _errorLiveDataString.value = error.message
+            }
+        }
+
     }
 
      fun flagUserById() {
-         if (userID.isNullOrBlank()) {
-             return
-         }
          //Coroutine
         viewModelScope.launch {
             try {
-                userRepo.reportUser(userID)
+                userRepo.reportUser(userID.toString())
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }

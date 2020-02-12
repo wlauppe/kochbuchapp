@@ -42,14 +42,14 @@ class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicReci
         id = items[position].recipeId
 
         var urlString = items[position].imgUrl
-        if(urlString == ""){
-            urlString == "file:///android_asset/exampleimages/quiche.png"
+        if(urlString == ""|| urlString.isNullOrEmpty()){
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
-        var imageView = holder.profileDisplayRecipeItemBinding.imageViewProfileDisplayRecipe
+        val imageView = holder.profileDisplayRecipeItemBinding.imageViewProfileDisplayRecipe
         Glide.with(context).load(urlString).into(imageView)
 
 
-        holder.profileDisplayRecipeItemBinding.buttonGoto.setOnClickListener{
+        holder.profileDisplayRecipeItemBinding.profileDisplayRecipeLayoutItem.setOnClickListener{
 
             navController!!.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToRecipeDisplayFragment().setRecipeID(items[position].recipeId))
         }

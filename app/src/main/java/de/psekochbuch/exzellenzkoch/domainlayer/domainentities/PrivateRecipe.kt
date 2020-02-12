@@ -12,7 +12,10 @@ class PrivateRecipe(
     val cookingTime: Int,
     val preparationTime: Int,
     val creationTimeStamp: Date,
-    val portions: Int
+    val portions: Int,
+    //das ist die Id des öffentlichen Rezepts unter dem das private Rezept veröffentlicht ist.
+    //wenn das private Rezept noch nicht veröffentlicht wurde ist das 0
+    var publishedRecipeId : Int = 0
 )  {
 
     fun convertToPublicRepipe() : PublicRecipe
