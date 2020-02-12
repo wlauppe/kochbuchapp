@@ -24,7 +24,7 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
 
     //fun toListEntity(dto: List<PublicRecipeDto>) : List<PublicRecipeDto> = dto.mapthis.toEntity(it))
 
-    fun toListEntity(dtoList: List<PublicRecipeDto>) : List<PublicRecipe> {
+    override fun toListEntity(dtoList: List<PublicRecipeDto>) : List<PublicRecipe> {
         var recipeList: MutableList<PublicRecipe> = mutableListOf()
         dtoList.forEach{ recipeList.add(this.toEntity(it))}
         return recipeList

@@ -15,7 +15,7 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
     /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
     * eine Liste an IDs, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
     val repository= repo
-    lateinit var recipes : LiveData<List<PublicRecipe>>
+    var recipes : LiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
 
     fun getPublicRecipes(title: String?, ingredients: String?, tags: String?):LiveData<List<PublicRecipe>> {
         var ingredientList = emptyList<String>()

@@ -33,14 +33,20 @@ class DisplaySearchListFragment : Fragment(){
 
 
         // safeargs are passed down from the input
-        bundle = savedInstanceState
+
         val recipeSearchTitle = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
         val recipeSearchingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
         val recipeSearchTags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
+
         viewModel.getPublicRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
 
+        //--------------Sleep
+        Thread.sleep(2000)
 
-        val listOfRecipesToSearch: List<PublicRecipe>
+        //
+
+
+
         val listOfRecipeNames: List<PublicRecipe> = viewModel.recipes.value!!
         val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel, requireContext())
             binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
