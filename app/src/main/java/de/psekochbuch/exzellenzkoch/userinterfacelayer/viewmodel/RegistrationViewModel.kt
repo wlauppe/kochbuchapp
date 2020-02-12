@@ -35,7 +35,6 @@ class RegistrationViewModel(authentification:Authentification, repo:UserReposito
                 try {
                     val user : User? = userRepository.checkUser(id)
                     if(user?.userId == "") {
-
                         val em = email.value
                         val pw = password.value
                         if (em != null && pw != null) {

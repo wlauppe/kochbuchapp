@@ -4,8 +4,10 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import kotlinx.coroutines.launch
 
 
 class RecipeListViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
@@ -34,17 +36,17 @@ class RecipeListViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
 
 
     fun deleteRecipe(id: Int?) {
-
-        /*
-        //coroutine
-        viewModelScope.launch {
-            try {
-                repo.deleteRecipe(id!!)
-            } catch (error: Error) {
-                _errorLiveDataString.value = error.message
+        if(id !=null) {
+            //coroutine
+            viewModelScope.launch {
+                try {
+                    repo.deletePrivateRecipe(id)
+                } catch (error: Error) {
+                    _errorLiveDataString.value = error.message
+                }
             }
         }
-         */
+
     }
 
 

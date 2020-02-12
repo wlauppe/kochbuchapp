@@ -50,9 +50,12 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
             navController!!.navigate(RecipeListFragmentDirections
                 .actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(items[position].recipeId))
         }
+
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
+
+           // Toast.makeText(context, items[position].recipeId.toString(), Toast.LENGTH_SHORT).show()
             viewModel.deleteRecipe(items[position].recipeId)
-            items[position].title.plus("(gelöscht)")
+
         }
 
 

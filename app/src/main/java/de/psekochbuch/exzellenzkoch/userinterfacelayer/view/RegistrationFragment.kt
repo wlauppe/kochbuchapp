@@ -14,6 +14,7 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RegistrationFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrationViewModel
 
+
 class RegistrationFragment : Fragment(R.layout.registration_fragment) {
 
     private lateinit var binding: RegistrationFragmentBinding
@@ -37,11 +38,13 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         var navController: NavController = findNavController()
         binding.buttonRegisterFragmentRegister.setOnClickListener {
             viewModel.registerOnClick()
-
-            // TODO useless var??
-            var userID = "Udo"
-            navController.navigate(RegistrationFragmentDirections.actionRegistrationFragmentToProfileEditFragment().setUserID(userID))
-        }
+            
+            var userID = viewModel.userId.value
+            if(userID != null) {
+                navController.navigate(RegistrationFragmentDirections.actionRegistrationFragmentToProfileEditFragment().setUserID(userID)
+                )
+            }
+            }
 
 
         return binding.root
