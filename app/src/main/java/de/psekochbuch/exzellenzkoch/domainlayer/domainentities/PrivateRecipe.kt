@@ -41,7 +41,6 @@ class PrivateRecipe(
             } catch (e: IllegalArgumentException) {
                 continue
             }
-            break
         }
         throw IllegalArgumentException()
     }
@@ -49,13 +48,17 @@ class PrivateRecipe(
     //testet wie der String toParse getrennt ist und berechnet dann den wert
     fun getNumber(toParse: String): Double {
         val withoutWS = toParse.replace(" ", "")
+        if (zahlgetrennt(withoutWS, "-")) {
+            val numbers = withoutWS.split("-")
+            return (getNumber(numbers[0]) + getNumber(numbers[1]))/2
+        }
         if (zahlgetrennt(withoutWS, ".")) return withoutWS.toDouble()
         if (zahlgetrennt(withoutWS, ",")) return withoutWS.replace(',', '.').toDouble()
         if (zahlgetrennt(withoutWS, "/")) {
             val numbers = withoutWS.split("/").toTypedArray()
             return numbers[0].toLong() / numbers[1].toLong().toDouble()
         }
-        throw IllegalArgumentException()
+        return toParse.toDouble()
     }
 
     // gibt ja zurück wenn der String toParse von der form (0|..|9)+(trenner)(0|..|9)+
