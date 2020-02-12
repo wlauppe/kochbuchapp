@@ -28,11 +28,6 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
     }
 
-    override suspend fun updatePrivateRecipe(privateRecipe: PrivateRecipe) {
-        privateRecipe
-       //Was ist denn hiermit gemeint? Falls damit das überschreiben eines rezeptes gemeient ist, das passiet automatisch wenn man das in die insert Methode einfügt, da dies bei collision einfach überschreibet
-    }
-
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
         DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
     }
