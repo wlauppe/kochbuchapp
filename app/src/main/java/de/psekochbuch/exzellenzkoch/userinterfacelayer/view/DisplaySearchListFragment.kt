@@ -16,6 +16,7 @@ import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.DisplaySearchListAdaper
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
+import java.lang.Thread.sleep
 
 class DisplaySearchListFragment : Fragment(){
     private lateinit var bindingTwo : DisplaySearchlistFragmentBinding

@@ -50,10 +50,10 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         Log.w(TAG, "getPublicRecipes() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
-            val response =
+            val dtoList =
                 recipeApiService.search(null, null, null, null, 1, 100)
-            if (!response.isSuccessful) throw error("response not successful")
-            val entityList = PublicRecipeDtoEntityMapper().toListEntity(response.body()!!)
+            //if (!response.isSuccessful) throw error("response not successful")
+            val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
             emit(entityList)
         }
         return lData
@@ -74,9 +74,9 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     //Jetzt mal mit LiveData Builder
         val lData = liveData(Dispatchers.IO, 1000) {
-            val response = recipeApiService.getRecipe(recipeId)
-            if (!response.isSuccessful) throw error("response not successful")
-            val entity = PublicRecipeDtoEntityMapper().toEntity(response.body()!!)
+            val dto = recipeApiService.getRecipe(recipeId)
+            //if (!response.isSuccessful) throw error("response not successful")
+            val entity = PublicRecipeDtoEntityMapper().toEntity(dto)
             emit(entity)
         }
     //return MutableLiveData<PublicRecipe>(PublicRecipe(0,"Title"))

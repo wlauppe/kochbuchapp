@@ -19,7 +19,7 @@ interface PublicRecipeApi {
      * @return The recipe with the specific id
      */
     @GET("recipes/{id}")
-    suspend fun getRecipe(@Path("id") id:Int) : Response<PublicRecipeDto>
+    suspend fun getRecipe(@Path("id") id:Int) : PublicRecipeDto
 
     /**
      * POST-Request to add a new recipe.
@@ -36,7 +36,7 @@ interface PublicRecipeApi {
      * @param id Id of the recipe to update
      */
     @PUT ("recipes/{id}")
-    suspend fun updateRecipe(@Body publicRecipe: PublicRecipeDto, @Query(value = "id") id :Response<Int>)
+    suspend fun updateRecipe(@Body publicRecipe: PublicRecipeDto, @Query(value = "id") id : Int)
 
     /**
      * DELETE-Request to delete a recipe
@@ -63,7 +63,7 @@ interface PublicRecipeApi {
                @Query("ingredients") ingredients:List<String>?,
                @Query("creationDate") creationDate:Date?,
                @Query("page") page:Int,
-               @Query("readCount") readCount:Int):Response<List<PublicRecipeDto>>
+               @Query("readCount") readCount:Int):List<PublicRecipeDto>
 
     /**
      * POST-Request to report a recipe
