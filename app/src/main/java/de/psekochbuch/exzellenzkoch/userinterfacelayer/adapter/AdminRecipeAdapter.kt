@@ -49,6 +49,7 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
                 Toast.makeText(context, recipes[position].recipeId.toString(), Toast.LENGTH_SHORT).show()
                 viewModel.deleteRecipe(recipes[position].recipeId)
                 setNewItems(recipes)
+            Toast.makeText(context, "gelöscht", Toast.LENGTH_SHORT).show()
 
                     //   Toast.makeText(context, recipes[position].recipeId.toString().plus(" gelöscht"), Toast.LENGTH_SHORT).show()
 
@@ -68,6 +69,7 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
         holder.adminReportedRecipeItemBinding.buttonAdminSpare.setOnClickListener{
             viewModel.unreportRecipe(recipes[position].recipeId!!)
                 setNewItems(recipes)
+            Toast.makeText(context, "freigegeben", Toast.LENGTH_SHORT).show()
             //Toast.makeText(context, recipes[position].title.plus(" freigegeben"), Toast.LENGTH_SHORT).show()
         }
         //var urlString

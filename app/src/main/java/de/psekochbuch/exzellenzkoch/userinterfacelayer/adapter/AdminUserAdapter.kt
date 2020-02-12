@@ -49,7 +49,7 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
         holder.adminReportedUserItemBinding.buttonRemoveUser.setOnClickListener{
             viewModel.deleteUser(users[position].userId)
             setNewItems(users)
-           // Toast.makeText(context, users[position].userId.plus(" gelöscht"), Toast.LENGTH_SHORT).show()
+           Toast.makeText(context, "gelöscht", Toast.LENGTH_SHORT).show()
         }
 
         //safeArgs -------------------------------------------
@@ -67,9 +67,8 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user
             viewModel.unreportUser(users[position].userId)
-            Toast.makeText(context, users[position].userId.plus(" freigegeben"), Toast.LENGTH_SHORT).show()
-
-
+            setNewItems(users)
+            Toast.makeText(context, "freigegeben", Toast.LENGTH_SHORT).show()
         }
 
 

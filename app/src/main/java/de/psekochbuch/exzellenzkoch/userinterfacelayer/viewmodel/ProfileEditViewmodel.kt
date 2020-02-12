@@ -13,7 +13,8 @@ class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
         //LiveData
         var userID : LiveData<String> = MutableLiveData("")
         var userDesc : LiveData<String> = MutableLiveData("")
-        var userImgURL : LiveData<String> = MutableLiveData("")
+        var userImgURL  = ""
+
 
 
     /**
@@ -39,11 +40,14 @@ class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
         this.user = user
         this.userID = MutableLiveData(user.value!!.userId)
         this.userDesc = MutableLiveData(user.value!!.description)
-        this.userImgURL = MutableLiveData(user.value!!.imgUrl)
+        this.userImgURL = user.value!!.imgUrl
     }
 
     fun changeLoginData(){
 
+
+    }
+    fun save(){
 
     }
 

@@ -73,12 +73,19 @@ class UserFakeRepositoryImp : UserRepository  {
     }
 
     override suspend fun reportUser(userId: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var tempUser = User(userId, "", "testUser")
+        this.addToList(tempUser)
+
     }
 
     override suspend fun unreportUser(userId: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
+        for(iterator in userList.toList()){
+            if(iterator.userId.equals(userId)){
+                userList.remove(iterator)
+            }
+        }
+         }
 
     companion object {
 

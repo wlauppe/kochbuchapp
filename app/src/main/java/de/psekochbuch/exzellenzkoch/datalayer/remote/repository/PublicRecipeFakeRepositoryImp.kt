@@ -156,9 +156,14 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun unreportRecipe(RecipeId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun unreportRecipe(recipeId: Int) {
+
+        for(iterator in recipeList.toList()){
+            if(iterator.recipeId == recipeId){
+                recipeList.remove(iterator)
+            }
+        }
+         }
 
     companion object {
 
