@@ -13,6 +13,7 @@ import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.DisplaySearchListAdaper
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
+import java.lang.Thread.sleep
 
 class DisplaySearchListFragment : Fragment(){
     private lateinit var bindingTwo : DisplaySearchlistFragmentBinding
@@ -41,6 +42,7 @@ class DisplaySearchListFragment : Fragment(){
 
 
         val listOfRecipesToSearch: List<PublicRecipe>
+        sleep(500)
         val listOfRecipeNames: List<PublicRecipe> = viewModel.recipes.value!!
         val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel, requireContext())
             binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
