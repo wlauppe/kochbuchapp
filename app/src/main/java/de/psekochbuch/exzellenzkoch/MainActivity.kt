@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
 
-            // Für Login Menü ändern
+            // TODO Für Login Menü ändern
             val menu:Menu = navView.menu
             loginMenuItem = menu.findItem(R.id.loginFragment)
         }

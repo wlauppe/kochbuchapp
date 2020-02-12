@@ -61,7 +61,7 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
 
         val imageView = holder.recipeListItemBinding.imageViewRecipeListItem
         if (items[position].imgUrl == "") {
-            urlString = "file:///android_asset/exampleimages/vegetables.jpg"
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         } else {
             urlString = items[position].imgUrl
         }

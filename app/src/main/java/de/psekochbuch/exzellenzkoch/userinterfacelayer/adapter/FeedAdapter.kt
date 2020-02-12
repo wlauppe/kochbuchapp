@@ -53,9 +53,9 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
         //var urlString
         var urlString = ""
 
-        var imageView = holder.feedItemBinding.imageViewFeedItem
+        val imageView = holder.feedItemBinding.imageViewFeedItem
         if (recipes[position].imgUrl == "") {
-            urlString = "file:///android_asset/exampleimages/vegetables.jpg"
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         } else {
             urlString = recipes[position].imgUrl
         }

@@ -58,7 +58,7 @@ class DisplaySearchListAdaper(
 
         var imageView = holder.displaySearchlistListitemBinding.imageViewDisplaySearchListItem
         if (items[position].imgUrl == "") {
-            urlString = "https://cdn.pixabay.com/photo/2015/05/04/10/16/vegetables-752153_1280.jpg"
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         } else {
             urlString = items[position].imgUrl
         }

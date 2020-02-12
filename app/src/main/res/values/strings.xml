@@ -91,6 +91,7 @@
     <string name="my_profile_title">Mein Profil</string>
     <string name="min">min</string>
     <string name="preptime">Zubereitungszeit:</string>
+    <string name="share">Teilen</string>
 
     <string-array name="spinner">
         <item>vegan</item>

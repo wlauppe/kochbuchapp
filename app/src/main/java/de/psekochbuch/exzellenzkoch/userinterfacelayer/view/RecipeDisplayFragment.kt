@@ -1,17 +1,14 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.InjectorUtils
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RecipeDisplayFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
 
@@ -31,7 +28,7 @@ class RecipeDisplayFragment : Fragment(){
         }
 
         //SafeArgs---------------------------
-        var recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
+        val recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
         viewModel.setRecipeByID(recipeID)
        // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
 
@@ -42,7 +39,8 @@ class RecipeDisplayFragment : Fragment(){
         //Sets according viewmodel from XML to this fragment
         binding.recipeDisplayViewModel = viewModel
 
-
+        // set options Menu shown
+        setHasOptionsMenu(true)
 
         //initialized navcontoller
         var navController: NavController = findNavController()
@@ -50,9 +48,14 @@ class RecipeDisplayFragment : Fragment(){
         val imageView = binding.imageViewRecipeImage
         var urlString = viewModel.recipe?.imgUrl
         if(urlString == "" || urlString.isNullOrBlank()||urlString.isNullOrEmpty()){
-            urlString = "https://cdn.pixabay.com/photo/2015/05/04/10/16/vegetables-752153_1280.jpg"
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
         context?.let { Glide.with(it).load(urlString).into(imageView) }
         return binding.root
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.options_menu_display_recipe, menu)
+    }
+
 }

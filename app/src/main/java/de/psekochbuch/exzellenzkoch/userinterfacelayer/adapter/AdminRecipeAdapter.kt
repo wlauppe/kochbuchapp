@@ -69,7 +69,7 @@ class AdminRecipeAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecip
 
         val imageView = holder.adminReportedRecipeItemBinding.imageViewAdminRecipeItem
         if (recipes[position].imgUrl == "") {
-            urlString = "file:///android_asset/exampleimages/vegetables.jpg"
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         } else {
             urlString = recipes[position].imgUrl
         }

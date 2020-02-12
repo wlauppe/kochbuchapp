@@ -1,9 +1,8 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.inputmethod.InputMethodManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,7 +14,6 @@ import de.psekochbuch.exzellenzkoch.databinding.PublicRecipeSearchFragmentBindin
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
 class PublicRecipeSearchFragment : Fragment() {
-
 
     private lateinit var binding: PublicRecipeSearchFragmentBinding
 
@@ -43,17 +41,13 @@ class PublicRecipeSearchFragment : Fragment() {
             val recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
             val tags : String = binding.editTextSearchTags.text.toString()
 
-
             //safeargs sent with bundle
             navController.navigate(PublicRecipeSearchFragmentDirections.actionPublicRecipeSearchFragmentToDisplaySearchListFragment()
                 .setIngredients(recipeIngredients).setRecipeTitle(recipeName).setTags(tags))
 
-
-
-          //  navController.navigate(R.id.action_publicRecipeSearchFragment_to_displaySearchListFragment)
         }
+
         return binding.root
     }
-
 
 }

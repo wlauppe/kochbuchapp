@@ -74,7 +74,7 @@ class CreateRecipeFragment : Fragment() {
         val imageView = binding.imageButtonRecipeImage
         var urlString = viewModel.imageUrl
         if(urlString == ""){
-            urlString = "file:///android_asset/exampleimages/vegetables.jpg"
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
