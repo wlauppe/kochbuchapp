@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.RoomDatabase
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
@@ -33,10 +34,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
 
     //Current title of the Recipe
-
     var recipeTitle: MutableLiveData<String> = MutableLiveData("")
     var imageUrl: String = ""
-    //Current Preparation Time of the Reci
+    //Current Preparation Time of the Recipe
     var preparationTime: MutableLiveData<String> = MutableLiveData("0")
 
     //current cookingTime for the Recipe
@@ -70,12 +70,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     fun setRecipeByID(id: Int) {
         // var  recipe = repo.getPrivateRecipe(id)
         recipeID = id
-        var recipe = privateRepo.getPrivateRecipe(recipeID)
+        val recipe = privateRepo.getPrivateRecipe(recipeID)
         if(recipe.value == null){
             return
         }
 
-        var tags = recipe.value!!.tags
+        val tags = recipe.value!!.tags
         // The livedata attributes are set with the recipe contents
         this.imageUrl = recipe.value!!.imgUrl
         this.recipeTitle = MutableLiveData(recipe.value!!.title)
@@ -87,7 +87,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         this.preparationTime = MutableLiveData(recipe.value!!.preparationTime.toString())
 
         this.portions = MutableLiveData(recipe.value!!.portions)
-        //set the checkboxes with the settet tags
+        //set the checkboxes with the set tags
         if (tags.contains("vegan")) {
             this.tagCheckBoxVegan.value = true
         }
@@ -115,8 +115,15 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      */
     fun saveRecipe() {
 
+        var newRecipe:PrivateRecipe
+        // save to room database or update if already exists in room database
+        // has to know if recipe is new or already existing -> boolean?
+        if (!(this.recipeID == 0)) {
+            newRecipe = PrivateRecipe(this.recipeID, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl, Integer.parseInt(this.cookingTime.value!!),Integer.parseInt(this.preparationTime.value!!), Date(System.currentTimeMillis()), portions = this.portions.value!!)
+        } else {
+            newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl, Integer.parseInt(this.cookingTime.value!!),Integer.parseInt(this.preparationTime.value!!), Date(System.currentTimeMillis()), portions = this.portions.value!!)
 
-            var newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl, Integer.parseInt(this.cookingTime.value!!),Integer.parseInt(this.preparationTime.value!!), Date(System.currentTimeMillis()), portions = this.portions.value!!)
+        }
 
         //Coroutine
         viewModelScope.launch {
@@ -127,7 +134,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             }
         }
         if (this.tagCheckBoxPublish.value!!) {
-            var convertedPublicRecipe = newRecipe.convertToPublicRepipe()
+            val convertedPublicRecipe = newRecipe.convertToPublicRepipe()
             //Coroutine
             viewModelScope.launch {
                 try {
@@ -168,7 +175,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     }
 
     /**
-     * converts a copie of the current private recipe to a public recipe. If all the nesessary
+     * converts a copy of the current private recipe to a public recipe. If all the nesessary
      * attributes are fullfilled the public recipe is created and uploaded to the server database.
      */
     fun convertToPublicRecipe() {
