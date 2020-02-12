@@ -61,9 +61,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>{
         TODO("implementieren")
-        //die ganzen optional sachen brauchen api 24
         try{
-            // retrofit.search(Optional.of("titell"),)
+
 
         } catch (error: Throwable) {
             throw NetworkError("Unable to write this method", error)
@@ -131,8 +130,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     override suspend fun setImage(recipeId: Int, ImageUrl: String) {
         //versuche es erst mal mit einem vordefinierten Image
         //später könnte man direkt ImageUrl übergeben.
-        val CustomUrl = "file:///android_asset/exampleimages/quiche.png"
-        val file : File = File(CustomUrl)
+        //val CustomUrl = "file:///android_asset/exampleimages/quiche.png"
+        val file : File = File(ImageUrl)
 
         val body = RequestBody.create(MediaType.parse("*/*"), file)
         val multi = MultipartBody.Part.createFormData("file", file.name, body)
