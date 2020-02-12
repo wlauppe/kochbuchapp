@@ -90,11 +90,16 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
 
 
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
+        val id=privateRecipe.recipeId
+        Log.w(TAG, "inserte privateRecipe recipeId ist $id")
+
         if (privateRecipe.recipeId == 0) {
             addToList(privateRecipe)
+            Log.w(TAG, "da die Id null ist, wurde das recipe neu hinzugefügt")
         }
         else {
            recipeList.set(privateRecipe.recipeId-1,privateRecipe)
+            Log.w(TAG, "da die Id nicht ist, wurde das recipe geupdated")
         }
 
     }
