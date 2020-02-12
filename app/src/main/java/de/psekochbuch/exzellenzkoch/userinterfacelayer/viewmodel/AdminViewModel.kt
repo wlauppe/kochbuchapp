@@ -36,6 +36,7 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
     /**
      * Request a snackbar to display a string.
      */
+
     val errorLiveDataString: LiveData<String?>
         get() = _errorLiveDataString
 

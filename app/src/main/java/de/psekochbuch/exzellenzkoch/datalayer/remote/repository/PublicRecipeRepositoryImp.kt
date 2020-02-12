@@ -1,11 +1,13 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.PublicRecipeDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
@@ -22,6 +24,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import java.lang.NullPointerException
+import java.lang.Thread.sleep
 import java.util.*
 
 
@@ -29,6 +32,7 @@ import java.util.*
  * The repository implementation has to fill the interfaces methods
  */
 class PublicRecipeRepositoryImp : PublicRecipeRepository {
+    private val TAG = "PublicRealImp"
     val recipeMapper = PublicRecipeDtoEntityMapper()
 
     val token = null
@@ -43,16 +47,16 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
-
-       // val searchList= recipeApiService.search(page=1,readCount = 1000)
-
-        //val dto = retrofit.getRecipe(1)
-        val recipe1 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
-        val recipe2 = PublicRecipe(0,"Test", ingredientChapter=listOf(), tags=listOf("sauer,salzig"))
-
-        val list = listOf(recipe1, recipe2)
-        val ld : MutableLiveData<List<PublicRecipe>> = MutableLiveData(list)
-        return ld
+        Log.w(TAG, "getPublicRecipes() wird aufgerufen")
+        val lData = liveData(Dispatchers.IO, 1000) {
+            Log.w(TAG, "jetzt bin ich im Coroutine Scope")
+            val response =
+                recipeApiService.search(null, null, null, null, 1, 100)
+            if (!response.isSuccessful) throw error("response not successful")
+            val entityList = PublicRecipeDtoEntityMapper().toListEntity(response.body()!!)
+            emit(entityList)
+        }
+        return lData
     }
 
     override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>{
@@ -66,26 +70,17 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
-    /* if (token != null) {
-            retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(createHttpClient())
-                .addConverterFactory(MoshiConverterFactory.create(moshi)).addCallAdapterFactory(LiveDataCallAdapterFactory())
-                .build()
-
-     */
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
-        //Jetzt mal mit LiveData Builder
-            val lData = liveData(Dispatchers.IO, 1000) {
+
+    //Jetzt mal mit LiveData Builder
+        val lData = liveData(Dispatchers.IO, 1000) {
             val response = recipeApiService.getRecipe(recipeId)
-                if (!response.isSuccessful) throw error("response not successful")
-
-
-                val entity = PublicRecipeDtoEntityMapper().toEntity(response.body()!!)
+            if (!response.isSuccessful) throw error("response not successful")
+            val entity = PublicRecipeDtoEntityMapper().toEntity(response.body()!!)
             emit(entity)
         }
-        //return MutableLiveData<PublicRecipe>(PublicRecipe(0,"Title"))
+    //return MutableLiveData<PublicRecipe>(PublicRecipe(0,"Title"))
         return lData
     }
 
@@ -113,13 +108,19 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
 
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
+        var returnId : Int = -1
         try{
-            coroutineScope{recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))}
+            coroutineScope{
+                val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
+                returnId = returnDto.id
+            }
+
         } catch (error: Throwable) {
             throw NetworkError("Unable to publish recipe", error)
         }
-        //Soll der rückgabewert die id des rezpetes sein?
-        return 0
+
+        //Soll der rückgabewert die id des rezpetes sein? ja
+        return returnId
     }
 
 

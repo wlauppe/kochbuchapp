@@ -18,7 +18,7 @@ interface PublicRecipeApi {
      * @param id Id of the recipe
      * @return The recipe with the specific id
      */
-    @GET("api/recipes/{id}")
+    @GET("recipes/{id}")
     suspend fun getRecipe(@Path("id") id:Int) : Response<PublicRecipeDto>
 
     /**
@@ -27,7 +27,7 @@ interface PublicRecipeApi {
      * @param publicRecipe Recipe to add
      */
     @POST ("recipes")
-    suspend fun addRecipe(@Body publicRecipe: PublicRecipeDto)
+    suspend fun addRecipe(@Body publicRecipe: PublicRecipeDto) : PublicRecipeDto
 
     /**
      * PUT-Request to update a recipe
@@ -36,7 +36,7 @@ interface PublicRecipeApi {
      * @param id Id of the recipe to update
      */
     @PUT ("recipes/{id}")
-    suspend fun updateRecipe(@Body publicRecipe: PublicRecipeDto, @Query(value = "id") id:Int)
+    suspend fun updateRecipe(@Body publicRecipe: PublicRecipeDto, @Query(value = "id") id :Response<Int>)
 
     /**
      * DELETE-Request to delete a recipe
@@ -58,12 +58,12 @@ interface PublicRecipeApi {
      * @return List of the recipes
      */
     @GET("")
-    suspend fun search(@Query("title") title:Optional<String>,
-               @Query("tags") tags:Optional<List<String>>,
-               @Query("ingredients") ingredients:Optional<List<String>>,
-               @Query("creationDate") creationDate:Optional<Date>,
+    suspend fun search(@Query("title") title:String?,
+               @Query("tags") tags:List<String>?,
+               @Query("ingredients") ingredients:List<String>?,
+               @Query("creationDate") creationDate:Date?,
                @Query("page") page:Int,
-               @Query("readCount") readCount:Int):Response<LiveData<List<PublicRecipeDto>>>
+               @Query("readCount") readCount:Int):Response<List<PublicRecipeDto>>
 
     /**
      * POST-Request to report a recipe
