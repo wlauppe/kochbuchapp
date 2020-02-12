@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,12 +10,14 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
 import java.util.*
 
 class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
+    val TAG = "DisplaySearchListVM"
 
 
 
     /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
     * eine Liste an IDs, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
     val repository= repo
+
     var recipes : LiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
 
     fun getPublicRecipes(title: String?, ingredients: String?, tags: String?):LiveData<List<PublicRecipe>> {
@@ -32,6 +35,10 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
        // return repository.search(title, ingredientList, tagList)
         // recipes = repository.search(title, ingredientList, tagList)
         recipes = repository.getPublicRecipes()
+        if(recipes.value == null){
+            Log.i(TAG, "EEEEEEEELGA")
+        }
+
         return recipes
     }
 

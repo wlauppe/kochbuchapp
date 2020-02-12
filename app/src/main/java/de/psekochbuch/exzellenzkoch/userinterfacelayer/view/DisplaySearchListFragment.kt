@@ -1,9 +1,12 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -16,11 +19,12 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchLi
 
 class DisplaySearchListFragment : Fragment(){
     private lateinit var bindingTwo : DisplaySearchlistFragmentBinding
-    private lateinit var viewmodelTwo : DisplaySearchListViewmodel
+
     var bundle: Bundle? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+         val TAG = "DisplaySearchList"
 
         //binding and ViewModel init
         val viewModel : DisplaySearchListViewmodel by viewModels {
@@ -41,58 +45,65 @@ class DisplaySearchListFragment : Fragment(){
         viewModel.getPublicRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
 
         //--------------Sleep
-        Thread.sleep(2000)
+       // Thread.sleep(2000)
 
         //
 
 
 
-        val listOfRecipeNames: List<PublicRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel, requireContext())
+        val listOfRecipes = viewModel.recipes.value
+        Toast.makeText(context, listOfRecipes?.get(0)?.title, Toast.LENGTH_SHORT).show()
+        Log.i(TAG, "HEEEEEEEELGA")
+        if(listOfRecipes != null){
+            Log.i(TAG, "Ravioli")
+            val exampleAdapter = DisplaySearchListAdaper(listOfRecipes,viewModel, requireContext())
             binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
 
 
-        val observer = Observer<List<PublicRecipe>> { items ->
-            exampleAdapter.setNewItems(items)
-        }
-        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-        binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
-
-
-        // Radio button logic
-        binding.radioButtonVegan.setOnClickListener{
-           var sortedRecipes =  viewmodelTwo.sortByVegan()
-            val adapter = DisplaySearchListAdaper(sortedRecipes,viewmodelTwo, requireContext())
-            binding.recyclerViewSearchlistFragment.adapter = adapter
-
             val observer = Observer<List<PublicRecipe>> { items ->
                 exampleAdapter.setNewItems(items)
             }
             viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+            binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 
-        }
-        binding.radioButtonVegetarian.setOnClickListener{
-            var sortedRecipesVegetarian =  viewmodelTwo.sortByVegetarian()
-            val adapterVegetarian = DisplaySearchListAdaper(sortedRecipesVegetarian,viewmodelTwo, requireContext())
-            binding.recyclerViewSearchlistFragment.adapter = adapterVegetarian
-            val observer = Observer<List<PublicRecipe>> { items ->
-                exampleAdapter.setNewItems(items)
+
+            // Radio button logic
+            binding.radioButtonVegan.setOnClickListener{
+                var sortedRecipes =  viewModel.sortByVegan()
+                val adapter = DisplaySearchListAdaper(sortedRecipes,viewModel, requireContext())
+                binding.recyclerViewSearchlistFragment.adapter = adapter
+                val observer = Observer<List<PublicRecipe>> { items ->
+                    exampleAdapter.setNewItems(items)
+                }
+                viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+
             }
-            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+            binding.radioButtonVegetarian.setOnClickListener{
+                var sortedRecipesVegetarian =  viewModel.sortByVegetarian()
+                val adapterVegetarian = DisplaySearchListAdaper(sortedRecipesVegetarian,viewModel, requireContext())
+                binding.recyclerViewSearchlistFragment.adapter = adapterVegetarian
+                val observer = Observer<List<PublicRecipe>> { items ->
+                    exampleAdapter.setNewItems(items)
+                }
+                viewModel.recipes.observe(this.viewLifecycleOwner, observer)
 
-        }
-        binding.radioButtonDate.setOnClickListener{
-            viewModel.sortByDate()
-
-            var sortedRecipesDate =  viewmodelTwo.recipes.value!!
-            val adapterDate = DisplaySearchListAdaper(sortedRecipesDate,viewmodelTwo, requireContext())
-            binding.recyclerViewSearchlistFragment.adapter = adapterDate
-            val observer = Observer<List<PublicRecipe>> { items ->
-                exampleAdapter.setNewItems(items)
             }
-            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+            binding.radioButtonDate.setOnClickListener{
+                viewModel.sortByDate()
 
+                var sortedRecipesDate =  viewModel.recipes.value!!
+                val adapterDate = DisplaySearchListAdaper(sortedRecipesDate,viewModel, requireContext())
+                binding.recyclerViewSearchlistFragment.adapter = adapterDate
+                val observer = Observer<List<PublicRecipe>> { items ->
+                    exampleAdapter.setNewItems(items)
+                }
+                viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+
+            }
+        }else{
+            //ERROR
         }
+
         return binding.root
     }
 
