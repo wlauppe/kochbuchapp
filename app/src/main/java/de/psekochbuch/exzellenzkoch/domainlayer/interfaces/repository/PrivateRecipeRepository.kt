@@ -22,11 +22,13 @@ interface PrivateRecipeRepository {
     /**
      * Updates a recipe in the local Room DB
      */
-    suspend fun updatePrivateRecipe(privateRecipe: PrivateRecipe)
-
-    /**
-     * Adds a new recipe to the local Room DB
+       /**
+     * Adds a new recipe to the local Room D
+        * if
      */
+       //Achtung, das ist gleichzeitig insert und update.
+       //Wenn das Private Rezept die ID null hat, wirds neu hinzugefügt.
+       //Ansonsten das bestehende geupdatet.
     suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe)
 
     /**

@@ -88,14 +88,14 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
 
     }
 
-    override suspend fun updatePrivateRecipe(privateRecipe: PrivateRecipe) {
-        recipeList.set(privateRecipe.recipeId,privateRecipe)
-
-    }
-
 
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
-        addToList(privateRecipe)
+        if (privateRecipe.recipeId == 0) {
+            addToList(privateRecipe)
+        }
+        else {
+           recipeList.set(privateRecipe.recipeId-1,privateRecipe)
+        }
 
     }
 
