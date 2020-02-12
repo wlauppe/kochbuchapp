@@ -3,14 +3,14 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
@@ -40,7 +40,6 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
     }
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
         holder.recipeListItemBinding.value = items[position].title
-
         id = items[position].recipeId
 
 
@@ -55,6 +54,8 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
 
            // Toast.makeText(context, items[position].recipeId.toString(), Toast.LENGTH_SHORT).show()
             viewModel.deleteRecipe(items[position].recipeId)
+            setNewItems(items)
+
 
         }
 
@@ -73,6 +74,7 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
 
 
     }
+
     class RecipeListViewHolder(var recipeListItemBinding: RecipeListItemBinding)
         :RecyclerView.ViewHolder(recipeListItemBinding.root)
 
