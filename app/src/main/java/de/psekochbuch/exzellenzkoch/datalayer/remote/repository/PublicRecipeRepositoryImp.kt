@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
@@ -23,6 +24,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import java.lang.NullPointerException
+import java.lang.Thread.sleep
 import java.util.*
 
 
@@ -30,6 +32,7 @@ import java.util.*
  * The repository implementation has to fill the interfaces methods
  */
 class PublicRecipeRepositoryImp : PublicRecipeRepository {
+    private val TAG = "PublicRealImp"
     val recipeMapper = PublicRecipeDtoEntityMapper()
 
     val token = null
@@ -44,7 +47,9 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+        Log.w(TAG, "getPublicRecipes() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
+            Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             val response =
                 recipeApiService.search(null, null, null, null, 1, 100)
             if (!response.isSuccessful) throw error("response not successful")
@@ -52,7 +57,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
             emit(entityList)
         }
         return lData
-    }    
+    }
 
     override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>{
         TODO("implementieren")
@@ -67,6 +72,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+
     //Jetzt mal mit LiveData Builder
         val lData = liveData(Dispatchers.IO, 1000) {
             val response = recipeApiService.getRecipe(recipeId)
