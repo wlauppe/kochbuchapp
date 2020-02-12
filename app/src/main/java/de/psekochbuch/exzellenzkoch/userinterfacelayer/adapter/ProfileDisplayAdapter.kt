@@ -41,9 +41,9 @@ class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicReci
         holder.profileDisplayRecipeItemBinding.value = items[position].title
         id = items[position].recipeId
 
-        val urlString = items[position].imgUrl
-        if(urlString == ""){
-            urlString == "file:///android_asset/exampleimages/quiche.png"
+        var urlString = items[position].imgUrl
+        if(urlString == ""|| urlString.isNullOrEmpty()){
+            urlString = "file:///android_asset/exampleimages/vegetables.jpg"
         }
         val imageView = holder.profileDisplayRecipeItemBinding.imageViewProfileDisplayRecipe
         Glide.with(context).load(urlString).into(imageView)
