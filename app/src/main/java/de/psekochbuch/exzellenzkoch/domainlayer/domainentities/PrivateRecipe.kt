@@ -25,7 +25,7 @@ class PrivateRecipe(
 
     fun stringtochapters(toParse: String): List<IngredientChapter>{
         val toParseChapters = toParse.split("#").toList()
-        return toParseChapters.map(::stringtochapter);
+        return toParseChapters.subList(1,toParseChapters.size).map(::stringtochapter);
     }
 
     fun stringtochapter(toParse: String): IngredientChapter{
