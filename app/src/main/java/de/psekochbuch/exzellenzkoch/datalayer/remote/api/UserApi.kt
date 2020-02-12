@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.api
 
 import androidx.lifecycle.LiveData
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.CustomTokenDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.UserDto
 import retrofit2.Response
 import retrofit2.http.*
@@ -20,6 +21,9 @@ interface UserApi {
     @POST("users")
     fun createUser(@Path("") @Body user: UserDto)
 
+    @POST("users/{userId}")
+    suspend fun addUser(@Path ("userId") userId:String) :CustomTokenDto
+
     /**
      * PUT-Request to update an user
      * The URL ends with /api/users/{userId}
@@ -36,6 +40,16 @@ interface UserApi {
      */
     @DELETE("users/{userId}")
     fun deleteUser(@Path("userId") userId:String)
+
+/**
+     * GET-Request to get a user with specific id
+     * The URL ends with /api/users/{userId}
+     * @param userId The id of the user
+     */
+    @GET("users/{userId}")
+    suspend fun checkUser(@Path ("userId") userId: String) : UserDto
+
+
 
     /**
      * GET-Request to get a user with specific id

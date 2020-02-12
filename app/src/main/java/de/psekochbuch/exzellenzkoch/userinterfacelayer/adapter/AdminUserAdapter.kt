@@ -48,7 +48,8 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
 
         holder.adminReportedUserItemBinding.buttonRemoveUser.setOnClickListener{
             viewModel.deleteUser(users[position].userId)
-            Toast.makeText(context, users[position].userId.plus(" gelöscht"), Toast.LENGTH_SHORT).show()
+            setNewItems(users)
+           Toast.makeText(context, "gelöscht", Toast.LENGTH_SHORT).show()
         }
 
         //safeArgs -------------------------------------------
@@ -66,9 +67,8 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user
             viewModel.unreportUser(users[position].userId)
-            Toast.makeText(context, users[position].userId.plus(" freigegeben"), Toast.LENGTH_SHORT).show()
-
-
+            setNewItems(users)
+            Toast.makeText(context, "freigegeben", Toast.LENGTH_SHORT).show()
         }
 
 
@@ -77,7 +77,7 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
 
         val imageView = holder.adminReportedUserItemBinding.imageViewAdminUserItem
         if (users[position].imgUrl == "") {
-            urlString = "file:///android_asset/exampleimages/quiche.png"
+            urlString = "file:///android_asset/exampleimages/chef_avatar.png"
         } else {
             urlString = users[position].imgUrl
         }

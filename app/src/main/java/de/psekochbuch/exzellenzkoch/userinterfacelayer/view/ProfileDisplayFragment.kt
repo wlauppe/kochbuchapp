@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.InjectorUtils
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.ProfileDisplayAdapter
@@ -53,7 +54,7 @@ class ProfileDisplayFragment : Fragment() {
         binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID.toString()
         val imageView = binding.imageView2
         var urlString = viewModel.user?.imgUrl
-        if(urlString == ""){
+        if(urlString == "" || urlString.isNullOrEmpty()){
             urlString = "file:///android_asset/exampleimages/chef_avatar.png"
         }
         context?.let { Glide.with(it).load(urlString).into(imageView) }
@@ -66,6 +67,9 @@ class ProfileDisplayFragment : Fragment() {
 
         binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener{
             viewModel.flagUserById()
+            Toast.makeText(requireContext(), "Profil gemeldet", Toast.LENGTH_SHORT).show()
+            val navController = findNavController()
+            navController.navigate(R.id.action_profileDisplayFragment_to_publicRecipeSearchFragment)
         }
 
         return binding.root

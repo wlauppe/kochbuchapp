@@ -129,8 +129,13 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override suspend fun deleteRecipe(recipeId: Int) {
-        val recipe = recipeList.get(recipeId-1)
-        recipeList.remove(recipe)
+
+        for(iterator in recipeList.toList()){
+            if(iterator.recipeId == recipeId){
+                recipeList.remove(iterator)
+            }
+        }
+
     }
 
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
@@ -151,9 +156,14 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun unreportRecipe(RecipeId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun unreportRecipe(recipeId: Int) {
+
+        for(iterator in recipeList.toList()){
+            if(iterator.recipeId == recipeId){
+                recipeList.remove(iterator)
+            }
+        }
+         }
 
     companion object {
 
