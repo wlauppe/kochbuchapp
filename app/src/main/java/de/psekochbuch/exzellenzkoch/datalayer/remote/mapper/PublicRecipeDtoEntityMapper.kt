@@ -22,6 +22,15 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
         return PublicRecipeDto(entity.recipeId,entity.title,entity.ingredientsText,entity.preparation,entity.imgUrl,entity.cookingTime,entity.preparationTime,entity.user.userId,convertDateToString(entity.creationTimeStamp),entity.portions,entity.avgRating,entity.ingredientChapter.map { chapter -> IngredientChapterDto(chapter.chapterId,chapter.chapter,chapter.ingredients.map { ingredient -> IngredientDto(chapter.chapterId,ingredient.ingredient,ingredient.quantity,ingredient.unit.getText())})},entity.tags.map {tag -> RecipeTagDto(tag)})
     }
 
+    //fun toListEntity(dto: List<PublicRecipeDto>) : List<PublicRecipeDto> = dto.mapthis.toEntity(it))
+
+    fun toListEntity(dtoList: List<PublicRecipeDto>) : List<PublicRecipe> {
+        var recipeList: MutableList<PublicRecipe> = mutableListOf()
+        dtoList.forEach{ recipeList.add(this.toEntity(it))}
+        return recipeList
+    }
+
+
     private fun convertStringToDate(date:String):Date
     {
         return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date)

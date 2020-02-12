@@ -44,29 +44,15 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
-
-        viewModelScope.launch {
-            try {
-                privateRepo.insertPrivateRecipe(newRecipe)
-            } catch (error: Error) {
-                _errorLiveDataString.value = error.message
-            }
+        val lData = liveData(Dispatchers.IO, 1000) {
+            val response =
+                recipeApiService.search(null, null, null, null, 1, 100)
+            if (!response.isSuccessful) throw error("response not successful")
+            val entityList = PublicRecipeDtoEntityMapper().toListEntity(response.body()!!)
+            emit(entityList)
         }
-
-        val searchList=
-           try {
-               val result1 = withTimeout(5_000) {
-                  val result = recipeApiService.search(null, null, null, null
-                       1,100)
-               }
-           } catch (error: Throwable) {
-               throw NetworkError("Unable to delete recipe", error)
-
-
-
-        val ld : MutableLiveData<List<PublicRecipe>> = MutableLiveData(list)
-        return ld
-    }
+        return lData
+    }    
 
     override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>{
         TODO("implementieren")
@@ -79,26 +65,16 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
-    /* if (token != null) {
-            retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .client(createHttpClient())
-                .addConverterFactory(MoshiConverterFactory.create(moshi)).addCallAdapterFactory(LiveDataCallAdapterFactory())
-                .build()
-
-     */
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
-        //Jetzt mal mit LiveData Builder
-            val lData = liveData(Dispatchers.IO, 1000) {
+    //Jetzt mal mit LiveData Builder
+        val lData = liveData(Dispatchers.IO, 1000) {
             val response = recipeApiService.getRecipe(recipeId)
-                if (!response.isSuccessful) throw error("response not successful")
-
-
-                val entity = PublicRecipeDtoEntityMapper().toEntity(response.body()!!)
+            if (!response.isSuccessful) throw error("response not successful")
+            val entity = PublicRecipeDtoEntityMapper().toEntity(response.body()!!)
             emit(entity)
         }
-        //return MutableLiveData<PublicRecipe>(PublicRecipe(0,"Title"))
+    //return MutableLiveData<PublicRecipe>(PublicRecipe(0,"Title"))
         return lData
     }
 

@@ -63,7 +63,7 @@ interface PublicRecipeApi {
                @Query("ingredients") ingredients:List<String>?,
                @Query("creationDate") creationDate:Date?,
                @Query("page") page:Int,
-               @Query("readCount") readCount:Int):Response<LiveData<List<PublicRecipeDto>>>
+               @Query("readCount") readCount:Int):Response<List<PublicRecipeDto>>
 
     /**
      * POST-Request to report a recipe

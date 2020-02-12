@@ -148,7 +148,7 @@ dependencies {
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     //implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     // optional - ReactiveStreams support for LiveData
-    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
+    //implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$arch_version"
 
@@ -159,7 +159,7 @@ dependencies {
     //drawerlayout
     implementation "androidx.drawerlayout:drawerlayout:1.0.0"
 
-    //Damit Coroutine Testen klappt
+    //Damit Coroutine Testen klapptarch_v
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.3'
     //Damit LiveData Testen klappt
     testImplementation 'android.arch.core:core-testing:1.1.1'
