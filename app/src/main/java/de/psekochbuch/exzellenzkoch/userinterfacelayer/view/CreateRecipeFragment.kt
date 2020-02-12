@@ -67,7 +67,7 @@ class CreateRecipeFragment : Fragment() {
         //Sets according viewmodel from XML to this fragment
         binding.createRecipeViewModel = viewModel
         //initialized navcontoller
-        var navController: NavController = findNavController()
+        val navController: NavController = findNavController()
 
         //binding viewmodel with xml components
 

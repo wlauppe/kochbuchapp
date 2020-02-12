@@ -15,7 +15,6 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
 
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
-
     var recipe :PublicRecipe? = null
 
     private val _errorLiveDataString = MutableLiveData<String?>()
@@ -26,15 +25,15 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
         get() = _errorLiveDataString
 
     //LiveData Attributes
-     var image: MutableLiveData<String?> = MutableLiveData(recipe?.imgUrl)
-     var title: LiveData<String> = MutableLiveData(recipe?.title)
-     var preparationDescription: LiveData<String> = MutableLiveData(recipe?.preparation)
-     var ingredientChapter= MutableLiveData(recipe?.ingredientChapter)
-     var tagsList: LiveData<List<String>> = MutableLiveData(recipe?.tags)
-     var recipeCookTime: LiveData<Int>  =MutableLiveData(recipe?.cookingTime)
-     var recipePrepTime: LiveData<Int> = MutableLiveData(recipe?.preparationTime)
-     var creationTime: LiveData<Date> = MutableLiveData(recipe?.creationTimeStamp)
-     var creationDate = "Erstellungsdatum: 2020"
+    var image: MutableLiveData<String?> = MutableLiveData(recipe?.imgUrl)
+    var title: LiveData<String> = MutableLiveData(recipe?.title)
+    var preparationDescription: LiveData<String> = MutableLiveData(recipe?.preparation)
+    var ingredientChapter= MutableLiveData(recipe?.ingredientChapter)
+    var tagsList: LiveData<List<String>> = MutableLiveData(recipe?.tags)
+    var recipeCookTime: LiveData<Int>  =MutableLiveData(recipe?.cookingTime)
+    var recipePrepTime: LiveData<Int> = MutableLiveData(recipe?.preparationTime)
+    var creationTime: LiveData<Date> = MutableLiveData(recipe?.creationTimeStamp)
+    var creationDate = "Erstellungsdatum: 2020"
       //var rating: LiveData<Double> = MutableLiveData(recipe.rating)
 
     //Attributes
@@ -45,7 +44,7 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
 
    private fun getIngredientsStrings():String{
-        var result= ""
+        val result= ""
        if(recipe != null){
            for(ingredient in recipe!!.ingredientChapter){
                for(ingredient in ingredient.ingredients){
@@ -64,7 +63,7 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
     }
         viewModelScope.launch {
             try {
-               var recipeLiveData = repo.getPublicRecipe(id)
+               val recipeLiveData = repo.getPublicRecipe(id)
                 recipe = recipeLiveData.value
                 title = MutableLiveData(recipeLiveData.value!!.title)
                 preparationDescription = MutableLiveData(recipeLiveData.value!!.preparation)

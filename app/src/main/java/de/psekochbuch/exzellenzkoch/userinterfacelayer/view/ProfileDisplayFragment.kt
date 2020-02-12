@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,7 @@ class ProfileDisplayFragment : Fragment() {
         //SafeArge--------------------------------
         val userID = arguments?.let { ProfileDisplayFragmentArgs.fromBundle(it).userID }
         viewModel.setUserByID(userID!!)
+        // TODO überflüssiger toast
         Toast.makeText(requireContext(), userID.toString(), Toast.LENGTH_SHORT).show()
 
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
@@ -44,12 +46,16 @@ class ProfileDisplayFragment : Fragment() {
              }
              viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
-        //Glide------------------------------------------------
-        binding.textViewProfileDisplayDescription.text = viewModel.userDesc
 
-        binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID
+        //Glide------------------------------------------------
+        binding.textViewProfileDisplayDescription.text = viewModel.userDesc.toString()
+
+        binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID.toString()
         val imageView = binding.imageView2
-        val urlString = viewModel.userImg
+        var urlString = viewModel.user?.imgUrl
+        if(urlString == ""){
+            urlString = "file:///android_asset/exampleimages/chef_avatar.png"
+        }
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
 

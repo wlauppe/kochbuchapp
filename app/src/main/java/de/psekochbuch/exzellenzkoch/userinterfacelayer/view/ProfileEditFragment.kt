@@ -44,14 +44,17 @@ class ProfileEditFragment : Fragment() {
         val navController: NavController = findNavController()
 
         val imageView = binding.imageViewUserImg
-        val urlString = viewModel.userImgURL.value
+        var urlString = viewModel.userImgURL.value
+        if(urlString == ""){
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
+        }
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
 
         binding.buttonChangeLoginData.setOnClickListener {
 
                 //sending the userID to the ChangePW fragment
-                navController!!.navigate(
+                navController.navigate(
                     ProfileEditFragmentDirections
                         .actionProfileEditFragmentToChangePasswordFragment()
                         .setUserID(userID)
