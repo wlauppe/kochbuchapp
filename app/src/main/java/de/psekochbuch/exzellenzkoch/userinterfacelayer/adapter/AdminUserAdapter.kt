@@ -48,7 +48,8 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
 
         holder.adminReportedUserItemBinding.buttonRemoveUser.setOnClickListener{
             viewModel.deleteUser(users[position].userId)
-            Toast.makeText(context, users[position].userId.plus(" gelöscht"), Toast.LENGTH_SHORT).show()
+            setNewItems(users)
+           // Toast.makeText(context, users[position].userId.plus(" gelöscht"), Toast.LENGTH_SHORT).show()
         }
 
         //safeArgs -------------------------------------------

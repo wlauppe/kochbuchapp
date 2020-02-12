@@ -7,16 +7,34 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
 class UserFakeRepositoryImp : UserRepository  {
+    var userList : MutableList<User> = mutableListOf()
+
+
+    init{
+        val user1 = User("Jürgen", "", "Toastbrot")
+        val user2 = User("Heiner", "https://s.gravatar.com/avatar/f849c680f420d89b5b0b49979d1df5ec?s=80", "Toast")
+        val user3 = User("Magnus", "", "Moin")
+        val user4 = User("Lea", "", "Toastbrot")
+        val user5 = User("Pascal", "", "Toast")
+        val user6 = User("Thomas", "", "Moin")
+
+        addToList(user1)
+        addToList(user2)
+        addToList(user3)
+        addToList(user4)
+        addToList(user5)
+        addToList(user6)
+
+    }
+    private fun addToList (user : User){
+        var myUser = user
+        userList.add(myUser)
+    }
 
 
     override fun getUsers(): LiveData<List<User>> {
-        val user1 = User("Jürgen", "", "Toastbrot")
-        val user2 = User("Heiner", "https://s.gravatar.com/avatar/f849c680f420d89b5b0b49979d1df5ec?s=80", "Toast")
-        val user3 = User("Olaf", "", "Moin")
-
-    val list = listOf<User>(user1, user2, user3)
-    val ld : MutableLiveData <List<User>> = MutableLiveData(list)
-    return ld
+        val ld: MutableLiveData<List<User>> = MutableLiveData(userList)
+        return ld
 
     }
 
@@ -35,7 +53,11 @@ class UserFakeRepositoryImp : UserRepository  {
     }
 
     override suspend fun deleteUser(userId: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        for(iterator in userList.toList()){
+            if(iterator.userId.equals(userId)){
+                userList.remove(iterator)
+            }
+        }
     }
 
     override suspend fun addUser(userId: String) : String{

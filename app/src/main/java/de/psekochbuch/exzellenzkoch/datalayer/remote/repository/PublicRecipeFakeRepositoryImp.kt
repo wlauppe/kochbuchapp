@@ -129,8 +129,13 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override suspend fun deleteRecipe(recipeId: Int) {
-        val recipe = recipeList.get(recipeId-1)
-        recipeList.remove(recipe)
+
+        for(iterator in recipeList.toList()){
+            if(iterator.recipeId == recipeId){
+                recipeList.remove(iterator)
+            }
+        }
+
     }
 
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
