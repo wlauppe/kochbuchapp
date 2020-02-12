@@ -77,7 +77,7 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
 
         val imageView = holder.adminReportedUserItemBinding.imageViewAdminUserItem
         if (users[position].imgUrl == "") {
-            urlString = "file:///android_asset/exampleimages/quiche.png"
+            urlString = "file:///android_asset/exampleimages/chef_avatar.png"
         } else {
             urlString = users[position].imgUrl
         }

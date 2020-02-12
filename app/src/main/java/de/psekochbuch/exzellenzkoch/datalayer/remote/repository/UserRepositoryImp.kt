@@ -5,6 +5,9 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.UserApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.CustomTokenDto
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.UserDto
+import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.EntityMapper
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
@@ -14,12 +17,10 @@ import kotlinx.coroutines.coroutineScope
 class UserRepositoryImp : UserRepository  {
     val userMapper = UserDtoEntityMapper()
 
-    val token = null
-    //TODO token von Authentification Interface bekommen.
+    private var token :String? = null
 
-    val retrofit: UserApi =
+    var retrofit: UserApi =
         ApiServiceBuilder(token).createApi(UserApi::class.java) as UserApi
-
 
     override fun getUsers(): LiveData<List<User>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -37,6 +38,14 @@ class UserRepositoryImp : UserRepository  {
         }
     }
 
+    override suspend fun checkUser(userId: String): User? {
+        val user = retrofit.checkUser(userId)
+        if(user != null) {
+            return UserDtoEntityMapper().toEntity(user)
+        }
+        return null
+    }
+
     override suspend fun deleteUser(userId: String) {
         try{
             coroutineScope{retrofit.deleteUser(userId)}
@@ -45,9 +54,8 @@ class UserRepositoryImp : UserRepository  {
         }
     }
 
-    override suspend fun addUser(userId: String) {
-        TODO()
-        //Woher kommen die Informationen über den user?
+    override suspend fun addUser(userId: String) :String {
+        return retrofit.addUser(userId).customToken
     }
 
     override suspend fun updateUser(user: User) {
@@ -80,5 +88,10 @@ class UserRepositoryImp : UserRepository  {
             }
     }
 
+    public fun setToken(token:String)
+    {
+        this.token = token
+        retrofit = ApiServiceBuilder(token).createApi(UserApi::class.java) as UserApi
+    }
 
 }

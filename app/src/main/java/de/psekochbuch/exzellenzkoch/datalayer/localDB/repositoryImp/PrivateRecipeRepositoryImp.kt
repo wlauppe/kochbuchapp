@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.DB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.PrivateRecipeDao
@@ -16,11 +17,17 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     private val privateRecipeTagDao: PrivateRecipeTagDao? = DB.getDatabase(application!!)?.privateRecipeTagDao();
 
     override fun getPrivateRecipes(): LiveData<List<PrivateRecipe>> {
-        return Transformations.map(privateRecipeDao?.getAll()!!,::transformListPrivateRecipeDBToListPrivateRecipeDB)
+        val recipes = transformListPrivateRecipeDBToListPrivateRecipeDB(privateRecipeDao?.getAll()!!)
+        val liveData = MutableLiveData<List<PrivateRecipe>>()
+        liveData.postValue(recipes)
+        return liveData
     }
 
     override fun getPrivateRecipe(id: Int): LiveData<PrivateRecipe> {
-        return Transformations.map(privateRecipeDao?.getRecipe(id.toLong())!!,::transformPrivateRecipeDBToPrivateRecipe)
+        val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+        val liveData = MutableLiveData<PrivateRecipe>()
+        liveData.postValue(recipe)
+        return liveData
     }
 
     override suspend fun deletePrivateRecipe(id: Int) {
@@ -28,12 +35,13 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
     }
 
+
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
         DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
     }
 
     override fun getRecipe(id: Int): LiveData<PrivateRecipe> {
-        TODO()   //Wieso ist denn einmal die id ein Int und eimal ein String?
+        TODO()
     }
 
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{

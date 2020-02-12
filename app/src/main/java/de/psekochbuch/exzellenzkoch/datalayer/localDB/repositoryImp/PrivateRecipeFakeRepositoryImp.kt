@@ -82,8 +82,8 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
         return ld
     }
 
-    override suspend fun deletePrivateRecipe(recipeId: Int) {
-        val recipe = recipeList.get(recipeId-1)
+    override suspend fun deletePrivateRecipe(id: Int) {
+        val recipe = recipeList.get(id-1)
         recipeList.remove(recipe)
 
     }
