@@ -1,12 +1,9 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -24,27 +21,30 @@ class DisplaySearchListFragment : Fragment(){
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        bundle = savedInstanceState
-        // viewModel
+
+        //binding and ViewModel init
         val viewModel : DisplaySearchListViewmodel by viewModels {
             InjectorUtils.provideDisplaySearchListViewModelFactory(requireContext())
         }
-
-        viewmodelTwo = viewModel
-
-        var recipeSearchTitle = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
-        var recipeSearchingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
-        var recipeSearchTags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
-        viewModel.searchRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
         val binding = DisplaySearchlistFragmentBinding.inflate(inflater, container, false)
         binding.recyclerViewSearchlistFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.displaySearchListViewmodel = viewModel
-        bindingTwo = binding
-        bindingTwo.displaySearchListViewmodel = viewmodelTwo
-        var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
+
+
+        // safeargs are passed down from the input
+        bundle = savedInstanceState
+        val recipeSearchTitle = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
+        val recipeSearchingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
+        val recipeSearchTags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
+        viewModel.getPublicRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
+
+
+        val listOfRecipesToSearch: List<PublicRecipe>
+        val listOfRecipeNames: List<PublicRecipe> = viewModel.recipes.value!!
         val exampleAdapter = DisplaySearchListAdaper(listOfRecipeNames,viewModel, requireContext())
-        binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
+            binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
+
 
         val observer = Observer<List<PublicRecipe>> { items ->
             exampleAdapter.setNewItems(items)
@@ -52,6 +52,8 @@ class DisplaySearchListFragment : Fragment(){
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 
+
+        // Radio button logic
         binding.radioButtonVegan.setOnClickListener{
            var sortedRecipes =  viewmodelTwo.sortByVegan()
             val adapter = DisplaySearchListAdaper(sortedRecipes,viewmodelTwo, requireContext())
