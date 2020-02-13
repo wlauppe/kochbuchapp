@@ -46,7 +46,8 @@ class DisplaySearchListFragment : Fragment(){
         viewModel.getPublicRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
 
 
-        val adapter : DisplaySearchListAdaper = DisplaySearchListAdaper(requireContext())
+        val adapter = DisplaySearchListAdaper(requireContext())
+        binding.recyclerViewSearchlistFragment.adapter = adapter
 
         val observer = Observer<List<PublicRecipe>> { items ->
             items?.let {
@@ -55,12 +56,6 @@ class DisplaySearchListFragment : Fragment(){
 
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
-
-
-        //val listOfRecipes = viewModel.recipes.value
-            val exampleAdapter = DisplaySearchListAdaper(requireContext())
-            binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
-
 
 
         /*

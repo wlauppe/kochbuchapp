@@ -30,6 +30,10 @@ class RecipeListFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
+        // show
+        viewModel.getPrivateRecipes()
+
+
         // get adapter instance to display items in
         val adapter = RecipeListAdapter(viewModel, requireContext())
         binding.recyclerViewRecipeListFragment.adapter = adapter
@@ -43,9 +47,6 @@ class RecipeListFragment : Fragment() {
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
 
         binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
-
-        // show
-        viewModel.getPrivateRecipes()
 
         //ClickListener ----------------
         binding.buttonCreateRecipe.setOnClickListener{

@@ -35,10 +35,6 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
        // return repository.search(title, ingredientList, tagList)
         // recipes = repository.search(title, ingredientList, tagList)
         recipes = repository.getPublicRecipes()
-        if(recipes.value == null){
-            Log.i(TAG, "EEEEEEEELGA")
-        }
-
         return recipes
     }
 

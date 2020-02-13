@@ -25,7 +25,7 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
     var context = context
 
     /**
-     * Notify method
+     * Notify every observer of changes
      */
     var recipes = listOf<PrivateRecipe>()
         set(value) {
