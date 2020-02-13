@@ -35,13 +35,8 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
     }
 
-
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
         DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
-    }
-
-    override fun getRecipe(id: Int): LiveData<PrivateRecipe> {
-        TODO()
     }
 
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{

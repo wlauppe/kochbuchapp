@@ -104,7 +104,7 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
 
     }
 
-    override fun getRecipe(recipeId: Int): LiveData<PrivateRecipe> {
+    fun getRecipe(recipeId: Int): LiveData<PrivateRecipe> {
 
         for(recipe in recipeList){
             if (recipe.recipeId == recipeId){

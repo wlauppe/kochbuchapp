@@ -17,6 +17,7 @@ class PublicRecipeRepositoryImpTest {
             val repo = PublicRecipeRepositoryImp()
             val lrecipe=repo.getPublicRecipe(1)
             lrecipe.observeForever{}
+            Thread.sleep(1000)
             assertEquals(lrecipe.value!!.recipeId,"1")
 
         }
