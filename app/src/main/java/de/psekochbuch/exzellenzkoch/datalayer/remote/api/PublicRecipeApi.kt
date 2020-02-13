@@ -57,7 +57,7 @@ interface PublicRecipeApi {
      * @param readCount Count of the to loaded recipes
      * @return List of the recipes
      */
-    @GET("")
+    @GET("recipes")
     suspend fun search(@Query("title") title:String?,
                @Query("tags") tags:List<String>?,
                @Query("ingredients") ingredients:List<String>?,

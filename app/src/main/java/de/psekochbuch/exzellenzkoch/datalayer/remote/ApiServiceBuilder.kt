@@ -68,6 +68,7 @@ class ApiServiceBuilder(firebaseToken:String?) {
     private fun createHttpClient(): OkHttpClient {
         //var token = uss?.getIdToken(false)?.result?.token
 
+
         return OkHttpClient().newBuilder().addInterceptor(object : Interceptor {
             @Throws(IOException::class)
             override fun intercept(chain: Interceptor.Chain): okhttp3.Response? {
