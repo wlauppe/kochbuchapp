@@ -16,31 +16,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:id="@+id/recipe_list_layout_item">
+
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@mipmap/ic_launcher"
             android:padding="5dp"
             android:id="@+id/imageView_recipe_list_item"/>
 
         <TextView
             android:id="@+id/textView_recipe_title_item"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="20sp"
             android:layout_weight="5"
             android:text="@{value}" />
-
-
-        <ImageButton
-            android:id="@+id/button_edit_recipe"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_edit_black_24dp" />
 
 
         <ImageButton

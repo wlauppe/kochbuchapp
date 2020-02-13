@@ -1,22 +1,20 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import de.psekochbuch.exzellenzkoch.InjectorUtils
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RecipeDisplayFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
 
 class RecipeDisplayFragment : Fragment(){
 
     private lateinit var binding: RecipeDisplayFragmentBinding
-    private lateinit var viewModel: RecipeDisplayViewmodel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,11 +23,14 @@ class RecipeDisplayFragment : Fragment(){
     ): View? {
 
         //viewmodel recieved by viewmodelproviders
-        viewModel = ViewModelProvider(this).get(RecipeDisplayViewmodel::class.java)
+        val viewModel : RecipeDisplayViewmodel by viewModels {
+            InjectorUtils.provideRecipeDisplayViewModelFactory(requireContext())
+        }
+
         //SafeArgs---------------------------
-        var recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
+        val recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
         viewModel.setRecipeByID(recipeID)
-        Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
+       // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
 
 
         //binding set to the according Fragment
@@ -38,38 +39,23 @@ class RecipeDisplayFragment : Fragment(){
         //Sets according viewmodel from XML to this fragment
         binding.recipeDisplayViewModel = viewModel
 
-
+        // set options Menu shown
+        setHasOptionsMenu(true)
 
         //initialized navcontoller
         var navController: NavController = findNavController()
-        val imageView = binding.imageViewRecipeImage
-        var urlString = viewModel.recipe.imgUrl
 
-        if(urlString == ""){
-            urlString = "https://lh6.googleusercontent.com/proxy/V0UtHt8D7ZorPIVIFl-dMrihaZW-fpXlxCkE30bBCCAugVjuMwhMkC-Tg9UJiQ-ZmhQ8rr9qAgo3P91g9uu3o5250INWJtsbx-jzTWtKCVSsL-SR_gA=w1200-h630-p-k-no-nu"
+        val imageView = binding.imageViewRecipeImage
+        var urlString = viewModel.recipe?.imgUrl
+        if(urlString == "" || urlString.isNullOrBlank()||urlString.isNullOrEmpty()){
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
-        //Dummy
-        //var urlString: String = "https://i.ytimg.com/vi/uZfco9h0C_s/hqdefault.jpg"
         context?.let { Glide.with(it).load(urlString).into(imageView) }
         return binding.root
     }
-    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //recieving the recipe name through bundle
-        var recipeIDFromFragment = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
-        Toast.makeText(requireContext(), recipeIDFromFragment.toString(), Toast.LENGTH_SHORT).show()
 
-        if (recipeIDFromFragment != null) {
-            viewModel.getRecipeByID(recipeIDFromFragment)
-        }else{
-            Log.i(tag, "RecipeDisplayFragment Null ID")
-        }
-
-        //recieving the recipe name through bundle
-
-
-       // Toast.makeText(requireContext(), viewModel.recipe.recipeId.toString(), Toast.LENGTH_SHORT).show()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.options_menu_display_recipe, menu)
     }
 
-     */
 }

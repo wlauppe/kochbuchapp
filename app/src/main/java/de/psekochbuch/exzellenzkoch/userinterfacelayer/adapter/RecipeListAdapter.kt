@@ -3,13 +3,14 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
@@ -43,24 +44,28 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
 
 
         //Clicklistener--------------------
-        holder.recipeListItemBinding.buttonEditRecipe.setOnClickListener{
+        holder.recipeListItemBinding.recipeListLayoutItem.setOnClickListener{
             //safe args to send Recipe data to editRecipe Fragment
             navController!!.navigate(RecipeListFragmentDirections
                 .actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(items[position].recipeId))
-
         }
+
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
+
+           // Toast.makeText(context, items[position].recipeId.toString(), Toast.LENGTH_SHORT).show()
             viewModel.deleteRecipe(items[position].recipeId)
-            items[position].title.plus("(gelöscht)")
+            setNewItems(items)
+
+
         }
 
 
         //var urlString
         var urlString = ""
 
-        var imageView = holder.recipeListItemBinding.imageViewRecipeListItem
+        val imageView = holder.recipeListItemBinding.imageViewRecipeListItem
         if (items[position].imgUrl == "") {
-            urlString = "file:///android_asset/exampleimages/quiche.png"
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         } else {
             urlString = items[position].imgUrl
         }
@@ -69,6 +74,7 @@ class RecipeListAdapter(var items: List<PrivateRecipe> = emptyList<PrivateRecipe
 
 
     }
+
     class RecipeListViewHolder(var recipeListItemBinding: RecipeListItemBinding)
         :RecyclerView.ViewHolder(recipeListItemBinding.root)
 

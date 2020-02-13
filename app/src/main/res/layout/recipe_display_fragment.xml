@@ -53,7 +53,8 @@
 
                     <TextView
                         android:id="@+id/textView_recipe_title"
-                        android:layout_width="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:padding="10dp"
@@ -68,10 +69,12 @@
 
                     <ImageButton
                         android:id="@+id/imageButton"
+                        android:layout_marginTop="10dp"
                         android:layout_width="60dp"
                         android:layout_height="match_parent"
                         android:paddingRight="10dp"
-                        app:srcCompat="@android:drawable/btn_star_big_on" />
+                        android:paddingLeft="10dp"
+                        app:srcCompat="@drawable/ic_favorite_white_24dp" />
                 </LinearLayout>
 
                 <TextView

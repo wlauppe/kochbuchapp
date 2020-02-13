@@ -50,7 +50,7 @@
     <string name="profile_display_edit_profile_button">Profil Bearbeiten</string>
 
     <string name="enter_recipe_title">Rezepttitel eingeben</string>
-    <string name="enter_preparing_time">Zubereitungszeit eingeben</string>
+    <string name="enter_preparing_time">Zeit eingeben</string>
     <string name="enter_cooking_time">Backzeit eingeben</string>
     <string name="vegan">Vegan</string>
     <string name="vegetarian">vegetarisch</string>
@@ -87,5 +87,16 @@
     <string name="search_suche">Suche</string>
     <string name="admin_menu_title">Adminbereich</string>
     <string name="search_results">Suchergebnisse</string>
+    <string name="date">Datum</string>
+    <string name="my_profile_title">Mein Profil</string>
+    <string name="min">min</string>
+    <string name="preptime">Zubereitungszeit:</string>
+    <string name="share">Teilen</string>
+
+    <string-array name="spinner">
+        <item>vegan</item>
+        <item>vegetarisch</item>
+        <item>süß</item>
+    </string-array>
 
 </resources>

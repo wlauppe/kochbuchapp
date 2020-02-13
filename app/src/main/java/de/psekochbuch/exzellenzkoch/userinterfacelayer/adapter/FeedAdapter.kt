@@ -53,9 +53,9 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
         //var urlString
         var urlString = ""
 
-        var imageView = holder.feedItemBinding.imageViewFeedItem
+        val imageView = holder.feedItemBinding.imageViewFeedItem
         if (recipes[position].imgUrl == "") {
-            urlString = "file:///android_asset/exampleimages/quiche.png"
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         } else {
             urlString = recipes[position].imgUrl
         }
@@ -63,7 +63,7 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
 
 
 
-        holder.feedItemBinding.buttonGotoFeedRecipe.setOnClickListener {
+        holder.feedItemBinding.feedLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(
                 FeedFragmentDirections
@@ -73,11 +73,6 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
             )
         }
 
-
-
-        holder.feedItemBinding.imageViewFeedItem.setOnClickListener{
-//            navController.navigate(FeedFragmentDirections.actionFeedToRecipeDisplayFragment().)
-        }
 
     }
     class FeedViewHolder(var feedItemBinding: FeedItemBinding)

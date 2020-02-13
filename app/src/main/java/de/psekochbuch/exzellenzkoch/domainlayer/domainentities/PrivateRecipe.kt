@@ -3,28 +3,20 @@ package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 import java.util.*
 
 class PrivateRecipe(
-    recipeId: Int = 0,
-    title: String,
-    ingredientsText: String,
-    tags: List<String>,
-    preparation: String,
-    imgUrl: String,
-    cookingTime: Int,
-    preparationTime: Int,
-    creationTimeStamp: Date,
-    portions: Int
-) : Recipe(
-    recipeId,
-    title,
-    ingredientsText,
-    tags,
-    preparation,
-    imgUrl,
-    cookingTime,
-    preparationTime,
-    creationTimeStamp,
-    portions
-) {
+    var recipeId: Int = 0,
+    val title: String,
+    val ingredientsText: String,
+    val tags: List<String>,
+    val preparation: String,
+    val imgUrl: String,
+    val cookingTime: Int,
+    val preparationTime: Int,
+    val creationTimeStamp: Date,
+    val portions: Int,
+    //das ist die Id des öffentlichen Rezepts unter dem das private Rezept veröffentlicht ist.
+    //wenn das private Rezept noch nicht veröffentlicht wurde ist das 0
+    var publishedRecipeId : Int = 0
+)  {
 
     fun convertToPublicRepipe() : PublicRecipe
     {
@@ -33,7 +25,7 @@ class PrivateRecipe(
 
     fun stringtochapters(toParse: String): List<IngredientChapter>{
         val toParseChapters = toParse.split("#").toList()
-        return toParseChapters.map(::stringtochapter);
+        return toParseChapters.subList(1,toParseChapters.size).map(::stringtochapter);
     }
 
     fun stringtochapter(toParse: String): IngredientChapter{
@@ -49,7 +41,6 @@ class PrivateRecipe(
             } catch (e: IllegalArgumentException) {
                 continue
             }
-            break
         }
         throw IllegalArgumentException()
     }
@@ -57,13 +48,17 @@ class PrivateRecipe(
     //testet wie der String toParse getrennt ist und berechnet dann den wert
     fun getNumber(toParse: String): Double {
         val withoutWS = toParse.replace(" ", "")
+        if (zahlgetrennt(withoutWS, "-")) {
+            val numbers = withoutWS.split("-")
+            return (getNumber(numbers[0]) + getNumber(numbers[1]))/2
+        }
         if (zahlgetrennt(withoutWS, ".")) return withoutWS.toDouble()
         if (zahlgetrennt(withoutWS, ",")) return withoutWS.replace(',', '.').toDouble()
         if (zahlgetrennt(withoutWS, "/")) {
             val numbers = withoutWS.split("/").toTypedArray()
             return numbers[0].toLong() / numbers[1].toLong().toDouble()
         }
-        throw IllegalArgumentException()
+        return toParse.toDouble()
     }
 
     // gibt ja zurück wenn der String toParse von der form (0|..|9)+(trenner)(0|..|9)+

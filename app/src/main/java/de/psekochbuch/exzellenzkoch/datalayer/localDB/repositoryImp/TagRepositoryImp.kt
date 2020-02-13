@@ -7,6 +7,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.TagDao
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 import androidx.lifecycle.Transformations
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.TagDB
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
 
 class TagRepositoryImp(application: Application?){
     private val tagDao: TagDao? = DB.getDatabase(application!!)?.tagDao()
@@ -18,4 +19,7 @@ class TagRepositoryImp(application: Application?){
     fun transformListTagDBToTagList(tags:List<TagDB>):TagList{
         return TagList(tags.map{tag -> tag.tag})
     }
+
+
+
 }

@@ -41,7 +41,7 @@ class RecipeListFragment : Fragment() {
         //ClickListener ----------------
         binding.buttonCreateRecipe.setOnClickListener{
             val navController:NavController = findNavController()
-            navController.navigate(R.id.action_recipeListFragment_to_createRecipeFragment)
+            navController.navigate(RecipeListFragmentDirections.actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(0))
         }
 
         /*

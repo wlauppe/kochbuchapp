@@ -13,10 +13,10 @@ interface PrivateRecipeDao {
     fun insert(privateRecipe:PrivateRecipeDB):Long
 
     @Query("SELECT * from privateRecipe")
-    fun getAll(): LiveData<List<PrivateRecipeDB>>
+    fun getAll(): List<PrivateRecipeDB>
 
     @Query("SELECT * from privateRecipe where id = :id")
-    fun getRecipe(id:Long):LiveData<PrivateRecipeDB>
+    fun getRecipe(id:Long):PrivateRecipeDB
 
     @Query("DELETE FROM privateRecipe where id = :id")
     fun deleteRecipe(id:Long)

@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
 
         private lateinit var appBarConfiguration: AppBarConfiguration
+        lateinit var loginMenuItem: MenuItem
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -48,7 +49,10 @@ class MainActivity : AppCompatActivity() {
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
-            invalidateOptionsMenu()
+
+            // TODO Für Login Menü ändern
+            val menu:Menu = navView.menu
+            loginMenuItem = menu.findItem(R.id.loginFragment)
         }
 
 

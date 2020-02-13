@@ -19,7 +19,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentifica
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel() : ViewModel() {
+class RegistrationViewModel(authentification:Authentification, repo:UserRepository) : ViewModel() {
 
 
     var email: MutableLiveData<String> = MutableLiveData()
@@ -38,7 +38,6 @@ class RegistrationViewModel() : ViewModel() {
                 try {
                     val user : User? = userRepository.checkUser(id)
                     if(user?.userId == "") {
-
                         val em = email.value
                         val pw = password.value
                         if (em != null && pw != null) {
