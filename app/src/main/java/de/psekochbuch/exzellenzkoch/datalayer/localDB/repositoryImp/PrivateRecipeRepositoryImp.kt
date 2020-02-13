@@ -8,8 +8,10 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.DB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.PrivateRecipeDao
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.PrivateRecipeTagDao
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PrivateRecipeDB
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PrivateRecipeTagDB
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import java.lang.IllegalArgumentException
 import java.util.*
 
 class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeRepository {
@@ -23,10 +25,13 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         return liveData
     }
 
+
     override fun getPrivateRecipe(id: Int): LiveData<PrivateRecipe> {
-        val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+        val recipe = privateRecipeDao?.getRecipe(id.toLong())
         val liveData = MutableLiveData<PrivateRecipe>()
-        liveData.postValue(recipe)
+        if (recipe != null){
+            liveData.postValue(transformPrivateRecipeDBToPrivateRecipe(recipe))
+        }
         return liveData
     }
 
@@ -36,15 +41,20 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     }
 
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
-        DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
+        DB.databaseWriteExecutor.execute{
+            val recipeId = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!.toLong()
+
+            for (tag:String in privateRecipe.tags){
+                privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,recipeId, tag))
+            }
+        }
     }
 
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{
-        //können wir IDs auch als longs abspeichern?
         return PrivateRecipe(recipe.id.toInt(), recipe.title!!,recipe.ingredientsText!!,privateRecipeTagDao?.getTagsFromRecipe(recipe.id)!!.map{tag -> tag.tag},recipe.preparationDescription!!,"wiesoURL?",recipe.cookingTime!!,recipe.preparationTime!!, Date(recipe.creationDate!!),recipe.portions!!)
     }
 
-    fun transformPrivateRecipeToPrivateREcipeDB(recipe:PrivateRecipe):PrivateRecipeDB{
+    fun transformPrivateRecipeToPrivateRecipeDB(recipe:PrivateRecipe):PrivateRecipeDB{
         return PrivateRecipeDB(recipe.recipeId.toLong(),recipe.title,recipe.preparation,recipe.cookingTime,recipe.preparationTime,recipe.creationTimeStamp.time,recipe.portions,recipe.ingredientsText)
     }
 
