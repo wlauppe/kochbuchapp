@@ -51,7 +51,7 @@ class PublicRecipeSearchFragment : Fragment() {
             //viewModel.tags = tags
 
 
-        viewModel.getPublicRecipes(viewModel.title, viewModel.ingredients, viewModel.tags)
+        viewModel.getPublicRecipes(viewModel.title.value, viewModel.ingredients.value, viewModel.tags.value)
 
         //safeargs sent with bundle
         navController.navigate(PublicRecipeSearchFragmentDirections.actionPublicRecipeSearchFragmentToDisplaySearchListFragment()
