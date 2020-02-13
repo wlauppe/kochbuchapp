@@ -45,29 +45,23 @@ class DisplaySearchListFragment : Fragment(){
 
         viewModel.getPublicRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
 
-        //--------------Sleep
-       // Thread.sleep(2000)
 
-        //
+        val observer = Observer<List<PublicRecipe>> { items ->
+            items?.let {
+                exampleAdapter.setNewItems(items)}
+        }
+
+        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+        binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 
 
-
-        val listOfRecipes = viewModel.recipes.value
-        Toast.makeText(context, listOfRecipes?.get(0)?.title, Toast.LENGTH_SHORT).show()
-        Log.i(TAG, "HEEEEEEEELGA")
-        if(listOfRecipes != null){
-            Log.i(TAG, "Ravioli")
-            val exampleAdapter = DisplaySearchListAdaper(listOfRecipes,viewModel, requireContext())
+        //val listOfRecipes = viewModel.recipes.value
+            val exampleAdapter = DisplaySearchListAdaper(requireContext())
             binding.recyclerViewSearchlistFragment.adapter = exampleAdapter
 
 
-            val observer = Observer<List<PublicRecipe>> { items ->
-                exampleAdapter.setNewItems(items)
-            }
-            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-            binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 
-
+        /*
             // Radio button logic
             binding.radioButtonVegan.setOnClickListener{
                 var sortedRecipes =  viewModel.sortByVegan()
@@ -101,9 +95,11 @@ class DisplaySearchListFragment : Fragment(){
                 viewModel.recipes.observe(this.viewLifecycleOwner, observer)
 
             }
-        }else{
+            */
+
+
             //ERROR
-        }
+
 
         return binding.root
     }
