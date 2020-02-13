@@ -49,7 +49,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
-
+            android:focusable="@{viewModel.focusable}"
             android:hint="@string/email_example"
             android:inputType="textEmailAddress"
             android:text="@={viewModel.email}"
@@ -129,6 +129,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editText_register_password_input" />
+
+        <include
+            android:id="@+id/llProgressBar"
+            android:visibility="@{viewModel.progressBarVisibility ? View.VISIBLE : View.INVISIBLE}"
+            layout="@layout/progress_view"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
