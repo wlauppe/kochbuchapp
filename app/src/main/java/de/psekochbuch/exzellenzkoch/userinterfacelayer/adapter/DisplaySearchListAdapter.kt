@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistListitemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
@@ -60,7 +61,7 @@ class DisplaySearchListAdapter : ListAdapter<PublicRecipe,
     override fun onBindViewHolder(holder: DisplaySearchListViewHolder, position: Int) {
 
         val item = getItem(position)
-
+        holder.bind(item)
 
         holder.displaySearchlistListitemBinding.displaySearchlistLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
@@ -70,6 +71,8 @@ class DisplaySearchListAdapter : ListAdapter<PublicRecipe,
                 )
             )
         }
+
+        /*
         //var urlString
         var urlString = ""
 
@@ -80,7 +83,8 @@ class DisplaySearchListAdapter : ListAdapter<PublicRecipe,
             urlString = item.imgUrl
         }
         // TODO GLIDE NEEDS CONTEXT HOW TO PROVIDE??
-        // Glide.with(context).load(urlString).into(imageView)
+        //Glide.with(context).load(urlString).into(imageView)
+        */
     }
 
 
