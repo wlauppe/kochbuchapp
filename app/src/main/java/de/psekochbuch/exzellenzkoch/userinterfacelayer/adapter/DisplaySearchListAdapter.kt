@@ -61,6 +61,7 @@ class DisplaySearchListAdapter : ListAdapter<PublicRecipe,
 
         val item = getItem(position)
 
+
         holder.displaySearchlistListitemBinding.displaySearchlistLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(DisplaySearchListFragmentDirections
@@ -85,6 +86,11 @@ class DisplaySearchListAdapter : ListAdapter<PublicRecipe,
 
     class DisplaySearchListViewHolder(var displaySearchlistListitemBinding: DisplaySearchlistListitemBinding) :
         RecyclerView.ViewHolder(displaySearchlistListitemBinding.root) {
+
+        fun bind(item: PublicRecipe) {
+            displaySearchlistListitemBinding.value = item
+            displaySearchlistListitemBinding.executePendingBindings()
+        }
 
         companion object {
             fun from(parent: ViewGroup): DisplaySearchListViewHolder {

@@ -35,18 +35,27 @@ class PublicRecipeSearchFragment : Fragment() {
 
         //initialized navcontoller
         val navController: NavController = findNavController()
+
+        /**
+         * setOnClickListener method
+         */
         binding.buttonSearchRecipeSearch.setOnClickListener {
         binding.progressBarPublicRecipeSearch.visibility.or(1)
 
-
-        //Handle input values via Safeargs
-        val recipeName: String = binding.editTextSearchRecipeTitle.text.toString()
-        val recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
+        //Handle input values via Safeargs or pass them to viewModel
+        val title: String = binding.editTextSearchRecipeTitle.text.toString()
+            //viewModel.title = title
+        val ingredients: String = binding.editTextSearchIngredients.text.toString()
+            //viewModel.ingredients = ingredients
         val tags : String = binding.editTextSearchTags.text.toString()
+            //viewModel.tags = tags
+
+
+        viewModel.getPublicRecipes(viewModel.title, viewModel.ingredients, viewModel.tags)
 
         //safeargs sent with bundle
         navController.navigate(PublicRecipeSearchFragmentDirections.actionPublicRecipeSearchFragmentToDisplaySearchListFragment()
-                .setIngredients(recipeIngredients).setRecipeTitle(recipeName).setTags(tags))
+                .setIngredients(ingredients).setRecipeTitle(title).setTags(tags))
 
         }
 

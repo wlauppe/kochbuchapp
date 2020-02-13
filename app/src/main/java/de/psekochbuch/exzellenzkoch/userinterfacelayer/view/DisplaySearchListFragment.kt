@@ -36,11 +36,10 @@ class DisplaySearchListFragment : Fragment() {
         binding.displaySearchListViewmodel = viewModel
 
 
-        // safeargs are passed down from the input
-
-        val recipeSearchTitle =
+        // safeargs are passed down from the input fragment PublicRecipeSearchFragment
+        val title =
             arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
-        val recipeSearchingredients =
+        val ingredients =
             arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
         val recipeSearchTags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
 
@@ -56,6 +55,8 @@ class DisplaySearchListFragment : Fragment() {
                 }
             })
         })
+
+
 
 
         //viewModel.getPublicRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)

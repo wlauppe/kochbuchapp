@@ -12,7 +12,9 @@ import java.util.*
 class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
     val TAG = "DisplaySearchListVM"
 
-
+    lateinit var title: String
+    lateinit var ingredients:String
+    lateinit var tags: String
 
     /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
     * eine Liste an IDs, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
@@ -36,7 +38,7 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
         // recipes = repository.search(title, ingredientList, tagList)
         recipes = repository.getPublicRecipes()
         if(recipes.value == null){
-            Log.i(TAG, "EEEEEEEELGA")
+            Log.i(TAG, "Recipe is null!")
         }
 
         return recipes
@@ -44,7 +46,7 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
 
 
     fun sortByVegan(): List<PublicRecipe>{
-        var sortedList  = mutableListOf<PublicRecipe>()
+        val sortedList  = mutableListOf<PublicRecipe>()
         if(recipes.value != null) {
             for (recipe in recipes.value!!) {
                 if(recipe.tags.contains("vegan")) {
@@ -57,7 +59,7 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
 
     }
     fun sortByVegetarian() : List<PublicRecipe>{
-        var sortedList  = mutableListOf<PublicRecipe>()
+        val sortedList  = mutableListOf<PublicRecipe>()
         if(recipes.value != null) {
             for (recipe in recipes.value!!) {
                 if(recipe.tags.contains("vegetarisch")) {
