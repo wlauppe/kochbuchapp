@@ -4,23 +4,21 @@ import android.app.Activity
 import android.content.ContentValues.TAG
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 import com.google.firebase.auth.UserProfileChangeRequest
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
 
 /**
  * This class is for the authentification with Firebase
  *
  * @constructor Create a firebaseinstance
  */
-class AuthentificationImpl
+object AuthentificationImpl
 //TODO("Implementierung sollte irgendwann das Interface implementieren")
 
 
 {
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-    companion object {
+
         /**
          *Registrate a new User at Firebase and at the backendserver
          *
@@ -89,7 +87,7 @@ class AuthentificationImpl
                 }
             }
         }
-    }
+
 
     /**
      * Login the User at Firebase
@@ -159,18 +157,6 @@ class AuthentificationImpl
     fun userDelete()
     {
         auth.currentUser?.delete()
-    }
-
-    /**
-     * Give the JWT-token of the active user
-     *
-     * @param callback Return the token
-     */
-    fun getToken(callback: (String?) -> Unit)
-    {
-        auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
-            callback(it.result?.token)
-        }
     }
 
 }
