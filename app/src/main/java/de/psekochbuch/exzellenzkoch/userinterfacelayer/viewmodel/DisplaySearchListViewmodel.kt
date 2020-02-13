@@ -12,9 +12,7 @@ import java.util.*
 class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
     val TAG = "DisplaySearchListVM"
 
-    var title: LiveData<String> = MutableLiveData<String>()
-    var ingredients : LiveData<String> = MutableLiveData<String>()
-    var tags: LiveData<String> = MutableLiveData<String>()
+
 
     /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
     * eine Liste an IDs, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
@@ -38,15 +36,15 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
         // recipes = repository.search(title, ingredientList, tagList)
         recipes = repository.getPublicRecipes()
         if(recipes.value == null){
-            Log.i(TAG, "Recipe is null!")
+            Log.i(TAG, "EEEEEEEELGA")
         }
 
         return recipes
     }
 
-/*
+
     fun sortByVegan(): List<PublicRecipe>{
-        val sortedList  = mutableListOf<PublicRecipe>()
+        var sortedList  = mutableListOf<PublicRecipe>()
         if(recipes.value != null) {
             for (recipe in recipes.value!!) {
                 if(recipe.tags.contains("vegan")) {
@@ -59,7 +57,7 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
 
     }
     fun sortByVegetarian() : List<PublicRecipe>{
-        val sortedList  = mutableListOf<PublicRecipe>()
+        var sortedList  = mutableListOf<PublicRecipe>()
         if(recipes.value != null) {
             for (recipe in recipes.value!!) {
                 if(recipe.tags.contains("vegetarisch")) {
@@ -71,8 +69,5 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
     }
     fun sortByDate() {
 
-
-
     }
- */
 }

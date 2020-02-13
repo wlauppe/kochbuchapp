@@ -3,16 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
-        <!--The Adapter uses this binding variable to compare objects-->
-        <variable
-        name="value"
-        type="de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe" />
-
-        <!--Binding variable for the title -->
-        <variable
-            name="title"
-            type="String" />
+<variable
+    name="value"
+    type="String" />
     </data>
 
     <LinearLayout
@@ -37,7 +30,7 @@
             android:textAlignment="center"
             android:layout_margin="10dp"
             android:layout_weight="5"
-            android:text="@{title}"
+            android:text="@{value}"
             android:textSize="20sp" />
 
 

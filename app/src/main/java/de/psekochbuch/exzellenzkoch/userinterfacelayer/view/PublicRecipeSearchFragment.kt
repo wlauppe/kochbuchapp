@@ -23,7 +23,6 @@ class PublicRecipeSearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         //binding xml to this Fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.public_recipe_search_fragment, container, false)
         //viewmodel vie Injector class
@@ -35,27 +34,18 @@ class PublicRecipeSearchFragment : Fragment() {
 
         //initialized navcontoller
         val navController: NavController = findNavController()
-
-        /**
-         * setOnClickListener method
-         */
         binding.buttonSearchRecipeSearch.setOnClickListener {
         binding.progressBarPublicRecipeSearch.visibility.or(1)
 
-        //Handle input values via Safeargs or pass them to viewModel
-        val title: String = binding.editTextSearchRecipeTitle.text.toString()
-            //viewModel.title = title
-        val ingredients: String = binding.editTextSearchIngredients.text.toString()
-            //viewModel.ingredients = ingredients
+
+        //Handle input values via Safeargs
+        val recipeName: String = binding.editTextSearchRecipeTitle.text.toString()
+        val recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
         val tags : String = binding.editTextSearchTags.text.toString()
-            //viewModel.tags = tags
 
-
-        viewModel.getPublicRecipes(viewModel.title.value, viewModel.ingredients.value, viewModel.tags.value)
-
-        //safeargs sent with bundle
+        //safeargs sent with bundle to
         navController.navigate(PublicRecipeSearchFragmentDirections.actionPublicRecipeSearchFragmentToDisplaySearchListFragment()
-                .setIngredients(ingredients).setRecipeTitle(title).setTags(tags))
+                .setIngredients(recipeIngredients).setRecipeTitle(recipeName).setTags(tags))
 
         }
 
