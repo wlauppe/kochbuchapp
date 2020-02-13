@@ -39,21 +39,29 @@ class PrivateRecipeRepositoryImpTest(){
     }
 
     @Test
-    fun insertanddelete(){
+    fun insertandupdate(){
         val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
 
-        val recipe = PrivateRecipe(3,"abc", "efg", listOf("tag1","tag2"),"lalali","so",1,2,
+        val recipe1 = PrivateRecipe(3,"abc", "efg", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)
 
-        runBlocking { repo.insertPrivateRecipe(recipe)}
+        runBlocking { repo.insertPrivateRecipe(recipe1)}
 
         Thread.sleep(1000)
 
-        val lfromDb =   repo.getPrivateRecipe(3)
+        val recipe2 = PrivateRecipe(3,"lalale", "efg", listOf("tag1","tag2"),"lalali","so",1,2,
+            Date(),4,6)
+
+        runBlocking { repo.insertPrivateRecipe(recipe2)}
 
         Thread.sleep(1000)
 
-        val rfromDb = lfromDb.value!!
+        val recipe = repo.getPrivateRecipe(3)
 
+        Thread.sleep(1000)
+
+
+        val realrecipe = recipe.value
+        assertEquals(realrecipe!!.title,"lalale")
     }
 }

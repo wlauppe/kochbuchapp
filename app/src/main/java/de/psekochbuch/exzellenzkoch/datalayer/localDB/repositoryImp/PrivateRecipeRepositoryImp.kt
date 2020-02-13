@@ -44,6 +44,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         DB.databaseWriteExecutor.execute{
             val recipeId = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!.toLong()
 
+            privateRecipeTagDao?.deleteTagsFromRecipe(recipeId)
             for (tag:String in privateRecipe.tags){
                 privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,recipeId, tag))
             }
