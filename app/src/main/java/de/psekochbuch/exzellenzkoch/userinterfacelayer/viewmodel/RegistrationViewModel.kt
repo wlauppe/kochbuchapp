@@ -6,6 +6,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
+import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.PublicRecipeDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
@@ -49,13 +52,8 @@ class RegistrationViewModel() : ViewModel() {
                                                  val token = userRepository.addUser(id)
                                                 AuthentificationImpl.authWithCustomToken(token) {
                                                     AuthentificationImpl.getToken {
-                                                        if(it.equals(token))
-                                                        {
-                                                            val t = true
-                                                        }
-                                                        else {
-                                                            val x = false
-                                                        }
+
+
                                                     }
                                                 }
                                             }catch (e: Exception)
@@ -87,7 +85,39 @@ class RegistrationViewModel() : ViewModel() {
                 //-> falls nein: unterer code
             }
 
+        } else {
+            val em = email.value
+            val pw = password.value
+            if (em != null && pw != null) {
+                AuthentificationImpl
+                    .register(em, pw, "") { it, result ->
+                        if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                            Log.d(TAG, "Registration erfolgreich")
+                            userRepository.setToken(it)
+                            viewModelScope.launch {
+                                try {
+                                    val token = userRepository.addUser("")
+                                    AuthentificationImpl.authWithCustomToken(token) {
+                                        AuthentificationImpl.getToken {
+
+
+                                        }
+                                    }
+                                }catch (e: Exception)
+                                {
+
+                                }
+
+                                progressBarVisibility.postValue(false)
+                            }
+                        } else {
+                            progressBarVisibility.postValue(false)
+                        }
+                    }
+            }
+            progressBarVisibility.postValue(false)
         }
+
         //email.postValue("bal")
 
     }

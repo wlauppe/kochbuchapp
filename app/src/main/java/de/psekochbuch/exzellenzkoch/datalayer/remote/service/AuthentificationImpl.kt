@@ -50,6 +50,11 @@ class AuthentificationImpl
                                     AuthenticationResult.REGISTRATIONSUCCESS
                                 )
                             }
+                        } else {
+                            callback(
+                                token.result?.token,
+                                AuthenticationResult.REGISTRATIONSUCCESS
+                            )
                         }
                     }
                 } else {
