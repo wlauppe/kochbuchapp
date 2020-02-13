@@ -46,9 +46,11 @@ class DisplaySearchListFragment : Fragment(){
         viewModel.getPublicRecipes(recipeSearchTitle, recipeSearchingredients, recipeSearchTags)
 
 
+        val adapter : DisplaySearchListAdaper = DisplaySearchListAdaper(requireContext())
+
         val observer = Observer<List<PublicRecipe>> { items ->
             items?.let {
-                exampleAdapter.setNewItems(items)}
+                adapter.recipes = items}
         }
 
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
