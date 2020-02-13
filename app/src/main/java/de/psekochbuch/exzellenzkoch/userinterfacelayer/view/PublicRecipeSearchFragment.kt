@@ -23,6 +23,7 @@ class PublicRecipeSearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         //binding xml to this Fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.public_recipe_search_fragment, container, false)
         //viewmodel vie Injector class
@@ -43,7 +44,7 @@ class PublicRecipeSearchFragment : Fragment() {
         val recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
         val tags : String = binding.editTextSearchTags.text.toString()
 
-        //safeargs sent with bundle to
+        //safeargs sent with bundle
         navController.navigate(PublicRecipeSearchFragmentDirections.actionPublicRecipeSearchFragmentToDisplaySearchListFragment()
                 .setIngredients(recipeIngredients).setRecipeTitle(recipeName).setTags(tags))
 
