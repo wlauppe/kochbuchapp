@@ -28,15 +28,24 @@ class RecipeListFragment : Fragment() {
 
         binding.recyclerViewRecipeListFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val listOfRecipeNames : List<PrivateRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = RecipeListAdapter(listOfRecipeNames,viewModel, requireContext())
-        binding.recyclerViewRecipeListFragment.adapter = exampleAdapter
+
+
+        // get adapter instance to display items in
+        val adapter = RecipeListAdapter(viewModel, requireContext())
+        binding.recyclerViewRecipeListFragment.adapter = adapter
+
+        // set up observer for the list of private recipes
+        // if the
         val observer = Observer<List<PrivateRecipe>> { items ->
-            exampleAdapter.setNewItems(items)
+            items?.let {
+                adapter.recipes = items}
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+
         binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
 
+        // show
+        viewModel.getPrivateRecipes()
 
         //ClickListener ----------------
         binding.buttonCreateRecipe.setOnClickListener{

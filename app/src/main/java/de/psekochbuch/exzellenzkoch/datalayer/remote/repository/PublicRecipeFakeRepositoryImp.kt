@@ -102,7 +102,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         Log.w(TAG, "Id von erstem aus der List ist $recipeList[1].recipeId()")
         val recipe1 = PublicRecipe(1, "extra tockener Sandkuchen")
         addToList(recipe1)
-        val ld: MutableLiveData<List<PublicRecipe>> = MutableLiveData(recipeList)
+        val ld: LiveData<List<PublicRecipe>> = MutableLiveData(recipeList)
         return ld
     }
 

@@ -14,8 +14,7 @@ class RecipeListViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
 
     var repo = repository
 
-    var recipes : LiveData<List<PrivateRecipe>> = repository.getPrivateRecipes()
-
+    var recipes : LiveData<List<PrivateRecipe>> = MutableLiveData(emptyList())
 
 
 
@@ -34,6 +33,10 @@ class RecipeListViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         get() = _errorLiveDataString
 
 
+    fun getPrivateRecipes() {
+        recipes = repo.getPrivateRecipes()
+    }
+
 
     fun deleteRecipe(id: Int?) {
         if(id !=null) {
@@ -41,7 +44,6 @@ class RecipeListViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
             viewModelScope.launch {
                 try {
                     repo.deletePrivateRecipe(id)
-
 
                 } catch (error: Error) {
                     _errorLiveDataString.value = error.message
