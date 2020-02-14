@@ -1,9 +1,6 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.room.RoomDatabase
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
@@ -15,7 +12,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                             publicRepository: PublicRecipeRepository) : ViewModel() {
     var privateRepo = privateRepository
     var publicRepo = publicRepository
-    var recipe: LiveData<PrivateRecipe> = MutableLiveData()
+    var recipe: LiveData<PrivateRecipe> = MutableLiveData(PrivateRecipe( 0,"","", emptyList(), "", "", 0,0,
+        Date(System.currentTimeMillis()),0))
     var recipeID = 0
 
     /*
@@ -31,25 +29,6 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      */
     val errorLiveDataString: LiveData<String?>
         get() = _errorLiveDataString
-
-
-    //Current title of the Recipe
-    var recipeTitle: MutableLiveData<String> = MutableLiveData("")
-    var imageUrl: String = ""
-    //Current Preparation Time of the Recipe
-    var preparationTime: MutableLiveData<String> = MutableLiveData("0")
-
-    //current cookingTime for the Recipe
-    var cookingTime: MutableLiveData<String> = MutableLiveData("0")
-
-    //current tags for the Recipe
-    var tagList: MutableLiveData<List<String>> = MutableLiveData(emptyList())
-    //current preparation description for the recipe
-    var preparationDescription: MutableLiveData<String> = MutableLiveData("")
-    //current ingredients for the recipe as String
-    var ingredients: MutableLiveData<String> = MutableLiveData("")
-    //current number of portions for the recipe
-    var portions: MutableLiveData<Int> = MutableLiveData(0)
 
 
     //Checkboxes for the recipe tags
@@ -69,41 +48,30 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      */
     fun setRecipeByID(id: Int) {
         // var  recipe = repo.getPrivateRecipe(id)
+
         recipeID = id
-        val recipe = privateRepo.getPrivateRecipe(recipeID)
-        if(recipe.value == null){
-            return
+        if(id != 0) {
+            recipe = privateRepo.getPrivateRecipe(recipeID)
         }
 
-        val tags = recipe.value!!.tags
-        // The livedata attributes are set with the recipe contents
-        this.imageUrl = recipe.value!!.imgUrl
-        this.recipeTitle = MutableLiveData(recipe.value!!.title)
-        preparationDescription = MutableLiveData(recipe.value!!.preparation)
-        this.ingredients = MutableLiveData(recipe.value!!.ingredientsText)
-        this.tagList = MutableLiveData(recipe.value!!.tags)
-        this.cookingTime = MutableLiveData(recipe.value!!.cookingTime.toString())
 
-        this.preparationTime = MutableLiveData(recipe.value!!.preparationTime.toString())
-
-        this.portions = MutableLiveData(recipe.value!!.portions)
         //set the checkboxes with the set tags
-        if (tags.contains("vegan")) {
+        if (recipe.value?.tags?.contains("vegan")!!) {
             this.tagCheckBoxVegan.value = true
         }
-        if (tags.contains("vegetarisch")) {
+        if (recipe.value!!.tags.contains("vegetarisch")) {
             this.tagCheckBoxVegetarian.value = true
         }
-        if (tags.contains("günstig")) {
+        if (recipe.value!!.tags.contains("günstig")) {
             this.tagCheckBoxCheap.value = true
         }
-        if (tags.contains("herzhaft")) {
+        if (recipe.value!!.tags.contains("herzhaft")) {
             this.tagCheckBoxHearty.value = true
         }
-        if (tags.contains("süß")) {
+        if (recipe.value!!.tags.contains("süß")) {
             this.tagCheckBoxSweet.value = true
         }
-        if (tags.contains("salzig")) {
+        if (recipe.value!!.tags.contains("salzig")) {
             this.tagCheckBoxSalty.value = true
         }
     }
@@ -118,10 +86,16 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         var newRecipe:PrivateRecipe
         // save to room database or update if already exists in room database
         // has to know if recipe is new or already existing -> boolean?
-        if (!(this.recipeID == 0)) {
-            newRecipe = PrivateRecipe(this.recipeID, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl, Integer.parseInt(this.cookingTime.value!!),Integer.parseInt(this.preparationTime.value!!), Date(System.currentTimeMillis()), portions = this.portions.value!!)
+        if ((this.recipeID != 0)) {
+            newRecipe = PrivateRecipe(
+                recipe.value!!.recipeId,
+                this.recipe.value?.title!!, this.recipe.value!!.ingredientsText, getCheckedTags(), this.recipe.value!!.preparation, this.recipe.value!!.imgUrl, recipe.value!!.preparationTime,
+                recipe.value!!.preparationTime, Date(System.currentTimeMillis()), portions = this.recipe.value!!.portions)
+            //Rezept existiert schon
         } else {
-            newRecipe = PrivateRecipe(0, this.recipeTitle.value!!, this.ingredients.value!!, getCheckedTags(), this.preparationDescription.value!!, this.imageUrl, Integer.parseInt(this.cookingTime.value!!),Integer.parseInt(this.preparationTime.value!!), Date(System.currentTimeMillis()), portions = this.portions.value!!)
+            newRecipe = PrivateRecipe(0,
+                this.recipe.value?.title!!, this.recipe.value!!.ingredientsText, getCheckedTags(), this.recipe.value!!.preparation, this.recipe.value!!.imgUrl, recipe.value!!.preparationTime,
+                recipe.value!!.preparationTime, Date(System.currentTimeMillis()), portions = this.recipe.value!!.portions)
 
         }
 

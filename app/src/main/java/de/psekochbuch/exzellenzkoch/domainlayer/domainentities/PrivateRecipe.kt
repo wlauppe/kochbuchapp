@@ -8,7 +8,7 @@ class PrivateRecipe(
     val ingredientsText: String,
     val tags: List<String>,
     val preparation: String,
-    val imgUrl: String,
+    var imgUrl: String,
     val cookingTime: Int,
     val preparationTime: Int,
     val creationTimeStamp: Date,

@@ -72,7 +72,7 @@ class CreateRecipeFragment : Fragment() {
         //binding viewmodel with xml components
 
         val imageView = binding.imageButtonRecipeImage
-        var urlString = viewModel.imageUrl
+        var urlString = viewModel.recipe.value?.imgUrl
         if(urlString == ""){
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
@@ -161,7 +161,7 @@ class CreateRecipeFragment : Fragment() {
             val imageView = binding.imageButtonRecipeImage
             context?.let{Glide.with(it).load(data?.data).into(imageView)}
             imageView.setImageURI(data?.data)
-            viewModelTemp!!.imageUrl = data?.data.toString()
+            viewModelTemp!!.recipe.value?.imgUrl = data?.data.toString()
            //imageView.setImageURI(data?.data)
         }
     }
