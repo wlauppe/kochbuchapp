@@ -22,7 +22,7 @@ class PrivateRecipe(
     {
         return PublicRecipe(
             publishedRecipeId,
-            title, 
+            title,
             ingredientsText,
             stringtochapters(ingredientsText),
             tags,
