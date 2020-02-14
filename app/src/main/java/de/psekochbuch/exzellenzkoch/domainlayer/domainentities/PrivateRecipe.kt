@@ -18,9 +18,22 @@ class PrivateRecipe(
     var publishedRecipeId : Int = 0
 )  {
 
-    fun convertToPublicRepipe() : PublicRecipe
+    fun convertToPublicRepipe(user:User) : PublicRecipe
     {
-        return PublicRecipe(0, title, ingredientsText, stringtochapters(ingredientsText),tags, preparation, imgUrl, cookingTime, preparationTime, User("Max Mustermann"),Date(System.currentTimeMillis()))
+        return PublicRecipe(
+            publishedRecipeId,
+            title, 
+            ingredientsText,
+            stringtochapters(ingredientsText),
+            tags,
+            preparation,
+            imgUrl,
+            cookingTime,
+            preparationTime,
+            user,
+            Date(System.currentTimeMillis()),
+            portions,
+            0.0)
     }
 
     fun stringtochapters(toParse: String): List<IngredientChapter>{
