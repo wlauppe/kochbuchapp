@@ -45,19 +45,34 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
 
 
+    //Dies ist eine Funktion die nur das erste Recipe holt.
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+        Log.w(TAG, "getPublicRecipes() wird aufgerufen")
+        val lData = liveData(Dispatchers.IO, 1000) {
+            Log.w(TAG, "jetzt bin ich im Coroutine Scope")
+            val dto = recipeApiService.getRecipe(1)
+            val entity = PublicRecipeDtoEntityMapper().toEntity(dto)
+            val entityList = listOf(entity)
+            emit(entityList)
+        }
+        return lData
+    }
+    //Dies ist die normale Funktion die Search benutzt.
+    /*override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
         Log.w(TAG, "getPublicRecipes() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             val dtoList =
                 recipeApiService.search(null, null, null, null, 1, 100)
             //if (!response.isSuccessful) throw error("response not successful")
+            dtoList?.let {
             val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
             emit(entityList)
+            }
         }
         return lData
-    }
+    } */
 
     override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>{
         TODO("implementieren")
