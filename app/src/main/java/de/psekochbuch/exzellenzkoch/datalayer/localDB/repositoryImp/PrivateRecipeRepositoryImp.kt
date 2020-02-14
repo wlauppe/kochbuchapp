@@ -19,6 +19,17 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     private val privateRecipeTagDao: PrivateRecipeTagDao? = DB.getDatabase(application!!)?.privateRecipeTagDao();
 
     override fun getPrivateRecipes(): LiveData<List<PrivateRecipe>> {
+        val lData = liveData(Dispatchers.IO){
+            try{
+                val recipes = transformListPrivateRecipeDBToListPrivateRecipeDB(privateRecipeDao?.getAll()!!)
+                emit(recipes)
+            } catch (error : Throwable){
+                emit(listOf())
+            }
+        }
+        return lData
+    }
+        /*
         var recipes: List<PrivateRecipe> = listOf()
         val liveData = MutableLiveData<List<PrivateRecipe>>()
         DB.databaseWriteExecutor.execute{
@@ -27,13 +38,11 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         }
         return liveData
     }
-
+*/
     override fun getPrivateRecipe(id: Int): LiveData<PrivateRecipe> {
-        val lData = liveData(Dispatchers.IO, 0){
-            emit(PrivateRecipe(3,"titelll", "so mact man es", listOf("tag1","tag2"),"lalali","so",1,2,
-                Date(),4,6))
+        val lData = liveData(Dispatchers.IO){
             try{
-                var recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+                val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
                 emit(recipe)
             } catch (error : Throwable){
                 emit(PrivateRecipe(0,"Konnte nicht geladen werden","",listOf(),"","file://android_assed/exampleimages/error.png",0,0,Date(System.currentTimeMillis()),0,0))

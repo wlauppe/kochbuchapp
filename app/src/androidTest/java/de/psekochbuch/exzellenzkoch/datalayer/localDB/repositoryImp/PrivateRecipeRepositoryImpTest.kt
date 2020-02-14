@@ -28,17 +28,6 @@ class PrivateRecipeRepositoryImpTest(){
         val recipefromdb = privateRecipeDao?.getRecipe(1)
     }
 
-
-    @Test
-    fun emittest(){
-        val live = liveData(Dispatchers.IO,0){emit(1)}
-      //  val live = MutableLiveData(1)
-
-        Thread.sleep(1000)
-
-        assertEquals(live.value,1)
-    }
-
     @Test
     fun insertdeleteandget(){
         val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
