@@ -73,13 +73,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if(id != 0) {
             recipe = privateRepo.getPrivateRecipe(recipeID)
 
-
             //Hier komme ich nicht mehr weiter wenn das rezept aus dem Repo geladen ist, will ich benachrichtigt werden
             setLiveData()
-
-
-
-
             //set the checkboxes with the set tags
         }
     }

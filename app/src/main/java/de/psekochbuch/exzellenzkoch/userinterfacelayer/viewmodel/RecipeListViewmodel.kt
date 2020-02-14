@@ -44,11 +44,14 @@ class RecipeListViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
             viewModelScope.launch {
                 try {
                     repo.deletePrivateRecipe(id)
-
                 } catch (error: Error) {
                     _errorLiveDataString.value = error.message
                 }
             }
+
+            this.recipes.value?.forEach {if(it.recipeId == id){
+                //publicRepository.delete(it.publishedRecipeId)
+            }  }
         }
 
     }
