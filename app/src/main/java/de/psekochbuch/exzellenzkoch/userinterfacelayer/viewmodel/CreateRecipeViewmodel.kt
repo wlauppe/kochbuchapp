@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.util.Log
+import androidx.databinding.Bindable
 import androidx.lifecycle.*
 import androidx.room.RoomDatabase
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
@@ -21,17 +22,63 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
     //LiveData Attributes for XML
 
-    var title  :LiveData<String> = MutableLiveData("")
+    var title  :MutableLiveData<String> = MutableLiveData("")
+    @Bindable
+    fun getTitle():String{
+        return title.value!!
+    }
+    fun setTitle(title: String){
+        this.title.postValue(title)
+    }
+
+    var preparationTime:MutableLiveData<Int>  = MutableLiveData(0)
+    @Bindable
+    fun getPreparationTime():Int{
+        return preparationTime.value!!
+    }
+    fun setPreparationTime(time:Int){
+        preparationTime.postValue(time)
+    }
+
+    var cookingTime:MutableLiveData<Int>  = MutableLiveData(0)
+    @Bindable
+    fun getCookingTime():Int{
+        return cookingTime.value!!
+    }
+    fun setCookingTime(time:Int){
+        cookingTime.postValue(time)
+    }
+
+    var ingredients:MutableLiveData<String>  = MutableLiveData("")
+    @Bindable
+    fun getIngredients():String{
+        return ingredients.value!!
+    }
+    fun setIngredients(ingredients:String){
+        this.ingredients.postValue(ingredients)
+    }
+
+    var description:MutableLiveData<String>  = MutableLiveData("")
+    @Bindable
+    fun getDescription():String{
+        return description.value!!
+    }
+    fun setDescription(description: String){
+        this.description.postValue(description)
+    }
+
+    var portions:MutableLiveData<Int>  = MutableLiveData(0)
+    @Bindable
+    fun getPortions():Int{
+        return portions.value!!
+    }
+    fun setPortions(portions:Int){
+        this.portions.postValue(portions)
+    }
+
+    var imgUrl:MutableLiveData<String>  = MutableLiveData("")
+
     var creationDate = recipe.value!!.creationTimeStamp.toString()
-    var preparationTime:LiveData<Int>  = MutableLiveData(0)
-    var cookingTime:LiveData<Int>  = MutableLiveData(0)
-    var ingredients:LiveData<String>  = MutableLiveData("")
-    var description:LiveData<String>  = MutableLiveData("")
-    var imgUrl:LiveData<String>  = MutableLiveData("")
-    var portions:LiveData<Int>  = MutableLiveData(0)
-
-
-
 
 
     /**
@@ -83,7 +130,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             Transformations.map(recipe) { recipe -> recipe.tags.contains("süß")}
           tagCheckBoxSalty =
             Transformations.map(recipe) { recipe -> recipe.tags.contains("salzig")}
-
+//Auskommentiert fürs testen
+/*
           title = Transformations.map(recipe){recipe -> recipe.title}
 
           preparationTime = Transformations.map(recipe){recipe -> recipe.preparationTime}
@@ -97,7 +145,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         imgUrl = Transformations.map(recipe){recipe -> recipe.imgUrl}
 
         portions = Transformations.map(recipe){recipe -> recipe.portions}
-
+*/
     }
 
     /**
@@ -119,7 +167,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //Rezept existiert schon
         } else {
             newRecipe = PrivateRecipe(0,
-                title.value!!,ingredients.value!!, listOf("vegan"),description.value!!,imgUrl.value!!, cookingTime.value!!,
+                title.value!!,
+                ingredients.value!!, listOf("vegan"),description.value!!,imgUrl.value!!, cookingTime.value!!,
                 preparationTime.value!!, Date(System.currentTimeMillis()),portions.value!!)
 
         }

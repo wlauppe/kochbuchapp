@@ -41,7 +41,7 @@
                     android:inputType="textPersonName"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="@{createRecipeViewModel.title}" />
+                    android:text="@={createRecipeViewModel.title}" />
 
                 <TextView
                     android:id="@+id/textView_creation_timestamp"
