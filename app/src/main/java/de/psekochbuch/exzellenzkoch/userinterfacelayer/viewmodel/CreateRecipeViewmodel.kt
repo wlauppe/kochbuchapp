@@ -1,10 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.room.RoomDatabase
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
@@ -73,6 +70,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         recipeID = id
         if(id != 0) {
             recipe = privateRepo.getPrivateRecipe(recipeID)
+        }
+
+       val  tagCheckBoxVegan =
+           Transformations.map(recipe) { recipe -> recipe.tags.contains("vegan")}
+
+        fun setCheckboxes (){
             //set the checkboxes with the set tags
             if (recipe.value!!.tags.contains("vegan")!!) {
                 this.tagCheckBoxVegan.value = true
@@ -129,7 +132,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if (this.tagCheckBoxPublish.value!!) {
             //TODO muss anscheinend seit neuestem ein Feld "User übergeben"
             //Man muss da Zugriff auf den Benutzer haben,
-            // und wenn keiner angemeldet ist soll man ja auch nicht publishem können
+            // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
 
             val user = User("Todoimplementieren")
             val convertedPublicRecipe = newRecipe.convertToPublicRepipe(user)
@@ -172,6 +175,19 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         return result
     }
 
+    fun setLiveData(){
+         title  = MutableLiveData(recipe.value!!.title)
+         creationDate = recipe.value!!.creationTimeStamp.toString()
+         preparationTime = MutableLiveData(recipe.value!!.preparationTime)
+         cookingTime = MutableLiveData(recipe.value!!.cookingTime)
+         ingredients = MutableLiveData(recipe.value!!.ingredientsText)
+         description = MutableLiveData(recipe.value!!.preparation)
+         imgUrl = MutableLiveData(recipe.value!!.imgUrl)
+         portions = MutableLiveData(recipe.value!!.portions)
+
+
+
+    }
     /**
      * converts a copy of the current private recipe to a public recipe. If all the nesessary
      * attributes are fullfilled the public recipe is created and uploaded to the server database.

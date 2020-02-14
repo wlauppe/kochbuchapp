@@ -47,11 +47,22 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
             viewModelScope.launch {
                 try {
                     privateRepo.deletePrivateRecipe(id)
-
                 } catch (error: Error) {
                     _errorLiveDataString.value = error.message
                 }
             }
+
+            this.recipes.value?.forEach {if(it.recipeId == id){
+                if(it.publishedRecipeId != null){
+                    viewModelScope.launch {
+                        try {
+                            publicRepo.deleteRecipe(it.publishedRecipeId)
+                        } catch (error: Error) {
+                            _errorLiveDataString.value = error.message
+                        }
+                    }
+                }
+            }  }
         }
 
     }
