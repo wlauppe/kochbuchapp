@@ -130,10 +130,10 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             Transformations.map(recipe) { recipe -> recipe.tags.contains("süß")}
           tagCheckBoxSalty =
             Transformations.map(recipe) { recipe -> recipe.tags.contains("salzig")}
-//Auskommentiert fürs testen
-/*
-          title = Transformations.map(recipe){recipe -> recipe.title}
 
+
+          title.postValue("testwertThomas")
+/*
           preparationTime = Transformations.map(recipe){recipe -> recipe.preparationTime}
 
           cookingTime = Transformations.map(recipe){recipe -> recipe.cookingTime}

@@ -46,11 +46,16 @@ class CreateRecipeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         val viewModel : CreateRecipeViewmodel by viewModels {
             InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
         }
+        //binding set to the according Fragment
+        binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
+        //viewmodel recieved by viewmodelproviders
+        //Sets according viewmodel from XML to this fragment
+        binding.createRecipeViewModel = viewModel
+
+
 
 
 
@@ -61,16 +66,14 @@ class CreateRecipeFragment : Fragment() {
         val recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
 
         if(recipeID != null) {
-                viewModel.setRecipeByID(recipeID)
+            //    viewModel.setRecipeByID(recipeID)
+            binding.editTextRecipeTitleCreateRecipeFragment.setText("teeeeeest von thomas")
+
         }
 
 
 
-        //binding set to the according Fragment
-        binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
-        //viewmodel recieved by viewmodelproviders
-        //Sets according viewmodel from XML to this fragment
-        binding.createRecipeViewModel = viewModel
+
         //initialized navcontoller
         val navController: NavController = findNavController()
 
