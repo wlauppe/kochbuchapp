@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -63,10 +64,8 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
            // Toast.makeText(context, items[position].recipeId.toString(), Toast.LENGTH_SHORT).show()
             viewModel.deleteRecipe(recipes[position].recipeId)
             notifyItemRemoved(position)
-            notifyDataSetChanged()
-
-            //notifyItemRangeChanged(position,1)
-           // holder.itemView.visibility = View.GONE
+            notifyItemRangeChanged(position,1)
+            holder.itemView.visibility = View.GONE
         }
 
 

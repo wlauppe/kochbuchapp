@@ -53,7 +53,7 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
             }
 
             this.recipes.value?.forEach {if(it.recipeId == id){
-                if(it.publishedRecipeId != null){
+                if(it.publishedRecipeId != 0){
                     viewModelScope.launch {
                         try {
                             publicRepo.deleteRecipe(it.publishedRecipeId)
