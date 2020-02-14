@@ -51,8 +51,8 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
                     _errorLiveDataString.value = error.message
                 }
             }
-
-            this.recipes.value?.forEach {if(it.recipeId == id){
+            this.recipes.value?.forEach {
+                if(it.recipeId == id){
                 if(it.publishedRecipeId != null){
                     viewModelScope.launch {
                         try {
@@ -62,7 +62,8 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
                         }
                     }
                 }
-            }  }
+            }
+            }
         }
 
     }
