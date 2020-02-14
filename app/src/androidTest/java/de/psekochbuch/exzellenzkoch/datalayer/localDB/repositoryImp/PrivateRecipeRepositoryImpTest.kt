@@ -12,6 +12,8 @@ class PrivateRecipeRepositoryImpTest(){
     fun insertdeleteandget(){
         val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
 
+        PrivateRecipeRepositoryImp.getInstance()
+
         val recipe = PrivateRecipe(3,"titel", "so mact man es", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)
 

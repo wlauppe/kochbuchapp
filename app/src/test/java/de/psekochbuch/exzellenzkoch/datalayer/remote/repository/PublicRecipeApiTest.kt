@@ -54,11 +54,11 @@ class PublicRecipeApiTest{
             var recipe = retrofit.getRecipe(1)
 
 
-/*
+
             retrofit.addRecipe(
-                PublicRecipeDto(15,"lalali","fdjlks","server","dahin",1,2,"haschima", "2020-01-13 00:00:00",3,2.0,listOf(),listOf())
+                PublicRecipeDto(15,"lalali","fdjlks","server","dahin",1,2,"1", "2020-01-13 00:00:00",3,2.0,listOf(),listOf())
             )
-*/
+
 
             assertEquals(retrofit.getRecipe(1).body()?.preparationDescription,"Man nehme " +
                     "die Schaufel und schaufelt den Sand in das Förmchen. " +
