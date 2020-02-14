@@ -51,9 +51,9 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
                     _errorLiveDataString.value = error.message
                 }
             }
-            this.recipes.value?.forEach {
-                if(it.recipeId == id){
-                if(it.publishedRecipeId != null){
+
+            this.recipes.value?.forEach {if(it.recipeId == id){
+                if(it.publishedRecipeId != 0){
                     viewModelScope.launch {
                         try {
                             publicRepo.deleteRecipe(it.publishedRecipeId)
