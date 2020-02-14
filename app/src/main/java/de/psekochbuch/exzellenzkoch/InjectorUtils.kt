@@ -2,19 +2,14 @@ package de.psekochbuch.exzellenzkoch
 
 import android.app.Application
 import android.content.Context
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.TagFakeRepositoryImp
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.TagRepositoryImp
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationFakeImpl
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
@@ -59,8 +54,9 @@ object InjectorUtils {
 
     //Beispiel für eine Viewmodel Factory
     fun provideRecipeListViewmodelFactory(context: Context): RecipeListViewModelFactory {
-        val repository = getPrivateRecipeRepository(context)
-        return RecipeListViewModelFactory(repository)
+        val privateRepo = getPrivateRecipeRepository(context)
+        val publicRepo = getPublicRecipeRepository(context)
+        return RecipeListViewModelFactory(privateRepo, publicRepo)
     }
 
     fun provideLoginViewModelFactory(context: Context): LoginViewModelFactory {

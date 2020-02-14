@@ -1,7 +1,10 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.room.RoomDatabase
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
@@ -95,9 +98,6 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             if (recipe.value!!.tags.contains("salzig")) {
                 this.tagCheckBoxSalty.value = true
             }
-
-        }
-
         }
     }
 
@@ -178,6 +178,19 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         return result
     }
 
+    fun setLiveData(){
+         title  = MutableLiveData(recipe.value!!.title)
+         creationDate = recipe.value!!.creationTimeStamp.toString()
+         preparationTime = MutableLiveData(recipe.value!!.preparationTime)
+         cookingTime = MutableLiveData(recipe.value!!.cookingTime)
+         ingredients = MutableLiveData(recipe.value!!.ingredientsText)
+         description = MutableLiveData(recipe.value!!.preparation)
+         imgUrl = MutableLiveData(recipe.value!!.imgUrl)
+         portions = MutableLiveData(recipe.value!!.portions)
+
+
+
+    }
     /**
      * converts a copy of the current private recipe to a public recipe. If all the nesessary
      * attributes are fullfilled the public recipe is created and uploaded to the server database.
