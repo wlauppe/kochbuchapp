@@ -46,8 +46,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
 
     //Dies ist eine Funktion die nur das erste Recipe holt.
-    @Throws
-    override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+    //@Throws
+   /* override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
         Log.w(TAG, "getPublicRecipes() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
@@ -57,9 +57,10 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
             emit(entityList)
         }
         return lData
-    }
+    } */
     //Dies ist die normale Funktion die Search benutzt.
-    /*override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+    @Throws
+    override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
         Log.w(TAG, "getPublicRecipes() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
@@ -72,7 +73,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
             }
         }
         return lData
-    } */
+    }
 
     override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>{
         TODO("implementieren")
