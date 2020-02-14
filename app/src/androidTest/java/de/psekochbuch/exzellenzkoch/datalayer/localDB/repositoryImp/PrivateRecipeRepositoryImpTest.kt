@@ -1,7 +1,14 @@
 package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
+import android.app.Application
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import androidx.test.core.app.ApplicationProvider
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.DB
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.PrivateRecipeDao
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PrivateRecipeDB
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Test
@@ -9,25 +16,47 @@ import java.util.*
 
 class PrivateRecipeRepositoryImpTest(){
     @Test
+    fun workwithdao(){
+        val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(ApplicationProvider.getApplicationContext())?.privateRecipeDao();
+
+        val recipe = PrivateRecipeDB(1,"titel","so",1,2,3,4,"lal","so",0)
+
+        privateRecipeDao?.insert(recipe)
+
+        Thread.sleep(1000)
+
+        val recipefromdb = privateRecipeDao?.getRecipe(1)
+    }
+
+
+    @Test
+    fun emittest(){
+        val live = liveData(Dispatchers.IO,0){emit(1)}
+      //  val live = MutableLiveData(1)
+
+        Thread.sleep(1000)
+
+        assertEquals(live.value,1)
+    }
+
+    @Test
     fun insertdeleteandget(){
         val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
-
-        PrivateRecipeRepositoryImp.getInstance()
 
         val recipe = PrivateRecipe(3,"titel", "so mact man es", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)
 
         runBlocking { repo.insertPrivateRecipe(recipe)}
 
-        Thread.sleep(1000)
+        Thread.sleep(3000)
 
         val lfromDb =   repo.getPrivateRecipe(3)
 
-        Thread.sleep(1000)
+        Thread.sleep(3000)
 
         val rfromDb = lfromDb.value!!
 
-        assertEquals(rfromDb.ingredientsText,"so mact man es")
+        assertEquals(rfromDb.title,"so mact man es")
 
         runBlocking { repo.deletePrivateRecipe(3)}
 
