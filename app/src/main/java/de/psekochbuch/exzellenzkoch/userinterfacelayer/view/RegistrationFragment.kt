@@ -42,7 +42,8 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         var navController: NavController = findNavController()
         binding.buttonRegisterFragmentRegister.setOnClickListener {
 
-            viewModel.progressBarVisibility.postValue(true)
+            viewModel.focusable.postValue(true)
+            binding.llProgressBar.visibility = View.VISIBLE
 
             viewModel.registerOnClick { userId, result, message ->
 
@@ -59,6 +60,8 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
                 {
                     Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
                 }
+
+                binding.llProgressBar.visibility = View.INVISIBLE
             }
 
         }

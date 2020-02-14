@@ -21,8 +21,8 @@ class RegistrationViewModel(authentification:Authentification, repo:UserReposito
     var email: MutableLiveData<String> = MutableLiveData()
     var userId: MutableLiveData<String> = MutableLiveData()
     var password: MutableLiveData<String> = MutableLiveData()
-    var progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData(true)
-    var focusable: MutableLiveData<Boolean> = MutableLiveData(false)
+    var progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+    var focusable: MutableLiveData<Boolean> = MutableLiveData(true)
 
     private val userRepository = repo
 
