@@ -57,7 +57,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
     }
 
-    override fun getRecipe(id: Int): LiveData<PrivateRecipe> {
+    fun getRecipe(id: Int): LiveData<PrivateRecipe> {
         TODO()
     }
 
