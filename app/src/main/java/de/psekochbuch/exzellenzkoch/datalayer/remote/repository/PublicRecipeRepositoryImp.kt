@@ -48,18 +48,31 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     //Dies ist die normale Funktion die Search benutzt.
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
-        Log.w(TAG, "getPublicRecipes() wird aufgerufen")
-        val lData = liveData(Dispatchers.IO, 1000) {
-            Log.w(TAG, "jetzt bin ich im Coroutine Scope")
-            val dtoList =
-                recipeApiService.search(null, null, null, null, 1, 100)
-            //if (!response.isSuccessful) throw error("response not successful")
-            dtoList?.let {
-            val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
-            emit(entityList)
+        try {
+            Log.w(TAG, "getPublicRecipes() wird aufgerufen")
+            val lData = liveData(Dispatchers.IO, 1000) {
+                Log.w(TAG, "jetzt bin ich im Coroutine Scope")
+                try {
+                    val dtoList =
+                        recipeApiService.search(null, null, null, null, 1, 100)
+                    //if (!response.isSuccessful) throw error("response not successful")
+                    dtoList?.let {
+                        val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
+                        emit(entityList)
+                    }
+                }
+                 catch(error : Throwable) {
+                     emit(listOf(PublicRecipe(0, "Error Fetching Recipes", imgUrl = "file:///android_asset/exampleimages/error.svg")))
+                 }
+
+            }
+            return lData
+        }
+        catch(error : Throwable) {
+            return liveData {
+                emit(listOf(PublicRecipe(0, "Error Fetching Recipes")))
             }
         }
-        return lData
     }
 
     override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>
