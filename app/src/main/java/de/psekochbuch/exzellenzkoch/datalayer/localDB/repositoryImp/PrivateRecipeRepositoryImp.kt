@@ -38,9 +38,6 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
             var recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
             liveData.postValue(recipe)
         }
-
-
-
         return liveData
     }
 
