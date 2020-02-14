@@ -62,7 +62,7 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
 
            // Toast.makeText(context, items[position].recipeId.toString(), Toast.LENGTH_SHORT).show()
             viewModel.deleteRecipe(recipes[position].recipeId)
-
+            notifyItemRemoved(position)
         }
 
 

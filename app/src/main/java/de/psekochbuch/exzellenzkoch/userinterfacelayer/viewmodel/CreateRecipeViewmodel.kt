@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +18,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     var privateRepo = privateRepository
     var publicRepo = publicRepository
     var recipe: LiveData<PrivateRecipe> = MutableLiveData()
+
     var recipeID = 0
 
     /**
@@ -68,10 +70,15 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      * @param id The id for the corresponding recipe
      */
     fun setRecipeByID(id: Int) {
+
+        Log.i("", "setRecByID")
+
         // var  recipe = repo.getPrivateRecipe(id)
         recipeID = id
+        val recipes = privateRepo.getPrivateRecipes()
         val recipe = privateRepo.getPrivateRecipe(recipeID)
         if(recipe.value == null){
+            Log.i("","recipe ist null")
             return
         }
 

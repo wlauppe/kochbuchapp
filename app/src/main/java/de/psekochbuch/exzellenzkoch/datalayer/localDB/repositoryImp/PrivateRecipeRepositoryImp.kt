@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -26,11 +27,15 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         return liveData
     }
 
+    fun gettprivate(id:Int):PrivateRecipe{
+        return transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+    }
+
     override fun getPrivateRecipe(id: Int): LiveData<PrivateRecipe> {
-        var recipe: PrivateRecipe
+     //   var recipe: PrivateRecipe
         val liveData = MutableLiveData<PrivateRecipe>()
         DB.databaseWriteExecutor.execute{
-            recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+            var recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
             liveData.postValue(recipe)
         }
 
