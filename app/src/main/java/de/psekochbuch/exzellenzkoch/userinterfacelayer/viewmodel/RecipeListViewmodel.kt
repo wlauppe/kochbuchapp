@@ -62,7 +62,8 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
                         }
                     }
                 }
-            }  }
+            }
+            }
         }
 
     }

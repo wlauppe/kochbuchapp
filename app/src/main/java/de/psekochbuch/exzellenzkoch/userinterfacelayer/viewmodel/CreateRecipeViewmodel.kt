@@ -21,14 +21,14 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
     //LiveData Attributes for XML
 
-    var title  = MutableLiveData(recipe.value!!.title)
+    var title  :LiveData<String> = MutableLiveData("")
     var creationDate = recipe.value!!.creationTimeStamp.toString()
-    var preparationTime = MutableLiveData(recipe.value!!.preparationTime)
-    var cookingTime = MutableLiveData(recipe.value!!.cookingTime)
-    var ingredients = MutableLiveData(recipe.value!!.ingredientsText)
-    var description = MutableLiveData(recipe.value!!.preparation)
-    var imgUrl = MutableLiveData(recipe.value!!.imgUrl)
-    var portions = MutableLiveData(recipe.value!!.portions)
+    var preparationTime:LiveData<Int>  = MutableLiveData(0)
+    var cookingTime:LiveData<Int>  = MutableLiveData(0)
+    var ingredients:LiveData<String>  = MutableLiveData("")
+    var description:LiveData<String>  = MutableLiveData("")
+    var imgUrl:LiveData<String>  = MutableLiveData("")
+    var portions:LiveData<Int>  = MutableLiveData(0)
 
 
 
@@ -49,12 +49,14 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
 
     //Checkboxes for the recipe tags
-    var tagCheckBoxVegan: MutableLiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxVegetarian: MutableLiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxHearty: MutableLiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxSweet: MutableLiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxSalty: MutableLiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxCheap: MutableLiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxVegan: LiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxVegetarian: LiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxHearty: LiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxSweet: LiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxSalty: LiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxCheap: LiveData<Boolean> = MutableLiveData(false)
+
+
 
     //Checkbox if the users whishes to publish his recipe
     var tagCheckBoxPublish: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -64,38 +66,38 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      * @param id The id for the corresponding recipe
      */
     fun setRecipeByID(id: Int) {
-
         Log.i("", "setRecByID")
-
         recipeID = id
         if(id != 0) {
             recipe = privateRepo.getPrivateRecipe(recipeID)
         }
-
-       val  tagCheckBoxVegan =
+          tagCheckBoxVegan =
            Transformations.map(recipe) { recipe -> recipe.tags.contains("vegan")}
+          tagCheckBoxVegetarian =
+            Transformations.map(recipe) { recipe -> recipe.tags.contains("vegetarisch") }
+          tagCheckBoxCheap =
+            Transformations.map(recipe) { recipe -> recipe.tags.contains("günstig")}
+          tagCheckBoxHearty =
+            Transformations.map(recipe) { recipe -> recipe.tags.contains("herzhaft")}
+          tagCheckBoxSweet =
+            Transformations.map(recipe) { recipe -> recipe.tags.contains("süß")}
+          tagCheckBoxSalty =
+            Transformations.map(recipe) { recipe -> recipe.tags.contains("salzig")}
 
-        fun setCheckboxes (){
-            //set the checkboxes with the set tags
-            if (recipe.value!!.tags.contains("vegan")!!) {
-                this.tagCheckBoxVegan.value = true
-            }
-            if (recipe.value!!.tags.contains("vegetarisch")) {
-                this.tagCheckBoxVegetarian.value = true
-            }
-            if (recipe.value!!.tags.contains("günstig")) {
-                this.tagCheckBoxCheap.value = true
-            }
-            if (recipe.value!!.tags.contains("herzhaft")) {
-                this.tagCheckBoxHearty.value = true
-            }
-            if (recipe.value!!.tags.contains("süß")) {
-                this.tagCheckBoxSweet.value = true
-            }
-            if (recipe.value!!.tags.contains("salzig")) {
-                this.tagCheckBoxSalty.value = true
-            }
-        }
+          title = Transformations.map(recipe){recipe -> recipe.title}
+
+          preparationTime = Transformations.map(recipe){recipe -> recipe.preparationTime}
+
+          cookingTime = Transformations.map(recipe){recipe -> recipe.cookingTime}
+
+          ingredients = Transformations.map(recipe){recipe -> recipe.ingredientsText}
+
+        description = Transformations.map(recipe){recipe -> recipe.preparation}
+
+        imgUrl = Transformations.map(recipe){recipe -> recipe.imgUrl}
+
+        portions = Transformations.map(recipe){recipe -> recipe.portions}
+
     }
 
     /**
@@ -111,12 +113,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if ((this.recipeID != 0)) {
             newRecipe = PrivateRecipe(
                 recipe.value!!.recipeId,
-                this.title.value!!, this.ingredients.value!!, getCheckedTags(), this.description.value!!, this.imgUrl.value!!, this.preparationTime.value!!,
-                preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
+                title.value!!, ingredients.value!!, listOf("vegan"), description.value!!, imgUrl.value!!, preparationTime.value!!,
+                preparationTime.value!!, Date(System.currentTimeMillis()), portions = portions.value!!)
             //Rezept existiert schon
         } else {
             newRecipe = PrivateRecipe(0,
-                this.title.value!!, this.ingredients.value!!, getCheckedTags(), this.description.value!!, this.imgUrl.value!!, this.preparationTime.value!!,
+                this.title.value!!, this.ingredients.value!!, listOf("vegan"), this.description.value!!, this.imgUrl.value!!, this.preparationTime.value!!,
                 preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
 
         }
