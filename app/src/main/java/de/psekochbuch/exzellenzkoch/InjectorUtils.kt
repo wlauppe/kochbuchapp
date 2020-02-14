@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch
 
+import android.app.Application
 import android.content.Context
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
@@ -36,8 +37,8 @@ object InjectorUtils {
 
 
     private fun getPrivateRecipeRepository(context: Context): PrivateRecipeRepository {
-        return PrivateRecipeFakeRepositoryImp.getInstance()
-        //return PrivateRecipeRepositoryImp.getInstance()
+        //return PrivateRecipeFakeRepositoryImp.getInstance()
+        return PrivateRecipeRepositoryImp.getInstance(context.applicationContext as Application)
     }
 
     private fun getEditTagRepository(context: Context): TagRepository {

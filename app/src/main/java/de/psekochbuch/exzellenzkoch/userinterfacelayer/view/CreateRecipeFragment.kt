@@ -28,6 +28,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeVie
 import android.os.Build.*
 import android.Manifest
 import android.net.Uri
+import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
 
@@ -50,16 +51,15 @@ class CreateRecipeFragment : Fragment() {
         viewModelTemp = viewModel
 
         //SafeArgs---------------------------
-        var recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
+        val recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
 
         if(recipeID != null) {
             if(recipeID != 0){
                 viewModel.setRecipeByID(recipeID)
             }
-           // Toast.makeText(context,recipeID.toString(), Toast.LENGTH_SHORT).show()
-
-           // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
         }
+
+
 
         //binding set to the according Fragment
         binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)

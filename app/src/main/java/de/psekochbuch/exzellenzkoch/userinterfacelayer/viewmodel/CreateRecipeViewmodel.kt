@@ -1,6 +1,10 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import androidx.lifecycle.*
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.room.RoomDatabase
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
@@ -10,18 +14,18 @@ import java.util.*
 
 class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                             publicRepository: PublicRecipeRepository) : ViewModel() {
+
     var privateRepo = privateRepository
     var publicRepo = publicRepository
     var recipe: LiveData<PrivateRecipe> = MutableLiveData(PrivateRecipe( 0,"","", emptyList(), "", "", 0,0,
         Date(System.currentTimeMillis()),0))
     var recipeID = 0
 
-    /*
- * This variable is private because we don't want to expose MutableLiveData
- *
- * MutableLiveData allows anyone to set a value, and MainViewModel is the only
- * class that should be setting values.
- */
+    /**
+    * This variable is private because we don't want to expose MutableLiveData
+    * MutableLiveData allows anyone to set a value, and MainViewModel is the only
+    * class that should be setting values.
+    */
 
     private val _errorLiveDataString = MutableLiveData<String?>()
     /**
@@ -47,6 +51,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      * @param id The id for the corresponding recipe
      */
     fun setRecipeByID(id: Int) {
+
+        Log.i("", "setRecByID")
+
         // var  recipe = repo.getPrivateRecipe(id)
 
         recipeID = id

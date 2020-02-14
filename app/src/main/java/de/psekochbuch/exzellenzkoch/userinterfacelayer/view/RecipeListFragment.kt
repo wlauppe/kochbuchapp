@@ -48,13 +48,13 @@ class RecipeListFragment : Fragment() {
             navController.navigate(RecipeListFragmentDirections.actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(0))
         }
 
-        /*
         //Safeargs werden hier aus dem Bundle gezogen
-        var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
-        var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
-        var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
-        Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
-         */
+        //var it = arguments?.let { RecipeListFragmentArgs }
+        //var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
+        //var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
+        //var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
+        //Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
+
         return binding.root
     }
 

@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -17,22 +18,38 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     private val privateRecipeTagDao: PrivateRecipeTagDao? = DB.getDatabase(application!!)?.privateRecipeTagDao();
 
     override fun getPrivateRecipes(): LiveData<List<PrivateRecipe>> {
-        val recipes = transformListPrivateRecipeDBToListPrivateRecipeDB(privateRecipeDao?.getAll()!!)
+        var recipes: List<PrivateRecipe> = listOf()
         val liveData = MutableLiveData<List<PrivateRecipe>>()
-        liveData.postValue(recipes)
+        DB.databaseWriteExecutor.execute{
+            recipes = transformListPrivateRecipeDBToListPrivateRecipeDB(privateRecipeDao?.getAll()!!)
+            liveData.postValue(recipes)
+        }
         return liveData
     }
 
+    fun gettprivate(id:Int):PrivateRecipe{
+        return transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+    }
+
     override fun getPrivateRecipe(id: Int): LiveData<PrivateRecipe> {
-        val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+     //   var recipe: PrivateRecipe
         val liveData = MutableLiveData<PrivateRecipe>()
-        liveData.postValue(recipe)
+        DB.databaseWriteExecutor.execute{
+            var recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
+            liveData.postValue(recipe)
+        }
+
+
+
         return liveData
     }
 
     override suspend fun deletePrivateRecipe(id: Int) {
-        privateRecipeDao?.deleteRecipe(id.toLong())
-        privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
+        DB.databaseWriteExecutor.execute{
+            privateRecipeDao?.deleteRecipe(id.toLong())
+            privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
+        }
+
     }
 
 
@@ -62,9 +79,9 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         // For Singleton instantiation
         @Volatile private var instance: PrivateRecipeRepository? = null
 
-        fun getInstance() =
+        fun getInstance(application:Application) =
             instance ?: synchronized(this) {
-                instance ?: PrivateRecipeRepositoryImp(application = Application()).also { instance = it }
+                instance ?: PrivateRecipeRepositoryImp(application).also { instance = it }
             }
     }
 }
