@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
 
@@ -11,11 +12,12 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewm
  * PublicRecipeRepository.
  */
 
-class RecipeListViewModelFactory(private val repository: PrivateRecipeRepository)
+class RecipeListViewModelFactory(private val privateRepository: PrivateRecipeRepository,
+        private val publicRepo:PublicRecipeRepository)
     : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return RecipeListViewmodel(repository) as T
+        return RecipeListViewmodel(privateRepository, publicRepo) as T
     }
 }
