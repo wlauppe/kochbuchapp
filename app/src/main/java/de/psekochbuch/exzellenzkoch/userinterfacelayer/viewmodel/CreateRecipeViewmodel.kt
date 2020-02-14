@@ -8,14 +8,18 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
-                            publicRepository: PublicRecipeRepository) : ViewModel() {
+                            publicRepository: PublicRecipeRepository,
+                            userRepository: UserRepository) : ViewModel() {
 
     var privateRepo = privateRepository
     var publicRepo = publicRepository
+    var userRepo = userRepository
     var recipe: LiveData<PrivateRecipe> = MutableLiveData(PrivateRecipe( 0,"","", listOf(""), "", "", 0,0,
         Date(System.currentTimeMillis()),0))
     var recipeID = 0
