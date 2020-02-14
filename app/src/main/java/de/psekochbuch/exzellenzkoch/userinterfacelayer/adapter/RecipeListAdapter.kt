@@ -2,18 +2,15 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
-
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
@@ -48,7 +45,6 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
         holder.recipeListItemBinding.value = recipes[position].title
 
-        Toast.makeText(context, recipes[position].title.toString(), Toast.LENGTH_SHORT).show()
         id = recipes[position].recipeId
 
 
@@ -68,6 +64,7 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
             viewModel.deleteRecipe(recipes[position].recipeId)
             notifyItemRemoved(position)
             notifyDataSetChanged()
+
             //notifyItemRangeChanged(position,1)
            // holder.itemView.visibility = View.GONE
         }
