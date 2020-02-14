@@ -13,17 +13,17 @@ import java.util.*
 
 class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                             publicRepository: PublicRecipeRepository) : ViewModel() {
+
     var privateRepo = privateRepository
     var publicRepo = publicRepository
     var recipe: LiveData<PrivateRecipe> = MutableLiveData()
     var recipeID = 0
 
-    /*
- * This variable is private because we don't want to expose MutableLiveData
- *
- * MutableLiveData allows anyone to set a value, and MainViewModel is the only
- * class that should be setting values.
- */
+    /**
+    * This variable is private because we don't want to expose MutableLiveData
+    * MutableLiveData allows anyone to set a value, and MainViewModel is the only
+    * class that should be setting values.
+    */
 
     private val _errorLiveDataString = MutableLiveData<String?>()
     /**
