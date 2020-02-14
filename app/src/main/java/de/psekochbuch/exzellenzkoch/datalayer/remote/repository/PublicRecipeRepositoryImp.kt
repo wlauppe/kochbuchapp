@@ -158,7 +158,13 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     }
 
     override suspend fun unreportRecipe(RecipeId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        coroutineScope {
+            try {
+                //TODO Implement Admin Api.
+            } catch (error: Throwable) {
+                throw NetworkError("Unable to publish report recipe", error)
+            }
+        }
     }
 
     companion object {
