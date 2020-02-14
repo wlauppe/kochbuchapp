@@ -88,7 +88,7 @@ class UserRepositoryImp : UserRepository  {
             }
     }
 
-    public fun setToken(token:String)
+    override fun setToken(token:String)
     {
         this.token = token
         retrofit = ApiServiceBuilder(token).createApi(UserApi::class.java) as UserApi

@@ -2,18 +2,17 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 
 
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.AuthenticationResult
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import kotlinx.coroutines.launch
 
 class RegistrationViewModel(authentification:Authentification, repo:UserRepository) : ViewModel() {
@@ -23,21 +22,23 @@ class RegistrationViewModel(authentification:Authentification, repo:UserReposito
     var userId: MutableLiveData<String> = MutableLiveData()
     var password: MutableLiveData<String> = MutableLiveData()
     var progressBarVisibility: MutableLiveData<Boolean> = MutableLiveData(false)
+    var focusable: MutableLiveData<Boolean> = MutableLiveData(true)
 
-    fun registerOnClick() {
+    private val userRepository = repo
 
-        val userRepository = UserRepositoryImp()
+    fun registerOnClick(updateUi: (String?, AuthenticationResult, String?) -> Unit) {
 
-        progressBarVisibility.postValue(true)
-        val id = userId.value
-        if(id != "" && id != null){
-            viewModelScope.launch {
-                try {
-                    val user : User? = userRepository.checkUser(id)
-                    if(user?.userId == "") {
-                        val em = email.value
-                        val pw = password.value
-                        if (em != null && pw != null) {
+        val em = email.value
+        val pw = password.value
+        if (em != null && pw != null) {
+
+            val id = userId.value
+            if (id != "" && id != null) {
+                viewModelScope.launch {
+                    try {
+                        val user: User? = userRepository.checkUser(id)
+                        if (user?.userId == "") {
+
                             AuthentificationImpl
                                 .register(em, pw, id) { it, result ->
                                     if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
@@ -45,50 +46,86 @@ class RegistrationViewModel(authentification:Authentification, repo:UserReposito
                                         userRepository.setToken(it)
                                         viewModelScope.launch {
                                             try {
-                                                 val token = userRepository.addUser(id)
+                                                val token = userRepository.addUser(id)
                                                 AuthentificationImpl.authWithCustomToken(token) {
                                                     AuthentificationImpl.getToken {
-                                                        if(it.equals(token))
-                                                        {
-                                                            val t = true
-                                                        }
-                                                        else {
-                                                            val x = false
-                                                        }
+
+
                                                     }
                                                 }
-                                            }catch (e: Exception)
-                                            {
+                                            } catch (e: Exception) {
 
                                             }
 
                                             progressBarVisibility.postValue(false)
                                         }
                                     } else {
-                                        progressBarVisibility.postValue(false)
+                                        updateUi("", result, "registration failed. connection to server is bad")
+                                        //progressBarVisibility.postValue(false)
                                     }
                                 }
+
+                            progressBarVisibility.postValue(false)
+                        } else {
+                            updateUi(
+                                "",
+                                AuthenticationResult.USERALREADYEXIST,
+                                "username already exist"
+                            )
                         }
+
+                    } catch (ex: Exception) {
+
+                        updateUi(
+                            "",
+                            AuthenticationResult.CANNOTCONTECTTOSERVER,
+                            "Cannot connect to server"
+                        )
+                        ex.printStackTrace()
+
+                    } finally {
                         progressBarVisibility.postValue(false)
                     }
+                    //Repo anfrage, ob ID schon existiert
+                    //-> 5 Sekunden Wartezeit für Serverantwort
+                    //boolean abfrage der SErverantwort
+                    //-> falls ja : Toast ausgabe und return
+                    //-> falls nein: unterer code
+                }
 
-                }catch (ex: Exception)
-                {
-                    ex.printStackTrace()
-                }
-                finally {
-                    progressBarVisibility.postValue(false)
-                }
-                //Repo anfrage, ob ID schon existiert
-                //-> 5 Sekunden Wartezeit für Serverantwort
-                //boolean abfrage der SErverantwort
-                //-> falls ja : Toast ausgabe und return
-                //-> falls nein: unterer code
+            } else {
+
+                AuthentificationImpl
+                    .register(em, pw, "") { it, result ->
+                        if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                            Log.d(TAG, "Registration erfolgreich")
+                            userRepository.setToken(it)
+                            viewModelScope.launch {
+                                try {
+                                    val token = userRepository.addUser("")
+                                    AuthentificationImpl.authWithCustomToken(token) {
+                                        AuthentificationImpl.getToken {
+
+
+                                        }
+                                    }
+                                } catch (e: Exception) {
+
+                                }
+
+                                progressBarVisibility.postValue(false)
+                            }
+                        } else {
+                            progressBarVisibility.postValue(false)
+                        }
+                    }
+                progressBarVisibility.postValue(false)
             }
 
+            //email.postValue("bal")
+        } else {
+            updateUi("", AuthenticationResult.REGISTRATIONFAILED, "email and password empty")
         }
-        //email.postValue("bal")
-
     }
 
     fun registrationSuccess():Boolean{
