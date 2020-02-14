@@ -18,6 +18,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
     var privateRepo = privateRepository
     var publicRepo = publicRepository
+
     var recipe: LiveData<PrivateRecipe> = MutableLiveData(PrivateRecipe( 0,"","", listOf(""), "", "", 0,0,
         Date(System.currentTimeMillis()),0))
     var recipeID = 0
@@ -67,31 +68,44 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      * @param id The id for the corresponding recipe
      */
     fun setRecipeByID(id: Int) {
-
         Log.i("", "setRecByID")
-
         recipeID = id
         if(id != 0) {
             recipe = privateRepo.getPrivateRecipe(recipeID)
+
+
+            //Hier komme ich nicht mehr weiter wenn das rezept aus dem Repo geladen ist, will ich benachrichtigt werden
+            setLiveData()
+
+
+
+
             //set the checkboxes with the set tags
-            if (recipe.value!!.tags.contains("vegan")!!) {
-                this.tagCheckBoxVegan.value = true
-            }
-            if (recipe.value!!.tags.contains("vegetarisch")) {
-                this.tagCheckBoxVegetarian.value = true
-            }
-            if (recipe.value!!.tags.contains("günstig")) {
-                this.tagCheckBoxCheap.value = true
-            }
-            if (recipe.value!!.tags.contains("herzhaft")) {
-                this.tagCheckBoxHearty.value = true
-            }
-            if (recipe.value!!.tags.contains("süß")) {
-                this.tagCheckBoxSweet.value = true
-            }
-            if (recipe.value!!.tags.contains("salzig")) {
-                this.tagCheckBoxSalty.value = true
-            }
+        }
+    }
+
+    fun setTags(){
+
+        if(recipe.value!!.tags.contains("vegan")){
+            this.tagCheckBoxVegan.value = true
+        }
+        if (recipe.value!!.tags.contains("vegan")) {
+            this.tagCheckBoxVegan.value = true
+        }
+        if (recipe.value!!.tags.contains("vegetarisch")) {
+            this.tagCheckBoxVegetarian.value = true
+        }
+        if (recipe.value!!.tags.contains("günstig")) {
+            this.tagCheckBoxCheap.value = true
+        }
+        if (recipe.value!!.tags.contains("herzhaft")) {
+            this.tagCheckBoxHearty.value = true
+        }
+        if (recipe.value!!.tags.contains("süß")) {
+            this.tagCheckBoxSweet.value = true
+        }
+        if (recipe.value!!.tags.contains("salzig")) {
+            this.tagCheckBoxSalty.value = true
         }
     }
 
@@ -172,6 +186,19 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         return result
     }
 
+    fun setLiveData(){
+         title  = MutableLiveData(recipe.value!!.title)
+         creationDate = recipe.value!!.creationTimeStamp.toString()
+         preparationTime = MutableLiveData(recipe.value!!.preparationTime)
+         cookingTime = MutableLiveData(recipe.value!!.cookingTime)
+         ingredients = MutableLiveData(recipe.value!!.ingredientsText)
+         description = MutableLiveData(recipe.value!!.preparation)
+         imgUrl = MutableLiveData(recipe.value!!.imgUrl)
+         portions = MutableLiveData(recipe.value!!.portions)
+
+
+
+    }
     /**
      * converts a copy of the current private recipe to a public recipe. If all the nesessary
      * attributes are fullfilled the public recipe is created and uploaded to the server database.

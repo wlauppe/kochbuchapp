@@ -65,6 +65,7 @@ class CreateRecipeFragment : Fragment() {
         }
 
 
+
         //binding set to the according Fragment
         binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders

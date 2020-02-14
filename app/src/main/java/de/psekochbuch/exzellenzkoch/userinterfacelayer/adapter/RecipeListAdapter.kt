@@ -81,8 +81,6 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
         }
         Glide.with(context).load(urlString).into(imageView)
 
-
-
     }
 
     class RecipeListViewHolder(var recipeListItemBinding: RecipeListItemBinding)
