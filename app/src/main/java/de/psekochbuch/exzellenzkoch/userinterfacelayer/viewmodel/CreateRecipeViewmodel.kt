@@ -117,13 +117,14 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if ((this.recipeID != 0)) {
             newRecipe = PrivateRecipe(
                 recipe.value!!.recipeId,
-                title.value!!, ingredients.value!!, listOf("vegan"), description.value!!, imgUrl.value!!, preparationTime.value!!,
-                preparationTime.value!!, Date(System.currentTimeMillis()), portions = portions.value!!)
+                title.value!!, ingredients.value!!, listOf("vegan"), description.value!!, imgUrl.value!!,
+                cookingTime.value!!,
+                preparationTime.value!!, Date(System.currentTimeMillis()), portions.value!!)
             //Rezept existiert schon
         } else {
             newRecipe = PrivateRecipe(0,
-                this.title.value!!, this.ingredients.value!!, listOf("vegan"), this.description.value!!, this.imgUrl.value!!, this.preparationTime.value!!,
-                preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
+                title.value!!,ingredients.value!!, listOf("vegan"),description.value!!,imgUrl.value!!, cookingTime.value!!,
+                preparationTime.value!!, Date(System.currentTimeMillis()),portions.value!!)
 
         }
 
