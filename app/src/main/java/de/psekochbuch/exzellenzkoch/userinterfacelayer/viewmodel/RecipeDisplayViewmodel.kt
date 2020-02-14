@@ -1,9 +1,6 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import kotlinx.coroutines.launch
@@ -15,9 +12,13 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
 
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
-    var recipe : LiveData<PublicRecipe> = MutableLiveData()
+    var recipe : LiveData<PublicRecipe> = MutableLiveData(PublicRecipe())
 
     private val _errorLiveDataString = MutableLiveData<String?>()
+
+    var recipeTitle : LiveData<String> = liveData {
+        emit(recipe.value!!.title)
+    }
     /**
      * Request a snackbar to display a string.
      */

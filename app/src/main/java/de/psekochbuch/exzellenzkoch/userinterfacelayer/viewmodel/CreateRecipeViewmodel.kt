@@ -17,9 +17,24 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
     var privateRepo = privateRepository
     var publicRepo = publicRepository
-    var recipe: LiveData<PrivateRecipe> = MutableLiveData(PrivateRecipe( 0,"","", emptyList(), "", "", 0,0,
+    var recipe: LiveData<PrivateRecipe> = MutableLiveData(PrivateRecipe( 0,"","", listOf(""), "", "", 0,0,
         Date(System.currentTimeMillis()),0))
     var recipeID = 0
+
+    //LiveData Attributes for XML
+
+    var title  = MutableLiveData(recipe.value!!.title)
+    var creationDate = recipe.value!!.creationTimeStamp.toString()
+    var preparationTime = MutableLiveData(recipe.value!!.preparationTime)
+    var cookingTime = MutableLiveData(recipe.value!!.cookingTime)
+    var ingredients = MutableLiveData(recipe.value!!.ingredientsText)
+    var description = MutableLiveData(recipe.value!!.preparation)
+    var imgUrl = MutableLiveData(recipe.value!!.imgUrl)
+    var portions = MutableLiveData(recipe.value!!.portions)
+
+
+
+
 
     /**
     * This variable is private because we don't want to expose MutableLiveData
@@ -54,32 +69,28 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
         Log.i("", "setRecByID")
 
-        // var  recipe = repo.getPrivateRecipe(id)
-
         recipeID = id
         if(id != 0) {
             recipe = privateRepo.getPrivateRecipe(recipeID)
-        }
-
-
-        //set the checkboxes with the set tags
-        if (recipe.value?.tags?.contains("vegan")!!) {
-            this.tagCheckBoxVegan.value = true
-        }
-        if (recipe.value!!.tags.contains("vegetarisch")) {
-            this.tagCheckBoxVegetarian.value = true
-        }
-        if (recipe.value!!.tags.contains("günstig")) {
-            this.tagCheckBoxCheap.value = true
-        }
-        if (recipe.value!!.tags.contains("herzhaft")) {
-            this.tagCheckBoxHearty.value = true
-        }
-        if (recipe.value!!.tags.contains("süß")) {
-            this.tagCheckBoxSweet.value = true
-        }
-        if (recipe.value!!.tags.contains("salzig")) {
-            this.tagCheckBoxSalty.value = true
+            //set the checkboxes with the set tags
+            if (recipe.value!!.tags.contains("vegan")!!) {
+                this.tagCheckBoxVegan.value = true
+            }
+            if (recipe.value!!.tags.contains("vegetarisch")) {
+                this.tagCheckBoxVegetarian.value = true
+            }
+            if (recipe.value!!.tags.contains("günstig")) {
+                this.tagCheckBoxCheap.value = true
+            }
+            if (recipe.value!!.tags.contains("herzhaft")) {
+                this.tagCheckBoxHearty.value = true
+            }
+            if (recipe.value!!.tags.contains("süß")) {
+                this.tagCheckBoxSweet.value = true
+            }
+            if (recipe.value!!.tags.contains("salzig")) {
+                this.tagCheckBoxSalty.value = true
+            }
         }
     }
 
@@ -96,13 +107,13 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if ((this.recipeID != 0)) {
             newRecipe = PrivateRecipe(
                 recipe.value!!.recipeId,
-                this.recipe.value?.title!!, this.recipe.value!!.ingredientsText, getCheckedTags(), this.recipe.value!!.preparation, this.recipe.value!!.imgUrl, recipe.value!!.preparationTime,
-                recipe.value!!.preparationTime, Date(System.currentTimeMillis()), portions = this.recipe.value!!.portions)
+                this.title.value!!, this.ingredients.value!!, getCheckedTags(), this.description.value!!, this.imgUrl.value!!, this.preparationTime.value!!,
+                preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
             //Rezept existiert schon
         } else {
             newRecipe = PrivateRecipe(0,
-                this.recipe.value?.title!!, this.recipe.value!!.ingredientsText, getCheckedTags(), this.recipe.value!!.preparation, this.recipe.value!!.imgUrl, recipe.value!!.preparationTime,
-                recipe.value!!.preparationTime, Date(System.currentTimeMillis()), portions = this.recipe.value!!.portions)
+                this.title.value!!, this.ingredients.value!!, getCheckedTags(), this.description.value!!, this.imgUrl.value!!, this.preparationTime.value!!,
+                preparationTime.value!!, Date(System.currentTimeMillis()), portions = this.portions.value!!)
 
         }
 

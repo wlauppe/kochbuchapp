@@ -31,6 +31,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
 class CreateRecipeFragment : Fragment() {
 
@@ -45,20 +46,23 @@ class CreateRecipeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         val viewModel : CreateRecipeViewmodel by viewModels {
             InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
         }
+
+
+
+
         viewModelTemp = viewModel
 
         //SafeArgs---------------------------
         val recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
 
         if(recipeID != null) {
-            if(recipeID != 0){
                 viewModel.setRecipeByID(recipeID)
-            }
         }
-
 
 
         //binding set to the according Fragment

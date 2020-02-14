@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -45,6 +46,8 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
     }
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
         holder.recipeListItemBinding.value = recipes[position].title
+
+        Toast.makeText(context, recipes[position].title.toString(), Toast.LENGTH_SHORT).show()
         id = recipes[position].recipeId
 
 

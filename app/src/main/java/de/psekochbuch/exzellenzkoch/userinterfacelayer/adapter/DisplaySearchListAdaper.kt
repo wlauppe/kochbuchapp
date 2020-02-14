@@ -1,6 +1,8 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.content.Context
+import android.nfc.Tag
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -44,6 +46,7 @@ class DisplaySearchListAdaper(context: Context)
 
     override fun onBindViewHolder(holder: DisplaySearchListViewHolder, position: Int) {
         holder.displaySearchlistListitemBinding.value = recipes[position].title
+
         holder.displaySearchlistListitemBinding.displaySearchlistLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(DisplaySearchListFragmentDirections
