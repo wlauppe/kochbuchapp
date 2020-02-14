@@ -60,12 +60,9 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
          * Delete a recipe in the list from the ListAdapterItem
          */
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
-
-           // Toast.makeText(context, items[position].recipeId.toString(), Toast.LENGTH_SHORT).show()
             viewModel.deleteRecipe(recipes[position].recipeId)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position,1)
             holder.itemView.visibility = View.GONE
+            notifyDataSetChanged()
         }
 
 
