@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:padding="10dp"
-                        android:text="@{recipeDisplayViewModel.title}"
+                        android:text="@{recipeDisplayViewModel.recipe.title}"
                         android:textAlignment="center"
                         android:textSize="25sp"
                         android:textStyle="bold"
@@ -77,14 +77,26 @@
                         app:srcCompat="@drawable/ic_favorite_white_24dp" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView_creation_timestamp"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="@{recipeDisplayViewModel.creationDate}"
-                    android:textAlignment="center"
-                    android:textSize="13sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_creation_timestamp_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Erstellungsdatum: " />
+
+                    <TextView
+                        android:id="@+id/textView_creation_timestamp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@{String.valueOf(recipeDisplayViewModel.recipe.creationTimeStamp)}"
+                        android:textAlignment="center"
+                        android:textSize="13sp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -108,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:inputType="number"
-                        android:text="@{recipeDisplayViewModel.recipePrepTime.toString()}"
+                        android:text="@{String.valueOf(recipeDisplayViewModel.recipe.preparationTime)}"
                         android:textAlignment="center"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -132,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:inputType="number"
-                        android:text="@{recipeDisplayViewModel.recipeCookTime.toString()}"
+                        android:text="@{String.valueOf(recipeDisplayViewModel.recipe.cookingTime)}"
                         android:textAlignment="center"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -146,7 +158,7 @@
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
                     android:textAlignment="center"
-                    android:text="@{recipeDisplayViewModel.tagsList.toString()}"
+                    android:text="tags"
                     android:textSize="20sp"
                     android:textStyle="italic" />
 
@@ -156,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
-                    android:text="@{recipeDisplayViewModel.ingredients}"
+                    android:text="Ingredients"
                     android:textSize="20sp" />
 
                 <TextView
@@ -165,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
-                    android:text="@{recipeDisplayViewModel.preparationDescription}"
+                    android:text="@{recipeDisplayViewModel.recipe.preparation}"
                     android:textSize="20sp" />
             </LinearLayout>
         </ScrollView>

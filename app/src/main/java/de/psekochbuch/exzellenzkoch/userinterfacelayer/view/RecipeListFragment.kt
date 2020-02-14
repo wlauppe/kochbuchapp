@@ -25,19 +25,13 @@ class RecipeListFragment : Fragment() {
         val viewModel : RecipeListViewmodel by viewModels {
         InjectorUtils.provideRecipeListViewmodelFactory(requireContext())
         }
-
         binding.recyclerViewRecipeListFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-
         // show
         viewModel.getPrivateRecipes()
-
-
         // get adapter instance to display items in
         val adapter = RecipeListAdapter(viewModel, requireContext())
         binding.recyclerViewRecipeListFragment.adapter = adapter
-
         // set up observer for the list of private recipes
         // if the
         val observer = Observer<List<PrivateRecipe>> { items ->

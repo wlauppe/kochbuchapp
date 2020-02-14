@@ -65,7 +65,7 @@ data class PublicRecipeDto(
     /**
          * Ingredientschapters of the recipe
          */
-        var ingredientChapter: List<IngredientChapterDto>?,
+        var ingredientsChapter: List<IngredientChapterDto>?,
 
     /**
          * Tags of the recipes
