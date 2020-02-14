@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.mapper
 
 import de.psekochbuch.exzellenzkoch.BASE_URL
+import de.psekochbuch.exzellenzkoch.IMG_PREFIX
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.IngredientChapterDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.IngredientDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.PublicRecipeDto
@@ -34,7 +35,7 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
             },
             dto.recipeTag.map{ tag -> tag.name},
             dto.preparationDescription,
-            BASE_URL+dto.picture,
+            IMG_PREFIX+dto.picture,
             dto.cookingTime,
             dto.preparationTime,
             User(dto.userId),
@@ -49,7 +50,7 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
             entity.title,
             entity.ingredientsText,
             entity.preparation,
-            entity.imgUrl.removePrefix(BASE_URL),
+            entity.imgUrl.removePrefix(IMG_PREFIX),
             entity.cookingTime,
             entity.preparationTime,
             entity.user.userId,

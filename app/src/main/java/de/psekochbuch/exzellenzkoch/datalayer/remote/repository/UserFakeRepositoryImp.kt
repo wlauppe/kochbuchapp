@@ -32,16 +32,12 @@ class UserFakeRepositoryImp : UserRepository  {
     }
 
 
-    override fun getUsers(): LiveData<List<User>> {
+    fun getUsers(): LiveData<List<User>> {
         val ld: MutableLiveData<List<User>> = MutableLiveData(userList)
         return ld
 
     }
 
-
-    override fun getUsers(userIdPraefix: String): LiveData<List<User>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
     override fun getUser(UserId: String): LiveData<User> {
         var mld = MutableLiveData(getUsers().value!![1])

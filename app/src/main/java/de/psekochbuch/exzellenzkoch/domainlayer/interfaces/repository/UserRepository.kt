@@ -10,9 +10,6 @@ interface UserRepository {
      * Return the user (needed to load users from recipes eg)
      */
 
-    fun getUsers(): LiveData<List<User>>
-
-    fun getUsers(userIdPraefix: String): LiveData<List<User>>
 
     fun getUser(UserId: String): LiveData<User>
 
