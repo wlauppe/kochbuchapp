@@ -16,13 +16,15 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
 
     override fun toEntity(dto: PublicRecipeDto): PublicRecipe {
 
-        return PublicRecipe(dto.id,
+        return PublicRecipe(
+            dto.id,
             dto.title,
             dto.ingredientsText,
             dto.ingredientsChapter.map {
-                    chapter -> IngredientChapter(chapter.id,
-                        chapter.name,
-                        chapter.ingredient.map{
+                    chapter -> IngredientChapter(
+                    chapter.id,
+                    chapter.name,
+                    chapter.ingredient.map{
                             ingredient -> try{IngredientAmount(ingredient.nameIngredient,ingredient.amount,Unit.valueOf(ingredient.unit))}
                                 catch (e:IllegalArgumentException){
                                     IngredientAmount(ingredient.nameIngredient,ingredient.amount,Unit.KeineEinheit)
@@ -41,7 +43,8 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
     }
 
     override fun toDto(entity: PublicRecipe): PublicRecipeDto {
-        return PublicRecipeDto(entity.recipeId,
+        return PublicRecipeDto(
+            entity.recipeId,
             entity.title,
             entity.ingredientsText,
             entity.preparation,
@@ -53,10 +56,12 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
             entity.portions,
             entity.avgRating,
             entity.ingredientChapter.map {
-                    chapter -> IngredientChapterDto(chapter.chapterId,
+                    chapter -> IngredientChapterDto(
+                        chapter.chapterId,
                         chapter.chapter,
                         chapter.ingredients.map {
-                                ingredient -> IngredientDto(chapter.chapterId,
+                                ingredient -> IngredientDto(
+                                    chapter.chapterId,
                                     ingredient.ingredient,
                                     ingredient.quantity,
                                     ingredient.unit.getText())

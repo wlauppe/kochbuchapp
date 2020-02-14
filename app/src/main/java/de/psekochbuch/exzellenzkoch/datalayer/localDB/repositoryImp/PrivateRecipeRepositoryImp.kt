@@ -57,10 +57,6 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
     }
 
-    override fun getRecipe(id: Int): LiveData<PrivateRecipe> {
-        TODO()
-    }
-
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{
         //können wir IDs auch als longs abspeichern?
         return PrivateRecipe(recipe.id.toInt(), recipe.title!!,recipe.ingredientsText!!,privateRecipeTagDao?.getTagsFromRecipe(recipe.id)!!.map{tag -> tag.tag},recipe.preparationDescription!!,"wiesoURL?",recipe.cookingTime!!,recipe.preparationTime!!, Date(recipe.creationDate!!),recipe.portions!!)

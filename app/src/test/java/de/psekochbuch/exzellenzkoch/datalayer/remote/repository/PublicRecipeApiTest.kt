@@ -60,7 +60,7 @@ class PublicRecipeApiTest{
             )
 
 
-            assertEquals(retrofit.getRecipe(1).body()?.preparationDescription,"Man nehme " +
+            assertEquals(retrofit.getRecipe(1).preparationDescription,"Man nehme " +
                     "die Schaufel und schaufelt den Sand in das Förmchen. " +
                     "Dann drückt man alles fest und dreht das Förmchen auf einen Tisch um." +
                     " Dann hebt man das Förmchen hoch und man hat den Sandkuchen auf dem Tisch liegen.")
