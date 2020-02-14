@@ -6,6 +6,7 @@ import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import de.psekochbuch.exzellenzkoch.BASE_URL
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -21,9 +22,6 @@ import java.util.*
 
 class ApiServiceBuilder(firebaseToken:String?) {
     var retrofit: Retrofit? = null
-    private val BASE_URL = "http://193.196.38.185:8080/api/"
-    //Thomas: Ich bin mir recht sicher dass die URL http://193.196.38.185:8080/ sein muss(vlt ohne "/" am schluss)
-    //private val BASE_URL = "http://192.168.0.110:8080/api/"
     private val token = firebaseToken
 
     init {
