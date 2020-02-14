@@ -74,7 +74,8 @@ object InjectorUtils {
     fun provideCreateRecipeViewModelFactory(context: Context): CreateRecipeViewModelFactory {
         val privateRepository = getPrivateRecipeRepository(context)
         val publicRepository = getPublicRecipeRepository(context)
-        return CreateRecipeViewModelFactory(privateRepository, publicRepository)
+        val userRepository = getUserRepository(context)
+        return CreateRecipeViewModelFactory(privateRepository, publicRepository, userRepository)
     }
 
     //For Feed VM Factory
