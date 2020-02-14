@@ -34,28 +34,30 @@ class AdminFragment : Fragment() {
 
         binding.recyclerViewAdminRecipes.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewAdminUsers.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        binding.recyclerViewAdminUsers.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
+        val recipeAdapter = AdminRecipeAdapter(viewModel, requireContext())
+        val userAdapter = AdminUserAdapter(viewModel, requireContext())
 
-        val listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-        val listOfUser : List<User> = viewModel.users.value!!
-
-        val exampleAdapter = AdminRecipeAdapter(listOfRecipeNames,viewModel, requireContext())
-        val userAdapter = AdminUserAdapter(listOfUser, viewModel, requireContext())
-
-        binding.recyclerViewAdminRecipes.adapter = exampleAdapter
+        binding.recyclerViewAdminRecipes.adapter = recipeAdapter
         binding.recyclerViewAdminUsers.adapter = userAdapter
 
 
-        val observer = Observer<List<PublicRecipe>> { items ->
-            exampleAdapter.setNewItems(items)
+        val recipeObserver = Observer<List<PublicRecipe>> { recipes ->
+            recipes?.let {
+                recipeAdapter.reportedRecipes = recipes}
         }
-        val observerUser = Observer<List<User>> {
-                users -> userAdapter.setNewItems(users)
+
+        val userObserver = Observer<List<User>> { user ->
+            user?.let {
+                userAdapter.reportedUser = user}
         }
-        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-        viewModel.users.observe(this.viewLifecycleOwner, observerUser)
+
+
+        viewModel.recipes.observe(this.viewLifecycleOwner, recipeObserver)
+        viewModel.users.observe(this.viewLifecycleOwner, userObserver)
 
         binding.recyclerViewAdminUsers.setHasFixedSize(true)
         binding.recyclerViewAdminRecipes.setHasFixedSize(true)

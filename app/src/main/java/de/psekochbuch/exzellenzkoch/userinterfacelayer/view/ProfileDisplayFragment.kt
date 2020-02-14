@@ -36,16 +36,18 @@ class ProfileDisplayFragment : Fragment() {
         binding.profileDisplayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         // set input values to show them in the xml
-        val listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = ProfileDisplayAdapter(listOfRecipeNames,viewModel, requireContext())
+
+        val feedAdapter = ProfileDisplayAdapter(viewModel, requireContext())
 
         //Adapter--------------------------------------------
-        binding.profileDisplayRecyclerView.adapter = exampleAdapter
+        binding.profileDisplayRecyclerView.adapter = feedAdapter
              // set observer
-             val observer = Observer<List<PublicRecipe>> { items ->
-            exampleAdapter.setNewItems(items)
-             }
-             viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+        val observer = Observer<List<PublicRecipe>> { items ->
+            items?.let {
+                feedAdapter.recipes = items}
+        }
+
+        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
 
         //Glide------------------------------------------------

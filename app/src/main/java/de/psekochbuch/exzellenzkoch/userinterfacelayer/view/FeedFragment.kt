@@ -33,18 +33,17 @@ class FeedFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
 
-        var listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
+
+        val feedAdapter = FeedAdapter(viewModel, requireContext())
 
 
-        val exampleAdapter = FeedAdapter(listOfRecipeNames,viewModel, requireContext())
-
-
-        binding.recyclerViewFeed.adapter = exampleAdapter
+        binding.recyclerViewFeed.adapter = feedAdapter
 
 
 
         val observer = Observer<List<PublicRecipe>> { items ->
-            exampleAdapter.setNewItems(items)
+            items?.let {
+                feedAdapter.feedRecipes = items}
         }
 
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
