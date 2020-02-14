@@ -13,19 +13,22 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ProfileDisplayFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 
-class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicRecipe>(),viewModel: ProfileDisplayViewmodel, context: Context) :
+class ProfileDisplayAdapter(viewModel: ProfileDisplayViewmodel, context: Context) :
     RecyclerView.Adapter<ProfileDisplayAdapter.ProfileDisplayViewHolder>() {
 
     //Attributes
     var navController:NavController ? = null
     var id : Int ? = null
     var context = context
+    /**
+     * Notify every observer of data changes
+     */
+    var recipes = listOf<PublicRecipe>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
-    //Methods
-    fun setNewItems(newItems: List<PublicRecipe>){
-        items = newItems
-        this.notifyDataSetChanged()
-    }
 
     //Overridden Methods
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileDisplayViewHolder {
@@ -35,13 +38,13 @@ class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicReci
         return ProfileDisplayViewHolder(profileDisplayRecipeItemBinding)
     }
     override fun getItemCount(): Int {
-        return items.size
+        return recipes.size
     }
     override fun onBindViewHolder(holder: ProfileDisplayViewHolder, position: Int) {
-        holder.profileDisplayRecipeItemBinding.value = items[position].title
-        id = items[position].recipeId
+        holder.profileDisplayRecipeItemBinding.value = recipes[position].title
+        id = recipes[position].recipeId
 
-        var urlString = items[position].imgUrl
+        var urlString = recipes[position].imgUrl
         if(urlString == ""|| urlString.isNullOrEmpty()){
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
@@ -51,7 +54,8 @@ class ProfileDisplayAdapter(var items: List<PublicRecipe> = emptyList<PublicReci
 
         holder.profileDisplayRecipeItemBinding.profileDisplayRecipeLayoutItem.setOnClickListener{
 
-            navController!!.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToRecipeDisplayFragment().setRecipeID(items[position].recipeId))
+            navController!!.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToRecipeDisplayFragment()
+                .setRecipeID(recipes[position].recipeId))
         }
 
     }

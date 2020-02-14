@@ -49,7 +49,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="8dp"
             android:ems="10"
-
+            android:focusable="@{viewModel.focusable}"
             android:hint="@string/email_example"
             android:inputType="textEmailAddress"
             android:text="@={viewModel.email}"
@@ -85,6 +85,7 @@
             android:inputType="textPersonName"
             android:text="@={viewModel.userId}"
             android:textSize="20sp"
+            android:focusable="@{viewModel.focusable}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_register_userid_text" />
@@ -116,7 +117,8 @@
             android:text="@={viewModel.password}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_register_password_text" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_register_password_text"
+            android:focusable="@{viewModel.focusable}"/>
 
         <Button
             android:id="@+id/button_register_fragment_register"
@@ -128,7 +130,13 @@
             android:text="@string/register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText_register_password_input" />
+            app:layout_constraintTop_toBottomOf="@+id/editText_register_password_input"
+            android:clickable="@{viewModel.focusable}"/>
+
+        <include
+            android:id="@+id/llProgressBar"
+            android:visibility="@{viewModel.progressBarVisibility ? View.VISIBLE : View.INVISIBLE}"
+            layout="@layout/progress_view"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

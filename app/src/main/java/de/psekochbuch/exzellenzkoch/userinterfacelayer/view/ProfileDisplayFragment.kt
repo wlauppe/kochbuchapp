@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.InjectorUtils
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.ProfileDisplayAdapter
@@ -35,16 +36,18 @@ class ProfileDisplayFragment : Fragment() {
         binding.profileDisplayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         // set input values to show them in the xml
-        val listOfRecipeNames : List<PublicRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = ProfileDisplayAdapter(listOfRecipeNames,viewModel, requireContext())
+
+        val feedAdapter = ProfileDisplayAdapter(viewModel, requireContext())
 
         //Adapter--------------------------------------------
-        binding.profileDisplayRecyclerView.adapter = exampleAdapter
+        binding.profileDisplayRecyclerView.adapter = feedAdapter
              // set observer
-             val observer = Observer<List<PublicRecipe>> { items ->
-            exampleAdapter.setNewItems(items)
-             }
-             viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+        val observer = Observer<List<PublicRecipe>> { items ->
+            items?.let {
+                feedAdapter.recipes = items}
+        }
+
+        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
 
         //Glide------------------------------------------------
@@ -66,6 +69,9 @@ class ProfileDisplayFragment : Fragment() {
 
         binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener{
             viewModel.flagUserById()
+            Toast.makeText(requireContext(), "Profil gemeldet", Toast.LENGTH_SHORT).show()
+            val navController = findNavController()
+            navController.navigate(R.id.action_profileDisplayFragment_to_publicRecipeSearchFragment)
         }
 
         return binding.root

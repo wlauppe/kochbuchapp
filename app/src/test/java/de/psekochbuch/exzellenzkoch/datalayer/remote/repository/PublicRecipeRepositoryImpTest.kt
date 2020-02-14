@@ -14,7 +14,7 @@ class PublicRecipeRepositoryImpTest {
     @Test
     fun getPublicRecipe() {
 
-            val repo = PublicRecipeRepositoryImp()
+            val repo = PublicRecipeRepositoryImp.getInstance()
             val lrecipe=repo.getPublicRecipe(1)
             lrecipe.observeForever{}
             Thread.sleep(1000)

@@ -49,6 +49,9 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
     }
 
     fun setUserByID(id: String) {
+        //SetUserID Dummy
+        this.userID = MutableLiveData(id)
+        //
         if (id == "") {
             return
         }
@@ -68,7 +71,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
          //Coroutine
         viewModelScope.launch {
             try {
-                userRepo.reportUser(userID.toString())
+                userRepo.reportUser(userID.value.toString())
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }

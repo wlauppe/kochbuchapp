@@ -46,7 +46,7 @@ class RecipeDisplayFragment : Fragment(){
         var navController: NavController = findNavController()
 
         val imageView = binding.imageViewRecipeImage
-        var urlString = viewModel.recipe?.imgUrl
+        var urlString = viewModel.recipe.value?.imgUrl
         if(urlString == "" || urlString.isNullOrBlank()||urlString.isNullOrEmpty()){
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }

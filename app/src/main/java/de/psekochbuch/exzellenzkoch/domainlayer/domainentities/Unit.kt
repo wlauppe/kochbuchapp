@@ -11,9 +11,9 @@ enum class Unit(unit:String) {
             return "TeeLöffel"
         }
     },
-    Gramm("Gr.") {
+    Gramm("g") {
         override fun getText(): String {
-            return "Gramm"
+            return "g"
         }
     },
     Liter("L.") {
@@ -31,6 +31,7 @@ enum class Unit(unit:String) {
             return "Prise"
         }
     },
+
     KeineEinheit(""){
         override fun getText(): String{
             return "";
