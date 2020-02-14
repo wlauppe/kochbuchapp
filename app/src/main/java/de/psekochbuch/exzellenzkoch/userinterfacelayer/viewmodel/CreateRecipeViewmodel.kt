@@ -1,10 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.room.RoomDatabase
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
@@ -76,7 +73,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         }
 
        val  tagCheckBoxVegan =
-           Transformations.map(recipe) {recipe -> recipe.tags.contains("vegan")}
+           Transformations.map(recipe) { recipe -> recipe.tags.contains("vegan")}
 
         fun setCheckboxes (){
             //set the checkboxes with the set tags
