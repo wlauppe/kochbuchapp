@@ -45,7 +45,7 @@ data class PublicRecipeDto(
     /**
          * Id of the user, which create the recipe
          */
-        val userId:String?,
+        val userId:String,
 
     /**
          * Date of the recipe, when it is created
@@ -65,11 +65,11 @@ data class PublicRecipeDto(
     /**
          * Ingredientschapters of the recipe
          */
-        var ingredientsChapter: List<IngredientChapterDto>?,
+        var ingredientsChapter: List<IngredientChapterDto>,
 
     /**
          * Tags of the recipes
          */
-        var recipeTag:List<RecipeTagDto>?
+        var recipeTag:List<RecipeTagDto>
 
 )

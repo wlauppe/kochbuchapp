@@ -1,7 +1,6 @@
 package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -38,9 +37,6 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
             var recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
             liveData.postValue(recipe)
         }
-
-
-
         return liveData
     }
 
@@ -56,11 +52,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
         DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
     }
-
-    override fun getRecipe(id: Int): LiveData<PrivateRecipe> {
-        TODO()
-    }
-
+    
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{
         //können wir IDs auch als longs abspeichern?
         return PrivateRecipe(recipe.id.toInt(), recipe.title!!,recipe.ingredientsText!!,privateRecipeTagDao?.getTagsFromRecipe(recipe.id)!!.map{tag -> tag.tag},recipe.preparationDescription!!,"wiesoURL?",recipe.cookingTime!!,recipe.preparationTime!!, Date(recipe.creationDate!!),recipe.portions!!)
