@@ -62,7 +62,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                     }
                 }
                  catch(error : Throwable) {
-                     emit(listOf(PublicRecipe(0, "Error Fetching Recipes", imgUrl = "file:///android_asset/exampleimages/error.svg")))
+                     emit(listOf(PublicRecipe(0, "Error Fetching Recipes!", imgUrl = "file:///android_asset/exampleimages/error.png")))
                  }
 
             }
@@ -88,12 +88,18 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
 
         val lData = liveData(Dispatchers.IO, 1000) {
-            val dto = recipeApiService.getRecipe(recipeId)
-            //if (!response.isSuccessful) throw error("response not successful")
-            val entity = PublicRecipeDtoEntityMapper().toEntity(dto)
-            emit(entity)
+            try {
+                val dto = recipeApiService.getRecipe(recipeId)
+                //if (!response.isSuccessful) throw error("response not successful")
+                val entity = PublicRecipeDtoEntityMapper().toEntity(dto)
+                emit(entity)
+            }
+            catch(error : Throwable) {
+                emit(PublicRecipe(0, "Error Fetching Recipe!", imgUrl = "file:///android_asset/exampleimages/error.png"))
+            }
+
+
         }
-    //return MutableLiveData<PublicRecipe>(PublicRecipe(0,"Title"))
         return lData
     }
 
@@ -129,14 +135,14 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
 
     override suspend fun setRating(recipeId: Int, userId: String, value: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("Wunschkriterium, wird hier und vom Server nicht implementiert")
     }
 
     override suspend fun setImage(recipeId: Int, ImageUrl: String) {
 
         val file : File = File(ImageUrl)
 
-        val body = RequestBody.create(MediaType.parse("*/*"), file)
+        val body = RequestBody.create(MediaType.parse("image/*"), file)
         val multi = MultipartBody.Part.createFormData("file", file.name, body)
 
         //val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
