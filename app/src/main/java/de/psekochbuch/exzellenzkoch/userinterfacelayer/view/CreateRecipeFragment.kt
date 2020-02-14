@@ -166,7 +166,7 @@ class CreateRecipeFragment : Fragment() {
             val imageView = binding.imageButtonRecipeImage
             context?.let{Glide.with(it).load(data?.data).into(imageView)}
             imageView.setImageURI(data?.data)
-            viewModelTemp!!.recipe.value?.imgUrl = data?.data.toString()
+            viewModelTemp!!.imgUrl.value = data?.data.toString()
            //imageView.setImageURI(data?.data)
         }
     }
