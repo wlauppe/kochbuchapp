@@ -132,7 +132,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if (this.tagCheckBoxPublish.value!!) {
             //TODO muss anscheinend seit neuestem ein Feld "User übergeben"
             //Man muss da Zugriff auf den Benutzer haben,
-            // und wenn keiner angemeldet ist soll man ja auch nicht publishem können
+            // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
 
             val user = User("Todoimplementieren")
             val convertedPublicRecipe = newRecipe.convertToPublicRepipe(user)
