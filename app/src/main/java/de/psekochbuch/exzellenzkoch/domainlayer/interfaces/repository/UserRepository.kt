@@ -36,4 +36,6 @@ interface UserRepository {
     @Throws
     suspend fun unreportUser(userId : String)
 
+    fun setToken(token:String)
+
 }

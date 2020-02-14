@@ -45,59 +45,50 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
 
 
+    //Dies ist die normale Funktion die Search benutzt.
     @Throws
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
         Log.w(TAG, "getPublicRecipes() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
-            val response =
+            val dtoList =
                 recipeApiService.search(null, null, null, null, 1, 100)
-            if (!response.isSuccessful) throw error("response not successful")
-            val entityList = PublicRecipeDtoEntityMapper().toListEntity(response.body()!!)
+            //if (!response.isSuccessful) throw error("response not successful")
+            dtoList?.let {
+            val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
             emit(entityList)
+            }
         }
         return lData
     }
 
-    override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>{
-        TODO("implementieren")
-        try{
-
-
-        } catch (error: Throwable) {
-            throw NetworkError("Unable to write this method", error)
-        }
+    override fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>
+    {
+        Log.w(TAG, "getPublicRecipes(tags ... ) wird aufgerufen")
+        Log.w(TAG,"Parameter:  tags: $tags, ingredients: $ingredients, creationDate: $creationDate, sortOrder: $sortOrder")
+        var recipes = getPublicRecipes()
+        return recipes
     }
+
 
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
 
-    //Jetzt mal mit LiveData Builder
         val lData = liveData(Dispatchers.IO, 1000) {
-            val response = recipeApiService.getRecipe(recipeId)
-            if (!response.isSuccessful) throw error("response not successful")
-            val entity = PublicRecipeDtoEntityMapper().toEntity(response.body()!!)
+            val dto = recipeApiService.getRecipe(recipeId)
+            //if (!response.isSuccessful) throw error("response not successful")
+            val entity = PublicRecipeDtoEntityMapper().toEntity(dto)
             emit(entity)
         }
     //return MutableLiveData<PublicRecipe>(PublicRecipe(0,"Title"))
         return lData
     }
 
-       /* try{
-            return recipeMapper.toLiveEntity(recipeApiService.getRecipe(recipeId))
-        } catch(error: NullPointerException){
-            throw NetworkError("Server sent Nullpointer",error)
-        }
-        catch (error: Throwable) {
-            throw NetworkError("Unable to get recipe with id:" + recipeId, error)
-        }
-    }*/
 
-
-
+    @Throws
     override suspend fun  deleteRecipe(recipeId: Int) {
         try {
-            val result = withTimeout(5_000) {
+            val result = withTimeout(1000) {
                 recipeApiService.deleteRecipe(recipeId)
             }
         } catch (error: Throwable) {
@@ -105,20 +96,21 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
-
+    @Throws
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
-        var returnId : Int = -1
-        try{
+        var returnId : Int = 0
             coroutineScope{
-                val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
-                returnId = returnDto.id
+                try {
+                    val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
+                    returnId = returnDto.id
+                }
+                catch (error : Throwable) {
+                    throw NetworkError("Unable to publish recipe", error)
+                }
+
             }
 
-        } catch (error: Throwable) {
-            throw NetworkError("Unable to publish recipe", error)
-        }
-
-        //Soll der rückgabewert die id des rezpetes sein? ja
+        //das ist der Rückgabewert der
         return returnId
     }
 
@@ -128,9 +120,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     }
 
     override suspend fun setImage(recipeId: Int, ImageUrl: String) {
-        //versuche es erst mal mit einem vordefinierten Image
-        //später könnte man direkt ImageUrl übergeben.
-        //val CustomUrl = "file:///android_asset/exampleimages/quiche.png"
+
         val file : File = File(ImageUrl)
 
         val body = RequestBody.create(MediaType.parse("*/*"), file)

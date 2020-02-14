@@ -19,7 +19,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
 import kotlinx.android.synthetic.main.recipe_list_fragment.view.*
 
-class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel: FeedViewModel
+class FeedAdapter( var viewModel: FeedViewModel
 , context: Context) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>(){
     //Attributes
@@ -27,14 +27,17 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
     var id : Int? = null
     var context  = context
 
+    /**
+     * Notify every observer of data changes
+     */
+    var feedRecipes = listOf<PublicRecipe>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
 
-    //Methodes
 
-    fun setNewItems(newItems: List<PublicRecipe>){
-        recipes = newItems
-        this.notifyDataSetChanged()
-    }
     //Overridden Methods
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -43,21 +46,21 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
         return FeedViewHolder(feedItemBinding)
     }
     override fun getItemCount(): Int {
-        return recipes.size
+        return feedRecipes.size
     }
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.feedItemBinding.value = recipes[position].title
-        id = recipes[position].recipeId
+        holder.feedItemBinding.value = feedRecipes[position].title
+        id = feedRecipes[position].recipeId
 
 
         //var urlString
         var urlString = ""
 
         val imageView = holder.feedItemBinding.imageViewFeedItem
-        if (recipes[position].imgUrl == "") {
+        if (feedRecipes[position].imgUrl == "") {
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         } else {
-            urlString = recipes[position].imgUrl
+            urlString = feedRecipes[position].imgUrl
         }
         Glide.with(context).load(urlString).into(imageView)
 
@@ -68,7 +71,7 @@ class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), v
             navController!!.navigate(
                 FeedFragmentDirections
                     .actionFeedToRecipeDisplayFragment()
-                    .setRecipeID(recipes[position].recipeId
+                    .setRecipeID(feedRecipes[position].recipeId
                     )
             )
         }

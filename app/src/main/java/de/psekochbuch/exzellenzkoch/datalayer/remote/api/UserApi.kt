@@ -46,7 +46,7 @@ interface UserApi {
      * The URL ends with /api/users/{userId}
      * @param userId The id of the user
      */
-    @GET("users/{userId}")
+    @GET("users/check/{userId}")
     suspend fun checkUser(@Path ("userId") userId: String) : UserDto
 
 

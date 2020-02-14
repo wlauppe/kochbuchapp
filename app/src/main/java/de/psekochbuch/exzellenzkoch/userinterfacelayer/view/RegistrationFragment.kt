@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RegistrationFragmentBinding
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrationViewModel
 
 
@@ -35,18 +37,37 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         //Sets according viewmodel from XML to this fragment
         binding.viewModel = viewModel
         //initialized navcontoller
+
+
         var navController: NavController = findNavController()
         binding.buttonRegisterFragmentRegister.setOnClickListener {
-            viewModel.registerOnClick()
-            
-            var userID = viewModel.userId.value
-            if(userID != null) {
-                navController.navigate(RegistrationFragmentDirections.actionRegistrationFragmentToProfileEditFragment().setUserID(userID)
-                )
-            }
+
+            viewModel.focusable.postValue(true)
+            binding.llProgressBar.visibility = View.VISIBLE
+
+            viewModel.registerOnClick { userId, result, message ->
+
+                if(result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                    if (userId != null && userId != "") {
+                        viewModel.progressBarVisibility.postValue(false)
+                        navController.navigate(
+                            RegistrationFragmentDirections.actionRegistrationFragmentToProfileEditFragment().setUserID(
+                                userId
+                            )
+                        )
+                    }
+                } else
+                {
+                    Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+                }
+
+                binding.llProgressBar.visibility = View.INVISIBLE
             }
 
+        }
 
         return binding.root
     }
+
+
 }
