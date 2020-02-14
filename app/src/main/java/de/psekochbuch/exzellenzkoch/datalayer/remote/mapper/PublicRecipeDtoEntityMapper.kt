@@ -15,7 +15,15 @@ import java.util.*
 class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>(){
 
     override fun toEntity(dto: PublicRecipeDto): PublicRecipe {
-        return PublicRecipe(dto.id,dto.title,dto.ingredientsText,dto.ingredientChapter?.map {chapter -> IngredientChapter(chapter.id,chapter.name,chapter.ingredient?.map{ingredient -> IngredientAmount(ingredient.nameIngredient,ingredient.amount,Unit.valueOf(ingredient.unit))}!!)}!!,dto.recipeTag?.map{tag -> tag.name}!!,dto.preparationDescription,dto.picture,dto.cookingTime,dto.preparationTime, User(dto.userId!!),convertStringToDate(dto.creationDate),dto.portions,dto.ratingAvg)
+        try{
+            return PublicRecipe(dto.id,dto.title,dto.ingredientsText,dto.ingredientsChapter?.map { chapter -> IngredientChapter(chapter.id,chapter.name,chapter.ingredient?.map{ ingredient -> IngredientAmount(ingredient.nameIngredient,ingredient.amount,Unit.valueOf(ingredient.unit))}!!)}!!,dto.recipeTag?.map{ tag -> tag.name}!!,dto.preparationDescription,dto.picture,dto.cookingTime,dto.preparationTime, User(dto.userId!!),convertStringToDate(dto.creationDate),dto.portions,dto.ratingAvg)
+        } catch(e:Exception){
+            return PublicRecipe(dto.id,dto.title,dto.ingredientsText,dto.ingredientsChapter?.map { chapter -> IngredientChapter(chapter.id,chapter.name,chapter.ingredient?.map{ ingredient -> IngredientAmount(ingredient.nameIngredient,ingredient.amount,Unit.KeineEinheit)}!!)}!!,dto.recipeTag?.map{ tag -> tag.name}!!,dto.preparationDescription,dto.picture,dto.cookingTime,dto.preparationTime, User(dto.userId!!),convertStringToDate(dto.creationDate),dto.portions,dto.ratingAvg)
+        }
+
+
+
+
     }
 
     override fun toDto(entity: PublicRecipe): PublicRecipeDto {
