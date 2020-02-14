@@ -120,8 +120,19 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         var returnId : Int = 0
             coroutineScope{
                 try {
+                    //First upload the Image.
+                    val file : File = File(publicRecipe.imgUrl)
+                    val body = RequestBody.create(MediaType.parse("image/*"), file)
+                    val multi = MultipartBody.Part.createFormData("file", file.name, body)
+                    //val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    val response = fileApiService.addImage(multi)
+                    //TODO Baseurl hinzufügen eventuell in den Mapper.
+                    val remoteUrl = response.filePath
+                    //speichere filepath in recipe
+                    //publicRecipe.imgUrl=
                     val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
                     returnId = returnDto.id
+
                 }
                 catch (error : Throwable) {
                     throw NetworkError("Unable to publish recipe", error)

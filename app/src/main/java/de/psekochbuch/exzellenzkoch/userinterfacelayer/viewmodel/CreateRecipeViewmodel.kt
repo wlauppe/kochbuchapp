@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.RoomDatabase
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import kotlinx.coroutines.launch
@@ -115,7 +116,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             }
         }
         if (this.tagCheckBoxPublish.value!!) {
-            val convertedPublicRecipe = newRecipe.convertToPublicRepipe()
+            //TODO muss anscheinend seit neuestem ein Feld "User übergeben"
+            val user = User("Todoimplementieren")
+            val convertedPublicRecipe = newRecipe.convertToPublicRepipe(user)
             //Coroutine
             viewModelScope.launch {
                 try {
