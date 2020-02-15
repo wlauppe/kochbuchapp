@@ -12,39 +12,18 @@ import java.util.*
 class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
     var Tag = "RecipeDisplayViewmodel"
 
-    val repo=repository
-    //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
+    val repository=repository
+
     var recipe = MutableLiveData(PublicRecipe())
-
-
-
- //Error handling attributes
-    private val _errorLiveDataString = MutableLiveData<String?>()
-
-    /**
-     * Request a snackbar to display a string.
-     */
-    val errorLiveDataString: LiveData<String?>
-        get() = _errorLiveDataString as LiveData<String?>
-        var creationDate = "Erstellungsdatum: 2020"
-
 
     //Get PublicRecipeFrom Repo and set it as the current Recipe
     fun setRecipeByID(id:Int?){
         Log.i(Tag, "SetRecipe BY ID $id")
-    if(id == null){
-        return
-    }
-        viewModelScope.launch {
-            try {
-                Transformations.map(recipe) {repo.getPublicRecipe(id)}
-               recipe.observeForever { value -> Log.i(Tag, value.title.plus(" ist der Titel"))}
-
-
-            } catch (error: Error) {
-                _errorLiveDataString.value = error.message
-            }
+        if(id == null){
+            return
         }
+        recipe=repository.getPublicRecipe(id) as MutableLiveData<PublicRecipe>
+
     }
 
 //Wunschkriterium
