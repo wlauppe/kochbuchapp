@@ -17,9 +17,9 @@ import kotlinx.coroutines.coroutineScope
 class UserRepositoryImp : UserRepository {
     val userMapper = UserDtoEntityMapper()
     private val TAG = "UserRealImp"
-    var token = null
+    private var token :String? = null
 
-    val userApiService: UserApi =
+    var userApiService: UserApi =
         ApiServiceBuilder(token).createApi(UserApi::class.java) as UserApi
     var adminApiService: AdminApi =
         ApiServiceBuilder(token).createApi(AdminApi::class.java) as AdminApi
@@ -33,7 +33,7 @@ class UserRepositoryImp : UserRepository {
             try {
                 val dtoList =
                     adminApiService.getReportedUsers(1, 100)
-                dtoList?.let {
+                dtoList.let {
                     val entityList = UserDtoEntityMapper().toListEntity(dtoList)
                     emit(entityList)
                 }
@@ -79,7 +79,8 @@ class UserRepositoryImp : UserRepository {
     }
 
     override suspend fun checkUser(userId: String): User? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val user = userApiService.checkUser(userId)
+        return UserDtoEntityMapper().toEntity(user)
     }
 
 
@@ -128,7 +129,8 @@ class UserRepositoryImp : UserRepository {
     }
 
     override fun setToken(token: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.token = token
+        userApiService = ApiServiceBuilder(token).createApi(UserApi::class.java) as UserApi
     }
 
 
