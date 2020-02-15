@@ -137,6 +137,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
          */
 
 
+        // TODO DELETE LATER
           title.postValue("testwertThomas")
 /*
           preparationTime = Transformations.map(recipe){recipe -> recipe.preparationTime}
