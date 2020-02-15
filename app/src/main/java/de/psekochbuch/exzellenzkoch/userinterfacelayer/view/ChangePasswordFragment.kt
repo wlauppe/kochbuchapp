@@ -14,20 +14,25 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ChangePasswordFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ChangePasswordViewModel
 
+/**
+ * The Fragment class provides logic for binding the respective .xml layout file to the class
+ * and calls functions from the underlying ViewModel.
+ * The ViewModel is provided by the ViewModelFactory, which is called here.
+ */
 class ChangePasswordFragment : Fragment() {
 
-    private lateinit var binding: ChangePasswordFragmentBinding
-    
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //viewmodel
+
+        // provide ViewModel
         val viewModel : ChangePasswordViewModel by viewModels {
             InjectorUtils.provideChangePasswordViewModelFactory(requireContext())
         }
-        //binding set to the according Fragment
+
+        // TODO doc
         val userID = arguments?.let {ChangePasswordFragmentArgs.fromBundle(it).userID }
         if (userID != null) {
             viewModel!!.setUserById(userID)
@@ -35,8 +40,8 @@ class ChangePasswordFragment : Fragment() {
             Log.i("ChangepasswordViewModel", "Passed UserID == Null !!!")
         }
 
-
-       val  binding = ChangePasswordFragmentBinding.inflate(inflater, container, false)
+        // binding set to the according Fragment
+        val  binding = ChangePasswordFragmentBinding.inflate(inflater, container, false)
         //Sets according viewmodel from XML to this fragment
         binding.changePasswordViewModel = viewModel
         //initialized navcontoller

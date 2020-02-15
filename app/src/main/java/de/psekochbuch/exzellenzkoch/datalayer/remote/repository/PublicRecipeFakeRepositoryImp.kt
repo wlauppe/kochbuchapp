@@ -74,6 +74,10 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         Log.w(TAG, "Habe habe jetzt zugegriffen")
     }
 
+    override fun getReportedPublicRecipes(): LiveData<List<PublicRecipe>> {
+        return getPublicRecipes()
+    }
+
 
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
         /*val recipe1 = PublicRecipe(1,"trockener Sandkuchen")
@@ -102,7 +106,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         Log.w(TAG, "Id von erstem aus der List ist $recipeList[1].recipeId()")
         val recipe1 = PublicRecipe(1, "extra tockener Sandkuchen")
         addToList(recipe1)
-        val ld: MutableLiveData<List<PublicRecipe>> = MutableLiveData(recipeList)
+        val ld: LiveData<List<PublicRecipe>> = MutableLiveData(recipeList)
         return ld
     }
 
@@ -129,8 +133,13 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override suspend fun deleteRecipe(recipeId: Int) {
-        val recipe = recipeList.get(recipeId-1)
-        recipeList.remove(recipe)
+
+        for(iterator in recipeList.toList()){
+            if(iterator.recipeId == recipeId){
+                recipeList.remove(iterator)
+            }
+        }
+
     }
 
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
@@ -151,9 +160,14 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun unreportRecipe(RecipeId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override suspend fun unreportRecipe(recipeId: Int) {
+
+        for(iterator in recipeList.toList()){
+            if(iterator.recipeId == recipeId){
+                recipeList.remove(iterator)
+            }
+        }
+         }
 
     companion object {
 

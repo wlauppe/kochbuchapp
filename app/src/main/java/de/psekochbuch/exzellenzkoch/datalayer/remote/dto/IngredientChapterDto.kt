@@ -17,5 +17,5 @@ data class IngredientChapterDto(
         /**
          * List of ingredients
          */
-        var ingredient:List<IngredientDto>?
+        var ingredient:List<IngredientDto>
 )

@@ -25,18 +25,22 @@ class RecipeListFragment : Fragment() {
         val viewModel : RecipeListViewmodel by viewModels {
         InjectorUtils.provideRecipeListViewmodelFactory(requireContext())
         }
-
         binding.recyclerViewRecipeListFragment.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val listOfRecipeNames : List<PrivateRecipe> = viewModel.recipes.value!!
-        val exampleAdapter = RecipeListAdapter(listOfRecipeNames,viewModel, requireContext())
-        binding.recyclerViewRecipeListFragment.adapter = exampleAdapter
+        // show
+        viewModel.getPrivateRecipes()
+        // get adapter instance to display items in
+        val adapter = RecipeListAdapter(viewModel, requireContext())
+        binding.recyclerViewRecipeListFragment.adapter = adapter
+        // set up observer for the list of private recipes
+        // if the
         val observer = Observer<List<PrivateRecipe>> { items ->
-            exampleAdapter.setNewItems(items)
+            items?.let {
+                adapter.recipes = items}
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-        binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
 
+        binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
 
         //ClickListener ----------------
         binding.buttonCreateRecipe.setOnClickListener{
@@ -44,13 +48,13 @@ class RecipeListFragment : Fragment() {
             navController.navigate(RecipeListFragmentDirections.actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(0))
         }
 
-        /*
         //Safeargs werden hier aus dem Bundle gezogen
-        var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
-        var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
-        var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
-        Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
-         */
+        //var it = arguments?.let { RecipeListFragmentArgs }
+        //var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
+        //var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
+        //var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
+        //Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
+
         return binding.root
     }
 

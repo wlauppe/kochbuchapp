@@ -7,15 +7,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import kotlinx.coroutines.launch
 
 
-class RecipeListViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
+class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
+                          publicRepo: PublicRecipeRepository) : ViewModel() {
 
-    var repo = repository
+    var privateRepo = privateRepository
+    val publicRepo = publicRepo
 
-    var recipes : LiveData<List<PrivateRecipe>> = repository.getPrivateRecipes()
-
+    var recipes : LiveData<List<PrivateRecipe>> = MutableLiveData(emptyList())
 
 
 
@@ -34,18 +36,33 @@ class RecipeListViewmodel(repository: PrivateRecipeRepository) : ViewModel() {
         get() = _errorLiveDataString
 
 
+    fun getPrivateRecipes() {
+        recipes = privateRepo.getPrivateRecipes()
+    }
+
 
     fun deleteRecipe(id: Int?) {
         if(id !=null) {
             //coroutine
             viewModelScope.launch {
                 try {
-                    repo.deletePrivateRecipe(id)
-
-
+                    privateRepo.deletePrivateRecipe(id)
                 } catch (error: Error) {
                     _errorLiveDataString.value = error.message
                 }
+            }
+
+            this.recipes.value?.forEach {if(it.recipeId == id){
+                if(it.publishedRecipeId != 0){
+                    viewModelScope.launch {
+                        try {
+                            publicRepo.deleteRecipe(it.publishedRecipeId)
+                        } catch (error: Error) {
+                            _errorLiveDataString.value = error.message
+                        }
+                    }
+                }
+            }
             }
         }
 

@@ -14,9 +14,13 @@ interface PublicRecipeRepository {
      */
 
     @Throws
+    fun getReportedPublicRecipes(): LiveData<List<PublicRecipe>>
+
+
+    @Throws
     fun getPublicRecipes(): LiveData<List<PublicRecipe>>
 
-    //Neueste Recipies werden zuerst zurueckgegeben.
+    //Neueste Recipes werden zuerst zurueckgegeben.
 
     //Diese Methode gibt alle Rezepte zurück, deren Titel an irgendeiner Stelle den String title
     //haben, deren Tags eine Obermenge von tags, Zutaten eine Obermenge von ingredients,
@@ -27,6 +31,7 @@ interface PublicRecipeRepository {
 
     @Throws
     fun getPublicRecipe(recipeId : Int): LiveData<PublicRecipe>
+
 
     @Throws
     suspend fun  deleteRecipe(recipeId: Int)

@@ -19,62 +19,75 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
 import kotlinx.android.synthetic.main.recipe_list_fragment.view.*
 
-class FeedAdapter(var recipes: List<PublicRecipe> = emptyList<PublicRecipe>(), var viewModel: FeedViewModel
+/**
+ * Adapter class that provides logic for the AdminFragment's "Reported User" RecyclerView
+ *
+ *@param viewModel a required AdminViewModel for underlying functions
+ */
+class FeedAdapter( var viewModel: FeedViewModel
 , context: Context) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>(){
-    //Attributes
+
+    /**
+     * Class attributes contain the Navigation Controller for navigating between Fragments,
+     * the recipe ID, the given context parameter and a list of recipes,
+     * which is an observable field and notifies every observer if data in the Adapter is changed.
+     */
     var navController: NavController? = null
     var id : Int? = null
     var context  = context
 
+    var feedRecipes = listOf<PublicRecipe>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
 
-    //Methodes
-
-    fun setNewItems(newItems: List<PublicRecipe>){
-        recipes = newItems
-        this.notifyDataSetChanged()
-    }
-    //Overridden Methods
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         navController = parent.findNavController()
         val feedItemBinding = FeedItemBinding.inflate(inflater, parent, false)
         return FeedViewHolder(feedItemBinding)
     }
+
     override fun getItemCount(): Int {
-        return recipes.size
+        return feedRecipes.size
     }
+
     override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-        holder.feedItemBinding.value = recipes[position].title
-        id = recipes[position].recipeId
+        // get recipe id of item at position
+        holder.feedItemBinding.value = feedRecipes[position].title
+        id = feedRecipes[position].recipeId
 
-
-        //var urlString
+        // Glide image logic
         var urlString = ""
-
         val imageView = holder.feedItemBinding.imageViewFeedItem
-        if (recipes[position].imgUrl == "") {
+        if (feedRecipes[position].imgUrl == "") {
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         } else {
-            urlString = recipes[position].imgUrl
+            urlString = feedRecipes[position].imgUrl
         }
         Glide.with(context).load(urlString).into(imageView)
 
-
-
+        // changing fragments on item click
         holder.feedItemBinding.feedLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(
                 FeedFragmentDirections
                     .actionFeedToRecipeDisplayFragment()
-                    .setRecipeID(recipes[position].recipeId
+                    .setRecipeID(feedRecipes[position].recipeId
                     )
             )
         }
-
-
     }
+
+    /**
+    * The ViewHolderClass provides an instance of ViewHolder, which is necessary to bind the
+    * RecyclerView items to the View
+    *
+    * @param feedItemBinding is the binding variable for the RecyclerView item
+    */
     class FeedViewHolder(var feedItemBinding: FeedItemBinding)
         : RecyclerView.ViewHolder(feedItemBinding.root)
 

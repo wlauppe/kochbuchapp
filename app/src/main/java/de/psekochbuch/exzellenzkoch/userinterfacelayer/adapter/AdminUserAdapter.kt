@@ -18,19 +18,32 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.AdminFragmentDirecti
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 
-class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel: AdminViewModel,
+/**
+ * Adapter class that provides logic for the AdminFragment's "Reported User" RecyclerView
+ *
+ *@param viewModel a required AdminViewModel for underlying functions
+ *@param context is a param necessary for the Toast message
+ */
+class AdminUserAdapter(var viewModel: AdminViewModel,
                        context:Context) :
     RecyclerView.Adapter<AdminUserAdapter.AdminUserViewHolder>() {
-    //Attributes
+
+    /**
+     * Class attributes contain the Navigation Controller for navigating between Fragments,
+     * the user ID, the given context parameter and a list of Reported Users,
+     * which is an observable field and notifies every observer if data in the Adapter is changed.
+     */
     var navController: NavController? = null
     var id : String? = null
     var context = context
-    //Methodes
-    fun setNewItems(newUsers: List<User>){
-        users = newUsers
-        this.notifyDataSetChanged()
-    }
-    //Overridden Methods
+    var reportedUser = listOf<User>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminUserViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         navController = parent.findNavController()
@@ -39,51 +52,63 @@ class AdminUserAdapter(var users: List<User> = emptyList<User>(), var viewModel:
     }
 
     override fun getItemCount(): Int {
-        return users.size
+        return reportedUser.size
     }
 
     override fun onBindViewHolder(holder: AdminUserViewHolder, position: Int) {
-        holder.adminReportedUserItemBinding.value = users[position].userId
-        id = users[position].userId
 
+        // get the reported user's id at the index position in the RecyclerView
+        holder.adminReportedUserItemBinding.value = reportedUser[position].userId
+        id = reportedUser[position].userId
+
+        // button logic for deleting a user
         holder.adminReportedUserItemBinding.buttonRemoveUser.setOnClickListener{
-            viewModel.deleteUser(users[position].userId)
-            Toast.makeText(context, users[position].userId.plus(" gelöscht"), Toast.LENGTH_SHORT).show()
+            viewModel.deleteUser(reportedUser[position].userId)
+            holder.itemView.visibility = View.GONE
+            notifyItemRangeChanged(position, reportedUser.size)
+            notifyDataSetChanged()
+            Toast.makeText(context, "gelöscht", Toast.LENGTH_SHORT).show()
         }
 
-        //safeArgs -------------------------------------------
+        // SafeArgs for sending the user name to the user display fragment when clicked on the item
         holder.adminReportedUserItemBinding.adminReportedUserItemLayout.setOnClickListener {
-                //sending the recipename to the user display fragment
-
             navController!!.navigate(
                 AdminFragmentDirections
                     .actionAdminFragmentToProfileDisplayFragment()
-                    .setUserID(users[position].userId
+                    .setUserID(reportedUser[position].userId
                     )
             )
         }
 
+        // button logic for sparing a user from deletion
         holder.adminReportedUserItemBinding.buttonSpareUser.setOnClickListener{
             //spare user
-            viewModel.unreportUser(users[position].userId)
-            Toast.makeText(context, users[position].userId.plus(" freigegeben"), Toast.LENGTH_SHORT).show()
-
-
+            viewModel.unreportUser(reportedUser[position].userId)
+            holder.itemView.visibility = View.GONE
+            notifyItemRangeChanged(position, reportedUser.size)
+            notifyDataSetChanged()
+            Toast.makeText(context, "freigegeben", Toast.LENGTH_SHORT).show()
         }
 
 
-        //var urlString
+        // image logic from Glide
         var urlString = ""
-
         val imageView = holder.adminReportedUserItemBinding.imageViewAdminUserItem
-        if (users[position].imgUrl == "") {
+        if (reportedUser[position].imgUrl == "") {
             urlString = "file:///android_asset/exampleimages/chef_avatar.png"
         } else {
-            urlString = users[position].imgUrl
+            urlString = reportedUser[position].imgUrl
         }
         Glide.with(context).load(urlString).into(imageView)
 
     }
+
+    /**
+     * The ViewHolderClass provides an instance of ViewHolder, which is necessary to bind the
+     * RecyclerView items to the View
+     *
+     * @param adminReportedUserItemBinding is the binding variable for the RecyclerView item
+     */
     class AdminUserViewHolder(var adminReportedUserItemBinding: AdminReportedUserItemBinding)
         :RecyclerView.ViewHolder(adminReportedUserItemBinding.root)
     

@@ -28,11 +28,22 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeVie
 import android.os.Build.*
 import android.Manifest
 import android.net.Uri
+import android.util.Log
+import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
+/**
+ * The Fragment class provides logic for binding the respective .xml layout file to the class
+ * and calls functions from the underlying ViewModel.
+ * The ViewModel is provided by the ViewModelFactory, which is called here.
+ */
 class CreateRecipeFragment : Fragment() {
 
+    /**
+     * Binding attribute is needed in more than one class, thus used as global variable
+     */
     private lateinit var binding: CreateRecipeFragmentBinding
 
     var viewModelTemp : CreateRecipeViewmodel? = null
@@ -47,32 +58,30 @@ class CreateRecipeFragment : Fragment() {
         val viewModel : CreateRecipeViewmodel by viewModels {
             InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
         }
-        viewModelTemp = viewModel
-
-        //SafeArgs---------------------------
-        var recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
-
-        if(recipeID != null) {
-            if(recipeID != 0){
-                viewModel.setRecipeByID(recipeID)
-            }
-           // Toast.makeText(context,recipeID.toString(), Toast.LENGTH_SHORT).show()
-
-           // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
-        }
-
         //binding set to the according Fragment
         binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
         //Sets according viewmodel from XML to this fragment
         binding.createRecipeViewModel = viewModel
+        viewModelTemp = viewModel
+
+        //SafeArgs---------------------------
+        val recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
+
+        if(recipeID != null) {
+            //    viewModel.setRecipeByID(recipeID)
+            // TODO delete later
+            binding.editTextRecipeTitleCreateRecipeFragment.setText("teeeeeest von thomas")
+
+        }
+
+
         //initialized navcontoller
         val navController: NavController = findNavController()
 
         //binding viewmodel with xml components
-
         val imageView = binding.imageButtonRecipeImage
-        var urlString = viewModel.imageUrl
+        var urlString = viewModel.recipe.value?.imgUrl
         if(urlString == ""){
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
@@ -81,20 +90,17 @@ class CreateRecipeFragment : Fragment() {
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             //Create Recipe
            // Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
-            viewModel.saveRecipe()
-
+            viewModel.saveRecipe(requireContext())
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
-
 
         //Image intent
         /*binding.imageButtonRecipeImage.setOnClickListener{
           var imgUrl =  viewModel.getImage()
-
         }
         */
 
-        //BUTTON CLICK
+        //Image button click
         binding.imageButtonRecipeImage.setOnClickListener {
             //check runtime permission
             if (VERSION.SDK_INT >= VERSION_CODES.M){
@@ -120,7 +126,6 @@ class CreateRecipeFragment : Fragment() {
     }
 
 
-    //Ab hier ist der Image Picker Code
     // Creating our Share Intent
     private fun pickImageFromGallery() {
         //Intent to pick image
@@ -161,7 +166,7 @@ class CreateRecipeFragment : Fragment() {
             val imageView = binding.imageButtonRecipeImage
             context?.let{Glide.with(it).load(data?.data).into(imageView)}
             imageView.setImageURI(data?.data)
-            viewModelTemp!!.imageUrl = data?.data.toString()
+            // = data?.data.toString()
            //imageView.setImageURI(data?.data)
         }
     }

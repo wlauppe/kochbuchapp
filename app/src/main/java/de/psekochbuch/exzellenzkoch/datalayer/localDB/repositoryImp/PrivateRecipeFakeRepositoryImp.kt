@@ -83,9 +83,11 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
     }
 
     override suspend fun deletePrivateRecipe(id: Int) {
-        val recipe = recipeList.get(id-1)
-        recipeList.remove(recipe)
-
+        for(iterator in recipeList.toList()){
+            if(iterator.recipeId == id){
+                recipeList.remove(iterator)
+            }
+        }
     }
 
 
@@ -104,7 +106,7 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
 
     }
 
-    override fun getRecipe(recipeId: Int): LiveData<PrivateRecipe> {
+    fun getRecipe(recipeId: Int): LiveData<PrivateRecipe> {
 
         for(recipe in recipeList){
             if (recipe.recipeId == recipeId){
