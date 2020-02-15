@@ -74,6 +74,10 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         Log.w(TAG, "Habe habe jetzt zugegriffen")
     }
 
+    override fun getReportedPublicRecipes(): LiveData<List<PublicRecipe>> {
+        return getPublicRecipes()
+    }
+
 
     override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
         /*val recipe1 = PublicRecipe(1,"trockener Sandkuchen")

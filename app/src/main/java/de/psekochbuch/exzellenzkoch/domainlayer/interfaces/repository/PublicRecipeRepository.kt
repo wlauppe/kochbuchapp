@@ -14,6 +14,10 @@ interface PublicRecipeRepository {
      */
 
     @Throws
+    fun getReportedPublicRecipes(): LiveData<List<PublicRecipe>>
+
+
+    @Throws
     fun getPublicRecipes(): LiveData<List<PublicRecipe>>
 
     //Neueste Recipes werden zuerst zurueckgegeben.
@@ -27,6 +31,7 @@ interface PublicRecipeRepository {
 
     @Throws
     fun getPublicRecipe(recipeId : Int): LiveData<PublicRecipe>
+
 
     @Throws
     suspend fun  deleteRecipe(recipeId: Int)

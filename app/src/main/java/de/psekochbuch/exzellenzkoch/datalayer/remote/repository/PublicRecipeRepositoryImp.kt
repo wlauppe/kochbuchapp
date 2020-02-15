@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
+import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.PublicRecipeDto
@@ -13,6 +14,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.errors.NetworkError
 import kotlinx.coroutines.Dispatchers
@@ -43,6 +45,38 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     val fileApiService: FileApi =
         ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
+
+    var adminApiService: AdminApi =
+        ApiServiceBuilder(token).createApi(AdminApi::class.java) as AdminApi
+
+
+    override fun getReportedPublicRecipes(): LiveData<List<PublicRecipe>> {
+        val lData = liveData(Dispatchers.IO, 1000) {
+            Log.w(TAG, "jetzt bin ich im Coroutine Scope")
+            try {
+                val dtoList =
+                    adminApiService.getReportedPublicRecipes(1, 100)
+                dtoList?.let {
+                    val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
+                    emit(entityList)
+                }
+            } catch (error: Throwable) {
+                val list=listOf(
+                    PublicRecipe(
+                        0,
+                        title = "No reported recipes found",
+                        imgUrl = "file:///android_asset/exampleimages/checkmark.png"
+                    )
+                )
+                emit(list)
+            }
+
+
+        }
+        return lData
+
+
+    }
 
 
     //Dies ist die normale Funktion die Search benutzt.
