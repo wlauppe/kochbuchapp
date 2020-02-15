@@ -30,12 +30,28 @@ class UserRepositoryImp : UserRepository  {
     }
 
     override fun getUser(userId: String): LiveData<User> {
-        try{
-            return userMapper.toLiveEntity(userApiService.getUser(userId).body()!!)
-        } catch (error: Throwable) {
-        throw NetworkError("Unable to delete User with userId " + userId, error)
+
+
+            Log.w(TAG, "getPublicRecipes() wird aufgerufen")
+            val lData = liveData(Dispatchers.IO, 1000) {
+                Log.w(TAG, "jetzt bin ich im Coroutine Scope")
+                try {
+                    val dto =
+                        userApiService.getUser(userId)
+                    dto?.let {
+                        val entity = UserDtoEntityMapper().toEntity(dto)
+                        emit(entity)
+                    }
+                }
+                catch(error : Throwable) {
+                    emit(User( userId= "Error Fetching User! with Id=$userId", imgUrl = "file:///android_asset/exampleimages/error.png"))
+                }
+            }
+            return lData
         }
-    }
+
+
+
 
     override suspend fun checkUser(userId: String): User? {
         val user = userApiService.checkUser(userId)
