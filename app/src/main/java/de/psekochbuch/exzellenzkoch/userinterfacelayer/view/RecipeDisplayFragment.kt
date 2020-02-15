@@ -34,7 +34,7 @@ class RecipeDisplayFragment : Fragment(){
         //SafeArgs---------------------------
         val recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
 
-        Log.i(TAG, recipeID.toString().plus(" eeee"))
+        Log.i(TAG, recipeID.toString().plus(" ist die ID im RecipeDisplayFragment"))
         viewModel.setRecipeByID(recipeID)
 
 
