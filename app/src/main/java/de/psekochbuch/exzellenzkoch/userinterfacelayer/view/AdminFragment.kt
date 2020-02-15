@@ -21,54 +21,58 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 import kotlinx.android.synthetic.main.recipe_list_item.*
 
+/**
+ * The Fragment class provides logic for binding the respective .xml layout file to the class
+ * and calls functions from the underlying ViewModel.
+ * The ViewModel is provided by the ViewModelFactory, which is called here.
+ */
 class AdminFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = AdminFragmentBinding.inflate(inflater, container, false)
-        //val viewModel = ViewModelProvider(this).get(AdminViewModel::class.java)
-        //viewmodel recieved by viewmodelproviders
 
+        // Provide ViewModel
         val viewModel : AdminViewModel by viewModels {
             InjectorUtils.provideAdminViewModelFactory(requireContext())
         }
 
+        // Bind RecyclerViews to their .xml layout file
         binding.recyclerViewAdminRecipes.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewAdminUsers.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-
+        // new adapter instances to handle the RecyclerView items
         val recipeAdapter = AdminRecipeAdapter(viewModel, requireContext())
         val userAdapter = AdminUserAdapter(viewModel, requireContext())
-
         binding.recyclerViewAdminRecipes.adapter = recipeAdapter
         binding.recyclerViewAdminUsers.adapter = userAdapter
 
-
+        // set observer patterns for the Adapters
         val recipeObserver = Observer<List<PublicRecipe>> { recipes ->
             recipes?.let {
                 recipeAdapter.reportedRecipes = recipes}
         }
-
         val userObserver = Observer<List<User>> { user ->
             user?.let {
                 userAdapter.reportedUser = user}
         }
 
-
+        // set which ViewModel attributes should be observed
         viewModel.recipes.observe(this.viewLifecycleOwner, recipeObserver)
         viewModel.users.observe(this.viewLifecycleOwner, userObserver)
 
         binding.recyclerViewAdminUsers.setHasFixedSize(true)
         binding.recyclerViewAdminRecipes.setHasFixedSize(true)
 
-        /*
+        /* TODO delete
         //Safeargs werden hier aus dem Bundle gezogen
         var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
         var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
         var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
         Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
          */
+
         return binding.root
     }
 }

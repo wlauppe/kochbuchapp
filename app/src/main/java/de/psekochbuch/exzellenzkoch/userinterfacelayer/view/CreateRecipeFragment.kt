@@ -34,8 +34,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
+/**
+ * The Fragment class provides logic for binding the respective .xml layout file to the class
+ * and calls functions from the underlying ViewModel.
+ * The ViewModel is provided by the ViewModelFactory, which is called here.
+ */
 class CreateRecipeFragment : Fragment() {
 
+    /**
+     * Binding attribute is needed in more than one class, thus used as global variable
+     */
     private lateinit var binding: CreateRecipeFragmentBinding
 
     var viewModelTemp : CreateRecipeViewmodel? = null
