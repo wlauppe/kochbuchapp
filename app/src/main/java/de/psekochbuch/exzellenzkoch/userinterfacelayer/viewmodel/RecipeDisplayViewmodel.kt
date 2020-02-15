@@ -2,8 +2,10 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeDisplayFragment
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -12,7 +14,10 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
     val repo=repository
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
-    var recipe = MutableLiveData<PublicRecipe>()
+    var recipe : LiveData<PublicRecipe> = MutableLiveData(PublicRecipe())
+
+
+    var recipeTitle : LiveData<String> = MutableLiveData()
 
 
 
@@ -36,7 +41,8 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 Transformations.map(recipe) {repo.getPublicRecipe(id)}
-               //recipe = repo.getPublicRecipe(id)
+
+
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }

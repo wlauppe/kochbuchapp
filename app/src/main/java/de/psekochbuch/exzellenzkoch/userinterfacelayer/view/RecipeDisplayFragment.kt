@@ -51,6 +51,8 @@ class RecipeDisplayFragment : Fragment(){
         viewModel.recipe.observe(viewLifecycleOwner, Observer { recipe -> setImage(recipe.imgUrl)  })
 
 
+
+
         return binding.root
     }
 
