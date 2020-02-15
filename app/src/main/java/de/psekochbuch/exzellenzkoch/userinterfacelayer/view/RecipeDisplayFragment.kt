@@ -1,9 +1,12 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -13,6 +16,7 @@ import de.psekochbuch.exzellenzkoch.databinding.RecipeDisplayFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
 
 class RecipeDisplayFragment : Fragment(){
+    var TAG = "RecipeDisplayFragment"
 
     private lateinit var binding: RecipeDisplayFragmentBinding
 
@@ -29,8 +33,10 @@ class RecipeDisplayFragment : Fragment(){
 
         //SafeArgs---------------------------
         val recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
+
+        Log.i(TAG, recipeID.toString().plus(" ist die ID im RecipeDisplayFragment"))
         viewModel.setRecipeByID(recipeID)
-       // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
+
 
 
         //binding set to the according Fragment
@@ -45,17 +51,31 @@ class RecipeDisplayFragment : Fragment(){
         //initialized navcontoller
         var navController: NavController = findNavController()
 
-        val imageView = binding.imageViewRecipeImage
-        var urlString = viewModel.recipe.value?.imgUrl
-        if(urlString == "" || urlString.isNullOrBlank()||urlString.isNullOrEmpty()){
-            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
+
+        viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)  })
+
+
+
+
         return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.options_menu_display_recipe, menu)
+    }
+    fun setImage( urlString: String){
+        var urlString = urlString
+        //Toast.makeText(context, urlString, Toast.LENGTH_SHORT).show()
+
+        if(urlString == "" || urlString.isNullOrBlank()||urlString.isNullOrEmpty()){
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
+
+        }
+        val imageView = binding.imageViewRecipeImage
+
+        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
     }
 
 }

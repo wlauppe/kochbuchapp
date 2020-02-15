@@ -22,6 +22,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchLi
  */
 class DisplaySearchListAdaper(context: Context)
     : RecyclerView.Adapter<DisplaySearchListAdaper.DisplaySearchListViewHolder>() {
+    var TAG = "DisplaySearchListAdapter"
 
     /**
      * Class attributes contain the Navigation Controller for navigating between Fragments,
@@ -53,20 +54,18 @@ class DisplaySearchListAdaper(context: Context)
 
     override fun onBindViewHolder(holder: DisplaySearchListViewHolder, position: Int) {
         holder.displaySearchlistListitemBinding.value = recipes[position].title
-
         // button logic to go to new Fragment and see the recipe
         holder.displaySearchlistListitemBinding.displaySearchlistLayoutItem.setOnClickListener {
             //sending the recipe title to the recipe display fragment
             navController!!.navigate(DisplaySearchListFragmentDirections
                 .actionDisplaySearchListFragmentToRecipeDisplayFragment()
-                .setRecipeID(recipes[position].recipeId
-                )
-            )
+                .setRecipeID(recipes[position].recipeId))
+            Log.i(TAG,recipes[position].recipeId.toString().plus("  ist die ID"))
+
         }
 
         // Glide image logic
         var urlString = ""
-
         val imageView = holder.displaySearchlistListitemBinding.imageViewDisplaySearchListItem
         if (recipes[position].imgUrl == "") {
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"

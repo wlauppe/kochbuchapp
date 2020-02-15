@@ -78,7 +78,7 @@ class UserRepositoryImp : UserRepository {
         return lData
     }
 
-    override suspend fun checkUser(userId: String): User? {
+    override suspend fun checkIsUserRegistered(userId: String): User? {
         val user = userApiService.checkUser(userId)
         return UserDtoEntityMapper().toEntity(user)
     }
