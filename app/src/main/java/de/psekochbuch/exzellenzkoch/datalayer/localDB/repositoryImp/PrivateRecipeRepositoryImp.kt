@@ -2,22 +2,28 @@ package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.DB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.PrivateRecipeDao
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.PrivateRecipeTagDao
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PrivateRecipeDB
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PrivateRecipeTagDB
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import kotlinx.coroutines.Dispatchers
 import java.util.*
 
+/**
+ * This class implements the access to the private recipe database
+ */
 class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeRepository {
     private val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(application!!)?.privateRecipeDao();
     private val privateRecipeTagDao: PrivateRecipeTagDao? = DB.getDatabase(application!!)?.privateRecipeTagDao();
 
+    /**
+     * This Method returns all private recipes
+     * @return the recipes from DB wrapped in Livedata
+     */
     override fun getPrivateRecipes(): LiveData<List<PrivateRecipe>> {
         val lData = liveData(Dispatchers.IO){
             try{
@@ -29,16 +35,12 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         }
         return lData
     }
-        /*
-        var recipes: List<PrivateRecipe> = listOf()
-        val liveData = MutableLiveData<List<PrivateRecipe>>()
-        DB.databaseWriteExecutor.execute{
-            recipes = transformListPrivateRecipeDBToListPrivateRecipeDB(privateRecipeDao?.getAll()!!)
-            liveData.postValue(recipes)
-        }
-        return liveData
-    }
-*/
+
+    /**
+     * This method returns a specific recipe
+     * @param id: The id of the recipe
+     * @return: returns the recipe with the id wrapped in Livedata
+     */
     override fun getPrivateRecipe(id: Int): LiveData<PrivateRecipe> {
         val lData = liveData(Dispatchers.IO){
             try{
@@ -50,18 +52,12 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         }
         return lData
     }
-     /*
-        //   var recipe: PrivateRecipe
-        val liveData = MutableLiveData<PrivateRecipe>()
-        DB.databaseWriteExecutor.execute{
-            var recipedb = privateRecipeDao?.getRecipe(id.toLong())
-            var recipe = transformPrivateRecipeDBToPrivateRecipe(recipedb!!)
-            liveData.postValue(recipe)
-        }
-        return liveData
-      */
 
 
+    /**
+     * this method deletes a recipe with the id
+     * @param id: The id of the recipe
+     */
     override suspend fun deletePrivateRecipe(id: Int) {
         DB.databaseWriteExecutor.execute{
             privateRecipeDao?.deleteRecipe(id.toLong())
@@ -70,8 +66,20 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
 
     }
 
+    /**
+     * this method inserts a private recipe to the DB. If the recipe has id 0, the DB
+     * gives the recipe a unique identifier.
+     * IF the id is not 0 and a private recipe exists in DB with that id, it will be overwritten
+     * @param privateRecipe: The recipe to insert.
+     */
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
-        DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
+        DB.databaseWriteExecutor.execute{
+            val id = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!
+            privateRecipeTagDao?.deleteTagsFromRecipe(id)
+            for (tag: String in privateRecipe.tags){
+                privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,id,tag))
+            }
+        }
     }
     
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{
@@ -79,7 +87,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
         return PrivateRecipe(recipe.id.toInt(), recipe.title,recipe.ingredientsText,privateRecipeTagDao?.getTagsFromRecipe(recipe.id)!!.map{tag -> tag.tag},recipe.preparationDescription!!,recipe.imgURL,recipe.cookingTime,recipe.preparationTime, Date(recipe.creationDate),recipe.portions)
     }
 
-    fun transformPrivateRecipeToPrivateREcipeDB(recipe:PrivateRecipe):PrivateRecipeDB{
+    fun transformPrivateRecipeToPrivateRecipeDB(recipe:PrivateRecipe):PrivateRecipeDB{
         return PrivateRecipeDB(recipe.recipeId.toLong(),recipe.title,recipe.preparation,recipe.cookingTime,recipe.preparationTime,recipe.creationTimeStamp.time,recipe.portions,recipe.ingredientsText,recipe.imgUrl,recipe.publishedRecipeId)
     }
 

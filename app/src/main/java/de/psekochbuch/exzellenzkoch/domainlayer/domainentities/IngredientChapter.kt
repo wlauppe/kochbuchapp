@@ -12,4 +12,7 @@ class IngredientChapter(
      */
     var chapter:String = "",
 
+    /**
+     * ingredients of the chapter
+     */
     val ingredients:List<IngredientAmount>)
