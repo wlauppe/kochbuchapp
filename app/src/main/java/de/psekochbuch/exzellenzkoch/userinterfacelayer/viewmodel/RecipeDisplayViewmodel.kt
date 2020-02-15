@@ -12,7 +12,8 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
     val repo=repository
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
-    var recipe : LiveData<PublicRecipe> = MutableLiveData(PublicRecipe())
+    var recipe = MutableLiveData<PublicRecipe>()
+
 
 
  //Error handling attributes

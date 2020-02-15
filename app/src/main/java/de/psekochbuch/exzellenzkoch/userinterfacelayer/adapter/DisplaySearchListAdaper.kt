@@ -61,7 +61,7 @@ class DisplaySearchListAdaper(context: Context)
                 .actionDisplaySearchListFragmentToRecipeDisplayFragment()
                 .setRecipeID(recipes[position].recipeId))
 
-            Toast.makeText(context, recipes[position].recipeId, Toast.LENGTH_LONG).show()
+
         }
 
         // Glide image logic
