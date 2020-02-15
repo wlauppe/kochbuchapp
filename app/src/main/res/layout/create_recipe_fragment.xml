@@ -168,7 +168,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:checked="@{createRecipeViewModel.tagCheckBoxHearty}"
+                            android:checked="@{createRecipeViewModel.tagCheckBoxSavoury}"
                             android:text="@string/savoury__tag"/>
                         </LinearLayout>
 

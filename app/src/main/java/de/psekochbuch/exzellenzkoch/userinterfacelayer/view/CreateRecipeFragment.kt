@@ -29,6 +29,7 @@ import android.os.Build.*
 import android.Manifest
 import android.net.Uri
 import android.util.Log
+import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
@@ -54,12 +55,6 @@ class CreateRecipeFragment : Fragment() {
         //viewmodel recieved by viewmodelproviders
         //Sets according viewmodel from XML to this fragment
         binding.createRecipeViewModel = viewModel
-
-
-
-
-
-
         viewModelTemp = viewModel
 
         //SafeArgs---------------------------
@@ -67,18 +62,16 @@ class CreateRecipeFragment : Fragment() {
 
         if(recipeID != null) {
             //    viewModel.setRecipeByID(recipeID)
+            // TODO delete later
             binding.editTextRecipeTitleCreateRecipeFragment.setText("teeeeeest von thomas")
 
         }
-
-
 
 
         //initialized navcontoller
         val navController: NavController = findNavController()
 
         //binding viewmodel with xml components
-
         val imageView = binding.imageButtonRecipeImage
         var urlString = viewModel.recipe.value?.imgUrl
         if(urlString == ""){
@@ -89,20 +82,17 @@ class CreateRecipeFragment : Fragment() {
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             //Create Recipe
            // Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
-            viewModel.saveRecipe()
-
+            viewModel.saveRecipe(requireContext())
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
-
 
         //Image intent
         /*binding.imageButtonRecipeImage.setOnClickListener{
           var imgUrl =  viewModel.getImage()
-
         }
         */
 
-        //BUTTON CLICK
+        //Image button click
         binding.imageButtonRecipeImage.setOnClickListener {
             //check runtime permission
             if (VERSION.SDK_INT >= VERSION_CODES.M){
@@ -128,7 +118,6 @@ class CreateRecipeFragment : Fragment() {
     }
 
 
-    //Ab hier ist der Image Picker Code
     // Creating our Share Intent
     private fun pickImageFromGallery() {
         //Intent to pick image

@@ -40,28 +40,29 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
         val recipeListItemBinding = RecipeListItemBinding.inflate(inflater, parent, false)
         return RecipeListViewHolder(recipeListItemBinding)
     }
+
     override fun getItemCount(): Int {
         return recipes.size
     }
+
     override fun onBindViewHolder(holder: RecipeListViewHolder, position: Int) {
         holder.recipeListItemBinding.value = recipes[position].title
 
         id = recipes[position].recipeId
 
-
-        //Clicklistener--------------------
+        //Clicklistener of item
         holder.recipeListItemBinding.recipeListLayoutItem.setOnClickListener{
-            //safe args to send Recipe data to editRecipe Fragment
+            //safe args to send Recipe data to CreateRecipe Fragment
             navController!!.navigate(RecipeListFragmentDirections
                 .actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(recipes[position].recipeId))
         }
 
-        /**
-         * Delete a recipe in the list from the ListAdapterItem
-         */
+
+        //Delete a recipe in the list from the ListAdapterItem
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
             viewModel.deleteRecipe(recipes[position].recipeId)
             holder.itemView.visibility = View.GONE
+            notifyItemRangeChanged(position, recipes.size)
             notifyDataSetChanged()
         }
 
