@@ -38,6 +38,7 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 Transformations.map(recipe) {repo.getPublicRecipe(id)}
+               recipe.observeForever { value -> Log.i(Tag, value.title.plus(" ist der Titel"))}
 
 
             } catch (error: Error) {
