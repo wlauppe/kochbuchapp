@@ -109,16 +109,16 @@ object AuthentificationImpl
      * @param callback Return value is the token
      *
      */
-    fun login(email: String, password: String, callback: (String?) -> Unit) {
+    fun login(email: String, password: String, callback: (String?, AuthenticationResult) -> Unit) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 Log.d(TAG, "signInWithEmail:success")
                 auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
-                    callback(it.result?.token)
+                    callback(it.result?.token, AuthenticationResult.LOGINSUCCESS)
                 }
             } else {
                 Log.w(TAG, "signInWithEmail:failure", task.exception)
-                callback(null)
+                callback(null, AuthenticationResult.LOGINFAILED)
             }
         }
     }
@@ -152,9 +152,9 @@ object AuthentificationImpl
      * Get userId from the authenticated user
      * @return the userId of the user
      */
-    fun getUserId() :String?
+    fun getUserId() :String
     {
-        return auth.currentUser?.displayName
+        return auth.currentUser?.displayName ?: ""
     }
 
     /**

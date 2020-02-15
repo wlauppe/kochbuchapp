@@ -118,16 +118,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_login_fragment_kein_account" />
 
-        <ProgressBar
-            android:id="@+id/progressBar_login_fragment"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="100dp"
-            android:layout_height="95dp"
-
+        <include
+            android:id="@+id/logInProgressbar"
+            android:visibility="@{loginviewModel.progressBarVisibility ? View.VISIBLE : View.INVISIBLE}"
+            layout="@layout/progress_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_login_fragment_register" />
+            app:layout_constraintTop_toTopOf="parent"
+             />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
