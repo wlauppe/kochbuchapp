@@ -13,16 +13,24 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.ProfileDisplayFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 
+/**
+ * Adapter class that provides logic for the AdminFragment's "Reported User" RecyclerView
+ *
+ *@param viewModel a required AdminViewModel for underlying functions
+ * @param context provides context for Toast messages
+ */
 class ProfileDisplayAdapter(viewModel: ProfileDisplayViewmodel, context: Context) :
     RecyclerView.Adapter<ProfileDisplayAdapter.ProfileDisplayViewHolder>() {
 
-    //Attributes
+    /**
+     * Class attributes contain the Navigation Controller for navigating between Fragments,
+     * the user ID, the given context parameter and a list of recipes,
+     * which is an observable field and notifies every observer if data in the Adapter is changed.
+     */
     var navController:NavController ? = null
     var id : Int ? = null
     var context = context
-    /**
-     * Notify every observer of data changes
-     */
+
     var recipes = listOf<PublicRecipe>()
         set(value) {
             field = value
@@ -37,21 +45,25 @@ class ProfileDisplayAdapter(viewModel: ProfileDisplayViewmodel, context: Context
         val profileDisplayRecipeItemBinding = ProfileDisplayRecipeItemBinding.inflate(inflater, parent, false)
         return ProfileDisplayViewHolder(profileDisplayRecipeItemBinding)
     }
+
     override fun getItemCount(): Int {
         return recipes.size
     }
+
     override fun onBindViewHolder(holder: ProfileDisplayViewHolder, position: Int) {
+        // get id of item at position
         holder.profileDisplayRecipeItemBinding.value = recipes[position].title
         id = recipes[position].recipeId
 
+        // logic to set a default image if no image is provided in the recipe
         var urlString = recipes[position].imgUrl
-        if(urlString == ""|| urlString.isNullOrEmpty()){
+        if(urlString == ""){
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
         val imageView = holder.profileDisplayRecipeItemBinding.imageViewProfileDisplayRecipe
         Glide.with(context).load(urlString).into(imageView)
 
-
+        // change fragment on item click
         holder.profileDisplayRecipeItemBinding.profileDisplayRecipeLayoutItem.setOnClickListener{
 
             navController!!.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToRecipeDisplayFragment()
@@ -59,6 +71,13 @@ class ProfileDisplayAdapter(viewModel: ProfileDisplayViewmodel, context: Context
         }
 
     }
+
+    /**
+     * The ViewHolderClass provides an instance of ViewHolder, which is necessary to bind the
+     * RecyclerView items to the View
+     *
+     * @param profileDisplayRecipeItemBinding is the binding variable for the RecyclerView item
+     */
     class ProfileDisplayViewHolder(var profileDisplayRecipeItemBinding: ProfileDisplayRecipeItemBinding)
         :RecyclerView.ViewHolder(profileDisplayRecipeItemBinding.root)
 
