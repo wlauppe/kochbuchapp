@@ -57,5 +57,10 @@ interface UserApi {
      * @param userId The id of the user
      */
     @GET("users/{userId}")
-    fun getUser(@Path ("userId") userId: String) : Response<LiveData<UserDto>>
+    suspend fun getUser(@Path ("userId") userId: String) : UserDto
+
+    @POST("/report/{id}")
+    fun reportUser(@Path(value = "id") id:String)
+
+
 }
