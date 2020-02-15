@@ -29,7 +29,7 @@ class UserRepositoryImp : UserRepository {
     override fun getReportedUsers(): LiveData<List<User>> {
 
         val lData = liveData(Dispatchers.IO, 1000) {
-            Log.w(TAG, "jetzt bin ich im Coroutine Scope")
+              Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
                 val dtoList =
                     adminApiService.getReportedUsers(1, 100)
@@ -41,7 +41,7 @@ class UserRepositoryImp : UserRepository {
                 val list=listOf(
                         User(
                             userId = "No reported Users found",
-                            imgUrl = "file:///android_asset/exampleimages/error.png"
+                            imgUrl = "file:///android_asset/exampleimages/checkmark.png"
                         ))
                 emit(list)
           }
