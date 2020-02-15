@@ -58,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="5"
                         android:padding="10dp"
-                        android:text="@{recipeDisplayViewModel.recipeTitle}"
+                        android:text="Test"
                         android:textAlignment="center"
                         android:textSize="25sp"
                         android:textStyle="bold"
