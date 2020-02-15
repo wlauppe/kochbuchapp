@@ -8,15 +8,9 @@ import java.util.*
 
 class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
-    var repo = repository
-
-
+    val repo=repository
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
     var recipe : LiveData<PublicRecipe> = MutableLiveData(PublicRecipe())
-
-
-
-
 
 
 
@@ -38,7 +32,8 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
     }
         viewModelScope.launch {
             try {
-               recipe = repo.getPublicRecipe(id)
+                Transformations.map(recipe) {repo.getPublicRecipe(id)}
+               //recipe = repo.getPublicRecipe(id)
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }
