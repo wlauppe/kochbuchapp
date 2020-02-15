@@ -78,7 +78,7 @@ class UserRepositoryImp : UserRepository {
         return lData
     }
 
-    override suspend fun checkUser(userId: String): User? {
+    override suspend fun checkIsUserIdRegistered(userId: String): User? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
