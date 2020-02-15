@@ -58,4 +58,9 @@ interface UserApi {
      */
     @GET("users/{userId}")
     suspend fun getUser(@Path ("userId") userId: String) : UserDto
+
+    @POST("/report/{id}")
+    fun reportUser(@Path(value = "id") id:String)
+
+
 }
