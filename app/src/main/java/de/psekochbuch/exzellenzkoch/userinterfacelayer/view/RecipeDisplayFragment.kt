@@ -32,7 +32,7 @@ class RecipeDisplayFragment : Fragment(){
         //SafeArgs---------------------------
         val recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
         viewModel.setRecipeByID(recipeID)
-       // Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), recipeID.toString(), Toast.LENGTH_SHORT).show()
 
 
         //binding set to the according Fragment
@@ -48,7 +48,8 @@ class RecipeDisplayFragment : Fragment(){
         var navController: NavController = findNavController()
 
 
-        viewModel.recipe.observe(viewLifecycleOwner, Observer { recipe -> setImage(recipe.imgUrl)  })
+
+        viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)  })
 
 
         return binding.root

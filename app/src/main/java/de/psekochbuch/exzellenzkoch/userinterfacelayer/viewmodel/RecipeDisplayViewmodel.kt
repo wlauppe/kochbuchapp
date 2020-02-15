@@ -12,7 +12,7 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
     val repo=repository
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
-    var recipe = MutableLiveData<PublicRecipe>()
+    var recipe = MutableLiveData(PublicRecipe())
 
 
 
@@ -23,7 +23,7 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
      * Request a snackbar to display a string.
      */
     val errorLiveDataString: LiveData<String?>
-        get() = _errorLiveDataString
+        get() = _errorLiveDataString as LiveData<String?>
         var creationDate = "Erstellungsdatum: 2020"
 
 
@@ -35,7 +35,7 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
     }
         viewModelScope.launch {
             try {
-                Transformations.map(recipe) {repo.getPublicRecipe(id)}
+                Transformations.switchMap(recipe) {repo.getPublicRecipe(id)}
                //recipe = repo.getPublicRecipe(id)
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
