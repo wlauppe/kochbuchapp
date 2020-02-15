@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
@@ -7,17 +8,13 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
+    var Tag = "RecipeDisplayViewmodel"
 
     var repo = repository
 
 
     //Das Fragment wird nur aufgerufen wenn ein Rezept ausgewählt wird. Daher nicht lateinit
     var recipe : LiveData<PublicRecipe> = MutableLiveData(PublicRecipe())
-
-
-
-
-
 
 
  //Error handling attributes
@@ -33,6 +30,7 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
 
     //Get PublicRecipeFrom Repo and set it as the current Recipe
     fun setRecipeByID(id:Int?){
+        Log.i(Tag, "SetRecipe BY ID $id")
     if(id == null){
         return
     }

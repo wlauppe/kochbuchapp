@@ -59,9 +59,9 @@ class DisplaySearchListAdaper(context: Context)
             //sending the recipe title to the recipe display fragment
             navController!!.navigate(DisplaySearchListFragmentDirections
                 .actionDisplaySearchListFragmentToRecipeDisplayFragment()
-                .setRecipeID(recipes[position].recipeId
-                )
-            )
+                .setRecipeID(recipes[position].recipeId))
+
+            Toast.makeText(context, recipes[position].recipeId, Toast.LENGTH_LONG).show()
         }
 
         // Glide image logic
