@@ -24,6 +24,7 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
         }
         recipe=repository.getPublicRecipe(id) as MutableLiveData<PublicRecipe>
 
+
     }
 
 //Wunschkriterium

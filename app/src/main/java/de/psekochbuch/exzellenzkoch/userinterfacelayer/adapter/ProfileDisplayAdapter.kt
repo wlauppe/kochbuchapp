@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.NavController
@@ -21,6 +22,8 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayV
  */
 class ProfileDisplayAdapter(viewModel: ProfileDisplayViewmodel, context: Context) :
     RecyclerView.Adapter<ProfileDisplayAdapter.ProfileDisplayViewHolder>() {
+
+    var Tag = "ProfileDisplayAdapter"
 
     /**
      * Class attributes contain the Navigation Controller for navigating between Fragments,
@@ -55,8 +58,11 @@ class ProfileDisplayAdapter(viewModel: ProfileDisplayViewmodel, context: Context
         holder.profileDisplayRecipeItemBinding.value = recipes[position].title
         id = recipes[position].recipeId
 
+
+
         // logic to set a default image if no image is provided in the recipe
         var urlString = recipes[position].imgUrl
+        Log.i(Tag, urlString.plus(" ist der URLSTRING"))
         if(urlString == ""){
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
