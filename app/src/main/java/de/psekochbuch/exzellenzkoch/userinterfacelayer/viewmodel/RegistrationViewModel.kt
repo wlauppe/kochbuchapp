@@ -2,7 +2,6 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -36,7 +35,7 @@ class RegistrationViewModel(authentification:Authentification, repo:UserReposito
             if (id != "" && id != null) {
                 viewModelScope.launch {
                     try {
-                        val user: User? = userRepository.checkUser(id)
+                        val user: User? = userRepository.checkIsUserIdRegistered(id)
                         if (user?.userId == "") {
 
                             AuthentificationImpl

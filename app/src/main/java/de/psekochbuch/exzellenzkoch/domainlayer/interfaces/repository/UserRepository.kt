@@ -13,8 +13,11 @@ interface UserRepository {
 
     fun getUser(UserId: String): LiveData<User>
 
+    /** This function tells whether there exists a Registered user in Firebase, if true
+     *  it returns the user, otherwise it returns an empty message.
+     */
     @Throws
-    suspend fun checkUser(userId:String): User?
+    suspend fun checkIsUserIdRegistered(userId:String): User?
 
     @Throws
     suspend fun deleteUser(userId : String)
