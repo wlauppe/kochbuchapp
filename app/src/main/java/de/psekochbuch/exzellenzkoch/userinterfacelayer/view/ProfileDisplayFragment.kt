@@ -18,6 +18,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.ProfileDisplayAda
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 
 class ProfileDisplayFragment : Fragment() {
+    private lateinit var bindingtwo : ProfileDisplayFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //ViewModel
@@ -32,6 +33,7 @@ class ProfileDisplayFragment : Fragment() {
 
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
         binding.profileDisplayViewmodel = viewModel
+        bindingtwo = binding
         // init binding variable
         binding.profileDisplayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -50,16 +52,12 @@ class ProfileDisplayFragment : Fragment() {
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
 
-        //Glide------------------------------------------------
-        binding.textViewProfileDisplayDescription.text = viewModel.userDesc.toString()
 
-        binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID.toString()
-        val imageView = binding.imageView2
-        var urlString = viewModel.user?.imgUrl
-        if(urlString == "" || urlString.isNullOrEmpty()){
-            urlString = "file:///android_asset/exampleimages/chef_avatar.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
+        viewModel.user.observe(this, Observer { recipe -> setImage(recipe.imgUrl)})
+        viewModel.user.observe(this, Observer { recipe -> setUserID(recipe.userId)})
+        viewModel.user.observe(this, Observer { recipe -> setDescription(recipe.description)})
+       // viewModel.user.observe(this, Observer { recipe -> setImage(recipe.imgUrl)})
 
 
         binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener{
@@ -75,6 +73,26 @@ class ProfileDisplayFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    fun setImage(img : String){
+        //Glide------------------------------------------------
+        val imageView = bindingtwo.imageView2
+        var urlString = img
+        if(urlString == "" || urlString.isNullOrEmpty()){
+            urlString = "file:///android_asset/exampleimages/chef_avatar.png"
+        }
+        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
+
+    }
+    fun setUserID(id : String){
+        bindingtwo.textViewProfileDisplayFragmentTitle.text = id
+
+    }
+    fun setDescription(desc : String){
+        bindingtwo.textViewProfileDisplayDescription.text = desc
+
     }
 
 

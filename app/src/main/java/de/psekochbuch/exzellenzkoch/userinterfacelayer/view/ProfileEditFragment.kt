@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -51,12 +52,9 @@ class ProfileEditFragment : Fragment() {
         //initialized navcontoller
         val navController: NavController = findNavController()
 
-        val imageView = binding.imageViewUserImg
-        var urlString = viewModel.userImgURL
-        if(urlString == ""){
-            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
+
+        viewModel.user.observe(this, Observer { recipe -> setImage(recipe.imgUrl)})
 
 
         binding.buttonChangeLoginData.setOnClickListener {
@@ -141,9 +139,28 @@ class ProfileEditFragment : Fragment() {
             val imageView = binding.imageViewUserImg
             context?.let{Glide.with(it).load(data?.data).into(imageView)}
             imageView.setImageURI(data?.data)
-            viewModelTemp!!.userImgURL = data?.data.toString()
+            viewModelTemp!!.user.value?.imgUrl  = data?.data.toString()
             //imageView.setImageURI(data?.data)
         }
     }
+
+    fun setImage(img : String){
+
+        val imageView = binding.imageViewUserImg
+        var urlString = img
+        if(urlString == ""){
+            urlString = "file:///android_asset/exampleimages/chef_avatar.png"
+        }
+        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
+    }
+    fun setUserID(id: String){
+    binding.textViewEnterUserID.setText(id)
+    }
+    fun setDescription(desc : String){
+        binding.editTextUserDescription.setText(desc)
+
+    }
+
 
 }

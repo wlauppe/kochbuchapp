@@ -22,9 +22,7 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
         if(id == null){
             return
         }
-        recipe=repository.getPublicRecipe(id) as MutableLiveData<PublicRecipe>
-
-
+        recipe = repository.getPublicRecipe(id) as MutableLiveData<PublicRecipe>
     }
 
 //Wunschkriterium

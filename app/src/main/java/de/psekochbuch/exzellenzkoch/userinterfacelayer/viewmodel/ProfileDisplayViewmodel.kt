@@ -19,11 +19,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
 
 
     //User Information LiveData
-    var user: User? = null
-        var userID: LiveData<String> = MutableLiveData(user?.userId)
-        var userDesc : LiveData<String> = MutableLiveData(user?.description)
-        var userImg : LiveData<String> = MutableLiveData(user?.imgUrl)
-
+    var user = MutableLiveData<User>()
 
     /*
     * This variable is private because we don't want to expose MutableLiveData
@@ -50,15 +46,12 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
 
     fun setUserByID(id: String) {
         //SetUserID Dummy
-        this.userID = MutableLiveData(id)
-        //
         if (id == "") {
             return
         }
         viewModelScope.launch {
             try {
-                val user = userRepo.getUser(id)
-                userDesc = MutableLiveData(user.value!!.description)
+                 user = userRepo.getUser(id) as MutableLiveData<User>
 
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
@@ -71,7 +64,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
          //Coroutine
         viewModelScope.launch {
             try {
-                userRepo.reportUser(userID.value.toString())
+                userRepo.reportUser(user.value?.userId.toString())
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }

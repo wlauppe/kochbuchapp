@@ -8,12 +8,9 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserReposi
 
 class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
     var repo = repo
-    var user : LiveData<User> = repo.getUser("")
+    var user = MutableLiveData<User>()
+    var userImg = MutableLiveData<String>()
 
-        //LiveData
-        var userID : LiveData<String> = MutableLiveData("")
-        var userDesc : LiveData<String> = MutableLiveData("")
-        var userImgURL  = ""
 
 
 
@@ -32,25 +29,18 @@ class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
      * valid it sets the LiveData from the viewmodel with the data.
      * @param id:
      */
-    fun setUserByID(id:String){
-        var user = repo.getUser(id)
-        if(user.value!!.userId == ""){
+    fun setUserByID(id:String) {
+        user = repo.getUser(id) as MutableLiveData<User>
 
-        }
-        this.user = user
-        this.userID = MutableLiveData(user.value!!.userId)
-        this.userDesc = MutableLiveData(user.value!!.description)
-        this.userImgURL = user.value!!.imgUrl
     }
-
-    fun changeLoginData(){
+    fun changeLoginData() {
 
 
     }
-    fun save(){
+
+    fun save() {
 
     }
-
 }
 
 
