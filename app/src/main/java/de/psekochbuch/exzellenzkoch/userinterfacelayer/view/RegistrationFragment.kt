@@ -1,5 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -38,35 +40,55 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         binding.viewModel = viewModel
         //initialized navcontoller
 
-
-        var navController: NavController = findNavController()
+        val navController: NavController = findNavController()
         binding.buttonRegisterFragmentRegister.setOnClickListener {
 
-            viewModel.focusable.postValue(true)
-            binding.llProgressBar.visibility = View.VISIBLE
+            setLoadingScreen(false)
 
             viewModel.registerOnClick { userId, result, message ->
 
                 if(result == AuthenticationResult.REGISTRATIONSUCCESS) {
                     if (userId != null && userId != "") {
-                        viewModel.progressBarVisibility.postValue(false)
+                        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                        with (sharedPref?.edit()) {
+                            this?.putBoolean("Verified",true)
+                            this?.commit()
+                        }
+                        setLoadingScreen(true)
                         navController.navigate(
                             RegistrationFragmentDirections.actionRegistrationFragmentToProfileEditFragment().setUserID(
                                 userId
                             )
                         )
                     }
-                } else
+                } else if (result == AuthenticationResult.REGISTRATIONFAILED || result == AuthenticationResult.USERALREADYEXIST)
                 {
                     Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
+                } else if (result == AuthenticationResult.USERIDNOTSET)
+                {
+                    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                    with (sharedPref?.edit()) {
+                        this?.putBoolean("Verified",false)
+                        this?.commit()
+                    }
                 }
 
-                binding.llProgressBar.visibility = View.INVISIBLE
+                setLoadingScreen(true)
             }
 
         }
 
         return binding.root
+    }
+
+    private fun setLoadingScreen(state: Boolean) {
+        binding.llProgressBar.visibility = if(state) { View.INVISIBLE }
+            else View.VISIBLE
+
+        binding.buttonRegisterFragmentRegister.isClickable = state
+        binding.editTextRegisterEmailInput.isEnabled = state
+        binding.editTextRegisterPasswordInput.isEnabled = state
+        binding.editTextRegisterUsernidInput.isEnabled = state
     }
 
 

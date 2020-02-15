@@ -19,74 +19,86 @@ object AuthentificationImpl
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
-        /**
-         *Registrate a new User at Firebase and at the backendserver
-         *
-         * @param [email] The email of the User
-         * @param [password] The password of the User
-         * @param callback Return the token
-         */
-        fun register(
-            email: String,
-            password: String,
-            userId: String,
-            callback: (String?, AuthenticationResult) -> Unit
-        ) {
-            val auth: FirebaseAuth = FirebaseAuth.getInstance()
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "createUserWithEmail:success")
-                    auth.currentUser?.getIdToken(false)?.addOnCompleteListener { token ->
-                        val user = auth.currentUser
-                        if (user != null && userId != "") {
-                            user.updateProfile(
-                                UserProfileChangeRequest.Builder().setDisplayName(
-                                    userId
-                                ).build()
-                            ).addOnSuccessListener {
-                                callback(
-                                    token.result?.token,
-                                    AuthenticationResult.REGISTRATIONSUCCESS
-                                )
+    /**
+     *Registrate a new User at Firebase and at the backendserver
+     *
+     * @param [email] The email of the User
+     * @param [password] The password of the User
+     * @param callback Return the token
+     */
+    fun register(
+        email: String,
+        password: String,
+        userId: String,
+        callback: (String?, AuthenticationResult) -> Unit
+    ) {
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Log.d(TAG, "createUserWithEmail:success")
+
+                val user = auth.currentUser
+                if (user != null && userId != "") {
+
+                    user.updateProfile(
+                        UserProfileChangeRequest.Builder().setDisplayName(
+                            userId
+                        ).build()
+                    ).addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            auth.currentUser?.getIdToken(false)?.addOnCompleteListener { token ->
+
+                                if (token.isSuccessful) {
+                                    callback(
+                                        token.result?.token,
+                                        AuthenticationResult.REGISTRATIONSUCCESS
+                                    )
+                                } else {
+                                    callback(null, AuthenticationResult.REGISTRATIONSUCCESS)
+                                }
                             }
+
                         } else {
-                            callback(
-                                token.result?.token,
-                                AuthenticationResult.REGISTRATIONSUCCESS
-                            )
+                            callback("", AuthenticationResult.USERIDNOTSET)
                         }
                     }
                 } else {
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    //if(task.exception.)
-                    callback(null, AuthenticationResult.REGISTRATIONFAILED)
+                    callback(
+                        null,
+                        AuthenticationResult.REGISTRATIONSUCCESS
+                    )
                 }
 
-            }
-        }
 
-        /**
-         * Give the JWT-token of the active user
-         *
-         * @param callback Return the token
-         */
-        fun getToken(callback: (String?) -> Unit) {
-            val auth: FirebaseAuth = FirebaseAuth.getInstance()
-            auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
-                callback(it.result?.token)
+            } else {
+                Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                //if(task.exception.)
+                callback(null, AuthenticationResult.REGISTRATIONFAILED)
             }
         }
+    }
 
-        fun authWithCustomToken(token:String, callback: () -> Unit)
-        {
-            val auth: FirebaseAuth = FirebaseAuth.getInstance()
-            auth.signInWithCustomToken(token).addOnCompleteListener {
-                if(it.isSuccessful)
-                {
-                    callback()
-                }
+
+    /**
+     * Give the JWT-token of the active user
+     *
+     * @param callback Return the token
+     */
+    fun getToken(callback: (String?) -> Unit) {
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
+            callback(it.result?.token)
+        }
+    }
+
+    fun authWithCustomToken(token: String, callback: () -> Unit) {
+        val auth: FirebaseAuth = FirebaseAuth.getInstance()
+        auth.signInWithCustomToken(token).addOnCompleteListener {
+            if (it.isSuccessful) {
+                callback()
             }
         }
+    }
 
 
     /**
@@ -97,10 +109,9 @@ object AuthentificationImpl
      * @param callback Return value is the token
      *
      */
-    fun login(email: String, password: String, callback: (String?) -> Unit)
-    {
-        auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->
-            if(task.isSuccessful) {
+    fun login(email: String, password: String, callback: (String?) -> Unit) {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
                 Log.d(TAG, "signInWithEmail:success")
                 auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
                     callback(it.result?.token)
@@ -115,8 +126,7 @@ object AuthentificationImpl
     /**
      * Logout the User at Firebase
      */
-    fun logout()
-    {
+    fun logout() {
         auth.signOut()
     }
 
@@ -126,11 +136,9 @@ object AuthentificationImpl
      * @param [pw] The new password of the user
      * @param callback return true if it was successful
      */
-    fun pwEdit(pw:String, callback: (Boolean?) -> Unit)
-    {
+    fun pwEdit(pw: String, callback: (Boolean?) -> Unit) {
         auth.currentUser?.updatePassword(pw)?.addOnCompleteListener { task ->
-            if(task.isSuccessful)
-            {
+            if (task.isSuccessful) {
                 Log.d(TAG, "changePW:success")
                 callback(true)
             } else {
@@ -141,12 +149,20 @@ object AuthentificationImpl
     }
 
     /**
+     * Get userId from the authenticated user
+     * @return the userId of the user
+     */
+    fun getUserId() :String?
+    {
+        return auth.currentUser?.displayName
+    }
+
+    /**
      * Edit the userid of the user
      *
      * @param [userId] The new userid of the user
      */
-    fun userIdEdit(userId: String, activity: Activity)
-    {
+    fun userIdEdit(userId: String, activity: Activity) {
 
     }
 
@@ -154,8 +170,7 @@ object AuthentificationImpl
      * Delete the active user in Firebase and backendserver
      *
      */
-    fun userDelete()
-    {
+    fun userDelete() {
         auth.currentUser?.delete()
     }
 
