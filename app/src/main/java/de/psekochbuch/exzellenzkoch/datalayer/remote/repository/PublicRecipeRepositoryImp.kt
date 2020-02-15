@@ -120,6 +120,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
+        Log.w(TAG, "getPublicRecipe() wird aufgerufen mit id $recipeId")
 
         val lData = liveData(Dispatchers.IO, 1000) {
             try {
