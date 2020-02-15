@@ -32,6 +32,8 @@ import android.util.Log
 import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
+import androidx.lifecycle.Observer
+import androidx.lifecycle.Transformations
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
 /**
@@ -41,10 +43,15 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchLi
  */
 class CreateRecipeFragment : Fragment() {
 
+
+    var Tagg = "CreateRecipeFragment"
+
+
     /**
      * Binding attribute is needed in more than one class, thus used as global variable
      */
     private lateinit var binding: CreateRecipeFragmentBinding
+
 
     var viewModelTemp : CreateRecipeViewmodel? = null
 
@@ -58,6 +65,7 @@ class CreateRecipeFragment : Fragment() {
         val viewModel : CreateRecipeViewmodel by viewModels {
             InjectorUtils.provideCreateRecipeViewModelFactory(requireContext())
         }
+
         //binding set to the according Fragment
         binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
         //viewmodel recieved by viewmodelproviders
@@ -69,23 +77,32 @@ class CreateRecipeFragment : Fragment() {
         val recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
 
         if(recipeID != null) {
-            //    viewModel.setRecipeByID(recipeID)
-            // TODO delete later
-            binding.editTextRecipeTitleCreateRecipeFragment.setText("teeeeeest von thomas")
+           viewModel.setRecipeByID(recipeID)
+
 
         }
+
+
+        viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)
+        Log.i(Tagg, recipe.imgUrl.plus(" ist die Image URL"))})
+        viewModel.recipe.observe(this, Observer { recipe -> setTitle(recipe.title)
+            Log.i(Tagg, recipe.title.plus(" ist der Title"))})
+
+        viewModel.recipe.observe(this, Observer { recipe -> setTimes(recipe.preparationTime, recipe.cookingTime)})
+        viewModel.recipe.observe(this, Observer { recipe -> setIngredientText(recipe.ingredientsText)
+
+            Log.i(Tagg, recipe.ingredientsText.plus(" ingredients"))})
+        viewModel.recipe.observe(this, Observer { recipe -> setPortions(recipe.portions)})
+
+        viewModel.recipe.observe(this, Observer { recipe -> setPublishedID(recipe.publishedRecipeId)})
+
+        viewModel.recipe.observe(this, Observer { recipe -> setPublishedID(recipe.publishedRecipeId)})
+
 
 
         //initialized navcontoller
         val navController: NavController = findNavController()
 
-        //binding viewmodel with xml components
-        val imageView = binding.imageButtonRecipeImage
-        var urlString = viewModel.recipe.value?.imgUrl
-        if(urlString == ""){
-            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
 
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             //Create Recipe
@@ -168,6 +185,42 @@ class CreateRecipeFragment : Fragment() {
             imageView.setImageURI(data?.data)
             // = data?.data.toString()
            //imageView.setImageURI(data?.data)
+        }
+    }
+
+    fun setImage(img : String){
+        //binding viewmodel with xml components
+        val imageView = binding.imageButtonRecipeImage
+        var urlString = viewModelTemp!!.recipe.value?.imgUrl
+        if(urlString.isNullOrBlank()){
+            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
+        }
+        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
+
+    }
+    fun setTitle(title: String){
+        binding.editTextRecipeTitleCreateRecipeFragment.setText(title)
+
+    }
+    fun setIngredientText( ingredients : String){
+        binding.editTextIngredientsCreateRecipeFragment.setText(ingredients)
+    }
+
+
+    fun setTimes(prepTime : Int, cookTime: Int){
+        var prepTimeString = Integer.toString(prepTime)
+        var cookTimeString = Integer.toString(cookTime)
+        binding.editTextPreparingTimeCreateRecipeFragment.setText(prepTimeString)
+        binding.editTextCookingTimeCreateRecipeFragment.setText(cookTimeString)
+    }
+    fun setPortions(portions: Int){
+//TODO
+    }
+    fun setPublishedID(publishedID : Int?){
+        if(publishedID != null){
+            //noch nicht gepublished
+            viewModelTemp?.publishedID = publishedID
         }
     }
 
