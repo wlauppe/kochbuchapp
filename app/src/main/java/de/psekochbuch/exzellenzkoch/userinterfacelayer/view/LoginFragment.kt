@@ -65,8 +65,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         binding.logInProgressbar.visibility = if(state) { View.INVISIBLE }
         else View.VISIBLE
 
-        /*binding..visibility = if(state) { View.INVISIBLE }
-        else View.VISIBLE*/
+
 
         binding.buttonLoginFragmentLogin.isClickable = state
         binding.buttonLoginFragmentRegister.isClickable = state
