@@ -54,7 +54,7 @@ class AdminRecipeAdapter(var viewModel: AdminViewModel,
     override fun onBindViewHolder(holder: AdminRecipeViewHolder, position: Int) {
 
         //The admin gets the recipe title and the id
-        val printString: String = reportedRecipes[position].title.toString().plus(" ID(").plus(reportedRecipes[position].recipeId.toString().plus(")"))
+        val printString: String = reportedRecipes[position].title
         holder.adminReportedRecipeItemBinding.value = printString
         id = reportedRecipes[position].recipeId
 

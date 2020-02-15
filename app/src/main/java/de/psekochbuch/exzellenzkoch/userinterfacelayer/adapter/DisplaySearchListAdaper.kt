@@ -66,7 +66,6 @@ class DisplaySearchListAdaper(context: Context)
 
         // Glide image logic
         var urlString = ""
-
         val imageView = holder.displaySearchlistListitemBinding.imageViewDisplaySearchListItem
         if (recipes[position].imgUrl == "") {
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
