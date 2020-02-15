@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -51,12 +52,20 @@ class ProfileEditFragment : Fragment() {
         //initialized navcontoller
         val navController: NavController = findNavController()
 
-        val imageView = binding.imageViewUserImg
-        var urlString = viewModel.userImgURL
-        if(urlString == ""){
-            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
+        viewModel.user.observe(this, Observer {user->
+            viewModel.userID.postValue(user.userId)
+            viewModel.userDesc.postValue(user.description)
+
+            val imageView = binding.imageViewUserImg
+            var urlString = user.imgUrl
+            if(urlString == ""){
+                urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
+            }
+            context?.let { Glide.with(it).load(urlString).into(imageView) }
+        })
+
+
+
 
 
         binding.buttonChangeLoginData.setOnClickListener {
