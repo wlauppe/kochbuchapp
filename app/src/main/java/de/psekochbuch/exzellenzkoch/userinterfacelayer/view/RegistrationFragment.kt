@@ -19,9 +19,16 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResul
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrationViewModel
 
-
+/**
+ * The Fragment class provides logic for binding the respective .xml layout file to the class
+ * and calls functions from the underlying ViewModel.
+ * The ViewModel is provided by the ViewModelFactory, which is called here.
+ */
 class RegistrationFragment : Fragment(R.layout.registration_fragment) {
 
+    /**
+     * The binding variable is needed in another Method and therefore needs to be global
+     */
     private lateinit var binding: RegistrationFragmentBinding
 
     override fun onCreateView(
@@ -105,6 +112,11 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
         return binding.root
     }
 
+    /**
+     * This function displays a progress bar if the screen loads
+     *
+     * @param state
+     */
     private fun setLoadingScreen(state: Boolean) {
         binding.llProgressBar.visibility = if(state) { View.INVISIBLE }
             else View.VISIBLE

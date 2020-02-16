@@ -20,6 +20,11 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.FeedAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 
+/**
+* The Fragment class provides logic for binding the respective .xml layout file to the class
+* and calls functions from the underlying ViewModel.
+* The ViewModel is provided by the ViewModelFactory, which is called here.
+*/
 class FeedFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
