@@ -6,21 +6,60 @@ import java.util.*
  * The Private Recipe is the
  */
 class PrivateRecipe(
+    /**
+     * unique identifier in local db
+     */
     var recipeId: Int = 0,
+    /**
+     * title of the recipe
+     */
     val title: String,
+    /**
+     * the ingredients of the recipe
+     */
     val ingredientsText: String,
+    /**
+     * the tags of the recipe
+     */
     val tags: List<String>,
+    /**
+     * description of preparation of the recipe
+     */
     val preparation: String,
+    /**
+     * the path where the picture of the recipe is saved
+     */
     var imgUrl: String,
+    /**
+     * the time the recipe needs after the preparation in minutes
+     */
     val cookingTime: Int,
+    /**
+     * the time the recipe needs until preparation is done
+     */
     val preparationTime: Int,
+    /**
+     * the timestamp, when the recipe was saved into database
+     */
     val creationTimeStamp: Date,
+    /**
+     * number of portions, the recipe is constructed
+     */
     val portions: Int,
     //das ist die Id des öffentlichen Rezepts unter dem das private Rezept veröffentlicht ist.
     //wenn das private Rezept noch nicht veröffentlicht wurde ist das 0
+    /**
+     * if a recipe was published, this is the identifier of the belonging public recipe
+     * if the recipe was never published, it is 0
+     */
     var publishedRecipeId : Int = 0
 )  {
 
+    /**
+     * this method converts this to a Public recipe and throws an IllegalArgumentException, if not possible
+     * @param user: The user, who wants to convert the recipe
+     * @return: The public recipe object, with the information of this object
+     */
     fun convertToPublicRepipe(user:User) : PublicRecipe
     {
         return PublicRecipe(
@@ -40,8 +79,16 @@ class PrivateRecipe(
     }
 
     fun stringtochapters(toParse: String): List<IngredientChapter>{
+        if (toParse.equals("")){
+            return listOf()
+        }
         val toParseChapters = toParse.split("#").toList()
-        return toParseChapters.subList(1,toParseChapters.size).map(::stringtochapter);
+        try{
+            return toParseChapters.subList(1,toParseChapters.size).map(::stringtochapter);
+        } catch (e: Exception){
+            throw java.lang.IllegalArgumentException("ingredients couldnt be parsed")
+        }
+
     }
 
     fun stringtochapter(toParse: String): IngredientChapter{
@@ -53,7 +100,14 @@ class PrivateRecipe(
         for (i in toParse.length downTo 1) {
             try {
                 val number = getNumber(toParse.substring(0, i))
-                return IngredientAmount(toParse.substring(i, toParse.length), number, Unit.KeineEinheit)
+                val ingredientWithUnit = toParse.substring(i, toParse.length)
+                val unit = ingredientWithUnit.split(" ")[0]
+                val ingredient = ingredientWithUnit.dropWhile{!it.equals(' ')}.dropWhile{it.equals(' ')}
+                try{
+                    return IngredientAmount(ingredient, number, Unit.valueOf(unit))
+                }catch(e:java.lang.IllegalArgumentException){
+                    return IngredientAmount(ingredientWithUnit,number,Unit.KeineEinheit)
+                }
             } catch (e: IllegalArgumentException) {
                 continue
             }
@@ -66,7 +120,7 @@ class PrivateRecipe(
         val withoutWS = toParse.replace(" ", "")
         if (zahlgetrennt(withoutWS, "-")) {
             val numbers = withoutWS.split("-")
-            return (getNumber(numbers[0]) + getNumber(numbers[1]))/2
+            return (numbers[0].toLong() + numbers[1].toLong())/2.0
         }
         if (zahlgetrennt(withoutWS, ".")) return withoutWS.toDouble()
         if (zahlgetrennt(withoutWS, ",")) return withoutWS.replace(',', '.').toDouble()
