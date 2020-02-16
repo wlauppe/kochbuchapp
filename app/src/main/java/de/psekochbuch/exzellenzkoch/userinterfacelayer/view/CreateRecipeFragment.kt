@@ -188,10 +188,6 @@ class CreateRecipeFragment : Fragment() {
 
             Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe(requireContext())
-            //Für Heiner
-            Snackbar.make(view!!, viewModel.errorLiveDataString.value.toString(), Snackbar.LENGTH_SHORT).show()
-
-
 
            //TODO wieder reinmachen ist nur temporär draußen navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
