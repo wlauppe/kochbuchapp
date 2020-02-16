@@ -32,7 +32,7 @@ class PublicRecipe(
      * the url of the picture on the server of the recipe
      * TODO()
      */
-    val imgUrl: String = "",
+    var imgUrl: String = "",
     /**
      * the time the recipe needs after the preparation in minutes
      */
