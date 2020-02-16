@@ -42,7 +42,9 @@ import android.provider.OpenableColumns
 import android.widget.CheckBox
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import kotlinx.android.synthetic.main.create_recipe_fragment.view.*
+import kotlinx.android.synthetic.main.registration_fragment.*
 import java.io.File
 
 /**
@@ -96,16 +98,21 @@ class CreateRecipeFragment : Fragment() {
            viewModel.setRecipeByID(recipeID)
         }
 
+
         // set up observer values for the ViewModel attributes (Logatgs are for debugging purposes)
-        viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)
+        viewModel.recipe.observe(this, Observer {
+
+            recipe -> setImage(recipe.imgUrl)
             setPreparation(recipe.preparation)
             setTitle(recipe.title)
             setTimes(recipe.preparationTime, recipe.cookingTime)
             setIngredientText(recipe.ingredientsText)
-            setPortions(recipe.portions)
             setPublishedID(recipe.publishedRecipeId)
             getTagsFromRecipe(recipe.tags)
          })
+
+
+
 
 
 
@@ -118,7 +125,7 @@ class CreateRecipeFragment : Fragment() {
             viewModel.tagCheckBoxVegan.value = true
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
         }
-            Log.i(Tagg, viewModel.tagCheckBoxVegan.value.toString().plus( " = vm ; ").plus( binding.checkBoxVeganCreateRecipeFragment.isChecked.toString().plus(" = binding")))
+
 
         }
         binding.checkBoxVegetarianCreateRecipeFragment.setOnClickListener{
@@ -434,21 +441,27 @@ class CreateRecipeFragment : Fragment() {
 
     fun getTagsFromRecipe(tags : List<String>){
         if(tags.contains("vegan")){
+            viewModelTemp!!.tagCheckBoxVegan.value = true
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
         }
         if(tags.contains("vegetarisch")){
+            viewModelTemp!!.tagCheckBoxVegetarian.value = true
             viewModelTemp?.tagCheckBoxVegetarian = MutableLiveData(true)
         }
         if(tags.contains("salzig")){
+            viewModelTemp!!.tagCheckBoxSalty.value = true
             viewModelTemp?.tagCheckBoxSalty   = MutableLiveData(true)
         }
         if(tags.contains("sweet")){
+            viewModelTemp!!.tagCheckBoxSweet.value = true
             viewModelTemp?.tagCheckBoxSweet   = MutableLiveData(true)
         }
         if(tags.contains("günstig")){
+            viewModelTemp!!.tagCheckBoxCheap.value = true
             viewModelTemp?.tagCheckBoxCheap   = MutableLiveData(true)
         }
         if(tags.contains("herzhaft")){
+            viewModelTemp!!.tagCheckBoxSavoury.value = true
             viewModelTemp?.tagCheckBoxSavoury   = MutableLiveData(true)
         }
     }
