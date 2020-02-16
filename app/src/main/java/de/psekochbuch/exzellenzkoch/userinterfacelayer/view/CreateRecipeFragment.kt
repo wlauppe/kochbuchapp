@@ -112,11 +112,8 @@ class CreateRecipeFragment : Fragment() {
          })
 
 
-
-
-
-
-
+        /*The Following OnClickListeners set the value of the Checkboxes in the Viewmodel and the binding.
+        * The current value gets toggeld (true -> false OR false -> true)*/
         binding.checkBoxVeganCreateRecipeFragment.setOnClickListener{
         if(viewModel.tagCheckBoxVegan.value!!){
             viewModel.tagCheckBoxVegan.value = false
@@ -125,8 +122,6 @@ class CreateRecipeFragment : Fragment() {
             viewModel.tagCheckBoxVegan.value = true
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
         }
-
-
         }
         binding.checkBoxVegetarianCreateRecipeFragment.setOnClickListener{
         if(viewModel.tagCheckBoxVegetarian.value!!){
@@ -183,8 +178,6 @@ class CreateRecipeFragment : Fragment() {
                     viewModel.tagCheckBoxPublish.value = false
                     viewModel.dontPublishRecipe()
                 }
-
-
             }
             }
         }
@@ -199,31 +192,21 @@ class CreateRecipeFragment : Fragment() {
         //initialize navcontoller
         val navController: NavController = findNavController()
 
-
-
         //Snackbar, die Fehlermeldungen anzeigt.
         viewModel.showSnackBarEvent.observe(this, Observer {
             if (it == true) { // Observed state is true.
-                Snackbar.make(
-                    view!!,
+                Snackbar.make(view!!,
                     //getString(R.string.cleared_message),
                     viewModel.snackbarMessage.value!!,
-                    //viewModel.errorString.value.toString(),
                     Snackbar.LENGTH_SHORT // How long to display the message.
                 ).show()
                 viewModel.doneShowingSnackbar()
             }
-
         })
-
-
-
-       // Snackbar.make(view!!, viewModel.errorString.value.toString(), Snackbar.LENGTH_SHORT).show()
 
 
         // logic for the "Save recipe"-button
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
-
             //Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe(requireContext())
            //TODO wieder reinmachen ist nur temporär draußen navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
@@ -393,6 +376,7 @@ class CreateRecipeFragment : Fragment() {
     fun setIngredientText(ingredients : String){
         binding.editTextIngredientsCreateRecipeFragment.setText(ingredients)
     }
+
     /**
      * Set the preparation field of the observed recipe by binding.
      *
@@ -441,7 +425,10 @@ class CreateRecipeFragment : Fragment() {
         }
     }
 
-
+    /**
+     * Inserts the tags provided by the recipe to the bound XML and the viewmodel attributes
+     * @param tags The tags in the Format List<String>
+     */
     fun getTagsFromRecipe(tags : List<String>){
         if(tags.contains("vegan")){
             viewModelTemp!!.tagCheckBoxVegan.value = true
