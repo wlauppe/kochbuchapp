@@ -144,6 +144,7 @@ class CreateRecipeFragment : Fragment() {
                 viewModel.publishRecipe(requireContext())
                 if (!checked) {
                     viewModel.tagCheckBoxCheap.value = false
+                    viewModel.dontPublishRecipe()
                 }
 
 
