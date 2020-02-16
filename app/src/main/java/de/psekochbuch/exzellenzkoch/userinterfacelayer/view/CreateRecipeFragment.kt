@@ -39,6 +39,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchLi
 import android.content.ContentResolver
 import android.content.Context
 import android.provider.OpenableColumns
+import java.io.File
 
 /**
  * The Fragment class provides logic for binding the respective .xml layout file to the class
@@ -56,6 +57,10 @@ class CreateRecipeFragment : Fragment() {
      * A ViewModel instance os needed for the observer methods
      */
     private var viewModelTemp : CreateRecipeViewmodel? = null
+
+    //contentResolver = this.getActivity().getContentResolver()
+
+
 
     /**
      * Tag for the Logs (debugging purposes)
@@ -78,6 +83,7 @@ class CreateRecipeFragment : Fragment() {
         binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
         binding.createRecipeViewModel = viewModel
         viewModelTemp = viewModel
+        val context = getActivity()?.getApplicationContext()
 
         //SafeArgs provide the ID of the recipe that should be displayed
         val recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
@@ -178,48 +184,61 @@ class CreateRecipeFragment : Fragment() {
 
 
 
-    // Glide: handle result of picked image
 
-    val context: Context =  Applikationprovider.getapplicationcontext()
-
-    contentResolver = requireContext().getContentResolver()
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
 
-            returnIntent?.data.let { contentResolver.query(returnUri, null, null, null, null)
-            }?.use { cursor ->
-                /*
-                 * Get the column indexes of the data in the Cursor,
-                 * move to the first row in the Cursor, get the data,
-                 * and display it.
-                 */
-                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
-                cursor.moveToFirst()
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
 
-                val name = cursor.getString(nameIndex)
-                //findViewById<TextView>(R.id.filename_text).text = cursor.getString(nameIndex)
-                //findViewById<TextView>(R.id.filesize_text).text = cursor.getLong(sizeIndex).toString()
+            val contentResolver = getActivity()?.getApplicationContext()?.contentResolver
 
+            val returnUri = returnIntent?.data
+            val result: String?
+
+            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor = activity?.contentResolver?.query(returnUri!!, filePathColumn,null,null,null)!!
+            cursor.moveToFirst()
+            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+            val filePath = cursor.getString(columnIndex)
+            cursor.close()
+
+            //val file = File(returnUri?.path)
+            //viewModelTemp?.imgUrl?.value = returnUri?.toFile()?.absolutePath
+            viewModelTemp?.imgUrl?.value = filePath
+
+            /* returnUri?.let {
+                if (returnUri.scheme.equals("content")) {
+                    val cursor = contentResolver?.query(returnUri, null, null, null, null);
+                    try {
+                        if (cursor != null && cursor.moveToFirst()) {
+                            viewModelTemp?.imgUrl?.value =
+                                cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                        }
+                    } finally {
+                        cursor?.close()
+                    }
+                }
+            } */
+
+
+
+                //Speichere neue IMGURL
+                //val uri=data?.data
+                //val file = uri?.toFile()
+                //val path=file?.absolutePath
+
+                // viewModelTemp?.imgUrl?.value = result
+
+                //Zeige Bild an.
+                val imageView = binding.imageButtonRecipeImage
+                context?.let { Glide.with(it).load(returnIntent?.data).into(imageView) }
+                imageView.setImageURI(returnIntent?.data)
+
+                // = data?.data.toString()
+                //imageView.setImageURI(data?.data)
+                //data?.data?.path
             }
 
-            //Speichere neue IMGURL
-            //val uri=data?.data
-            //val file = uri?.toFile()
-            //val path=file?.absolutePath
-
-            //viewModelTemp?.imgUrl?.value = path
-
-            //Zeige Bild an.
-            val imageView = binding.imageButtonRecipeImage
-            context?.let{Glide.with(it).load(returnIntent?.data).into(imageView)}
-            imageView.setImageURI(returnIntent?.data)
-
-            // = data?.data.toString()
-           //imageView.setImageURI(data?.data)
-            //data?.data?.path
-        }
     }
 
     /**

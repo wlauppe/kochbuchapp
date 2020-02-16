@@ -124,7 +124,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //Coroutine
             viewModelScope.launch {
                 try {
-                    publicRepo.publishRecipe(convertedPublicRecipe)
+                   // publicRepo.publishRecipe(convertedPublicRecipe)
                 } catch (error: Error) {
                     _errorLiveDataString.value = error.message
                     Toast.makeText(context, _errorLiveDataString.value, Toast.LENGTH_SHORT).show()
