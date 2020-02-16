@@ -81,7 +81,7 @@ class ProfileDisplayFragment : Fragment() {
             AuthentificationImpl.logout()
             InjectorUtils.setToken(null)
             val navController = findNavController()
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToProfileDisplayFragment())
+            navController.navigate(R.id.action_profileDisplayFragment_to_loginFragment)
         }
 
         binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener{
