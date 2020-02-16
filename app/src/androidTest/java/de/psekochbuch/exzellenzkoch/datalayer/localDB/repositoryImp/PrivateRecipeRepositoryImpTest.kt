@@ -16,9 +16,11 @@ import java.util.*
 
 class PrivateRecipeRepositoryImpTest(){
     @Test
+    /**
+     * This method tests if the dao object insert the recipe correctly
+     */
     fun workwithdao(){
         val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(ApplicationProvider.getApplicationContext())?.privateRecipeDao();
-         var recipes =  privateRecipeDao?.getAll()
 
         val recipe = PrivateRecipeDB(1,"titel","so",1,2,3,4,"lal","so",0)
 
@@ -26,9 +28,9 @@ class PrivateRecipeRepositoryImpTest(){
 
         Thread.sleep(1000)
 
-        val recipefromdb = privateRecipeDao?.getAll()
+        val recipefromdb = privateRecipeDao?.getRecipe(1)
 
-        1
+        assertEquals(recipefromdb!!.title,"titel")
     }
 
     @Test
