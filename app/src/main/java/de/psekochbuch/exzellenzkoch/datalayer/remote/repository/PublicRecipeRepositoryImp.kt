@@ -153,6 +153,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     @Throws
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
         var returnId : Int = 0
+        Log.w(TAG, "publishRecipe() wird aufgerufen für recipe mit titel = ${publicRecipe.title} und img=${publicRecipe.imgUrl}")
             coroutineScope{
                 try {
                     //First upload the Image.
