@@ -1,6 +1,9 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-
+/**
+ * @param creator: The user who creates the group. The creator can add, or remove other users
+ * @param name: The Groupname which will be displayed publicly
+ */
 class Group (creator: User, name:String){
     fun getUsers():List<User>{
         return emptyList() //TODO
