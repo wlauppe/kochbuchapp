@@ -1,10 +1,13 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import kotlinx.coroutines.launch
 
 class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
 
@@ -15,7 +18,7 @@ class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
         //LiveData
         var userID : MutableLiveData<String> = MutableLiveData("")
         var userDesc : MutableLiveData<String> = MutableLiveData("")
-        var userImgURL  = ""
+        var userImgURL  : MutableLiveData<String> = MutableLiveData("")
 
 
 
@@ -46,6 +49,15 @@ class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
     }
 
     fun save() {
+        var newUser = User(user.value!!.userId,user.value!!.imgUrl,user.value!!.description)
+        viewModelScope.launch {
+            try {
+                repo.updateUser(userID.value!!,newUser)
+            } catch (error: Error) {
+                //_snackbarMessage.value = error.message
+                //Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
+            }
+        }
 
     }
 }
