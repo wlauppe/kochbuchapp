@@ -140,10 +140,10 @@ class CreateRecipeFragment : Fragment() {
             view -> if (view is CheckBox) {
             val checked: Boolean = view.isChecked
             if (checked) {
-                viewModel.tagCheckBoxCheap.value = true
-                viewModel.publishRecipe(requireContext())
+                viewModel.tagCheckBoxPublish.value = true
+                viewModel.publishRecipe()
                 if (!checked) {
-                    viewModel.tagCheckBoxCheap.value = false
+                    viewModel.tagCheckBoxPublish.value = false
                     viewModel.dontPublishRecipe()
                 }
 
