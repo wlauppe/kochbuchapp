@@ -32,9 +32,14 @@ import android.util.Log
 import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
+import androidx.core.net.toFile
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
+import android.content.ContentResolver
+import android.content.Context
+import android.provider.OpenableColumns
+import java.io.File
 
 /**
  * The Fragment class provides logic for binding the respective .xml layout file to the class
@@ -52,6 +57,10 @@ class CreateRecipeFragment : Fragment() {
      * A ViewModel instance os needed for the observer methods
      */
     private var viewModelTemp : CreateRecipeViewmodel? = null
+
+    //contentResolver = this.getActivity().getContentResolver()
+
+
 
     /**
      * Tag for the Logs (debugging purposes)
@@ -74,6 +83,7 @@ class CreateRecipeFragment : Fragment() {
         binding = CreateRecipeFragmentBinding.inflate(inflater, container, false)
         binding.createRecipeViewModel = viewModel
         viewModelTemp = viewModel
+        val context = getActivity()?.getApplicationContext()
 
         //SafeArgs provide the ID of the recipe that should be displayed
         val recipeID = arguments?.let { CreateRecipeFragmentArgs.fromBundle(it).recipeID }
@@ -171,17 +181,64 @@ class CreateRecipeFragment : Fragment() {
         }
     }
 
-    // Glide: handle result of picked image
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            //Speichere neue IMGURL
-            viewModelTemp?.imgUrl?.value = data?.data.toString()
-            val imageView = binding.imageButtonRecipeImage
-            context?.let{Glide.with(it).load(data?.data).into(imageView)}
-            imageView.setImageURI(data?.data)
-            // = data?.data.toString()
-           //imageView.setImageURI(data?.data)
-        }
+
+
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?) {
+
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+
+            val contentResolver = getActivity()?.getApplicationContext()?.contentResolver
+
+            val returnUri = returnIntent?.data
+            val result: String?
+
+            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor = activity?.contentResolver?.query(returnUri!!, filePathColumn,null,null,null)!!
+            cursor.moveToFirst()
+            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+            val filePath = cursor.getString(columnIndex)
+            cursor.close()
+
+            //val file = File(returnUri?.path)
+            //viewModelTemp?.imgUrl?.value = returnUri?.toFile()?.absolutePath
+            viewModelTemp?.imgUrl?.value = filePath
+
+            /* returnUri?.let {
+                if (returnUri.scheme.equals("content")) {
+                    val cursor = contentResolver?.query(returnUri, null, null, null, null);
+                    try {
+                        if (cursor != null && cursor.moveToFirst()) {
+                            viewModelTemp?.imgUrl?.value =
+                                cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                        }
+                    } finally {
+                        cursor?.close()
+                    }
+                }
+            } */
+
+
+
+                //Speichere neue IMGURL
+                //val uri=data?.data
+                //val file = uri?.toFile()
+                //val path=file?.absolutePath
+
+                // viewModelTemp?.imgUrl?.value = result
+
+                //Zeige Bild an.
+                val imageView = binding.imageButtonRecipeImage
+                context?.let { Glide.with(it).load(returnIntent?.data).into(imageView) }
+                imageView.setImageURI(returnIntent?.data)
+
+                // = data?.data.toString()
+                //imageView.setImageURI(data?.data)
+                //data?.data?.path
+            }
+
     }
 
     /**
