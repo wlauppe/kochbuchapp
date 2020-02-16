@@ -25,7 +25,9 @@ class PrivateRecipeRepositoryImpTest(){
 
         Thread.sleep(1000)
 
-        val recipefromdb = privateRecipeDao?.getRecipe(1)
+        val recipefromdb = privateRecipeDao?.getAll()
+
+        1
     }
 
     @Test

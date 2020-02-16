@@ -76,6 +76,9 @@ class PrivateRecipe(
     }
 
     fun stringtochapters(toParse: String): List<IngredientChapter>{
+        if (toParse.equals("")){
+            return listOf()
+        }
         val toParseChapters = toParse.split("#").toList()
         try{
             return toParseChapters.subList(1,toParseChapters.size).map(::stringtochapter);
@@ -94,7 +97,14 @@ class PrivateRecipe(
         for (i in toParse.length downTo 1) {
             try {
                 val number = getNumber(toParse.substring(0, i))
-                return IngredientAmount(toParse.substring(i, toParse.length), number, Unit.KeineEinheit)
+                val ingredientWithUnit = toParse.substring(i, toParse.length)
+                val unit = ingredientWithUnit.split(" ")[0]
+                val ingredient = ingredientWithUnit.dropWhile{!it.equals(' ')}.dropWhile{it.equals(' ')}
+                try{
+                    return IngredientAmount(ingredient, number, Unit.valueOf(unit))
+                }catch(e:java.lang.IllegalArgumentException){
+                    return IngredientAmount(ingredientWithUnit,number,Unit.KeineEinheit)
+                }
             } catch (e: IllegalArgumentException) {
                 continue
             }
@@ -107,7 +117,7 @@ class PrivateRecipe(
         val withoutWS = toParse.replace(" ", "")
         if (zahlgetrennt(withoutWS, "-")) {
             val numbers = withoutWS.split("-")
-            return (getNumber(numbers[0]) + getNumber(numbers[1]))/2
+            return (numbers[0].toLong() + numbers[1].toLong())/2.0
         }
         if (zahlgetrennt(withoutWS, ".")) return withoutWS.toDouble()
         if (zahlgetrennt(withoutWS, ",")) return withoutWS.replace(',', '.').toDouble()
