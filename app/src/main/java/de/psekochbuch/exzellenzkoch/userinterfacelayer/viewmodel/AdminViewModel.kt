@@ -13,6 +13,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserReposi
 import kotlinx.coroutines.launch
 
 
+/**
+ * The AdminViewModel handles the Information for the AdminFragment.
+ * @param publicRecipeRepo: The public repository through which the public recipes are handled
+ * @param userRepo: The user repository through which the users are handled
+ */
 class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRepository) : ViewModel() {
     var rRepo = publicRecipeRepo
     var uRepo = userRepo
@@ -20,8 +25,6 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
 
     /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
     * eine Liste an ID`s, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
-
-
     var recipes : LiveData<List<PublicRecipe>> = rRepo.getReportedPublicRecipes()
     var users : LiveData<List<User>> = uRepo.getReportedUsers()
 
@@ -40,21 +43,6 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
     val errorLiveDataString: LiveData<String?>
         get() = _errorLiveDataString
 
-
-    /* fun refreshTitle() {
-        viewModelScope.launch {
-            try {
-               // _spinner.value = true
-                repository.reportUser()
-            } catch (error: TitleRefreshError) {
-                _snackBar.value = error.message
-            } finally {
-               // _spinner.value = false
-            }
-        }
-        */
-
-
     /**
            *Removes the recipe which matches the given id from the Database on the server. The reciper can not longer
            * be accessed.
@@ -72,7 +60,6 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
             }
         }
 
-
     }
 
     /**
@@ -88,8 +75,6 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }
-
-
         }
     }
 
@@ -105,10 +90,7 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }
-
-
         }
-
     }
 
     /**
@@ -125,6 +107,4 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
             }
         }
     }
-
-
 }

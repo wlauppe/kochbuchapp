@@ -16,10 +16,16 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayVi
 import java.text.SimpleDateFormat
 import java.util.*
 
-
+/**
+ * The Fragment class provides logic for binding the respective .xml layout file to the class
+ * and calls functions from the underlying ViewModel.
+ * The ViewModel is provided by the ViewModelFactory, which is called here.
+ */
 class RecipeDisplayFragment : Fragment(){
-    var TAG = "RecipeDisplayFragment"
 
+    /**
+     * The binding variable is used in the observe Methods, thus needs to be global.
+     */
     private lateinit var binding: RecipeDisplayFragmentBinding
 
     override fun onCreateView(
@@ -36,10 +42,7 @@ class RecipeDisplayFragment : Fragment(){
         //SafeArgs---------------------------
         val recipeID = arguments?.let { RecipeDisplayFragmentArgs.fromBundle(it).recipeID }
 
-        Log.i(TAG, recipeID.toString().plus(" ist die ID im RecipeDisplayFragment"))
-        viewModel.setRecipeByID(recipeID)
-
-
+         viewModel.setRecipeByID(recipeID)
 
         //binding set to the according Fragment
         binding = RecipeDisplayFragmentBinding.inflate(inflater, container, false)
@@ -59,8 +62,6 @@ class RecipeDisplayFragment : Fragment(){
         //initialized navcontoller
         var navController: NavController = findNavController()
 
-
-
         viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)})
         viewModel.recipe.observe(this, Observer { recipe -> setTitle(recipe.title) })
         viewModel.recipe.observe(this, Observer { recipe -> setTimes(recipe.preparationTime, recipe.cookingTime) })
@@ -77,7 +78,14 @@ class RecipeDisplayFragment : Fragment(){
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.options_menu_display_recipe, menu)
     }
-    fun setImage( urlString: String){
+
+    /**
+     * Update the image from defined URL via Glide as the Recipe
+     * when the observable is changed in the ViewModel
+     *
+     * @param urlString the URL that defines the image for Glide
+     */
+    private fun setImage( urlString: String){
         var urlString = urlString
         if(urlString == "" || urlString.isNullOrBlank()||urlString.isNullOrEmpty()){
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
@@ -87,23 +95,47 @@ class RecipeDisplayFragment : Fragment(){
 
     }
 
-
-    fun setTitle(title : String){
+    /**
+     * Update the title via databinding when the observable is changed in the ViewModel
+     *
+     * @param title is the title of the recipe that needs to be updates
+     */
+    private fun setTitle(title : String){
         binding.textViewRecipeTitle.text = title
     }
-    fun setTimes(prepTime : Int, cookingTime : Int){
+
+    /**
+     * Update the times via databinding when the observable is changed in the ViewModel
+     *
+     * @param prepTime is the preparationTime of the recipe that needs to be updates
+     * @param cookingTime is the preparationTime of the recipe that needs to be updates
+     */
+    private fun setTimes(prepTime : Int, cookingTime : Int){
         binding.textViewRecipePrepTime.text = Integer.toString(prepTime)
         binding.textViewRecipeCookTime.text = Integer.toString(cookingTime)
     }
-    fun setTagsAndIngredietText(tags : List<String>, ingredients : String){
-        var tagString = ""
+
+    /**
+     * Update the tags via databinding when the observable is changed in the ViewModel
+     *
+     * @param tags are the set tags of the recipe that needs to be updates
+     * @param ingredients is a String that displays the ingradients
+     */
+    private fun setTagsAndIngredietText(tags : List<String>, ingredients : String){
+        val tagString = ""
         for(tag in tagString){
             tagString.plus( " " + tag)
         }
         binding.textViewRecipeTags.text = tagString
         binding.textViewIngredientList.text = ingredients
     }
-    fun setCreationDate(date : Date){
+
+    /**
+     * Update the Date via databinding when the observable is changed in the ViewModel
+     *
+     * @param date is a the timestamp the recipe has
+     */
+    private fun setCreationDate(date : Date){
         val format = SimpleDateFormat("yyyy-MM-dd")
         val dateString = format.format(Date())
         val date = format.parse("2009-12-31")

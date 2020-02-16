@@ -10,7 +10,10 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImp
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 import kotlinx.coroutines.launch
 
-
+/**
+ * The Login ViewModel handles the information for the LoginFragment.
+ * @param authentification: The interface through which the user authenfication methods are handled.
+ */
 class LoginViewModel(authentification: Authentification) : ViewModel() {
 
 

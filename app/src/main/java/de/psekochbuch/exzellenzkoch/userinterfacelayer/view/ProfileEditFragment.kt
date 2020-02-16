@@ -24,8 +24,17 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileEditFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileEditViewmodel
 
+/**
+ * The Fragment class provides logic for binding the respective .xml layout file to the class
+ * and calls functions from the underlying ViewModel.
+ * The ViewModel is provided by the ViewModelFactory, which is called here.
+ */
 class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
 
+    /**
+     * The ViewModel is used in another method apart from the onCreateView and thus needs to
+     * be global.
+     */
     private lateinit var binding: ProfileEditFragmentBinding
     var viewModelTemp : ProfileEditViewmodel? = null
 
@@ -65,10 +74,6 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
             }
             context?.let { Glide.with(it).load(urlString).into(imageView) }
         })
-
-
-
-
 
         binding.buttonChangeLoginData.setOnClickListener {
 
@@ -111,8 +116,8 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
         }
         return binding.root
     }
-    //Ab hier ist der Image Picker Code
-    // Creating our Share Intent
+
+    // Creating Share Intent
     private fun pickImageFromGallery() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
@@ -127,7 +132,6 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
         private val PERMISSION_CODE = 1001;
     }
 
-    //handle requested permission result
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when(requestCode){
             PERMISSION_CODE -> {

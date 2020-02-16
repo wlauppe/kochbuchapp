@@ -18,6 +18,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.ProfileDisplayAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 
+/**
+* The Fragment class provides logic for binding the respective .xml layout file to the class
+* and calls functions from the underlying ViewModel.
+* The ViewModel is provided by the ViewModelFactory, which is called here.
+*/
 class ProfileDisplayFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -25,22 +30,19 @@ class ProfileDisplayFragment : Fragment() {
         val viewModel : ProfileDisplayViewmodel by viewModels {
             InjectorUtils.provideProfileDisplayViewModelFactory(requireContext())
         }
-        //SafeArge--------------------------------
+        //SafeArgs
         val userID = arguments?.let { ProfileDisplayFragmentArgs.fromBundle(it).userID }
         viewModel.setUserByID(userID!!)
-        // TODO überflüssiger toast
-        Toast.makeText(requireContext(), userID.toString(), Toast.LENGTH_SHORT).show()
 
+        // init binding variable
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
         binding.profileDisplayViewmodel = viewModel
-        // init binding variable
         binding.profileDisplayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        // set input values to show them in the xml
 
         val feedAdapter = ProfileDisplayAdapter(viewModel, requireContext())
 
-        //Adapter--------------------------------------------
+        //Adapter
         binding.profileDisplayRecyclerView.adapter = feedAdapter
              // set observer
         val observer = Observer<List<PublicRecipe>> { items ->
@@ -48,10 +50,9 @@ class ProfileDisplayFragment : Fragment() {
                 feedAdapter.recipes = items}
         }
 
+        // set observables
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
-
-
 
         viewModel.user.observe(this, Observer { user ->
             viewModel.userDesc.postValue(user.description)
@@ -65,11 +66,6 @@ class ProfileDisplayFragment : Fragment() {
             }
             context?.let { Glide.with(it).load(urlString).into(imageView) }
         })
-
-
-
-
-
 
         binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener{
             val navController = findNavController()

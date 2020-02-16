@@ -9,9 +9,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import kotlinx.coroutines.launch
 
+/**
+ * The ProfileEditViewmodel handles the information for the ProfileEditFragment.
+ * @param repo: the user repository through which the user related methods are executed.
+ */
 class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
-
-
 
     var user : MutableLiveData<User> = MutableLiveData(User(""))
 
@@ -48,14 +50,15 @@ class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
 
     }
 
+    /**
+     * Stores the users changes
+     */
     fun save() {
         var newUser = User(user.value!!.userId,user.value!!.imgUrl,user.value!!.description)
         viewModelScope.launch {
             try {
                 repo.updateUser(userID.value!!,newUser)
             } catch (error: Error) {
-                //_snackbarMessage.value = error.message
-                //Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
             }
         }
 
