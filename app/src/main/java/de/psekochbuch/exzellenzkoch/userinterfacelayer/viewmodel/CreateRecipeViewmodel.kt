@@ -147,7 +147,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
        var newPrivateRecipe =
            PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
                resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, publishedID)
-        //Coroutine
+
+            //Coroutine Saving in Room Database
         viewModelScope.launch {
             try {
                 privateRepo.insertPrivateRecipe(newPrivateRecipe)
@@ -156,17 +157,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
             }
         }
-        //if (this.tagCheckBoxPublish.value == true) {
-        //TODO obige Abfrage funktioniet nicht. fixen
-
-
-          //  Toast.makeText(context, "Rezept wird veröffentlicht", Toast.LENGTH_SHORT).show()
-            //TODO dieser Text wird überdeckt von letztem Toast, in Snackbar schreiben.
-
-
-            //TODO muss anscheinend seit neuestem ein Feld "User übergeben"
-            //Man muss da Zugriff auf den Benutzer haben,
-            // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
+         //Man muss da Zugriff auf den Benutzer haben,
+         // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
         if(this.tagCheckBoxPublish.value == true && AuthentificationImpl.isLogIn()){
             val userId = AuthentificationImpl.getUserId()
             val user = User(userId)
@@ -177,11 +169,23 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //Coroutine
             viewModelScope.launch {
                 try {
-                   publicRepo.publishRecipe(convertedPublicRecipe)
+                   val newId = publicRepo.publishRecipe(convertedPublicRecipe)
+
+                    //muss jetzt noch mal das private Recipe mit der Id unter der das Rezept gepublished
+                    //wurde speichern.
+
+                    var newPrivateRecipe =
+                        PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
+                            resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, newId)
+
+                    //Coroutine Saving in Room Database
+                            privateRepo.insertPrivateRecipe(newPrivateRecipe)
+
                 } catch (error: Error) {
                     _snackbarMessage.value = error.message
                     Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
                 }
+                
             }
         }
 
