@@ -98,26 +98,14 @@ class CreateRecipeFragment : Fragment() {
 
         // set up observer values for the ViewModel attributes (Logatgs are for debugging purposes)
         viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)
-            Log.i(Tagg, recipe.imgUrl.plus(" ist die Image URL"))})
-
-        viewModel.recipe.observe(this, Observer { recipe -> setTitle(recipe.title)
-            Log.i(Tagg, recipe.title.plus(" ist der Title"))})
-
-        viewModel.recipe.observe(this, Observer { recipe -> setTimes(recipe.preparationTime, recipe.cookingTime)})
-
-        viewModel.recipe.observe(this, Observer { recipe -> setIngredientText(recipe.ingredientsText)
-            Log.i(Tagg, recipe.ingredientsText.plus(" ingredients"))})
-
-        viewModel.recipe.observe(this, Observer { recipe -> setPortions(recipe.portions)})
-
-        viewModel.recipe.observe(this, Observer { recipe -> setPublishedID(recipe.publishedRecipeId)})
-
-        viewModel.recipe.observe(this, Observer { recipe -> getTagsFromRecipe(recipe.tags)})
-
-
-        viewModel.recipe.observe(this, Observer { recipe -> setPreparation(recipe.preparation)
-            viewModel.preparation.value = recipe.preparation
-           })
+            setPreparation(recipe.preparation)
+            setTitle(recipe.title)
+            setTimes(recipe.preparationTime, recipe.cookingTime)
+            setIngredientText(recipe.ingredientsText)
+            setPortions(recipe.portions)
+            setPublishedID(recipe.publishedRecipeId)
+            getTagsFromRecipe(recipe.tags)
+            Log.i(Tagg, recipe.preparation.plus(" DDDDDD"))})
 
 
 
@@ -370,7 +358,6 @@ class CreateRecipeFragment : Fragment() {
      * @param preparation is a String of the preparation description, which the recipe has
      */
     fun setPreparation(preparation: String){
-        Toast.makeText(requireContext(), preparation.plus(" ist die beeeee"), Toast.LENGTH_SHORT).show()
         binding.editTextPreparationDescriptionCreateRecipeFragment.setText(preparation)
 
     }
