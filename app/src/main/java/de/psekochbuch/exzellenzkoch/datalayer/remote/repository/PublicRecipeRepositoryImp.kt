@@ -159,7 +159,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 try {
                     //First upload the Image.
                     val file : File = File(publicRecipe.imgUrl)
-                    val body = RequestBody.create(MediaType.parse("image/*"), file)
+                    val body = RequestBody.create(MediaType.parse("*/*"), file)
                     val multi = MultipartBody.Part.createFormData("file", file.name, body)
                     val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
                     val response = fileApiService.addImage(multi)
@@ -191,7 +191,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
         val file : File = File(ImageUrl)
 
-        val body = RequestBody.create(MediaType.parse("image/*"), file)
+        val body = RequestBody.create(MediaType.parse("*/*"), file)
         val multi = MultipartBody.Part.createFormData("file", file.name, body)
 
         //val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
