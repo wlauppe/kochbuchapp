@@ -13,6 +13,7 @@ import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.LoginFragmentBinding
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModel
 
 class LoginFragment : Fragment(R.layout.login_fragment) {
@@ -40,6 +41,11 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             setLoadingScreen(false)
             viewModel.login{ userId, result, message ->
                 if(userId != "" && result == AuthenticationResult.LOGINSUCCESS) {
+                    AuthentificationImpl.getToken(true) {
+                        if(it != null && it != "") {
+                            InjectorUtils.setToken(it)
+                        }
+                    }
                     setLoadingScreen(true)
                     navController.navigate(
                         LoginFragmentDirections.actionLoginFragmentToProfileDisplayFragment().setUserID(
@@ -69,6 +75,10 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         binding.buttonLoginFragmentLogin.isClickable = state
         binding.buttonLoginFragmentRegister.isClickable = state
+        binding.buttonLoginFragmentLogin.visibility = if(!state) { View.INVISIBLE }
+        else View.VISIBLE
+        binding.buttonLoginFragmentRegister.visibility = if(!state) { View.INVISIBLE }
+        else View.VISIBLE
         binding.editTextLoginFragmentEmail.isEnabled = state
         binding.editTextLoginFragmentPassword.isEnabled = state
     }

@@ -16,6 +16,7 @@ import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RegistrationFragmentBinding
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrationViewModel
 
 
@@ -54,6 +55,11 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
                             this?.putBoolean("Verified",true)
                             this?.commit()
                         }
+                        AuthentificationImpl.getToken(true) {
+                            if(it != null && it != "") {
+                                InjectorUtils.setToken(it)
+                            }
+                        }
                         setLoadingScreen(true)
                         navController.navigate(
                             RegistrationFragmentDirections.actionRegistrationFragmentToProfileEditFragment().setUserID(
@@ -61,7 +67,25 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
                             )
                         )
                     }
-                } else if (result == AuthenticationResult.REGISTRATIONFAILED || result == AuthenticationResult.USERALREADYEXIST)
+                } else if (result == AuthenticationResult.USERNOTSERVERCREATED) {
+                    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                    with (sharedPref?.edit()) {
+                        this?.putBoolean("Verified",false)
+                        this?.commit()
+                    }
+                    AuthentificationImpl.getToken(true) {
+                        if(it != null && it != "") {
+                            InjectorUtils.setToken(it)
+                        }
+                    }
+                    setLoadingScreen(true)
+                    navController.navigate(
+                        RegistrationFragmentDirections.actionRegistrationFragmentToProfileEditFragment().setUserID(
+                            ""
+                        )
+                    )
+                }
+                else if (result == AuthenticationResult.REGISTRATIONFAILED || result == AuthenticationResult.USERALREADYEXIST)
                 {
                     Toast.makeText(context,message,Toast.LENGTH_SHORT).show()
                 } else if (result == AuthenticationResult.USERIDNOTSET)

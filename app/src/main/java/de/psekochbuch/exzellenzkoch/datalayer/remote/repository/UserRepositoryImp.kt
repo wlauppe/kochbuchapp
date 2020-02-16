@@ -56,7 +56,7 @@ class UserRepositoryImp : UserRepository {
     override fun getUser(userId: String): LiveData<User> {
 
 
-        Log.w(TAG, "getPublicRecipes() wird aufgerufen")
+        Log.w(TAG, "getUser() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
@@ -131,6 +131,7 @@ class UserRepositoryImp : UserRepository {
     override fun setToken(token: String) {
         this.token = token
         userApiService = ApiServiceBuilder(token).createApi(UserApi::class.java) as UserApi
+        adminApiService = ApiServiceBuilder(token).createApi(AdminApi::class.java) as AdminApi
     }
 
 
