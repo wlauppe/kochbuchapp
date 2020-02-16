@@ -39,6 +39,9 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchLi
 import android.content.ContentResolver
 import android.content.Context
 import android.provider.OpenableColumns
+import androidx.lifecycle.MutableLiveData
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.create_recipe_fragment.view.*
 import java.io.File
 
 /**
@@ -120,6 +123,9 @@ class CreateRecipeFragment : Fragment() {
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe(requireContext())
+
+            Snackbar.make(view!!, "rezept veröffentlich", Snackbar.LENGTH_SHORT).show()
+            
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
 
@@ -325,13 +331,14 @@ class CreateRecipeFragment : Fragment() {
 
     fun setTags(tags : List<String>){
         if(tags.contains("vegan")){
-
+            binding.checkBoxVeganCreateRecipeFragment.isChecked = true
+            viewModelTemp!!.tagCheckBoxVegan.value = true
         }
         if(tags.contains("vegetarisch")){
-
+            viewModelTemp?.tagCheckBoxVegetarian = MutableLiveData(true)
         }
         if(tags.contains("salzig")){
-
+            viewModelTemp?.tagCheckBoxSalty   = MutableLiveData(true)
         }
         if(tags.contains("sweet")){
 

@@ -5,6 +5,8 @@ import android.util.Log
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.databinding.Bindable
+import androidx.databinding.InverseBindingMethod
+import androidx.databinding.InverseMethod
 import androidx.lifecycle.*
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
@@ -35,11 +37,11 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     var title = MutableLiveData<String>("")
     var ingredients = MutableLiveData<String>("")
 
-    var tagCheckBoxVegan: MutableLiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxVegan = MutableLiveData(false)
     var tagCheckBoxVegetarian: MutableLiveData<Boolean> = MutableLiveData(false)
     var tagCheckBoxSavoury: MutableLiveData<Boolean> = MutableLiveData(false)
     var tagCheckBoxSweet: MutableLiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxSalty: MutableLiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxSalty: MutableLiveData<Boolean> = MutableLiveData( false)
     var tagCheckBoxCheap: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var preparation = MutableLiveData<String>("")
@@ -111,17 +113,16 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         //TODO obige Abfrage funktioniet nicht. fixen
 
 
-            Toast.makeText(context, "Rezept wird veröffentlicht", Toast.LENGTH_SHORT).show()
+          //  Toast.makeText(context, "Rezept wird veröffentlicht", Toast.LENGTH_SHORT).show()
             //TODO dieser Text wird überdeckt von letztem Toast, in Snackbar schreiben.
 
 
             //TODO muss anscheinend seit neuestem ein Feld "User übergeben"
             //Man muss da Zugriff auf den Benutzer haben,
             // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
-
+        if(this.tagCheckBoxPublish.value == true){
             val user = User("Test")
            //val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(AuthentificationImpl.getUserId())
-
             val convertedPublicRecipe = PublicRecipe(title="Test", imgUrl = newPrivateRecipe.imgUrl)
             Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
             //Coroutine
@@ -133,12 +134,14 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                     Toast.makeText(context, _errorLiveDataString.value, Toast.LENGTH_SHORT).show()
                 }
             }
-        //}
+        }
+
     }
 
     fun getCheckedTags():List<String>{
         var list = mutableListOf<String>()
-       if(this.tagCheckBoxVegan.value!!){
+
+       if(this.tagCheckBoxVegan.value?.equals(true)!!){
            list.add("vegan")
        }
         if(this.tagCheckBoxVegetarian.value!!){
@@ -153,30 +156,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if(this.tagCheckBoxSweet.value!!){
             list.add("sweet")
         }
-        return list
+        return list.toList()
     }
 
-    fun setTags(list: List<String>){
-        if(list.contains("vegan")){
-           tagCheckBoxVegan = MutableLiveData(true)
 
-        }
-        if(list.contains("vegetarisch")){
-            tagCheckBoxVegetarian = MutableLiveData(true)
-        }
-        if(list.contains("günstig")){
-            tagCheckBoxCheap = MutableLiveData(true)
-        }
-        if(list.contains("herzhaft")){
-            tagCheckBoxSavoury = MutableLiveData(true)
-        }
-        if(list.contains("süß")){
-          tagCheckBoxSweet= MutableLiveData(true)
-        }
-        if(list.contains("salzig")){
-            tagCheckBoxSalty= MutableLiveData(true)
-        }
-    }
+
+
 
 
 
