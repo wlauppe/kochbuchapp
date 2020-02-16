@@ -57,7 +57,6 @@ class RecipeDisplayFragment : Fragment(){
 
 
 
-
         return binding.root
     }
 
