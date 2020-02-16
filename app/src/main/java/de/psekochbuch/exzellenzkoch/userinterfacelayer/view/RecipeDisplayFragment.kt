@@ -79,13 +79,10 @@ class RecipeDisplayFragment : Fragment(){
     }
     fun setImage( urlString: String){
         var urlString = urlString
-        //Toast.makeText(context, urlString, Toast.LENGTH_SHORT).show()
-
         if(urlString == "" || urlString.isNullOrBlank()||urlString.isNullOrEmpty()){
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
         val imageView = binding.imageViewRecipeImage
-
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
     }

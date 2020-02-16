@@ -39,21 +39,13 @@ class RecipeListFragment : Fragment() {
                 adapter.recipes = items}
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-
         binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
 
-        //ClickListener ----------------
+        //ClickListener --------HERE--------
         binding.buttonCreateRecipe.setOnClickListener{
             val navController:NavController = findNavController()
             navController.navigate(RecipeListFragmentDirections.actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(0))
         }
-
-        //Safeargs werden hier aus dem Bundle gezogen
-        //var it = arguments?.let { RecipeListFragmentArgs }
-        //var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitle }
-        //var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
-        //var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
-        //Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
 
         return binding.root
     }
