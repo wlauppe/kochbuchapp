@@ -88,7 +88,12 @@ class PrivateRecipe(
         if (toParse.equals("")){
             return listOf()
         }
-        val toParseChapters = toParse.split("#").toList()
+        var parsable = toParse
+        if (toParse.toCharArray()[0] != '#'){
+            parsable = "#Zutaten\n" + toParse
+        }
+
+        val toParseChapters = parsable.split("#").toList()
         try{
             return toParseChapters.subList(1,toParseChapters.size).map(::stringtochapter);
         } catch (e: Exception){
