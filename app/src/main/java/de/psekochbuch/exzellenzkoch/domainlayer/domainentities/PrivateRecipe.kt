@@ -3,7 +3,7 @@ package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 import java.util.*
 
 /**
- * 
+ * The Private Recipe is the
  */
 class PrivateRecipe(
     var recipeId: Int = 0,

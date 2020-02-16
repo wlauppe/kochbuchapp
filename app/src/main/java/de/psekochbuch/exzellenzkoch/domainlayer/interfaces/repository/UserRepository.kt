@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.UserDto
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 
+/**
+ * The Interface to access all the User tasks through the repository.
+ */
 interface UserRepository {
 
     /**
