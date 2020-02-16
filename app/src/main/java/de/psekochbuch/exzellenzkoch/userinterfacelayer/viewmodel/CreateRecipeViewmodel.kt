@@ -110,7 +110,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             }
         }
         //if (this.tagCheckBoxPublish.value == true) {
+        //TODO obige Abfrage funktioniet nicht. fixen
+
+
             Toast.makeText(context, "Rezept wird veröffentlicht", Toast.LENGTH_SHORT).show()
+            //TODO dieser Text wird überdeckt von letztem Toast, in Snackbar schreiben.
+
 
             //TODO muss anscheinend seit neuestem ein Feld "User übergeben"
             //Man muss da Zugriff auf den Benutzer haben,
@@ -124,7 +129,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //Coroutine
             viewModelScope.launch {
                 try {
-                   // publicRepo.publishRecipe(convertedPublicRecipe)
+                   publicRepo.publishRecipe(convertedPublicRecipe)
                 } catch (error: Error) {
                     _errorLiveDataString.value = error.message
                     Toast.makeText(context, _errorLiveDataString.value, Toast.LENGTH_SHORT).show()

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
+import de.psekochbuch.exzellenzkoch.IMG_PREFIX
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
@@ -160,12 +161,13 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                     val file : File = File(publicRecipe.imgUrl)
                     val body = RequestBody.create(MediaType.parse("image/*"), file)
                     val multi = MultipartBody.Part.createFormData("file", file.name, body)
-                    //val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
                     val response = fileApiService.addImage(multi)
                     //TODO Baseurl hinzufügen eventuell in den Mapper.
                     val remoteUrl = response.filePath
                     //speichere filepath in recipe
-                    //publicRecipe.imgUrl=
+                    //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
+                    publicRecipe.imgUrl= IMG_PREFIX+remoteUrl
                     val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
                     returnId = returnDto.id
 
