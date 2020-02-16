@@ -61,7 +61,7 @@ class DisplaySearchListFragment : Fragment(){
             viewModel.recipes.postValue(viewModel.recipesSortedDate.value!!)
         }
 
-        binding.radioButtonVegan.setOnClickListener {
+        binding.radioButtonTitel.setOnClickListener {
             viewModel.recipes.postValue(viewModel.recipesSortedTitle.value!!)
         }
 

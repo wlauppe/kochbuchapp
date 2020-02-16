@@ -41,10 +41,10 @@
                     android:text="@string/date" />
 
                 <RadioButton
-                    android:id="@+id/radioButton_vegan"
+                    android:id="@+id/radioButton_titel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/vegan" />
+                    android:text="@string/titel" />
 
 
             </RadioGroup>
