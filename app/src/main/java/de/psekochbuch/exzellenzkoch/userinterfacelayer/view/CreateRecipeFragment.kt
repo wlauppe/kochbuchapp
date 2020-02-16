@@ -115,6 +115,36 @@ class CreateRecipeFragment : Fragment() {
 
 
 
+        binding.checkBoxVeganCreateRecipeFragment.setOnClickListener{
+            viewModel.tagCheckBoxVegan.value = true
+            binding.checkBoxVeganCreateRecipeFragment.isChecked = true
+            Log.i(Tagg, viewModel.tagCheckBoxVegan.value.toString().plus( " = vm ; ").plus( binding.checkBoxVeganCreateRecipeFragment.isChecked.toString().plus(" = binding")))
+
+        }
+        binding.checkBoxVegetarianCreateRecipeFragment.setOnClickListener{
+            viewModel.tagCheckBoxVegetarian.value = true
+            binding.checkBoxVegetarianCreateRecipeFragment.isChecked = true
+        }
+        binding.checkBoxHeartyCreateRecipeFragment.setOnClickListener{
+            viewModel.tagCheckBoxSavoury.value = true
+            binding.checkBoxHeartyCreateRecipeFragment.isChecked = true
+        }
+        binding.checkBoxSweetCreateRecipeFragment.setOnClickListener{
+            viewModel.tagCheckBoxSweet.value = true
+            binding.checkBoxSweetCreateRecipeFragment.isChecked = true
+        }
+        binding.checkBoxSaltyCreateRecipeFragment.setOnClickListener{
+            viewModel.tagCheckBoxSalty.value = true
+            binding.checkBoxSaltyCreateRecipeFragment.isChecked = true
+        }
+        binding.checkBoxCheap.setOnClickListener{
+            viewModel.tagCheckBoxCheap.value = true
+            binding.checkBoxCheap.isChecked = true
+        }
+
+
+
+
 
         //initialize navcontoller
         val navController: NavController = findNavController()
@@ -123,10 +153,12 @@ class CreateRecipeFragment : Fragment() {
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe(requireContext())
+            //Für Heiner
+            Snackbar.make(view!!, viewModel.errorLiveDataString.value.toString(), Snackbar.LENGTH_SHORT).show()
 
-            Snackbar.make(view!!, "rezept veröffentlich", Snackbar.LENGTH_SHORT).show()
-            
-            navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
+
+
+           //TODO wieder reinmachen ist nur temporär draußen navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
 
         //Image intent
@@ -332,7 +364,6 @@ class CreateRecipeFragment : Fragment() {
     fun setTags(tags : List<String>){
         if(tags.contains("vegan")){
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
-            viewModelTemp!!.tagCheckBoxVegan.value = true
         }
         if(tags.contains("vegetarisch")){
             viewModelTemp?.tagCheckBoxVegetarian = MutableLiveData(true)

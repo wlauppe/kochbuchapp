@@ -8,6 +8,7 @@ import androidx.databinding.Bindable
 import androidx.databinding.InverseBindingMethod
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.*
+import com.google.android.material.snackbar.Snackbar
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -21,6 +22,7 @@ import java.util.*
 class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                             publicRepository: PublicRecipeRepository,
                             userRepository: UserRepository) : ViewModel() {
+    var Tag = "CreateRecipeVM"
 
     var privateRepo = privateRepository
     var publicRepo = publicRepository
@@ -33,11 +35,11 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
     var recipeID : Int = 0
 
-    var id  = MutableLiveData<Int>(0)
-    var title = MutableLiveData<String>("")
-    var ingredients = MutableLiveData<String>("")
+    var id : MutableLiveData<Int> = MutableLiveData(0)
+    var title:MutableLiveData<String>  = MutableLiveData<String>("")
+    var ingredients :MutableLiveData<String> = MutableLiveData<String>("")
 
-    var tagCheckBoxVegan = MutableLiveData(false)
+    var tagCheckBoxVegan: MutableLiveData<Boolean> = MutableLiveData(false)
     var tagCheckBoxVegetarian: MutableLiveData<Boolean> = MutableLiveData(false)
     var tagCheckBoxSavoury: MutableLiveData<Boolean> = MutableLiveData(false)
     var tagCheckBoxSweet: MutableLiveData<Boolean> = MutableLiveData(false)
@@ -97,9 +99,10 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
         // save to room database or update if already exists in room database
         // if recipe ID = 0, it's a new recipe, else update the existing one
+        var resultTags = getCheckedTags()
        var newPrivateRecipe =
            PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
-               getCheckedTags(),preparation.value!!,imgUrl.value!!, cookingTime.value!!, prepTime.value!!, creationTimeStamp, portions.value!!, publishedID)
+               resultTags,preparation.value!!,imgUrl.value!!, cookingTime.value!!, prepTime.value!!, creationTimeStamp, portions.value!!, publishedID)
         //Coroutine
         viewModelScope.launch {
             try {
@@ -141,8 +144,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     fun getCheckedTags():List<String>{
         var list = mutableListOf<String>()
 
-       if(this.tagCheckBoxVegan.value?.equals(true)!!){
+       if(this.tagCheckBoxVegan.value!!){
            list.add("vegan")
+           Log.i(Tag, "vegan ist enthalten" )
        }
         if(this.tagCheckBoxVegetarian.value!!){
             list.add("vegetarisch")
