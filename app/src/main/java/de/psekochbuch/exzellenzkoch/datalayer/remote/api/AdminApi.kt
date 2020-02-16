@@ -7,11 +7,11 @@ import retrofit2.http.*
 
 interface AdminApi {
 
-    @GET( "reported/recipes")
+    @GET( "admin/reported/recipes")
     suspend fun getReportedPublicRecipes(@Query("page") page:Int,
                                          @Query("readCount") readCount:Int): List<PublicRecipeDto>
 
-    @GET("reported/users")
+    @GET("admin/reported/users")
     suspend fun getReportedUsers(@Query("page") page:Int,
                                  @Query("readCount") readCount:Int): List<UserDto>
 
