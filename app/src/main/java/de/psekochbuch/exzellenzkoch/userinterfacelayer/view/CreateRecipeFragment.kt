@@ -64,9 +64,6 @@ class CreateRecipeFragment : Fragment() {
      */
     private var viewModelTemp : CreateRecipeViewmodel? = null
 
-    //contentResolver = this.getActivity().getContentResolver()
-
-
 
     /**
      * Tag for the Logs (debugging purposes)
@@ -114,10 +111,12 @@ class CreateRecipeFragment : Fragment() {
 
         /*The Following OnClickListeners set the value of the Checkboxes in the Viewmodel and the binding.
         * The current value gets toggeld (true -> false OR false -> true)*/
+
         binding.checkBoxVeganCreateRecipeFragment.setOnClickListener{
         if(viewModel.tagCheckBoxVegan.value!!){
             viewModel.tagCheckBoxVegan.value = false
             binding.checkBoxVeganCreateRecipeFragment.isChecked = false
+            Log.i(tag, viewModel.tagCheckBoxVegan.value.toString().plus(" ist im VM") . plus(binding.checkBoxVeganCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
         }else {
             viewModel.tagCheckBoxVegan.value = true
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
@@ -182,13 +181,6 @@ class CreateRecipeFragment : Fragment() {
             }
         }
 
-
-
-
-
-
-
-
         //initialize navcontoller
         val navController: NavController = findNavController()
 
@@ -207,16 +199,11 @@ class CreateRecipeFragment : Fragment() {
 
         // logic for the "Save recipe"-button
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
-            //Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe(requireContext())
            //TODO wieder reinmachen ist nur temporär draußen navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
 
-        //Image intent
-        /*binding.imageButtonRecipeImage.setOnClickListener{
-          var imgUrl =  viewModel.getImage()
-        }
-        */
+        //Image intent to get an image out of the user's galery
 
         // logic for the image button to load a recipe image
         binding.imageButtonRecipeImage.setOnClickListener {
@@ -239,10 +226,8 @@ class CreateRecipeFragment : Fragment() {
                 pickImageFromGallery();
             }
         }
-
         return binding.root
     }
-
 
     /**
      * Create an intent to be able to share recipes for future features.
@@ -278,11 +263,6 @@ class CreateRecipeFragment : Fragment() {
         }
     }
 
-
-
-
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?) {
 
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
@@ -304,39 +284,11 @@ class CreateRecipeFragment : Fragment() {
             Toast.makeText(requireContext(),"neuer filepath ist $filePath",Toast.LENGTH_SHORT).show()
             viewModelTemp?.imgUrl?.value = filePath
 
-            /* returnUri?.let {
-                if (returnUri.scheme.equals("content")) {
-                    val cursor = contentResolver?.query(returnUri, null, null, null, null);
-                    try {
-                        if (cursor != null && cursor.moveToFirst()) {
-                            viewModelTemp?.imgUrl?.value =
-                                cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                        }
-                    } finally {
-                        cursor?.close()
-                    }
-                }
-            } */
-
-
-
-                //Speichere neue IMGURL
-                //val uri=data?.data
-                //val file = uri?.toFile()
-                //val path=file?.absolutePath
-
-                // viewModelTemp?.imgUrl?.value = result
-
-                //Zeige Bild an.
+                //Shows image to the imageview which is provieded from the xml binding
                 val imageView = binding.imageButtonRecipeImage
                 context?.let { Glide.with(it).load(returnIntent?.data).into(imageView) }
                 imageView.setImageURI(returnIntent?.data)
-
-                // = data?.data.toString()
-                //imageView.setImageURI(data?.data)
-                //data?.data?.path
             }
-
     }
 
     /**
