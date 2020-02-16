@@ -54,12 +54,20 @@ class RegistrationViewModel(authentification: Authentification, repo: UserReposi
                                             try {
                                                 val token = userRepository.addUser(id)
                                                 AuthentificationImpl.authWithCustomToken(token) {
-                                                    AuthentificationImpl.getToken {
-                                                        updateUi(id, AuthenticationResult.REGISTRATIONSUCCESS, "User created")
-                                                    }
+
+                                                    updateUi(
+                                                        id,
+                                                        AuthenticationResult.REGISTRATIONSUCCESS,
+                                                        "User created"
+                                                    )
+
                                                 }
                                             } catch (e: Exception) {
-                                                updateUi("", AuthenticationResult.USERNOTSERVERCREATED, "User could not verified")
+                                                updateUi(
+                                                    "",
+                                                    AuthenticationResult.USERNOTSERVERCREATED,
+                                                    "User could not verified"
+                                                )
                                             }
 
                                             progressBarVisibility.postValue(false)
@@ -95,23 +103,31 @@ class RegistrationViewModel(authentification: Authentification, repo: UserReposi
 
                 AuthentificationImpl
                     .register(em, pw, "") { it, result ->
-                        if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
-                            Log.d(TAG, "Registration erfolgreich")
-                            userRepository.setToken(it)
-                            viewModelScope.launch {
-                                try {
-                                    val token = userRepository.addUser("")
-                                    AuthentificationImpl.authWithCustomToken(token) {
-                                            updateUi(AuthentificationImpl.getUserId(), AuthenticationResult.REGISTRATIONSUCCESS, "User created")
+                        if (it == null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                            updateUi("", AuthenticationResult.USERNOTSERVERCREATED, "User must be verified")
 
+                        } else
+                            if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                                Log.d(TAG, "Registration erfolgreich")
+                                userRepository.setToken(it)
+                                viewModelScope.launch {
+                                    try {
+                                        val token = userRepository.addUser("")
+                                        AuthentificationImpl.authWithCustomToken(token) {
+                                            updateUi(
+                                                AuthentificationImpl.getUserId(),
+                                                AuthenticationResult.REGISTRATIONSUCCESS,
+                                                "User created"
+                                            )
+
+                                        }
+                                    } catch (e: Exception) {
+                                        updateUi("", AuthenticationResult.USERNOTSERVERCREATED, "Userid could not set")
                                     }
-                                } catch (e: Exception) {
-                                    updateUi("",AuthenticationResult.USERNOTSERVERCREATED,"Userid could not set")
                                 }
+                            } else {
+                                updateUi("", AuthenticationResult.REGISTRATIONFAILED, "could not connect to server")
                             }
-                        } else {
-                            updateUi("", AuthenticationResult.REGISTRATIONFAILED, "could not connect to server")
-                        }
                     }
             }
 
