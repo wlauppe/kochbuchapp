@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
 /**
+ * The Group class contains all the representing ifnroatmion
  * @param creator: The user who creates the group. The creator can add, or remove other users
  * @param name: The Groupname which will be displayed publicly
  */

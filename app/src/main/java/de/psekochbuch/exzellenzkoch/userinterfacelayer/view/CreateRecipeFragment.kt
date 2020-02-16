@@ -99,7 +99,8 @@ class CreateRecipeFragment : Fragment() {
         // set up observer values for the ViewModel attributes (Logatgs are for debugging purposes)
         viewModel.recipe.observe(this, Observer {
 
-            recipe -> setImage(recipe.imgUrl)
+            recipe -> viewModel.setTags(recipe.tags)
+            setImage(recipe.imgUrl)
             setPreparation(recipe.preparation)
             setTitle(recipe.title)
             setTimes(recipe.preparationTime, recipe.cookingTime)
@@ -305,7 +306,6 @@ class CreateRecipeFragment : Fragment() {
         if(urlString.isNullOrBlank()){
            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
-
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
 
