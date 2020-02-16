@@ -22,7 +22,7 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
     * eine Liste an ID`s, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
 
 
-    var recipes : LiveData<List<PublicRecipe>> = rRepo.getPublicRecipes()
+    var recipes : LiveData<List<PublicRecipe>> = rRepo.getReportedPublicRecipes()
     var users : LiveData<List<User>> = userRepo.getReportedUsers()
 
     /*
