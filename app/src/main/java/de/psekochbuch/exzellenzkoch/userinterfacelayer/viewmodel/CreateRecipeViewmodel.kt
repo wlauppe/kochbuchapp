@@ -141,6 +141,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         // save to room database or update if already exists in room database
         // if recipe ID = 0, it's a new recipe, else update the existing one
         var resultTags = getCheckedTags()
+       if (imgUrl.value.equals("")) {
+           imgUrl.value = recipe.value?.imgUrl
+       }
        var newPrivateRecipe =
            PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
                resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, publishedID)

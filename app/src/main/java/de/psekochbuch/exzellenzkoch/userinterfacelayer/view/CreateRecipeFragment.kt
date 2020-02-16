@@ -318,6 +318,7 @@ class CreateRecipeFragment : Fragment() {
 
             //val file = File(returnUri?.path)
             //viewModelTemp?.imgUrl?.value = returnUri?.toFile()?.absolutePath
+            Toast.makeText(requireContext(),"neuer filepath ist $filePath",Toast.LENGTH_SHORT).show()
             viewModelTemp?.imgUrl?.value = filePath
 
             /* returnUri?.let {
@@ -364,9 +365,11 @@ class CreateRecipeFragment : Fragment() {
         //binding viewmodel with xml components
         val imageView = binding.imageButtonRecipeImage
         var urlString = viewModelTemp!!.recipe.value?.imgUrl
+
         if(urlString.isNullOrBlank()){
-            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
+           urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
+
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
 
