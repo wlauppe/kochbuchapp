@@ -2,12 +2,11 @@ package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.DB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.TagDao
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
-import androidx.lifecycle.Transformations
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.TagDB
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
 
 /**
  * his class implements the access to the private tag database

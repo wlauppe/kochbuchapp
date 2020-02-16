@@ -1,7 +1,6 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository
 
 import androidx.lifecycle.LiveData
-import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.UserDto
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 
 /**

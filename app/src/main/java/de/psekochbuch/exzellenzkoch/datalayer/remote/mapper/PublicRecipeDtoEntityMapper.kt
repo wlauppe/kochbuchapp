@@ -1,6 +1,5 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.mapper
 
-import de.psekochbuch.exzellenzkoch.BASE_URL
 import de.psekochbuch.exzellenzkoch.IMG_PREFIX
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.IngredientChapterDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.IngredientDto

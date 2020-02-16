@@ -3,12 +3,9 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseAuth
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
-import kotlinx.coroutines.launch
 
 /**
  * The Login ViewModel handles the information for the LoginFragment.

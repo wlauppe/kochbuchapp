@@ -3,7 +3,6 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
 class UserFakeRepositoryImp : UserRepository  {

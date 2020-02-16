@@ -7,17 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.psekochbuch.exzellenzkoch.InjectorUtils
-import de.psekochbuch.exzellenzkoch.databinding.AdminFragmentBinding
 import de.psekochbuch.exzellenzkoch.databinding.FeedBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.AdminRecipeAdapter
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.AdminUserAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.FeedAdapter
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 
 /**

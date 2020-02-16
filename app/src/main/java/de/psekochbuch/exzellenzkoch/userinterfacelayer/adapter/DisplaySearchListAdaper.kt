@@ -1,11 +1,9 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.content.Context
-import android.nfc.Tag
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +11,6 @@ import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistListitemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 
 /**
  * Adapter class that provides logic for the AdminFragment's "Reported User" RecyclerView

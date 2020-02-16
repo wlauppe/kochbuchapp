@@ -8,11 +8,9 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.UserApi
-import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.errors.NetworkError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import okhttp3.MediaType

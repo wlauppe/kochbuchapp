@@ -1,33 +1,23 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.IMG_PREFIX
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
-import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.PublicRecipeDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
-import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.TagList
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.errors.NetworkError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.invoke
 import kotlinx.coroutines.withTimeout
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
-import java.lang.NullPointerException
-import java.lang.Thread.sleep
 import java.util.*
 
 

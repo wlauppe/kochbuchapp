@@ -1,19 +1,23 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
-
-
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import kotlinx.coroutines.launch
 
+/**
+ * The RegistrationViewModel handles the information for the RegistrationFragment.
+ * @param authentification: The interface through which the authentification methods are called.
+ * @param repo: the repository through which the user related methods are called
+ */
 class RegistrationViewModel(authentification: Authentification, repo: UserRepository) :
     ViewModel() {
 
@@ -26,6 +30,10 @@ class RegistrationViewModel(authentification: Authentification, repo: UserReposi
 
     private val userRepository = repo
 
+    /**
+     * Registratiates the User with the currently inserted String, stored through the livedata attributes.
+     * @param updateUi: updates the interface
+     */
     fun registerOnClick(updateUi: (String?, AuthenticationResult, String?) -> Unit) {
 
         val em = email.value

@@ -5,13 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import kotlinx.coroutines.launch
 
+/**
+ * The ProfileDisplayViewmodel hanldes the data for the ProfileDisplayFragment.
+ * @param userRepository: the repository through which the user related methods are managed.
+ * @param recipeRepository: the repository through which the recipe related methods are managed.
+ */
 class ProfileDisplayViewmodel(userRepository:UserRepository,
                               recipeRepository: PublicRecipeRepository) : ViewModel() {
 
@@ -54,7 +58,6 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
         if (id == "") {
             return
         }
-
 
         recipes = recipeRepo.getRecipesFromUser(id) as MutableLiveData<List<PublicRecipe>>
 

@@ -9,13 +9,9 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.databinding.AdminReportedRecipeItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.AdminReportedUserItemBinding
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.AdminFragmentDirections
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.DisplaySearchListFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.AdminViewModel
 
 /**
