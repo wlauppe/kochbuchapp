@@ -14,6 +14,12 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserReposi
 import kotlinx.coroutines.launch
 import java.util.*
 
+/**
+ * The CreateRecipeViewModel handles the information for the CreateRecipeFragment.
+ * @param privateRepository: The repository through which the private recipes are managed.
+ * @param publicRepository: The repositroy through which the public recipes are managed.
+ * @param userRepository: The repository through which the users are handled
+ */
 class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                             publicRepository: PublicRecipeRepository,
                             userRepository: UserRepository) : ViewModel() {
