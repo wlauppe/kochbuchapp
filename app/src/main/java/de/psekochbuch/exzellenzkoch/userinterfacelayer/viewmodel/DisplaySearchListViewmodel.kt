@@ -27,10 +27,10 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
         var ingredientList = emptyList<String>()
         var tagList = emptyList<String>()
         if(ingredients != null) {
-             ingredientList = ingredients.split(",")
+             ingredientList = ingredients.split(", ")
         }
         if(tags != null) {
-            var tagList = tags.split(",")
+            tagList = tags.split(", ")
         }
         if(title == null){
             var title = ""
