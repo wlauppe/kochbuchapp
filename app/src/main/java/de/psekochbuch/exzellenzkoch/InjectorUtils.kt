@@ -24,7 +24,7 @@ object InjectorUtils {
          val repo = PublicRecipeRepositoryImp.getInstance()
          // repo.machewas
         return repo
-        
+
         //return PublicRecipeFakeRepositoryImp.getInstance()
     }
 
