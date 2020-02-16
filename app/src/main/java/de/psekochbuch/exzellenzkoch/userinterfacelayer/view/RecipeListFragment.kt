@@ -15,7 +15,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.RecipeListAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 
-
+/**
+ * The Fragment class provides logic for binding the respective .xml layout file to the class
+ * and calls functions from the underlying ViewModel.
+ * The ViewModel is provided by the ViewModelFactory, which is called here.
+ */
 class RecipeListFragment : Fragment() {
 
 
@@ -41,7 +45,7 @@ class RecipeListFragment : Fragment() {
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
 
-        //ClickListener --------HERE--------
+        // ClickListener to change fragment
         binding.buttonCreateRecipe.setOnClickListener{
             val navController:NavController = findNavController()
             navController.navigate(RecipeListFragmentDirections.actionRecipeListFragmentToCreateRecipeFragment().setRecipeID(0))
