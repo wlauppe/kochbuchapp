@@ -24,8 +24,6 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     var userRepo = userRepository
 
 
-
-
     var recipe= MutableLiveData<PrivateRecipe>()
 
     var recipeID : Int = 0
