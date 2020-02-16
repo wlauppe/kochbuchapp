@@ -1,14 +1,9 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
-import android.R.attr.bitmap
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -27,22 +21,11 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeVie
 
 import android.os.Build.*
 import android.Manifest
-import android.net.Uri
 import android.util.Log
-import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.checkSelfPermission
-import androidx.core.net.toFile
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
-import android.content.ContentResolver
-import android.content.Context
-import android.provider.OpenableColumns
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.create_recipe_fragment.view.*
-import java.io.File
 
 /**
  * The Fragment class provides logic for binding the respective .xml layout file to the class
@@ -145,17 +128,37 @@ class CreateRecipeFragment : Fragment() {
 
 
 
-
         //initialize navcontoller
         val navController: NavController = findNavController()
 
+
+
+        //Snackbar, die Fehlermeldungen anzeigt.
+        viewModel.showSnackBarEvent.observe(this, Observer {
+            if (it == true) { // Observed state is true.
+                Snackbar.make(
+                    view!!,
+                    //getString(R.string.cleared_message),
+                    "Rezept wird gespeichert und veröffentlicht",
+                    //viewModel.errorString.value.toString(),
+                    Snackbar.LENGTH_SHORT // How long to display the message.
+                ).show()
+                viewModel.doneShowingSnackbar()
+            }
+
+        })
+
+
+
+       // Snackbar.make(view!!, viewModel.errorString.value.toString(), Snackbar.LENGTH_SHORT).show()
+
+
+
         // logic for the "Save recipe"-button
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
+
             Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe(requireContext())
-            //Für Heiner
-            Snackbar.make(view!!, viewModel.errorLiveDataString.value.toString(), Snackbar.LENGTH_SHORT).show()
-
 
 
            //TODO wieder reinmachen ist nur temporär draußen navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)

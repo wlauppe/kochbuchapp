@@ -2,13 +2,8 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.content.Context
 import android.util.Log
-import android.widget.CompoundButton
 import android.widget.Toast
-import androidx.databinding.Bindable
-import androidx.databinding.InverseBindingMethod
-import androidx.databinding.InverseMethod
 import androidx.lifecycle.*
-import com.google.android.material.snackbar.Snackbar
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -61,12 +56,25 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     * MutableLiveData allows anyone to set a value, and MainViewModel is the only
     * class that should be setting values.
     */
-    private val _errorLiveDataString = MutableLiveData<String?>()
+    private var _showSnackbarEvent = MutableLiveData<Boolean>()
+
+    /**
+     * If this is true, immediately `show()` a toast and call `doneShowingSnackbar()`.
+     */
+    val showSnackBarEvent: LiveData<Boolean>
+        get() = _showSnackbarEvent
+
+
+    private val _errorString = MutableLiveData<String?>()
     /**
      * Request a snackbar to display a string.
      */
-    val errorLiveDataString: LiveData<String?>
-        get() = _errorLiveDataString
+    val errorString: LiveData<String?>
+        get() = _errorString
+
+    fun doneShowingSnackbar() {
+        _showSnackbarEvent.value = false
+    }
 
 
     //Checkboxes for the recipe tags
@@ -95,6 +103,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      * will be published
      */
     fun saveRecipe(context: Context) {
+        _showSnackbarEvent.value = true
         Log.i("CreateRecipeViewmodel", "funktion save recipe wird aufgerufen")
 
         // save to room database or update if already exists in room database
@@ -108,8 +117,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             try {
                 privateRepo.insertPrivateRecipe(newPrivateRecipe)
             } catch (error: Error) {
-                _errorLiveDataString.value = error.message
-                Toast.makeText(context, _errorLiveDataString.value, Toast.LENGTH_SHORT).show()
+                _errorString.value = error.message
+                Toast.makeText(context, _errorString.value, Toast.LENGTH_SHORT).show()
             }
         }
         //if (this.tagCheckBoxPublish.value == true) {
@@ -124,7 +133,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //Man muss da Zugriff auf den Benutzer haben,
             // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
         if(this.tagCheckBoxPublish.value == true){
-            val user = User("Test")
+            //val user = User("Test")
            //val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(AuthentificationImpl.getUserId())
             val convertedPublicRecipe = PublicRecipe(title="Test", imgUrl = newPrivateRecipe.imgUrl)
             Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
@@ -133,8 +142,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 try {
                    publicRepo.publishRecipe(convertedPublicRecipe)
                 } catch (error: Error) {
-                    _errorLiveDataString.value = error.message
-                    Toast.makeText(context, _errorLiveDataString.value, Toast.LENGTH_SHORT).show()
+                    _errorString.value = error.message
+                    Toast.makeText(context, _errorString.value, Toast.LENGTH_SHORT).show()
                 }
             }
         }
