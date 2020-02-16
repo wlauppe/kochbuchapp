@@ -60,9 +60,10 @@ class UserFakeRepositoryImp : UserRepository  {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun updateUser(user: User) {
+    override suspend fun updateUser(oldUserId: String, user: User) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
 
     override fun getReportedUsers(): LiveData<List<User>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
