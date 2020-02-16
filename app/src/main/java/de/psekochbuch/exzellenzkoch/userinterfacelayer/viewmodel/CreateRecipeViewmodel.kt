@@ -32,12 +32,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     var title = MutableLiveData<String>("")
     var ingredients = MutableLiveData<String>("")
 
-    var tagCheckBoxVegan: LiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxVegetarian: LiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxSavoury: LiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxSweet: LiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxSalty: LiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxCheap: LiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxVegan: MutableLiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxVegetarian: MutableLiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxSavoury: MutableLiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxSweet: MutableLiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxSalty: MutableLiveData<Boolean> = MutableLiveData(false)
+    var tagCheckBoxCheap: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var preparation = MutableLiveData<String>("")
     var imgUrl  = MutableLiveData<String>("")
@@ -78,9 +78,6 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if(id != 0) {
             recipe = privateRepo.getPrivateRecipe(recipeID) as MutableLiveData<PrivateRecipe>
         }
-
-
-
 }
 
     /**
@@ -127,9 +124,21 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
     fun getCheckedTags():List<String>{
         var list = mutableListOf<String>()
-        list.add("vegan")
-        list.add("vegetarisch")
-
+       if(this.tagCheckBoxVegan.value!!){
+           list.add("vegan")
+       }
+        if(this.tagCheckBoxVegetarian.value!!){
+            list.add("vegetarisch")
+        }
+        if(this.tagCheckBoxCheap.value!!){
+            list.add("günstig")
+        }
+        if(this.tagCheckBoxSavoury.value!!){
+            list.add("herzhaft")
+        }
+        if(this.tagCheckBoxSweet.value!!){
+            list.add("sweet")
+        }
         return list
     }
 
