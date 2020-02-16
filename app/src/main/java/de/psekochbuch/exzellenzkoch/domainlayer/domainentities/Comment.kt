@@ -3,11 +3,12 @@ package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 import java.util.*
 
 /**
- * The Comment class represents a Comment, which can be displayed within a PublicRecipe.
- * @param commentId: An unique identifyer for the specific comment
- * @param user: The author of the comment directly connected with it
- * @param text: The content of the Comment, which will be displayed
- * @param publicationTime: The Date of the publication of the comment
+ * The Comment class contains the bundle which represents a comment for a public recipe. It contains information
+ * about the author, the creationdate of the comment, an unique identifyer and the text which will be displayed.
+ * @param commentId: An unique identifyer through wich the comment can be accessed
+ * @param user: The author of the comment. The author can edit, or remove the existing comment.
+ * @param text: The text of the comment, which will be displayed
+ * @param publicationTime: The Date, of the last change when the comment was created, or edited
  */
 class Comment (
 
