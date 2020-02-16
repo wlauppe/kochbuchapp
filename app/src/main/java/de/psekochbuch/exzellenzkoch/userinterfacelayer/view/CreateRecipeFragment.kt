@@ -32,9 +32,13 @@ import android.util.Log
 import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.checkSelfPermission
+import androidx.core.net.toFile
 import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
+import android.content.ContentResolver
+import android.content.Context
+import android.provider.OpenableColumns
 
 /**
  * The Fragment class provides logic for binding the respective .xml layout file to the class
@@ -171,16 +175,50 @@ class CreateRecipeFragment : Fragment() {
         }
     }
 
+
+
+
     // Glide: handle result of picked image
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+    val context: Context =  Applikationprovider.getapplicationcontext()
+
+    contentResolver = requireContext().getContentResolver()
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?) {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
+
+            returnIntent?.data.let { contentResolver.query(returnUri, null, null, null, null)
+            }?.use { cursor ->
+                /*
+                 * Get the column indexes of the data in the Cursor,
+                 * move to the first row in the Cursor, get the data,
+                 * and display it.
+                 */
+                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                val sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE)
+                cursor.moveToFirst()
+
+                val name = cursor.getString(nameIndex)
+                //findViewById<TextView>(R.id.filename_text).text = cursor.getString(nameIndex)
+                //findViewById<TextView>(R.id.filesize_text).text = cursor.getLong(sizeIndex).toString()
+
+            }
+
             //Speichere neue IMGURL
-            viewModelTemp?.imgUrl?.value = data?.data.toString()
+            //val uri=data?.data
+            //val file = uri?.toFile()
+            //val path=file?.absolutePath
+
+            //viewModelTemp?.imgUrl?.value = path
+
+            //Zeige Bild an.
             val imageView = binding.imageButtonRecipeImage
-            context?.let{Glide.with(it).load(data?.data).into(imageView)}
-            imageView.setImageURI(data?.data)
+            context?.let{Glide.with(it).load(returnIntent?.data).into(imageView)}
+            imageView.setImageURI(returnIntent?.data)
+
             // = data?.data.toString()
            //imageView.setImageURI(data?.data)
+            //data?.data?.path
         }
     }
 
