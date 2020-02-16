@@ -105,36 +105,66 @@ class CreateRecipeFragment : Fragment() {
             setPortions(recipe.portions)
             setPublishedID(recipe.publishedRecipeId)
             getTagsFromRecipe(recipe.tags)
-            Log.i(Tagg, recipe.preparation.plus(" DDDDDD"))})
+         })
 
 
 
 
         binding.checkBoxVeganCreateRecipeFragment.setOnClickListener{
+        if(viewModel.tagCheckBoxVegan.value!!){
+            viewModel.tagCheckBoxVegan.value = false
+            binding.checkBoxVeganCreateRecipeFragment.isChecked = false
+        }else {
             viewModel.tagCheckBoxVegan.value = true
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
+        }
             Log.i(Tagg, viewModel.tagCheckBoxVegan.value.toString().plus( " = vm ; ").plus( binding.checkBoxVeganCreateRecipeFragment.isChecked.toString().plus(" = binding")))
 
         }
         binding.checkBoxVegetarianCreateRecipeFragment.setOnClickListener{
+        if(viewModel.tagCheckBoxVegetarian.value!!){
+            viewModel.tagCheckBoxVegetarian.value = false
+            binding.checkBoxVegetarianCreateRecipeFragment.isChecked = false
+        }else{
             viewModel.tagCheckBoxVegetarian.value = true
             binding.checkBoxVegetarianCreateRecipeFragment.isChecked = true
         }
+        }
         binding.checkBoxHeartyCreateRecipeFragment.setOnClickListener{
-            viewModel.tagCheckBoxSavoury.value = true
-            binding.checkBoxHeartyCreateRecipeFragment.isChecked = true
+            if(viewModel.tagCheckBoxSavoury.value!!){
+                viewModel.tagCheckBoxSavoury.value = false
+                binding.checkBoxHeartyCreateRecipeFragment.isChecked = false
+            }else{
+                viewModel.tagCheckBoxSavoury.value = true
+                binding.checkBoxHeartyCreateRecipeFragment.isChecked = true
+            }
         }
         binding.checkBoxSweetCreateRecipeFragment.setOnClickListener{
-            viewModel.tagCheckBoxSweet.value = true
-            binding.checkBoxSweetCreateRecipeFragment.isChecked = true
+            if(viewModel.tagCheckBoxSweet.value!!){
+                viewModel.tagCheckBoxSweet.value = false
+                binding.checkBoxSweetCreateRecipeFragment.isChecked = false
+            }else{
+                viewModel.tagCheckBoxSweet.value = true
+                binding.checkBoxSweetCreateRecipeFragment.isChecked = true
+            }
         }
         binding.checkBoxSaltyCreateRecipeFragment.setOnClickListener{
-            viewModel.tagCheckBoxSalty.value = true
-            binding.checkBoxSaltyCreateRecipeFragment.isChecked = true
+            if(viewModel.tagCheckBoxSalty.value!!){
+                viewModel.tagCheckBoxSalty.value = false
+                binding.checkBoxSaltyCreateRecipeFragment.isChecked = false
+            }else{
+                viewModel.tagCheckBoxSalty.value = true
+                binding.checkBoxSaltyCreateRecipeFragment.isChecked = true
+            }
         }
         binding.checkBoxCheap.setOnClickListener{
-            viewModel.tagCheckBoxCheap.value = true
-            binding.checkBoxCheap.isChecked = true
+            if(viewModel.tagCheckBoxCheap.value!!){
+                viewModel.tagCheckBoxCheap.value = false
+                binding.checkBoxCheap.isChecked = false
+            }else{
+                viewModel.tagCheckBoxCheap.value = true
+                binding.checkBoxCheap.isChecked = true
+            }
         }
         binding.checkBoxPublishCreateRecipeFragment.setOnClickListener() {
             view -> if (view is CheckBox) {

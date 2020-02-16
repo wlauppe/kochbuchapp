@@ -4,8 +4,10 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
@@ -110,7 +112,13 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      */
 
     fun publishRecipe() {
-        _snackbarMessage.value = "Beim Speichern wird Rezept als öffentlich verfügbar gemacht"
+        val loggedIn = AuthentificationImpl.isLogIn()
+        if(loggedIn) {
+            _snackbarMessage.value = "Beim Speichern wird Rezept als öffentlich verfügbar gemacht"
+        }
+        else {
+            _snackbarMessage.value = "Fehler: Sie sind nicht mit einem Account eingeloggt."
+        }
         _showSnackbarEvent.value = true
     }
 
@@ -158,10 +166,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //TODO muss anscheinend seit neuestem ein Feld "User übergeben"
             //Man muss da Zugriff auf den Benutzer haben,
             // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
-        if(this.tagCheckBoxPublish.value == true){
-            //val user = User("Test")
-           //val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(AuthentificationImpl.getUserId())
-            val convertedPublicRecipe = PublicRecipe(title="Test", imgUrl = newPrivateRecipe.imgUrl)
+        if(this.tagCheckBoxPublish.value == true && AuthentificationImpl.isLogIn()){
+            val userId = AuthentificationImpl.getUserId()
+            val user = User(userId)
+            //val _user = userRepo.getUser(userId)
+           val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(user)
+           // val convertedPublicRecipe = PublicRecipe(title="Test", user=user,imgUrl = newPrivateRecipe.imgUrl)
             Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
             //Coroutine
             viewModelScope.launch {
