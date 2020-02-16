@@ -10,6 +10,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
 
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationFakeImpl
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
@@ -22,7 +23,13 @@ object InjectorUtils {
 
     private fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
          val repo = PublicRecipeRepositoryImp.getInstance()
-         // repo.machewas
+        if(AuthentificationImpl.isLogIn())
+        {
+            AuthentificationImpl.getToken(true){
+                repo.setToken(it)
+            }
+        }
+         
         return repo
 
         //return PublicRecipeFakeRepositoryImp.getInstance()
@@ -30,7 +37,14 @@ object InjectorUtils {
 
     private fun getUserRepository(context: Context): UserRepository {
         //return UserFakeRepositoryImp.getInstance()
-       return UserRepositoryImp.getInstance()
+        val repo = UserRepositoryImp.getInstance()
+        if(AuthentificationImpl.isLogIn())
+        {
+            AuthentificationImpl.getToken(true){
+                repo.setToken(it)
+            }
+        }
+       return repo
     }
 
 
