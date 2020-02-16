@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
@@ -19,7 +20,11 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
 
 
     //User Information LiveData
-    var user = MutableLiveData<User>()
+    var user  = MutableLiveData(User(""))
+        var userID: MutableLiveData<String> = MutableLiveData("")
+        var userDesc : MutableLiveData<String> = MutableLiveData("")
+        var userImg : MutableLiveData<String> = MutableLiveData("")
+
 
     /*
     * This variable is private because we don't want to expose MutableLiveData
@@ -37,7 +42,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
 
 
     //Recipe Information LiveData
-    var recipes: LiveData<List<PublicRecipe>> = recipeRepo.getPublicRecipes()
+    var recipes: MutableLiveData<List<PublicRecipe>> = MutableLiveData()
 
 
     fun isOwner(): Boolean {
@@ -49,14 +54,21 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
         if (id == "") {
             return
         }
-        viewModelScope.launch {
+
+
+        recipes = recipeRepo.getRecipesFromUser(id) as MutableLiveData<List<PublicRecipe>>
+
+        user = userRepo.getUser(id) as MutableLiveData<User>
+
+
+       /* viewModelScope.launch {
             try {
                  user = userRepo.getUser(id) as MutableLiveData<User>
 
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }
-        }
+        }*/
 
     }
 

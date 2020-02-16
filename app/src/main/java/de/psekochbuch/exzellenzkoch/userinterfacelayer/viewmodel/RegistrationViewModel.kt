@@ -14,7 +14,8 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentifica
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel(authentification:Authentification, repo:UserRepository) : ViewModel() {
+class RegistrationViewModel(authentification: Authentification, repo: UserRepository) :
+    ViewModel() {
 
 
     var email: MutableLiveData<String> = MutableLiveData()
@@ -40,31 +41,45 @@ class RegistrationViewModel(authentification:Authentification, repo:UserReposito
 
                             AuthentificationImpl
                                 .register(em, pw, id) { it, result ->
-                                    if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                                    if (result == AuthenticationResult.USERIDNOTSET) {
+                                        updateUi("", result, "Account created. Userid not saved. connection lost")
+
+                                    } else if (it == null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                                        updateUi("", AuthenticationResult.USERNOTSERVERCREATED, "User must be verified")
+
+                                    } else if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
                                         Log.d(TAG, "Registration erfolgreich")
                                         userRepository.setToken(it)
                                         viewModelScope.launch {
                                             try {
                                                 val token = userRepository.addUser(id)
                                                 AuthentificationImpl.authWithCustomToken(token) {
-                                                    AuthentificationImpl.getToken {
 
+                                                    updateUi(
+                                                        id,
+                                                        AuthenticationResult.REGISTRATIONSUCCESS,
+                                                        "User created"
+                                                    )
 
-                                                    }
                                                 }
                                             } catch (e: Exception) {
-
+                                                updateUi(
+                                                    "",
+                                                    AuthenticationResult.USERNOTSERVERCREATED,
+                                                    "User could not verified"
+                                                )
                                             }
 
                                             progressBarVisibility.postValue(false)
                                         }
-                                    } else {
-                                        updateUi("", result, "registration failed. connection to server is bad")
-                                        //progressBarVisibility.postValue(false)
+                                    } else if (result == AuthenticationResult.REGISTRATIONFAILED) {
+                                        updateUi(
+                                            "",
+                                            result,
+                                            "registration failed. connection to server is bad"
+                                        )
                                     }
                                 }
-
-                            progressBarVisibility.postValue(false)
                         } else {
                             updateUi(
                                 "",
@@ -81,44 +96,39 @@ class RegistrationViewModel(authentification:Authentification, repo:UserReposito
                             "Cannot connect to server"
                         )
                         ex.printStackTrace()
-
-                    } finally {
-                        progressBarVisibility.postValue(false)
                     }
-                    //Repo anfrage, ob ID schon existiert
-                    //-> 5 Sekunden Wartezeit für Serverantwort
-                    //boolean abfrage der SErverantwort
-                    //-> falls ja : Toast ausgabe und return
-                    //-> falls nein: unterer code
                 }
 
             } else {
 
                 AuthentificationImpl
                     .register(em, pw, "") { it, result ->
-                        if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
-                            Log.d(TAG, "Registration erfolgreich")
-                            userRepository.setToken(it)
-                            viewModelScope.launch {
-                                try {
-                                    val token = userRepository.addUser("")
-                                    AuthentificationImpl.authWithCustomToken(token) {
-                                        AuthentificationImpl.getToken {
+                        if (it == null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                            updateUi("", AuthenticationResult.USERNOTSERVERCREATED, "User must be verified")
 
+                        } else
+                            if (it != null && result == AuthenticationResult.REGISTRATIONSUCCESS) {
+                                Log.d(TAG, "Registration erfolgreich")
+                                userRepository.setToken(it)
+                                viewModelScope.launch {
+                                    try {
+                                        val token = userRepository.addUser("")
+                                        AuthentificationImpl.authWithCustomToken(token) {
+                                            updateUi(
+                                                AuthentificationImpl.getUserId(),
+                                                AuthenticationResult.REGISTRATIONSUCCESS,
+                                                "User created"
+                                            )
 
                                         }
+                                    } catch (e: Exception) {
+                                        updateUi("", AuthenticationResult.USERNOTSERVERCREATED, "Userid could not set")
                                     }
-                                } catch (e: Exception) {
-
                                 }
-
-                                progressBarVisibility.postValue(false)
+                            } else {
+                                updateUi("", AuthenticationResult.REGISTRATIONFAILED, "could not connect to server")
                             }
-                        } else {
-                            progressBarVisibility.postValue(false)
-                        }
                     }
-                progressBarVisibility.postValue(false)
             }
 
             //email.postValue("bal")
@@ -127,7 +137,7 @@ class RegistrationViewModel(authentification:Authentification, repo:UserReposito
         }
     }
 
-    fun registrationSuccess():Boolean{
+    fun registrationSuccess(): Boolean {
         return true
     }
 }

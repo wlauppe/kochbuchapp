@@ -13,12 +13,12 @@ import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.ProfileDisplayAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 
 class ProfileDisplayFragment : Fragment() {
-    private lateinit var bindingtwo : ProfileDisplayFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         //ViewModel
@@ -33,7 +33,6 @@ class ProfileDisplayFragment : Fragment() {
 
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
         binding.profileDisplayViewmodel = viewModel
-        bindingtwo = binding
         // init binding variable
         binding.profileDisplayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -54,15 +53,32 @@ class ProfileDisplayFragment : Fragment() {
 
 
 
-        viewModel.user.observe(this, Observer { recipe -> setImage(recipe.imgUrl)})
-        viewModel.user.observe(this, Observer { recipe -> setUserID(recipe.userId)})
-        viewModel.user.observe(this, Observer { recipe -> setDescription(recipe.description)})
-       // viewModel.user.observe(this, Observer { recipe -> setImage(recipe.imgUrl)})
+        viewModel.user.observe(this, Observer { user ->
+            viewModel.userDesc.postValue(user.description)
+            viewModel.userID.postValue(user.userId)
+
+
+            val imageView = binding.imageView2
+            var urlString = user.imgUrl
+            if(urlString == "" || urlString.isEmpty()){
+                urlString = "file:///android_asset/exampleimages/chef_avatar.png"
+            }
+            context?.let { Glide.with(it).load(urlString).into(imageView) }
+        })
+
+
 
 
         binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener{
             val navController = findNavController()
             navController.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToProfileEditFragment().setUserID(userID))
+        }
+
+        binding.buttonProfileDisplayFragmentLogout.setOnClickListener{
+            AuthentificationImpl.logout()
+            InjectorUtils.setToken(null)
+            val navController = findNavController()
+            navController.navigate(R.id.action_profileDisplayFragment_to_loginFragment)
         }
 
         binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener{
@@ -73,26 +89,6 @@ class ProfileDisplayFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    fun setImage(img : String){
-        //Glide------------------------------------------------
-        val imageView = bindingtwo.imageView2
-        var urlString = img
-        if(urlString == "" || urlString.isNullOrEmpty()){
-            urlString = "file:///android_asset/exampleimages/chef_avatar.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
-
-
-    }
-    fun setUserID(id : String){
-        bindingtwo.textViewProfileDisplayFragmentTitle.text = id
-
-    }
-    fun setDescription(desc : String){
-        bindingtwo.textViewProfileDisplayDescription.text = desc
-
     }
 
 

@@ -6,11 +6,16 @@ import androidx.lifecycle.ViewModel
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 
-class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
-    var repo = repo
-    var user = MutableLiveData<User>()
-    var userImg = MutableLiveData<String>()
+class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
 
+
+
+    var user : MutableLiveData<User> = MutableLiveData(User(""))
+
+        //LiveData
+        var userID : MutableLiveData<String> = MutableLiveData("")
+        var userDesc : MutableLiveData<String> = MutableLiveData("")
+        var userImgURL  = ""
 
 
 
@@ -29,8 +34,10 @@ class ProfileEditViewmodel(repo:UserRepository) : ViewModel() {
      * valid it sets the LiveData from the viewmodel with the data.
      * @param id:
      */
-    fun setUserByID(id:String) {
-        user = repo.getUser(id) as MutableLiveData<User>
+    fun setUserByID(id:String){
+        if(id != "") {
+            user = repo.getUser(id) as MutableLiveData<User>
+        }
 
     }
     fun changeLoginData() {

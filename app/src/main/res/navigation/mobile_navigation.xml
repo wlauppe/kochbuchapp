@@ -77,6 +77,9 @@
             android:name="userID"
             app:argType="string"
             android:defaultValue='""' />
+        <action
+            android:id="@+id/action_profileDisplayFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
 
     </fragment>
     <fragment

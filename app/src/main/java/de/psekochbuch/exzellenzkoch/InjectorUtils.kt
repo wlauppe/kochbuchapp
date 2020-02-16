@@ -46,6 +46,12 @@ object InjectorUtils {
         return AuthentificationFakeImpl()
     }
 
+    fun setToken(token:String?)
+    {
+        PublicRecipeRepositoryImp.getInstance().setToken(token)
+        UserRepositoryImp.getInstance().setToken(token)
+    }
+
     /*
      * Weitere Repos hier einfügen:
      * LOCAL: IngredientChapterRepository, PublicRecipeRepository, ShoppingListRepository

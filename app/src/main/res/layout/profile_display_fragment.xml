@@ -91,6 +91,13 @@
                         android:text="@string/profile_display_edit_profile_button" />
 
                     <Button
+                        android:id="@+id/button_profile_display_fragment_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/logout" />
+
+                    <Button
                         android:id="@+id/button_profile_display_fragment_flag_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

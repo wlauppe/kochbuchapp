@@ -75,7 +75,6 @@ class RecipeDisplayFragment : Fragment(){
 
         if(urlString == "" || urlString.isNullOrBlank()||urlString.isNullOrEmpty()){
             urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
-
         }
         val imageView = binding.imageViewRecipeImage
 

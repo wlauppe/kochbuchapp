@@ -23,7 +23,7 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileEditFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileEditViewmodel
 
-class ProfileEditFragment : Fragment() {
+class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
 
     private lateinit var binding: ProfileEditFragmentBinding
     var viewModelTemp : ProfileEditViewmodel? = null
@@ -52,9 +52,21 @@ class ProfileEditFragment : Fragment() {
         //initialized navcontoller
         val navController: NavController = findNavController()
 
+        viewModel.user.observe(this.viewLifecycleOwner, Observer {user->
+            binding.textViewEnterUserID.setText(user.userId)
+            binding.editTextUserDescription.setText(user.description)
 
 
-        viewModel.user.observe(this, Observer { recipe -> setImage(recipe.imgUrl)})
+            val imageView = binding.imageViewUserImg
+            var urlString = user.imgUrl
+            if(urlString == ""){
+                urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
+            }
+            context?.let { Glide.with(it).load(urlString).into(imageView) }
+        })
+
+
+
 
 
         binding.buttonChangeLoginData.setOnClickListener {
@@ -143,24 +155,5 @@ class ProfileEditFragment : Fragment() {
             //imageView.setImageURI(data?.data)
         }
     }
-
-    fun setImage(img : String){
-
-        val imageView = binding.imageViewUserImg
-        var urlString = img
-        if(urlString == ""){
-            urlString = "file:///android_asset/exampleimages/chef_avatar.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
-
-    }
-    fun setUserID(id: String){
-    binding.textViewEnterUserID.setText(id)
-    }
-    fun setDescription(desc : String){
-        binding.editTextUserDescription.setText(desc)
-
-    }
-
 
 }

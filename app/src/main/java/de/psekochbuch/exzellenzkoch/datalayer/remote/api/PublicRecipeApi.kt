@@ -73,4 +73,11 @@ interface PublicRecipeApi {
     @POST("/report/{id}")
     fun reportRecipe(@Query(value = "id") id:Int)
 
+    /**
+     * Get recipes from user
+     * @return list of recipedtos
+     */
+    @GET("recipes/user/{userId}")
+    suspend fun getUserRecipes(@Path( "userId") userId : String) : List<PublicRecipeDto>
+
 }
