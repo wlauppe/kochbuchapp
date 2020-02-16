@@ -35,7 +35,9 @@ class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
      * @param id:
      */
     fun setUserByID(id:String){
-        user = repo.getUser(id) as MutableLiveData<User>
+        if(id != "") {
+            user = repo.getUser(id) as MutableLiveData<User>
+        }
         /*if(user.value!!.userId == ""){
 
         }

@@ -23,7 +23,7 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileEditFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileEditViewmodel
 
-class ProfileEditFragment : Fragment() {
+class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
 
     private lateinit var binding: ProfileEditFragmentBinding
     var viewModelTemp : ProfileEditViewmodel? = null
@@ -52,9 +52,10 @@ class ProfileEditFragment : Fragment() {
         //initialized navcontoller
         val navController: NavController = findNavController()
 
-        viewModel.user.observe(this, Observer {user->
-            viewModel.userID.postValue(user.userId)
-            viewModel.userDesc.postValue(user.description)
+        viewModel.user.observe(this.viewLifecycleOwner, Observer {user->
+            binding.textViewEnterUserID.setText(user.userId)
+            binding.editTextUserDescription.setText(user.description)
+
 
             val imageView = binding.imageViewUserImg
             var urlString = user.imgUrl

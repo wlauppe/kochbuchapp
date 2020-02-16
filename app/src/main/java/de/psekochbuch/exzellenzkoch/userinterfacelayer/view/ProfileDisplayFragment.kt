@@ -54,12 +54,21 @@ class ProfileDisplayFragment : Fragment() {
         binding.textViewProfileDisplayDescription.text = viewModel.userDesc.toString()
 
         binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID.toString()
-        val imageView = binding.imageView2
-        var urlString = viewModel.user?.imgUrl
-        if(urlString == "" || urlString.isNullOrEmpty()){
-            urlString = "file:///android_asset/exampleimages/chef_avatar.png"
-        }
-        context?.let { Glide.with(it).load(urlString).into(imageView) }
+
+        viewModel.user.observe(this, Observer { user ->
+            viewModel.userDesc.postValue(user.description)
+            viewModel.userID.postValue(user.userId)
+
+
+            val imageView = binding.imageView2
+            var urlString = user.imgUrl
+            if(urlString == "" || urlString.isEmpty()){
+                urlString = "file:///android_asset/exampleimages/chef_avatar.png"
+            }
+            context?.let { Glide.with(it).load(urlString).into(imageView) }
+        })
+
+
 
 
         binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener{
