@@ -39,6 +39,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchLi
 import android.content.ContentResolver
 import android.content.Context
 import android.provider.OpenableColumns
+import android.widget.CheckBox
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.create_recipe_fragment.view.*
@@ -145,10 +146,19 @@ class CreateRecipeFragment : Fragment() {
             viewModel.tagCheckBoxCheap.value = true
             binding.checkBoxCheap.isChecked = true
         }
-        binding.checkBoxPublishCreateRecipeFragment.setOnClickListener {
-            viewModel.tagCheckBoxCheap.value = true
-            viewModel.publishRecipe(requireContext())
+        binding.checkBoxPublishCreateRecipeFragment.setOnClickListener() {
+            view -> if (view is CheckBox) {
+            val checked: Boolean = view.isChecked
+            if (checked) {
+                viewModel.tagCheckBoxCheap.value = true
+                viewModel.publishRecipe(requireContext())
+                if (!checked) {
+                    viewModel.tagCheckBoxCheap.value = false
+                }
 
+
+            }
+            }
         }
 
 

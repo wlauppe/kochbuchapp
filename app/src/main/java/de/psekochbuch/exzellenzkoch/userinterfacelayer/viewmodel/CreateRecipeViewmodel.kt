@@ -109,6 +109,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      */
 
     fun publishRecipe(context: Context) {
+        _snackbarMessage.value = "Beim Speichern wird Rezept als öffentlich verfügbar gemacht"
         _showSnackbarEvent.value = true
     }
 
