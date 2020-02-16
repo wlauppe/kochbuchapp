@@ -37,6 +37,8 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         //initialized navcontoller
         val navController: NavController = findNavController()
 
+        checkIsLogin(navController)
+
         binding.buttonLoginFragmentLogin.setOnClickListener {
             setLoadingScreen(false)
             viewModel.login{ userId, result, message ->
@@ -64,6 +66,21 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             navController.navigate(R.id.action_loginFragment_to_registrationFragment)
         }
         return binding.root
+    }
+
+    private fun checkIsLogin(navController: NavController) {
+        if(AuthentificationImpl.isLogIn())
+        {
+            AuthentificationImpl.getToken(false){
+                if(it != null && it != "") {
+                    InjectorUtils.setToken(it)
+                }
+            }
+            val userId = AuthentificationImpl.getUserId()
+            navController.navigate(
+                LoginFragmentDirections.actionLoginFragmentToProfileDisplayFragment().setUserID(
+                    userId))
+        }
     }
 
     private fun setLoadingScreen(state: Boolean) {

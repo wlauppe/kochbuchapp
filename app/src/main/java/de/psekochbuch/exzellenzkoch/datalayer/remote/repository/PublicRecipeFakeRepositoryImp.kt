@@ -173,7 +173,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setToken(tk: String) {
+    override fun setToken(tk: String?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileDisplayFragmentBinding
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.ProfileDisplayAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
@@ -74,6 +75,13 @@ class ProfileDisplayFragment : Fragment() {
         binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener{
             val navController = findNavController()
             navController.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToProfileEditFragment().setUserID(userID))
+        }
+
+        binding.buttonProfileDisplayFragmentLogout.setOnClickListener{
+            AuthentificationImpl.logout()
+            InjectorUtils.setToken(null)
+            val navController = findNavController()
+            navController.navigate(LoginFragmentDirections.actionLoginFragmentToProfileDisplayFragment())
         }
 
         binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener{

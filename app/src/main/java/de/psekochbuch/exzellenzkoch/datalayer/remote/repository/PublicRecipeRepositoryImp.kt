@@ -242,7 +242,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
-    override fun setToken(tk:String)
+    override fun setToken(tk:String?)
     {
         token = tk
         recipeApiService = ApiServiceBuilder(token).createApi(PublicRecipeApi::class.java) as PublicRecipeApi

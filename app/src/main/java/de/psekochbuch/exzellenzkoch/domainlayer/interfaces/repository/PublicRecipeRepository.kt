@@ -60,6 +60,6 @@ interface PublicRecipeRepository {
     @Throws
     fun getRecipesFromUser(userId:String): LiveData<List<PublicRecipe>>
 
-    fun setToken(tk:String)
+    fun setToken(tk:String?)
 
 }

@@ -83,7 +83,7 @@ class UserFakeRepositoryImp : UserRepository  {
         }
          }
 
-    override fun setToken(token: String) {
+    override fun setToken(token: String?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

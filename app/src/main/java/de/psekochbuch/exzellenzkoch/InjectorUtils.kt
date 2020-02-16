@@ -46,7 +46,7 @@ object InjectorUtils {
         return AuthentificationFakeImpl()
     }
 
-    fun setToken(token:String)
+    fun setToken(token:String?)
     {
         PublicRecipeRepositoryImp.getInstance().setToken(token)
         UserRepositoryImp.getInstance().setToken(token)

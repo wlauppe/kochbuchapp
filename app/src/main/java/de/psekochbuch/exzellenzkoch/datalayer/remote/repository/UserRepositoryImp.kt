@@ -128,7 +128,7 @@ class UserRepositoryImp : UserRepository {
         }
     }
 
-    override fun setToken(token: String) {
+    override fun setToken(token: String?) {
         this.token = token
         userApiService = ApiServiceBuilder(token).createApi(UserApi::class.java) as UserApi
         adminApiService = ApiServiceBuilder(token).createApi(AdminApi::class.java) as AdminApi
