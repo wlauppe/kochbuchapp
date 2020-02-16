@@ -23,7 +23,7 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
 
 
     var recipes : LiveData<List<PublicRecipe>> = rRepo.getReportedPublicRecipes()
-    var users : LiveData<List<User>> = userRepo.getReportedUsers()
+    var users : LiveData<List<User>> = uRepo.getReportedUsers()
 
     /*
   * This variable is private because we don't want to expose MutableLiveData
@@ -65,6 +65,7 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
             try {
 
                 rRepo.deleteRecipe(recipeID)
+                recipes = rRepo.getReportedPublicRecipes()
                 //TODO letztes Rezept darf nicht gelöscht werden
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
@@ -83,6 +84,7 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
         viewModelScope.launch {
             try {
                 uRepo.deleteUser(userID)
+                users   = uRepo.getReportedUsers()
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }
@@ -99,6 +101,7 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
         viewModelScope.launch {
             try {
                 uRepo.unreportUser(id)
+                users   = uRepo.getReportedUsers()
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }
@@ -116,6 +119,7 @@ class AdminViewModel(publicRecipeRepo : PublicRecipeRepository, userRepo:UserRep
         viewModelScope.launch {
             try {
                 rRepo.unreportRecipe(id)
+                recipes = rRepo.getReportedPublicRecipes()
             } catch (error: Error) {
                 _errorLiveDataString.value = error.message
             }

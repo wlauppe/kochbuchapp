@@ -99,7 +99,8 @@ class CreateRecipeFragment : Fragment() {
         // set up observer values for the ViewModel attributes (Logatgs are for debugging purposes)
         viewModel.recipe.observe(this, Observer {
 
-            recipe -> setImage(recipe.imgUrl)
+            recipe -> viewModel.setTags(recipe.tags)
+            setImage(recipe.imgUrl)
             setPreparation(recipe.preparation)
             setTitle(recipe.title)
             setTimes(recipe.preparationTime, recipe.cookingTime)
@@ -116,11 +117,12 @@ class CreateRecipeFragment : Fragment() {
         if(viewModel.tagCheckBoxVegan.value!!){
             viewModel.tagCheckBoxVegan.value = false
             binding.checkBoxVeganCreateRecipeFragment.isChecked = false
-            Log.i(tag, viewModel.tagCheckBoxVegan.value.toString().plus(" ist im VM") . plus(binding.checkBoxVeganCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
-        }else {
+              }else {
             viewModel.tagCheckBoxVegan.value = true
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
         }
+            Log.i(Tagg, viewModel.tagCheckBoxVegan.value.toString().plus(" ist im VMMM") . plus(binding.checkBoxVeganCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
+
         }
         binding.checkBoxVegetarianCreateRecipeFragment.setOnClickListener{
         if(viewModel.tagCheckBoxVegetarian.value!!){
@@ -304,7 +306,6 @@ class CreateRecipeFragment : Fragment() {
         if(urlString.isNullOrBlank()){
            urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
-
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
 

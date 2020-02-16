@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +61,7 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
             val imageView = binding.imageViewUserImg
             var urlString = user.imgUrl
             if(urlString == ""){
-                urlString = "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
+                urlString = "file:///android_asset/exampleimages/chef_avatar.png"
             }
             context?.let { Glide.with(it).load(urlString).into(imageView) }
         })
@@ -144,15 +145,31 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
     }
 
     //handle result of picked image
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE){
-            //TODO image müsste hier noch wieder gespeichert und an Glide übergeben werden.
+    override fun onActivityResult(requestCode: Int, resultCode: Int, returnIntent: Intent?) {
 
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+
+            val contentResolver = getActivity()?.getApplicationContext()?.contentResolver
+
+            val returnUri = returnIntent?.data
+            val result: String?
+
+            val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+            val cursor = activity?.contentResolver?.query(returnUri!!, filePathColumn,null,null,null)!!
+            cursor.moveToFirst()
+            val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+            val filePath = cursor.getString(columnIndex)
+            cursor.close()
+
+            //val file = File(returnUri?.path)
+            //viewModelTemp?.imgUrl?.value = returnUri?.toFile()?.absolutePath
+            Toast.makeText(requireContext(),"neuer filepath ist $filePath",Toast.LENGTH_SHORT).show()
+            viewModelTemp?.user?.value?.imgUrl = filePath
+
+            //Shows image to the imageview which is provieded from the xml binding
             val imageView = binding.imageViewUserImg
-            context?.let{Glide.with(it).load(data?.data).into(imageView)}
-            imageView.setImageURI(data?.data)
-            viewModelTemp!!.user.value?.imgUrl  = data?.data.toString()
-            //imageView.setImageURI(data?.data)
+            context?.let { Glide.with(it).load(returnIntent?.data).into(imageView) }
+            imageView.setImageURI(returnIntent?.data)
         }
     }
 

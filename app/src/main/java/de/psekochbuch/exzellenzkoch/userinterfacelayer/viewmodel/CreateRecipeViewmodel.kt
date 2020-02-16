@@ -144,6 +144,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
        if (imgUrl.value.equals("") ) {
            imgUrl.value = recipe.value?.imgUrl
        }
+            if(imgUrl.value.isNullOrEmpty()){
+                imgUrl.value =  "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
+            }
        var newPrivateRecipe =
            PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
                resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, publishedID)
@@ -211,6 +214,28 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             list.add("sweet")
         }
         return list.toList()
+    }
+
+    fun setTags(tags : List<String>){
+        if(tags.contains("vegan")){
+           tagCheckBoxVegan.value = true
+
+        }
+        if(tags.contains("vegetarisch")){
+           tagCheckBoxVegetarian.value = true
+        }
+        if(tags.contains("salzig")){
+            tagCheckBoxSalty.value = true
+        }
+        if(tags.contains("sweet")){
+          tagCheckBoxSweet.value = true
+        }
+        if(tags.contains("günstig")){
+           tagCheckBoxCheap.value = true
+        }
+        if(tags.contains("herzhaft")){
+            tagCheckBoxSavoury.value = true
+        }
     }
 
 
