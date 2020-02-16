@@ -166,10 +166,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //TODO muss anscheinend seit neuestem ein Feld "User übergeben"
             //Man muss da Zugriff auf den Benutzer haben,
             // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
-        if(this.tagCheckBoxPublish.value == true){
-            val user = User("Dummy")
-           //val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(AuthentificationImpl.getUserId())
-            val convertedPublicRecipe = PublicRecipe(title="Test", user=user,imgUrl = newPrivateRecipe.imgUrl)
+        if(this.tagCheckBoxPublish.value == true && AuthentificationImpl.isLogIn()){
+            val userId = AuthentificationImpl.getUserId()
+            val user = User(userId)
+            //val _user = userRepo.getUser(userId)
+           val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(user)
+           // val convertedPublicRecipe = PublicRecipe(title="Test", user=user,imgUrl = newPrivateRecipe.imgUrl)
             Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
             //Coroutine
             viewModelScope.launch {
