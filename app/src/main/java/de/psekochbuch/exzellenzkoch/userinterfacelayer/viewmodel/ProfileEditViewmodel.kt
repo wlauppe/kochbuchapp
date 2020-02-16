@@ -38,23 +38,16 @@ class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
         if(id != "") {
             user = repo.getUser(id) as MutableLiveData<User>
         }
-        /*if(user.value!!.userId == ""){
 
-        }
-        this.user = user
-        this.userID = MutableLiveData(user.value!!.userId)
-        this.userDesc = MutableLiveData(user.value!!.description)
-        this.userImgURL = user.value!!.imgUrl*/
     }
-
-    fun changeLoginData(){
+    fun changeLoginData() {
 
 
     }
-    fun save(){
+
+    fun save() {
 
     }
-
 }
 
 

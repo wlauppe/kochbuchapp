@@ -18,6 +18,7 @@ class PrivateRecipeRepositoryImpTest(){
     @Test
     fun workwithdao(){
         val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(ApplicationProvider.getApplicationContext())?.privateRecipeDao();
+         var recipes =  privateRecipeDao?.getAll()
 
         val recipe = PrivateRecipeDB(1,"titel","so",1,2,3,4,"lal","so",0)
 

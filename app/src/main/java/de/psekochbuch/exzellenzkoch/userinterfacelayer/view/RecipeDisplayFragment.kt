@@ -3,7 +3,6 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -14,6 +13,9 @@ import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RecipeDisplayFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class RecipeDisplayFragment : Fragment(){
     var TAG = "RecipeDisplayFragment"
@@ -53,7 +55,13 @@ class RecipeDisplayFragment : Fragment(){
 
 
 
-        viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)  })
+        viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)})
+        viewModel.recipe.observe(this, Observer { recipe -> setTitle(recipe.title) })
+        viewModel.recipe.observe(this, Observer { recipe -> setTimes(recipe.preparationTime, recipe.cookingTime) })
+        viewModel.recipe.observe(this, Observer { recipe -> setTagsAndIngredietText(recipe.tags, recipe.ingredientsText) })
+        viewModel.recipe.observe(this, Observer { recipe ->
+            binding.textViewRecipePrepDescription.text = recipe.preparation
+            setCreationDate(recipe.creationTimeStamp)})
 
 
 
@@ -75,5 +83,28 @@ class RecipeDisplayFragment : Fragment(){
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
     }
+    fun setTitle(title : String){
+        binding.textViewRecipeTitle.text = title
+    }
+    fun setTimes(prepTime : Int, cookingTime : Int){
+        binding.textViewRecipePrepTime.text = Integer.toString(prepTime)
+        binding.textViewRecipeCookTime.text = Integer.toString(cookingTime)
+    }
+    fun setTagsAndIngredietText(tags : List<String>, ingredients : String){
+        var tagString = ""
+        for(tag in tagString){
+            tagString.plus( " " + tag)
+        }
+        binding.textViewRecipeTags.text = tagString
+        binding.textViewIngredientList.text = ingredients
+    }
+    fun setCreationDate(date : Date){
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        val dateString = format.format(Date())
+        val date = format.parse("2009-12-31")
+        binding.textViewCreationTimestamp.text = dateString
+
+    }
+
 
 }

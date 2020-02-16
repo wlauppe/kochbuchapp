@@ -10,7 +10,7 @@ class PublicRecipe(
     val ingredientChapter: List<IngredientChapter> = listOf(),
     val tags: List<String> = listOf(),
     val preparation: String = "",
-    val imgUrl: String = "",
+    var imgUrl: String = "",
     val cookingTime: Int = 0,
     val preparationTime: Int = 0,
     /**

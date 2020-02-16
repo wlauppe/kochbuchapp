@@ -51,10 +51,7 @@ class ProfileDisplayFragment : Fragment() {
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
 
-        //Glide------------------------------------------------
-        binding.textViewProfileDisplayDescription.text = viewModel.userDesc.toString()
 
-        binding.textViewProfileDisplayFragmentTitle.text = viewModel.userID.toString()
 
         viewModel.user.observe(this, Observer { user ->
             viewModel.userDesc.postValue(user.description)

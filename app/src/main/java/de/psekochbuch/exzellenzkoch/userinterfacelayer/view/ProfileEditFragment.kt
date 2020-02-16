@@ -151,7 +151,7 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
             val imageView = binding.imageViewUserImg
             context?.let{Glide.with(it).load(data?.data).into(imageView)}
             imageView.setImageURI(data?.data)
-            viewModelTemp!!.userImgURL = data?.data.toString()
+            viewModelTemp!!.user.value?.imgUrl  = data?.data.toString()
             //imageView.setImageURI(data?.data)
         }
     }
