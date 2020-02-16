@@ -27,10 +27,10 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
         var ingredientList = emptyList<String>()
         var tagList = emptyList<String>()
         if(ingredients != null) {
-             ingredientList = ingredients.split(",")
+             ingredientList = ingredients.split(", ")
         }
         if(tags != null) {
-            var tagList = tags.split(",")
+            tagList = tags.split(", ")
         }
         if(title == null){
             var title = ""
@@ -60,35 +60,5 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
                 }
             }))
         }
-
-    }
-
-
-    fun sortByVegan(): List<PublicRecipe>{
-        var sortedList  = mutableListOf<PublicRecipe>()
-        if(recipes.value != null) {
-            for (recipe in recipes.value!!) {
-                if(recipe.tags.contains("vegan")) {
-                    sortedList.add(recipe)
-                }
-            }
-        }
-        return sortedList
-
-
-    }
-    fun sortByVegetarian() : List<PublicRecipe>{
-        var sortedList  = mutableListOf<PublicRecipe>()
-        if(recipes.value != null) {
-            for (recipe in recipes.value!!) {
-                if(recipe.tags.contains("vegetarisch")) {
-                    sortedList.add(recipe)
-                }
-            }
-        }
-        return sortedList
-    }
-    fun sortByDate() {
-
     }
 }
