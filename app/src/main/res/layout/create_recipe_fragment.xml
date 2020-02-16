@@ -150,14 +150,14 @@
                             android:id="@+id/checkBox_vegan_create_recipe_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
+                            android:checked="@{createRecipeViewModel.tagCheckBoxVegan}"
                             android:text="@string/vegan" />
 
                         <CheckBox
                             android:id="@+id/checkBox_vegetarian_create_recipe_fragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:checked="@{createRecipeViewModel.tagCheckBoxVegetarian.booleanValue()}"
+                            android:checked="@{createRecipeViewModel.tagCheckBoxVegetarian}"
                             android:text="@string/vegetarian" />
 
                         <CheckBox
