@@ -63,10 +63,19 @@ object AuthentificationImpl
                         }
                     }
                 } else {
-                    callback(
-                        null,
-                        AuthenticationResult.REGISTRATIONSUCCESS
-                    )
+                    auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
+                        if(it.isSuccessful)
+                        {
+                            callback(
+                                it.result?.token,
+                                AuthenticationResult.REGISTRATIONSUCCESS
+                            )
+                        } else
+                        {
+                            callback(null, AuthenticationResult.REGISTRATIONSUCCESS)
+                        }
+                    }
+
                 }
 
 
@@ -78,16 +87,27 @@ object AuthentificationImpl
         }
     }
 
+    fun isLogIn() :Boolean
+    {
+        val user = FirebaseAuth.getInstance().currentUser
+        return user != null
+    }
+
 
     /**
      * Give the JWT-token of the active user
      *
      * @param callback Return the token
      */
-    fun getToken(callback: (String?) -> Unit) {
+    fun getToken(fresh:Boolean,callback: (String?) -> Unit) {
         val auth: FirebaseAuth = FirebaseAuth.getInstance()
-        auth.currentUser?.getIdToken(false)?.addOnCompleteListener {
-            callback(it.result?.token)
+        val user = auth.currentUser
+        if(user != null) {
+            user.getIdToken(fresh).addOnCompleteListener {
+                callback(it.result?.token)
+            }
+        } else {
+            callback("")
         }
     }
 
@@ -167,7 +187,7 @@ object AuthentificationImpl
     }
 
     /**
-     * Delete the active user in Firebase and backendserver
+     * Delete the active user in Firebase
      *
      */
     fun userDelete() {
