@@ -113,7 +113,9 @@ class CreateRecipeFragment : Fragment() {
 
         viewModel.recipe.observe(this, Observer { recipe -> getTagsFromRecipe(recipe.tags)})
 
+
         viewModel.recipe.observe(this, Observer { recipe -> setPreparation(recipe.preparation)
+            viewModel.preparation.value = recipe.preparation
            })
 
 
@@ -186,9 +188,8 @@ class CreateRecipeFragment : Fragment() {
         // logic for the "Save recipe"-button
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
 
-            Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(requireContext(),"Rezept zur Rezeptliste hinzugefügt",Toast.LENGTH_SHORT).show()
             viewModel.saveRecipe(requireContext())
-
            //TODO wieder reinmachen ist nur temporär draußen navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
 
@@ -359,7 +360,9 @@ class CreateRecipeFragment : Fragment() {
      * @param preparation is a String of the preparation description, which the recipe has
      */
     fun setPreparation(preparation: String){
+        Toast.makeText(requireContext(), preparation.plus(" ist die beeeee"), Toast.LENGTH_SHORT).show()
         binding.editTextPreparationDescriptionCreateRecipeFragment.setText(preparation)
+
     }
 
     /**
@@ -399,6 +402,7 @@ class CreateRecipeFragment : Fragment() {
             viewModelTemp?.publishedID = publishedID
         }
     }
+
 
     fun getTagsFromRecipe(tags : List<String>){
         if(tags.contains("vegan")){
