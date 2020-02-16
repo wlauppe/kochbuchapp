@@ -59,7 +59,9 @@ class RecipeDisplayFragment : Fragment(){
         viewModel.recipe.observe(this, Observer { recipe -> setTitle(recipe.title) })
         viewModel.recipe.observe(this, Observer { recipe -> setTimes(recipe.preparationTime, recipe.cookingTime) })
         viewModel.recipe.observe(this, Observer { recipe -> setTagsAndIngredietText(recipe.tags, recipe.ingredientsText) })
-        viewModel.recipe.observe(this, Observer { recipe -> setCreationDate(recipe.creationTimeStamp)})
+        viewModel.recipe.observe(this, Observer { recipe ->
+            binding.textViewRecipePrepDescription.text = recipe.preparation
+            setCreationDate(recipe.creationTimeStamp)})
 
 
 

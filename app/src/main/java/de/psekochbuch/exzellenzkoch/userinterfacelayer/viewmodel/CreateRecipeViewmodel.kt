@@ -1,11 +1,14 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.content.Context
+import android.util.Log
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.databinding.Bindable
 import androidx.lifecycle.*
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
@@ -88,6 +91,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      * will be published
      */
     fun saveRecipe(context: Context) {
+        Log.i("CreateRecipeViewmodel", "funktion save recipe wird aufgerufen")
+
         // save to room database or update if already exists in room database
         // if recipe ID = 0, it's a new recipe, else update the existing one
        var newPrivateRecipe =
@@ -102,24 +107,33 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 Toast.makeText(context, _errorLiveDataString.value, Toast.LENGTH_SHORT).show()
             }
         }
-        if (this.tagCheckBoxPublish.value == true) {
+        //if (this.tagCheckBoxPublish.value == true) {
+        //TODO obige Abfrage funktioniet nicht. fixen
+
+
             Toast.makeText(context, "Rezept wird veröffentlicht", Toast.LENGTH_SHORT).show()
+            //TODO dieser Text wird überdeckt von letztem Toast, in Snackbar schreiben.
+
 
             //TODO muss anscheinend seit neuestem ein Feld "User übergeben"
             //Man muss da Zugriff auf den Benutzer haben,
             // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
 
-            val user = User("Todoimplementieren")
-           // val convertedPublicRecipe = newRecipe.convertToPublicRepipe(user)
+            val user = User("Test")
+           //val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(AuthentificationImpl.getUserId())
+
+            val convertedPublicRecipe = PublicRecipe(title="Test", imgUrl = newPrivateRecipe.imgUrl)
+            Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
             //Coroutine
             viewModelScope.launch {
                 try {
-                    //publicRepo.publishRecipe(convertedPublicRecipe)
+                   publicRepo.publishRecipe(convertedPublicRecipe)
                 } catch (error: Error) {
                     _errorLiveDataString.value = error.message
+                    Toast.makeText(context, _errorLiveDataString.value, Toast.LENGTH_SHORT).show()
                 }
             }
-        }
+        //}
     }
 
     fun getCheckedTags():List<String>{
