@@ -1,14 +1,9 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
-import android.R.attr.bitmap
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
-import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -16,33 +11,21 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.InjectorUtils
-import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.CreateRecipeFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel
 
 import android.os.Build.*
 import android.Manifest
-import android.net.Uri
 import android.util.Log
-import android.widget.CompoundButton
 import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker.checkSelfPermission
-import androidx.core.net.toFile
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
-import android.content.ContentResolver
-import android.content.Context
-import android.provider.OpenableColumns
 import androidx.lifecycle.MutableLiveData
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.create_recipe_fragment.view.*
-import java.io.File
+import kotlinx.android.synthetic.main.registration_fragment.*
 
 /**
  * The Fragment class provides logic for binding the respective .xml layout file to the class
@@ -111,7 +94,11 @@ class CreateRecipeFragment : Fragment() {
 
         viewModel.recipe.observe(this, Observer { recipe -> setPublishedID(recipe.publishedRecipeId)})
 
-        viewModel.recipe.observe(this, Observer { recipe -> setTags(recipe.tags)})
+        viewModel.recipe.observe(this, Observer { recipe -> getTagsFromRecipe(recipe.tags)})
+
+        viewModel.recipe.observe(this, Observer { recipe -> setPreparation(recipe.preparation)
+           })
+
 
 
 
@@ -141,6 +128,13 @@ class CreateRecipeFragment : Fragment() {
             viewModel.tagCheckBoxCheap.value = true
             binding.checkBoxCheap.isChecked = true
         }
+        binding.checkBoxPublishCreateRecipeFragment.setOnClickListener {
+            viewModel.tagCheckBoxPublish.value = true
+            binding.checkBoxPublishCreateRecipeFragment.isChecked = true
+        }
+
+
+
 
 
 
@@ -322,6 +316,14 @@ class CreateRecipeFragment : Fragment() {
     fun setIngredientText(ingredients : String){
         binding.editTextIngredientsCreateRecipeFragment.setText(ingredients)
     }
+    /**
+     * Set the preparation field of the observed recipe by binding.
+     *
+     * @param preparation is a String of the preparation description, which the recipe has
+     */
+    fun setPreparation(preparation: String){
+        binding.editTextPreparationDescriptionCreateRecipeFragment.setText(preparation)
+    }
 
     /**
      * Set the two times of the observed recipe:
@@ -361,7 +363,7 @@ class CreateRecipeFragment : Fragment() {
         }
     }
 
-    fun setTags(tags : List<String>){
+    fun getTagsFromRecipe(tags : List<String>){
         if(tags.contains("vegan")){
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
         }
@@ -372,13 +374,13 @@ class CreateRecipeFragment : Fragment() {
             viewModelTemp?.tagCheckBoxSalty   = MutableLiveData(true)
         }
         if(tags.contains("sweet")){
-
+            viewModelTemp?.tagCheckBoxSweet   = MutableLiveData(true)
         }
         if(tags.contains("günstig")){
-
+            viewModelTemp?.tagCheckBoxCheap   = MutableLiveData(true)
         }
         if(tags.contains("herzhaft")){
-
+            viewModelTemp?.tagCheckBoxSavoury   = MutableLiveData(true)
         }
     }
 
