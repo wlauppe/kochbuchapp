@@ -1,8 +1,5 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-
 /**
  * Holds a list of tags that are given by the app developers.
  * This class can be extended to give the user the ability to add personal tags.

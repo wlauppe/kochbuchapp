@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.*
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.ShoppingListDB
 
 @Dao
 interface ShoppingListDao {

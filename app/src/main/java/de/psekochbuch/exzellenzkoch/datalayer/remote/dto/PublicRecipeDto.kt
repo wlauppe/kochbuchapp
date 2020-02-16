@@ -1,7 +1,5 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.dto
 
-import java.util.*
-
 /**
  * Data Transfer Object of the public recipe
  */

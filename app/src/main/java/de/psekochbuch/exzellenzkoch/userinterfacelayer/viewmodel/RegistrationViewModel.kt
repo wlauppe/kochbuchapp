@@ -1,17 +1,16 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
-
-
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import kotlinx.coroutines.launch
 
 /**

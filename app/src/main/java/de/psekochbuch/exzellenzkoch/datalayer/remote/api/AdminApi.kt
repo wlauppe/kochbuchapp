@@ -2,7 +2,10 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.api
 
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.PublicRecipeDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.UserDto
-import retrofit2.http.*
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface AdminApi {

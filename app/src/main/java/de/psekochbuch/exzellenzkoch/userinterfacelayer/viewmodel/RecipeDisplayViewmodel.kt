@@ -1,13 +1,13 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.*
-import androidx.lifecycle.Observer
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeDisplayFragment
 import kotlinx.coroutines.launch
-import java.util.*
 
 /**
  * The RecipeDisplayViewmodel manages the data for the RecipeDisplayFragment.
