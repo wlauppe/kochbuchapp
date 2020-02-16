@@ -11,14 +11,14 @@ interface AdminApi {
     suspend fun getReportedPublicRecipes(@Query("page") page:Int,
                                          @Query("readCount") readCount:Int): List<PublicRecipeDto>
 
-    @GET("/reported/users")
+    @GET("reported/users")
     suspend fun getReportedUsers(@Query("page") page:Int,
                                  @Query("readCount") readCount:Int): List<UserDto>
 
-    @DELETE("/reported/{recipeId}")
+    @DELETE("reported/{recipeId}")
     suspend fun deReportPublicRecipe(@Path ("recipeId") recipeId:Int)
 
-    @DELETE("/reported/{userId}")
+    @DELETE("reported/{userId}")
     suspend fun deReportUser(@Path("userId") userId:String)
 
 
