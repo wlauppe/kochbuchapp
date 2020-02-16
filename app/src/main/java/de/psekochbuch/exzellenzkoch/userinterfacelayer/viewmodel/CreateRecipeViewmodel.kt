@@ -113,11 +113,21 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         _showSnackbarEvent.value = true
     }
 
+    fun dontPublishRecipe(context: Context) {
+        _snackbarMessage.value = "Beim Speichern wird ein öffentlich verfügbares Rezept gelöscht"
+        _showSnackbarEvent.value = true
+    }
+
 
 
         fun saveRecipe(context: Context) {
-           _snackbarMessage.value="Rezept wird gespeichert"
-        _showSnackbarEvent.value = true
+            if(tagCheckBoxPublish.value == true) {
+                _snackbarMessage.value = "Rezept wird gespeichert und veröffentlicht"
+            }
+            else {
+                _snackbarMessage.value = "Rezept wird gespeichert"
+            }
+            _showSnackbarEvent.value = true
 
         Log.i("CreateRecipeViewmodel", "funktion save recipe wird aufgerufen")
 
