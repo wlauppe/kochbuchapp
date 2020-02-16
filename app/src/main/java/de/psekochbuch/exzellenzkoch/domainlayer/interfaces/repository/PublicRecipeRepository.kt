@@ -27,7 +27,7 @@ interface PublicRecipeRepository {
     //deren Veröffentlichungsdatum neuer als creationDate sind.
     //Sort Order kann title, date, oder ranking sein.
     @Throws
-    fun getPublicRecipes(tags:TagList, ingredients: IngredientChapter, creationDate:Date, sortOrder:String ): LiveData<List<PublicRecipe>>
+    fun getPublicRecipes(title:String, tags:List<String>, ingredients: List<String>, creationDate:Date?, sortOrder:String ): LiveData<List<PublicRecipe>>
 
     @Throws
     fun getPublicRecipe(recipeId : Int): LiveData<PublicRecipe>

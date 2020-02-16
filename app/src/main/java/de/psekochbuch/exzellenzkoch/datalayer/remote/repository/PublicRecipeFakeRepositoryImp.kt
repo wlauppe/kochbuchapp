@@ -111,9 +111,10 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override fun getPublicRecipes(
-        tags: TagList,
-        ingredients: IngredientChapter,
-        creationDate: Date,
+        title:String,
+        tags: List<String>,
+        ingredients: List<String>,
+        creationDate: Date?,
         sortOrder: String
     ): LiveData<List<PublicRecipe>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
