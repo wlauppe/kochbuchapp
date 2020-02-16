@@ -47,6 +47,10 @@ class AdminRecipeAdapter(var viewModel: AdminViewModel,
         return AdminRecipeViewHolder(adminReportedRecipeItemBinding)
     }
 
+    /**
+     * Returns the amount of the current items held by the adapter
+     * @return amount of items
+     */
     override fun getItemCount(): Int {
         return reportedRecipes.size
     }
