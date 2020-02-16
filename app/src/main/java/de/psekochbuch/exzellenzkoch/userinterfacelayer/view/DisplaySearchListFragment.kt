@@ -64,44 +64,6 @@ class DisplaySearchListFragment : Fragment(){
         binding.radioButtonVegan.setOnClickListener {
             viewModel.recipes.postValue(viewModel.recipesSortedTitle.value!!)
         }
-        /*
-            // Radio button logic
-            binding.radioButtonVegan.setOnClickListener{
-                var sortedRecipes =  viewModel.sortByVegan()
-                val adapter = DisplaySearchListAdaper(sortedRecipes,viewModel, requireContext())
-                binding.recyclerViewSearchlistFragment.adapter = adapter
-                val observer = Observer<List<PublicRecipe>> { items ->
-                    exampleAdapter.setNewItems(items)
-                }
-                viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-
-            }
-            binding.radioButtonVegetarian.setOnClickListener{
-                var sortedRecipesVegetarian =  viewModel.sortByVegetarian()
-                val adapterVegetarian = DisplaySearchListAdaper(sortedRecipesVegetarian,viewModel, requireContext())
-                binding.recyclerViewSearchlistFragment.adapter = adapterVegetarian
-                val observer = Observer<List<PublicRecipe>> { items ->
-                    exampleAdapter.setNewItems(items)
-                }
-                viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-
-            }
-            binding.radioButtonDate.setOnClickListener{
-                viewModel.sortByDate()
-
-                var sortedRecipesDate =  viewModel.recipes.value!!
-                val adapterDate = DisplaySearchListAdaper(sortedRecipesDate,viewModel, requireContext())
-                binding.recyclerViewSearchlistFragment.adapter = adapterDate
-                val observer = Observer<List<PublicRecipe>> { items ->
-                    exampleAdapter.setNewItems(items)
-                }
-                viewModel.recipes.observe(this.viewLifecycleOwner, observer)
-
-            }
-            */
-
-
-            //ERROR
 
 
         return binding.root

@@ -28,34 +28,18 @@ class FeedFragment : Fragment() {
         val viewModel : FeedViewModel by viewModels {
             InjectorUtils.provideFeedViewModelFactory(requireContext())
         }
-
         binding.recyclerViewFeed.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-
-
-
         val feedAdapter = FeedAdapter(viewModel, requireContext())
 
-
         binding.recyclerViewFeed.adapter = feedAdapter
-
-
 
         val observer = Observer<List<PublicRecipe>> { items ->
             items?.let {
                 feedAdapter.feedRecipes = items}
         }
-
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewFeed.setHasFixedSize(true)
-
-        /*
-//Safeargs werden hier aus dem Bundel gezogem
-        var title = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).recipeTitleToDisplay }
-        var tags = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).tags }
-        var ingredients = arguments?.let { DisplaySearchListFragmentArgs.fromBundle(it).ingredients }
-        Toast.makeText(requireContext(), title.toString() + ingredients.toString() + tags.toString(), Toast.LENGTH_SHORT).show()
-         */
         return binding.root
     }
 }

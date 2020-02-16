@@ -45,7 +45,7 @@
     <string name="spare_recipe">Entmelden</string>
     <string name="profile_display_username">Name</string>
     <string name="profile_display_user_description">Beschreibung</string>
-    <string name="profile_display_erstellte_rezepte">Erstellte Rezepte</string>
+    <string name="profile_display_erstellte_rezepte">veröffentlichte Rezepte</string>
     <string name="flag_user">Nutzer melden</string>
     <string name="profile_display_edit_profile_button">Profil Bearbeiten</string>
 
