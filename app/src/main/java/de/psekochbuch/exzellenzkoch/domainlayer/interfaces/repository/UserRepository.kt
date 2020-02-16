@@ -29,7 +29,7 @@ interface UserRepository {
     suspend fun addUser(userId : String): String
 
     @Throws
-    suspend fun updateUser(user : User)
+    suspend fun updateUser(oldUserId : String, user : User)
 
     fun getReportedUsers() : LiveData<List<User>>
 
