@@ -92,6 +92,7 @@
     <string name="min">min</string>
     <string name="preptime">Zubereitungszeit:</string>
     <string name="share">Teilen</string>
+    <string name="logout">Ausloggen</string>
 
     <string-array name="spinner">
         <item>vegan</item>

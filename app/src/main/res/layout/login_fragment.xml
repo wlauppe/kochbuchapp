@@ -120,13 +120,13 @@
 
         <include
             android:id="@+id/logInProgressbar"
-            android:visibility="@{loginviewModel.progressBarVisibility ? View.VISIBLE : View.INVISIBLE}"
             layout="@layout/progress_view"
+            android:visibility="@{loginviewModel.progressBarVisibility ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-             />
+
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
