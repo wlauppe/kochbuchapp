@@ -178,7 +178,14 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         Log.w(TAG, "publishRecipe() wird aufgerufen für recipe mit titel = ${publicRecipe.title} und img=${publicRecipe.imgUrl} id=${publicRecipe.recipeId}")
             coroutineScope{
                 try {
-                    //First upload the Image.
+                    val recipeId=publicRecipe.recipeId
+                    if (recipeId != 0) {
+                        //fileApiService.deleteImage() koennte auch ausgefuehrt werden.
+                        recipeApiService.deleteRecipe(recipeId)
+                }
+
+
+                //First upload the Image.
                     val file : File = File(publicRecipe.imgUrl)
                     val body = RequestBody.create(MediaType.parse("image/*"), file)
                     val multi = MultipartBody.Part.createFormData("file", file.name, body)
