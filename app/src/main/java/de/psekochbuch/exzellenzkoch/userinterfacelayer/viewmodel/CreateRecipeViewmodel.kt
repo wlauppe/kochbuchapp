@@ -6,6 +6,7 @@ import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.databinding.Bindable
 import androidx.lifecycle.*
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
@@ -122,7 +123,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
 
             val user = User("Test")
-           //val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(user)
+           //val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(AuthentificationImpl.getUserId())
 
             val convertedPublicRecipe = PublicRecipe(title="Test", imgUrl = newPrivateRecipe.imgUrl)
             Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
