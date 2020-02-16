@@ -57,7 +57,13 @@ class DisplaySearchListFragment : Fragment(){
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewSearchlistFragment.setHasFixedSize(true)
 
+        binding.radioButtonDate.setOnClickListener {
+            viewModel.recipes.postValue(viewModel.recipesSortedDate.value!!)
+        }
 
+        binding.radioButtonVegan.setOnClickListener {
+            viewModel.recipes.postValue(viewModel.recipesSortedTitle.value!!)
+        }
         /*
             // Radio button logic
             binding.radioButtonVegan.setOnClickListener{

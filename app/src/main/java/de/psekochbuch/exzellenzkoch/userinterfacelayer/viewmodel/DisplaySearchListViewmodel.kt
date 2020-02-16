@@ -18,9 +18,12 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
     * eine Liste an IDs, um ein ausgewähltes Rezept in dem RecipeDisplayFragment laden zu können */
     val repository= repo
 
-    var recipes : LiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
+    var recipesFromServer :LiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
+    var recipes : MutableLiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
+    var recipesSortedTitle : MutableLiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
+    var recipesSortedDate : MutableLiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
 
-    fun getPublicRecipes(title: String?, ingredients: String?, tags: String?):LiveData<List<PublicRecipe>> {
+    fun getPublicRecipes(title: String?, ingredients: String?, tags: String?){
         var ingredientList = emptyList<String>()
         var tagList = emptyList<String>()
         if(ingredients != null) {
@@ -32,10 +35,32 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
         if(title == null){
             var title = ""
         }
-       // return repository.search(title, ingredientList, tagList)
-        // recipes = repository.search(title, ingredientList, tagList)
-        recipes = repository.getPublicRecipes(title!!,tagList,ingredientList,null,"title")
-        return recipes
+
+        recipesFromServer = repository.getPublicRecipes(title!!,tagList,ingredientList,null,"title")
+        recipesFromServer.observeForever{
+            recipes.postValue(it)
+            recipesSortedTitle.postValue(it.sortedWith(object : Comparator<PublicRecipe>{
+                override fun compare(recipe1: PublicRecipe?, recipe2: PublicRecipe?): Int {
+                    if (recipe1 == null)
+                        return -1
+                    else if (recipe2 == null)
+                        return 1
+                    else
+                        return recipe1.title.toLowerCase().compareTo(recipe2.title.toLowerCase())
+                }
+            }))
+            recipesSortedDate.postValue(it.sortedWith(object : Comparator<PublicRecipe>{
+                override fun compare(recipe1: PublicRecipe?, recipe2: PublicRecipe?): Int {
+                    if (recipe1 == null)
+                        return -1
+                    else if (recipe2 == null)
+                        return 1
+                    else
+                        return recipe1.getDateAsLong().compareTo(recipe2.getDateAsLong())
+                }
+            }))
+        }
+
     }
 
 
