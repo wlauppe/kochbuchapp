@@ -21,7 +21,10 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.*
 object InjectorUtils {
 
     private fun getPublicRecipeRepository(context: Context): PublicRecipeRepository {
-         return PublicRecipeRepositoryImp.getInstance()
+         val repo = PublicRecipeRepositoryImp.getInstance()
+         // repo.machewas
+        return repo
+
         //return PublicRecipeFakeRepositoryImp.getInstance()
     }
 

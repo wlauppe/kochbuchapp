@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -15,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import java.util.*
 
 class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeRepository {
+    private val TAG = "PublicRealImp"
     private val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(application!!)?.privateRecipeDao();
     private val privateRecipeTagDao: PrivateRecipeTagDao? = DB.getDatabase(application!!)?.privateRecipeTagDao();
 
@@ -71,6 +73,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     }
 
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
+        Log.w(TAG, "insertPrivateRecipe() wird aufgerufen title=$privateRecipe.title, imgUrl=${privateRecipe.imgUrl}")
         DB.databaseWriteExecutor.execute{privateRecipeDao?.insert(transformPrivateRecipeToPrivateREcipeDB(privateRecipe))}
     }
     
