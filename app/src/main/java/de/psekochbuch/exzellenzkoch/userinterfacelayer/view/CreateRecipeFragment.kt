@@ -95,14 +95,22 @@ class CreateRecipeFragment : Fragment() {
         // set up observer values for the ViewModel attributes (Logatgs are for debugging purposes)
         viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)
             Log.i(Tagg, recipe.imgUrl.plus(" ist die Image URL"))})
+
         viewModel.recipe.observe(this, Observer { recipe -> setTitle(recipe.title)
             Log.i(Tagg, recipe.title.plus(" ist der Title"))})
+
         viewModel.recipe.observe(this, Observer { recipe -> setTimes(recipe.preparationTime, recipe.cookingTime)})
+
         viewModel.recipe.observe(this, Observer { recipe -> setIngredientText(recipe.ingredientsText)
             Log.i(Tagg, recipe.ingredientsText.plus(" ingredients"))})
+
         viewModel.recipe.observe(this, Observer { recipe -> setPortions(recipe.portions)})
+
         viewModel.recipe.observe(this, Observer { recipe -> setPublishedID(recipe.publishedRecipeId)})
-        viewModel.recipe.observe(this, Observer { recipe -> setPublishedID(recipe.publishedRecipeId)})
+
+        viewModel.recipe.observe(this, Observer { recipe -> setTags(recipe.tags)})
+
+
 
 
         //initialize navcontoller
@@ -314,5 +322,28 @@ class CreateRecipeFragment : Fragment() {
             viewModelTemp?.publishedID = publishedID
         }
     }
+
+    fun setTags(tags : List<String>){
+        if(tags.contains("vegan")){
+
+        }
+        if(tags.contains("vegetarisch")){
+
+        }
+        if(tags.contains("salzig")){
+
+        }
+        if(tags.contains("sweet")){
+
+        }
+        if(tags.contains("günstig")){
+
+        }
+        if(tags.contains("herzhaft")){
+
+        }
+    }
+
+
 
 }
