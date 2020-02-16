@@ -41,13 +41,20 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     var tagCheckBoxSalty: MutableLiveData<Boolean> = MutableLiveData( false)
     var tagCheckBoxCheap: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    var preparation = MutableLiveData<String>("")
+    var preparation : MutableLiveData<String> = MutableLiveData<String>("")
     var imgUrl  = MutableLiveData<String>("")
-    var cookingTime = MutableLiveData<Int>(0)
-    var prepTime = MutableLiveData<Int>(0)
+
+
+    var cookingTime = MutableLiveData<String>("0")
+    var prepTime = MutableLiveData<String>("0")
+
+
     var creationTimeStamp = Date(System.currentTimeMillis())
     var portions = MutableLiveData<Int>(0)
     var publishedID : Int  = 0
+
+    //Checkbox if the users whishes to publish his recipe
+    var tagCheckBoxPublish: MutableLiveData<Boolean> = MutableLiveData(false)
 
 
 
@@ -81,8 +88,6 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
 
 
-    //Checkbox if the users whishes to publish his recipe
-    var tagCheckBoxPublish: MutableLiveData<Boolean> = MutableLiveData(false)
 
     /**
      * Gets the Recipe from the Repository and sets the attributes to the livedata objects.
@@ -111,7 +116,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         var resultTags = getCheckedTags()
        var newPrivateRecipe =
            PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
-               resultTags,preparation.value!!,imgUrl.value!!, cookingTime.value!!, prepTime.value!!, creationTimeStamp, portions.value!!, publishedID)
+               resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, publishedID)
         //Coroutine
         viewModelScope.launch {
             try {
