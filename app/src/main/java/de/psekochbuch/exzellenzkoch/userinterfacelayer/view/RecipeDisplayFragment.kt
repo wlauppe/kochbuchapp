@@ -50,6 +50,12 @@ class RecipeDisplayFragment : Fragment(){
         // set options Menu shown
         setHasOptionsMenu(true)
 
+        binding.buttonReportRecipe.setOnClickListener{
+            if (recipeID != null) {
+                viewModel.reportRecipe(recipeID)
+            }
+        }
+
         //initialized navcontoller
         var navController: NavController = findNavController()
 
@@ -83,6 +89,8 @@ class RecipeDisplayFragment : Fragment(){
         context?.let { Glide.with(it).load(urlString).into(imageView) }
 
     }
+
+
     fun setTitle(title : String){
         binding.textViewRecipeTitle.text = title
     }

@@ -179,6 +179,12 @@
                     android:padding="10dp"
                     android:text="@{recipeDisplayViewModel.recipe.preparation}"
                     android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/button_report_recipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/report" />
             </LinearLayout>
         </ScrollView>
 
