@@ -6,6 +6,10 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserReposi
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RegistrationViewModel
 
+/**
+ * Factory for creating a RegistrationViewModel with a constructor that takes a
+ * authentification,UserRepository .
+ */
 class RegistrationViewModelFactory (private val authentification: Authentification,
                                     private val repo:UserRepository)
     :ViewModelProvider.NewInstanceFactory() {

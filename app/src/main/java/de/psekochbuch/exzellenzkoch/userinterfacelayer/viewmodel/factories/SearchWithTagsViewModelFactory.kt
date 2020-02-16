@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.SearchWithTagsViewModel
 
+/**
+ * Factory for creating a SearchWithTagsViewModel with a constructor that takes a
+ * TagRepository.
+ */
 class SearchWithTagsViewModelFactory(private val repository:TagRepository)
     :ViewModelProvider.NewInstanceFactory() {
 

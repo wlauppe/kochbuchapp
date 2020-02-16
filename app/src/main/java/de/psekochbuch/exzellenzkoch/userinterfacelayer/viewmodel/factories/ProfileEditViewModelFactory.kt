@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileEditViewmodel
 
+/**
+ * Factory for creating a ProfileEditViewModel with a constructor that takes a
+ * UserRepository.
+ */
 class ProfileEditViewModelFactory(private val repo:UserRepository):
         ViewModelProvider.NewInstanceFactory() {
 
