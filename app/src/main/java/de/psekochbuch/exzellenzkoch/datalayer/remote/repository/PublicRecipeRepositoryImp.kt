@@ -168,7 +168,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 recipeApiService.deleteRecipe(recipeId)
             }
         } catch (error: Throwable) {
-            throw NetworkError("Unable to delete recipe", error)
+           // throw NetworkError("Unable to delete recipe", error)
         }
     }
 

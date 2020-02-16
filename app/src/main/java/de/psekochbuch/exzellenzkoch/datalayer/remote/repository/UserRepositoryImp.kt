@@ -88,7 +88,7 @@ class UserRepositoryImp : UserRepository {
         try {
             coroutineScope { userApiService.deleteUser(userId) }
         } catch (error: Throwable) {
-            throw NetworkError("Unable to delete User with userId " + userId, error)
+           // throw NetworkError("Unable to delete User with userId " + userId, error)
         }
     }
 
@@ -100,7 +100,7 @@ class UserRepositoryImp : UserRepository {
         try {
             coroutineScope { userApiService.updateUser(user.userId, userMapper.toDto(user)) }
         } catch (error: Throwable) {
-            throw NetworkError("Unable to update user", error)
+          //  throw NetworkError("Unable to update user", error)
         }
     }
 
@@ -112,7 +112,7 @@ class UserRepositoryImp : UserRepository {
             }
 
         } catch (error: Throwable) {
-            throw NetworkError("Unable to update user", error)
+           // throw NetworkError("Unable to update user", error)
         }
     }
 
@@ -124,7 +124,7 @@ class UserRepositoryImp : UserRepository {
             }
 
         } catch (error: Throwable) {
-            throw NetworkError("Unable to update user", error)
+           // throw NetworkError("Unable to update user", error)
         }
     }
 
