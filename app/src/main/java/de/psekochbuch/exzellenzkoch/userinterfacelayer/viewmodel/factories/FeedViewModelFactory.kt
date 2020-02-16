@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 
+/**
+ * Factory for creating a FeedViewModel with a constructor that takes a
+ * PublicRecipeRepository.
+ */
 class FeedViewModelFactory (private val repository:PublicRecipeRepository)
     :ViewModelProvider.NewInstanceFactory() {
 

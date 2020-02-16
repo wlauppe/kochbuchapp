@@ -8,6 +8,10 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserReposi
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel
 
+/**
+ * Factory for creating a CreateRecipeViewModel with a constructor that takes a
+ * privateRepository,publicRepository, userRepository.
+ */
 class CreateRecipeViewModelFactory (private val privateRepository: PrivateRecipeRepository,
                                     private val publicRepository:PublicRecipeRepository,
                                     private val userRepository: UserRepository)
