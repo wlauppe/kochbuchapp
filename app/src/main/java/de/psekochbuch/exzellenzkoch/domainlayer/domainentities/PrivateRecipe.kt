@@ -2,6 +2,15 @@ package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
 import java.util.*
 
+/**
+ * The PrivateRecipe class contains all the information which is stored in a private Recipe.
+ *@param recipeId: An unique identififier to access the particular private recipe
+ *@param title: The name of the private Recipe.
+ *@param ingredientsText: The String of the Ingredients in the following format: ingredient1,ingredient2,...
+ *@param tags: a list of String, which represent the chosen tags for a specific private recipe
+ * @param preparation: A textual description of the preparation of the private recipe.
+ * 
+ */
 class PrivateRecipe(
     /**
      * unique identifier in local db

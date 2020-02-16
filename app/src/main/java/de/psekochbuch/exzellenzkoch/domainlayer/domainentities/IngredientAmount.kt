@@ -1,5 +1,11 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
+/**
+ * The IngredientAmount class bundles inforamtion about the ingredient name, the quantity and which unit it contains.
+ * @param ingredient: The name of the particular ingredient stored in a String
+ * @param quantity: The amount of the specific ingredient.
+ * @param unit: The unit in which referres to the quantity.
+ */
 class IngredientAmount (
 
                         /**
@@ -21,7 +27,6 @@ class IngredientAmount (
 
 
     override fun toString(): String {
-
         return  ingredient.plus(quantity.toString()).plus(unit.toString())
     }
 
