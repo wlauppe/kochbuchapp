@@ -36,7 +36,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     var tagCheckBoxVegetarian: MutableLiveData<Boolean> = MutableLiveData(false)
     var tagCheckBoxSavoury: MutableLiveData<Boolean> = MutableLiveData(false)
     var tagCheckBoxSweet: MutableLiveData<Boolean> = MutableLiveData(false)
-    var tagCheckBoxSalty: MutableLiveData<Boolean> = MutableLiveData( false)
+    var tagCheckBoxSalty: MutableLiveData<Boolean> = MutableLiveData(false)
     var tagCheckBoxCheap: MutableLiveData<Boolean> = MutableLiveData(false)
 
     var preparation : MutableLiveData<String> = MutableLiveData<String>("")
@@ -85,8 +85,6 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     //Checkboxes for the recipe tags
 
 
-
-
     /**
      * Gets the Recipe from the Repository and sets the attributes to the livedata objects.
      * @param id The id for the corresponding recipe
@@ -124,8 +122,6 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         _snackbarMessage.value = "Beim Speichern wird ein öffentlich verfügbares Rezept gelöscht"
         _showSnackbarEvent.value = true
     }
-
-
 
         fun saveRecipe(context: Context) {
             if(tagCheckBoxPublish.value == true) {
@@ -180,7 +176,6 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                     var newPrivateRecipe =
                         PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
                             resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, newId)
-
                     //Coroutine Saving in Room Database
                             privateRepo.insertPrivateRecipe(newPrivateRecipe)
 
@@ -203,15 +198,20 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
        }
         if(this.tagCheckBoxVegetarian.value!!){
             list.add("vegetarisch")
+            Log.i(Tag, "vegetarisch ist enthalten" )
         }
         if(this.tagCheckBoxCheap.value!!){
             list.add("günstig")
+            Log.i(Tag, "günstig ist enthalten" )
         }
         if(this.tagCheckBoxSavoury.value!!){
             list.add("herzhaft")
+
+            Log.i(Tag, "herzhaft ist enthalten" )
         }
         if(this.tagCheckBoxSweet.value!!){
             list.add("sweet")
+            Log.i(Tag, "süß ist enthalten" )
         }
         return list.toList()
     }
@@ -219,7 +219,6 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     fun setTags(tags : List<String>){
         if(tags.contains("vegan")){
            tagCheckBoxVegan.value = true
-
         }
         if(tags.contains("vegetarisch")){
            tagCheckBoxVegetarian.value = true

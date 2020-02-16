@@ -121,9 +121,10 @@ class CreateRecipeFragment : Fragment() {
             viewModel.tagCheckBoxVegan.value = true
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
         }
-            Log.i(Tagg, viewModel.tagCheckBoxVegan.value.toString().plus(" ist im VMMM") . plus(binding.checkBoxVeganCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
+            Log.i(Tagg, viewModel.tagCheckBoxVegan.value.toString().plus(" ist im VMMM ") . plus(binding.checkBoxVeganCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
 
         }
+
         binding.checkBoxVegetarianCreateRecipeFragment.setOnClickListener{
         if(viewModel.tagCheckBoxVegetarian.value!!){
             viewModel.tagCheckBoxVegetarian.value = false
@@ -132,6 +133,8 @@ class CreateRecipeFragment : Fragment() {
             viewModel.tagCheckBoxVegetarian.value = true
             binding.checkBoxVegetarianCreateRecipeFragment.isChecked = true
         }
+            Log.i(Tagg, viewModel.tagCheckBoxVegetarian.value.toString().plus(" ist vegetarisch im VMMM ") . plus(binding.checkBoxVegetarianCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
+
         }
         binding.checkBoxHeartyCreateRecipeFragment.setOnClickListener{
             if(viewModel.tagCheckBoxSavoury.value!!){
@@ -141,6 +144,8 @@ class CreateRecipeFragment : Fragment() {
                 viewModel.tagCheckBoxSavoury.value = true
                 binding.checkBoxHeartyCreateRecipeFragment.isChecked = true
             }
+            Log.i(Tagg, viewModel.tagCheckBoxVegetarian.value.toString().plus(" ist herzhaft im VMMM ") . plus(binding.checkBoxVegetarianCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
+
         }
         binding.checkBoxSweetCreateRecipeFragment.setOnClickListener{
             if(viewModel.tagCheckBoxSweet.value!!){
@@ -150,6 +155,8 @@ class CreateRecipeFragment : Fragment() {
                 viewModel.tagCheckBoxSweet.value = true
                 binding.checkBoxSweetCreateRecipeFragment.isChecked = true
             }
+            Log.i(Tagg, viewModel.tagCheckBoxVegetarian.value.toString().plus(" ist süß im VMMM ") . plus(binding.checkBoxVegetarianCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
+
         }
         binding.checkBoxSaltyCreateRecipeFragment.setOnClickListener{
             if(viewModel.tagCheckBoxSalty.value!!){
@@ -159,6 +166,8 @@ class CreateRecipeFragment : Fragment() {
                 viewModel.tagCheckBoxSalty.value = true
                 binding.checkBoxSaltyCreateRecipeFragment.isChecked = true
             }
+            Log.i(Tagg, viewModel.tagCheckBoxVegetarian.value.toString().plus(" ist salzig im VMMM ") . plus(binding.checkBoxVegetarianCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
+
         }
         binding.checkBoxCheap.setOnClickListener{
             if(viewModel.tagCheckBoxCheap.value!!){
@@ -168,6 +177,8 @@ class CreateRecipeFragment : Fragment() {
                 viewModel.tagCheckBoxCheap.value = true
                 binding.checkBoxCheap.isChecked = true
             }
+            Log.i(Tagg, viewModel.tagCheckBoxVegetarian.value.toString().plus(" ist günstig im VMMM ") . plus(binding.checkBoxVegetarianCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
+
         }
         binding.checkBoxPublishCreateRecipeFragment.setOnClickListener() {
             view -> if (view is CheckBox) {
