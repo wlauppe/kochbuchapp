@@ -146,8 +146,9 @@ class CreateRecipeFragment : Fragment() {
             binding.checkBoxCheap.isChecked = true
         }
         binding.checkBoxPublishCreateRecipeFragment.setOnClickListener {
-            viewModel.tagCheckBoxPublish.value = true
-            binding.checkBoxPublishCreateRecipeFragment.isChecked = true
+            viewModel.tagCheckBoxCheap.value = true
+            viewModel.publishRecipe(requireContext())
+
         }
 
 
@@ -168,7 +169,7 @@ class CreateRecipeFragment : Fragment() {
                 Snackbar.make(
                     view!!,
                     //getString(R.string.cleared_message),
-                    "Rezept wird gespeichert und veröffentlicht",
+                    viewModel.snackbarMessage.value!!,
                     //viewModel.errorString.value.toString(),
                     Snackbar.LENGTH_SHORT // How long to display the message.
                 ).show()
@@ -180,7 +181,6 @@ class CreateRecipeFragment : Fragment() {
 
 
        // Snackbar.make(view!!, viewModel.errorString.value.toString(), Snackbar.LENGTH_SHORT).show()
-
 
 
         // logic for the "Save recipe"-button

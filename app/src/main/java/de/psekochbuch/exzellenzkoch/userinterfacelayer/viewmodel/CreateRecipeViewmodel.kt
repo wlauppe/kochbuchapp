@@ -4,10 +4,8 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
@@ -72,12 +70,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         get() = _showSnackbarEvent
 
 
-    private val _errorString = MutableLiveData<String?>()
+    private val _snackbarMessage = MutableLiveData<String?>()
     /**
      * Request a snackbar to display a string.
      */
-    val errorString: LiveData<String?>
-        get() = _errorString
+    val snackbarMessage: LiveData<String?>
+        get() = _snackbarMessage
 
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = false
@@ -106,9 +104,20 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      *
      * @param context is required for the Toast message to notify the user, that the recipe
      * will be published
+     *
+     *
      */
-    fun saveRecipe(context: Context) {
+
+    fun publishRecipe(context: Context) {
         _showSnackbarEvent.value = true
+    }
+
+
+
+        fun saveRecipe(context: Context) {
+           _snackbarMessage.value="Rezept wird gespeichert"
+        _showSnackbarEvent.value = true
+
         Log.i("CreateRecipeViewmodel", "funktion save recipe wird aufgerufen")
 
         // save to room database or update if already exists in room database
@@ -122,8 +131,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             try {
                 privateRepo.insertPrivateRecipe(newPrivateRecipe)
             } catch (error: Error) {
-                _errorString.value = error.message
-                Toast.makeText(context, _errorString.value, Toast.LENGTH_SHORT).show()
+                _snackbarMessage.value = error.message
+                Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
             }
         }
         //if (this.tagCheckBoxPublish.value == true) {
@@ -147,8 +156,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 try {
                    publicRepo.publishRecipe(convertedPublicRecipe)
                 } catch (error: Error) {
-                    _errorString.value = error.message
-                    Toast.makeText(context, _errorString.value, Toast.LENGTH_SHORT).show()
+                    _snackbarMessage.value = error.message
+                    Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
                 }
             }
         }
