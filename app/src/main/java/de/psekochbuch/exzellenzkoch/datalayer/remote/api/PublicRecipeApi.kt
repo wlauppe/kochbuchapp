@@ -44,7 +44,7 @@ interface PublicRecipeApi {
      * @param id Id of the recipe
      */
     @DELETE ("recipes/{id}")
-    suspend fun deleteRecipe(@Query(value = "id") id:Int)
+    suspend fun deleteRecipe(@Path(value = "id") id:Int)
 
     /**
      * GET-Request to search a recipe with criteria
@@ -70,8 +70,8 @@ interface PublicRecipeApi {
      * The URL ends with /api/recipes/report/{id}
      * @param id Id of the recipe
      */
-    @POST("/report/{id}")
-    fun reportRecipe(@Query(value = "id") id:Int)
+    @POST("recipes/report/{id}")
+    suspend fun reportRecipe(@Path(value = "id") id:Int)
 
     /**
      * Get recipes from user
