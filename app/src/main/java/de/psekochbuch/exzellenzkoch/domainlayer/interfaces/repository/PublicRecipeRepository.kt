@@ -57,4 +57,9 @@ interface PublicRecipeRepository {
     @Throws
     suspend fun unreportRecipe(RecipeId : Int)
 
+    @Throws
+    fun getRecipesFromUser(userId:String): LiveData<List<PublicRecipe>>
+
+    fun setToken(tk:String)
+
 }

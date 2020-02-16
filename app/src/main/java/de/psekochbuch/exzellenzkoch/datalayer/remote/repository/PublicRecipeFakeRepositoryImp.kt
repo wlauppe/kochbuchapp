@@ -169,6 +169,14 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         }
          }
 
+    override fun getRecipesFromUser(userId: String): LiveData<List<PublicRecipe>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setToken(tk: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     companion object {
 
         // For Singleton instantiation

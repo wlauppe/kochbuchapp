@@ -37,13 +37,13 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     private val TAG = "PublicRealImp"
     val recipeMapper = PublicRecipeDtoEntityMapper()
 
-    val token = null
+    private var token :String? = null
     //TODO token von Authentification Interface bekommen.
 
-    val recipeApiService: PublicRecipeApi =
+    var recipeApiService: PublicRecipeApi =
         ApiServiceBuilder(token).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
 
-    val fileApiService: FileApi =
+    var fileApiService: FileApi =
         ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
 
     var adminApiService: AdminApi =
@@ -211,6 +211,43 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 throw NetworkError("Unable to publish report recipe", error)
             }
         }
+    }
+
+    override fun getRecipesFromUser(userId: String): LiveData<List<PublicRecipe>> {
+        try {
+            Log.w(TAG, "getPublicRecipes() wird aufgerufen")
+            val lData = liveData(Dispatchers.IO, 1000) {
+                Log.w(TAG, "jetzt bin ich im Coroutine Scope")
+                try {
+                    val dtoList =
+                        recipeApiService.getUserRecipes(userId)
+                    //if (!response.isSuccessful) throw error("response not successful")
+                    dtoList?.let {
+                        val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
+                        emit(entityList)
+                    }
+                }
+                catch(error : Throwable) {
+                    error.printStackTrace()
+                    emit(listOf(PublicRecipe(0, "Error Fetching Recipes!", imgUrl = "file:///android_asset/exampleimages/error.png")))
+                }
+
+            }
+            return lData
+        }
+        catch(error : Throwable) {
+            return liveData {
+                emit(listOf(PublicRecipe(0, "Error Fetching Recipes")))
+            }
+        }
+    }
+
+    override fun setToken(tk:String)
+    {
+        token = tk
+        recipeApiService = ApiServiceBuilder(token).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
+        fileApiService = ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
+        adminApiService = ApiServiceBuilder(token).createApi(AdminApi::class.java) as AdminApi
     }
 
     companion object {
