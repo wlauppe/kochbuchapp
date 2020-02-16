@@ -9,6 +9,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import java.util.*
 
+/**
+ * The DisplaySearchListViewmodel handles the information for the DisplaySearchListFragment.
+ * @param repo: the repository for the public recipes. Through the repository the methods can access
+ * the database.
+ */
 class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
     val TAG = "DisplaySearchListVM"
 
