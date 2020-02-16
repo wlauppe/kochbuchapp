@@ -60,35 +60,5 @@ class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
                 }
             }))
         }
-
-    }
-
-
-    fun sortByVegan(): List<PublicRecipe>{
-        var sortedList  = mutableListOf<PublicRecipe>()
-        if(recipes.value != null) {
-            for (recipe in recipes.value!!) {
-                if(recipe.tags.contains("vegan")) {
-                    sortedList.add(recipe)
-                }
-            }
-        }
-        return sortedList
-
-
-    }
-    fun sortByVegetarian() : List<PublicRecipe>{
-        var sortedList  = mutableListOf<PublicRecipe>()
-        if(recipes.value != null) {
-            for (recipe in recipes.value!!) {
-                if(recipe.tags.contains("vegetarisch")) {
-                    sortedList.add(recipe)
-                }
-            }
-        }
-        return sortedList
-    }
-    fun sortByDate() {
-
     }
 }
