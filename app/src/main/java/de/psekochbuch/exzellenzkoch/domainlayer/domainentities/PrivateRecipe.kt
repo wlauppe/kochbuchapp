@@ -2,6 +2,9 @@ package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
 import java.util.*
 
+/**
+ * 
+ */
 class PrivateRecipe(
     var recipeId: Int = 0,
     val title: String,
