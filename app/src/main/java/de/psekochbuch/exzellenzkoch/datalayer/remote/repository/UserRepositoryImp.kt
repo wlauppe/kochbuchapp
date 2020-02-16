@@ -3,8 +3,10 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import de.psekochbuch.exzellenzkoch.IMG_PREFIX
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
+import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.UserApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
@@ -13,6 +15,10 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserReposi
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.errors.NetworkError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class UserRepositoryImp : UserRepository {
     val userMapper = UserDtoEntityMapper()
@@ -23,6 +29,9 @@ class UserRepositoryImp : UserRepository {
         ApiServiceBuilder(token).createApi(UserApi::class.java) as UserApi
     var adminApiService: AdminApi =
         ApiServiceBuilder(token).createApi(AdminApi::class.java) as AdminApi
+
+    var fileApiService: FileApi =
+        ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
 
     val fake = UserFakeRepositoryImp()
 
@@ -96,9 +105,20 @@ class UserRepositoryImp : UserRepository {
         return userApiService.addUser(userId).customToken
     }
 
-    override suspend fun updateUser(user: User) {
+    override suspend fun updateUser(oldUserId: String, user: User) {
         try {
-            coroutineScope { userApiService.updateUser(user.userId, userMapper.toDto(user)) }
+            //First upload the Image.
+            val file : File = File(user.imgUrl)
+            val body = RequestBody.create(MediaType.parse("image/*"), file)
+            val multi = MultipartBody.Part.createFormData("file", file.name, body)
+            val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            val response = fileApiService.addImage(multi)
+            //TODO Baseurl hinzufügen eventuell in den Mapper.
+            val remoteUrl = response.filePath
+            //speichere filepath in recipe
+            //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
+            user.imgUrl= IMG_PREFIX +remoteUrl
+            val returnDto = userApiService.updateUser(oldUserId,userMapper.toDto(user))
         } catch (error: Throwable) {
           //  throw NetworkError("Unable to update user", error)
         }
@@ -107,10 +127,7 @@ class UserRepositoryImp : UserRepository {
 
     override suspend fun reportUser(userId: String) {
         try {
-            coroutineScope {
                 userApiService.reportUser(userId)
-            }
-
         } catch (error: Throwable) {
            // throw NetworkError("Unable to update user", error)
         }
@@ -118,11 +135,7 @@ class UserRepositoryImp : UserRepository {
 
     override suspend fun unreportUser(userId: String) {
         try {
-            coroutineScope {
                 adminApiService.deReportUser(userId)
-
-            }
-
         } catch (error: Throwable) {
            // throw NetworkError("Unable to update user", error)
         }
