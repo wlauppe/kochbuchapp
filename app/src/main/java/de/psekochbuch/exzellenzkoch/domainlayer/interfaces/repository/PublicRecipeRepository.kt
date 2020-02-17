@@ -59,4 +59,6 @@ interface PublicRecipeRepository {
 
     fun setToken(tk:String?)
 
+    fun isTokenSet():Boolean
+
 }

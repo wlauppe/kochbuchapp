@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.service
 import android.app.Activity
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 
@@ -103,8 +104,17 @@ object AuthentificationImpl
         val auth: FirebaseAuth = FirebaseAuth.getInstance()
         val user = auth.currentUser
         if(user != null) {
-            user.getIdToken(fresh).addOnCompleteListener {
-                callback(it.result?.token)
+            try {
+                user.getIdToken(fresh).addOnCompleteListener {
+                    if(it.isSuccessful) {
+                        callback(it.result?.token)
+                    } else {
+                        callback("")
+                    }
+                }
+            } catch (ex : FirebaseNetworkException ){
+                ex.printStackTrace()
+                callback("")
             }
         } else {
             callback("")

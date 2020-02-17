@@ -1,5 +1,8 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -41,24 +44,31 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         binding.buttonLoginFragmentLogin.setOnClickListener {
             setLoadingScreen(false)
-            viewModel.login{ userId, result, message ->
-                if(userId != "" && result == AuthenticationResult.LOGINSUCCESS) {
-                    AuthentificationImpl.getToken(true) {
-                        if(it != null && it != "") {
-                            InjectorUtils.setToken(it)
+            val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+            val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+            if(isConnected) {
+                viewModel.login { userId, result, message ->
+                    if (userId != "" && result == AuthenticationResult.LOGINSUCCESS) {
+                        AuthentificationImpl.getToken(true) {
+                            if (it != null && it != "") {
+                                InjectorUtils.setToken(it)
+                            }
                         }
-                    }
-                    setLoadingScreen(true)
-                    navController.navigate(
-                        LoginFragmentDirections.actionLoginFragmentToProfileDisplayFragment().setUserID(
-                            userId
+                        setLoadingScreen(true)
+                        navController.navigate(
+                            LoginFragmentDirections.actionLoginFragmentToProfileDisplayFragment().setUserID(
+                                userId
+                            )
                         )
-                    )
+                    } else {
+                        setLoadingScreen(true)
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                    }
                 }
-                else {
-                    setLoadingScreen(true)
-                    Toast.makeText(context,message, Toast.LENGTH_SHORT).show()
-                }
+            } else {
+                setLoadingScreen(true)
+                Toast.makeText(context, "No connection to the internet", Toast.LENGTH_SHORT).show()
             }
 
         }

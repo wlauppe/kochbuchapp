@@ -145,6 +145,14 @@ class UserRepositoryImp : UserRepository {
         adminApiService = ApiServiceBuilder(token).createApi(AdminApi::class.java) as AdminApi
     }
 
+    override fun isTokenSet(): Boolean {
+        if(token != null)
+        {
+            return true
+        }
+        return false
+    }
+
 
     companion object {
 
