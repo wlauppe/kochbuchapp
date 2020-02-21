@@ -96,6 +96,7 @@
     <string name="reportRecipe">melden</string>
     <string name="titel">Titel</string>
     <string name="portions_headline">Anzahl Portionen: </string>
+    <string name="portion_amount">Portionenanzahl</string>
 
     <string-array name="spinner">
         <item>vegan</item>
