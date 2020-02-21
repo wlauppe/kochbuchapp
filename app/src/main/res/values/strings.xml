@@ -95,6 +95,7 @@
     <string name="logout">Ausloggen</string>
     <string name="reportRecipe">melden</string>
     <string name="titel">Titel</string>
+    <string name="favourites_head_title">Favoriten</string>
 
     <string-array name="spinner">
         <item>vegan</item>

@@ -103,6 +103,11 @@ object InjectorUtils {
         val repository = getPublicRecipeRepository(context)
         return FeedViewModelFactory(repository)
     }
+    //Favourite VM Factory
+    fun provideFavouriteViewModelFactory(context: Context): FavouriteViewModelFactory {
+        val repository = getPublicRecipeRepository(context)
+        return FavouriteViewModelFactory(repository)
+    }
 
     fun provideEditTagViewModelFactory(context: Context): EditTagViewModelFactory {
         val repository = getEditTagRepository(context)
