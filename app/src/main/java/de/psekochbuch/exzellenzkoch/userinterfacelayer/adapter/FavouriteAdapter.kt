@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.psekochbuch.exzellenzkoch.databinding.FavouriteItemBinding
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FavouriteFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FavouriteViewmodel
@@ -24,7 +25,7 @@ class FavouriteAdapter(var viewModel: FavouriteViewmodel, context: Context)
     var id : Int? = null
     var context  = context
 
-    var favouriteRecipes = listOf<PublicRecipe>()
+    var favouriteRecipes = listOf<PrivateRecipe>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -61,9 +62,13 @@ class FavouriteAdapter(var viewModel: FavouriteViewmodel, context: Context)
         holder.favouriteItemBinding.favouriteLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(FavouriteFragmentDirections.actionFavouriteFragmentToRecipeDisplayFragment().setRecipeID(favouriteRecipes[position].recipeId))
-            //TODO Magnus
+
+        }
+        holder.favouriteItemBinding.buttonRemoveRecipeFromFavourites.setOnClickListener{
+            viewModel.deleteRecipeFromFavourites(favouriteRecipes[position].recipeId)
         }
     }
+
 
     /**
      * The ViewHolderClass provides an instance of ViewHolder, which is necessary to bind the

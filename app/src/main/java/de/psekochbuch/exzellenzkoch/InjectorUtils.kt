@@ -105,7 +105,7 @@ object InjectorUtils {
     }
     //Favourite VM Factory
     fun provideFavouriteViewModelFactory(context: Context): FavouriteViewModelFactory {
-        val repository = getPublicRecipeRepository(context)
+        val repository = getPrivateRecipeRepository(context)
         return FavouriteViewModelFactory(repository)
     }
 

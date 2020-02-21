@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 setOf(
                     // shown in drawer
                     R.id.publicRecipeSearchFragment, R.id.loginFragment, R.id.adminFragment,
-                    R.id.feed, R.id.recipeListFragment,
+                    R.id.feed, R.id.recipeListFragment, R.id.favouriteFragment,
                     // need direct access to drawer
                     R.id.displaySearchListFragment, R.id.profileDisplayFragment,
                     R.id.recipeDisplayFragment, R.id.registrationFragment, R.id.profileEditFragment,

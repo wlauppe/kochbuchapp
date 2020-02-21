@@ -2,10 +2,11 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FavouriteViewmodel
 
-class FavouriteViewModelFactory (private val repository: PublicRecipeRepository)
+class FavouriteViewModelFactory (private val repository: PrivateRecipeRepository)
     : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")

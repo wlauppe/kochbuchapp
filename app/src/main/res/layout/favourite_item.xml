@@ -35,5 +35,12 @@
             android:textSize="20sp"
             android:text="@{value}" />
 
+        <ImageButton
+            android:id="@+id/button_remove_recipe_from_favourites"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_delete_forever_black_24dp" />
+
     </LinearLayout>
 </layout>
