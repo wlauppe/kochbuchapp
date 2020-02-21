@@ -95,6 +95,7 @@
     <string name="logout">Ausloggen</string>
     <string name="reportRecipe">melden</string>
     <string name="titel">Titel</string>
+    <string name="portions_headline">Anzahl Portionen: </string>
 
     <string-array name="spinner">
         <item>vegan</item>

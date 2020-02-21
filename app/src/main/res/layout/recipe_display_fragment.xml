@@ -84,6 +84,8 @@
 
                     <TextView
                         android:id="@+id/textView_creation_timestamp_title"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Erstellungsdatum: " />
@@ -149,6 +151,32 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
                         tools:ignore="TextViewEdits" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView_portionen_headline"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/portions_headline"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/textView_portions"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="17dp"
+                        android:textSize="20sp" />
                 </LinearLayout>
 
                 <TextView
