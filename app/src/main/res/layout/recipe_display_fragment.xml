@@ -88,7 +88,7 @@
                         android:paddingRight="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Erstellungsdatum: " />
+                        android:text="@string/creation_time_headline" />
 
                     <TextView
                         android:id="@+id/textView_creation_timestamp"
