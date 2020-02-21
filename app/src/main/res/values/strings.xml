@@ -97,6 +97,9 @@
     <string name="titel">Titel</string>
     <string name="favourites_head_title">Favoriten</string>
     <string name="favourites_header">Favoriten</string>
+    <string name="portions_headline">Anzahl Portionen: </string>
+    <string name="portion_amount">Portionenanzahl</string>
+    <string name="creation_time_headline">Erstellungsdatum:</string>
 
     <string-array name="spinner">
         <item>vegan</item>

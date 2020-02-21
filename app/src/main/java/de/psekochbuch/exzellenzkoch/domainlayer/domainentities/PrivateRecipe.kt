@@ -103,11 +103,13 @@ class PrivateRecipe(
     }
 
     fun stringtochapter(toParse: String): IngredientChapter{
-        val ingredients = toParse.split("\n")
+        var ingredients = toParse.split("\n")
+        ingredients = ingredients.filter { it != "" }
         return IngredientChapter(0, ingredients[0], ingredients.subList(1, ingredients.size).map(::stringtoingredient));
     }
 
     fun stringtoingredient(toParse: String): IngredientAmount {
+
         for (i in toParse.length downTo 1) {
             try {
                 val number = getNumber(toParse.substring(0, i))

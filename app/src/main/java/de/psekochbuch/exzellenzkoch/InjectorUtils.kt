@@ -23,8 +23,15 @@ object InjectorUtils {
         if(AuthentificationImpl.isLogIn())
         {
             AuthentificationImpl.getToken(true){
-                repo.setToken(it)
+                if(it != "") {
+                    repo.setToken(it)
+                } else {
+                    repo.setToken(null)
+                }
             }
+        } else if (repo.isTokenSet())
+        {
+            repo.setToken(null)
         }
          
         return repo
@@ -38,8 +45,15 @@ object InjectorUtils {
         if(AuthentificationImpl.isLogIn())
         {
             AuthentificationImpl.getToken(true){
-                repo.setToken(it)
+                if(it != "") {
+                    repo.setToken(it)
+                } else {
+                    repo.setToken(null)
+                }
             }
+        }else if (repo.isTokenSet())
+        {
+            repo.setToken(null)
         }
        return repo
     }

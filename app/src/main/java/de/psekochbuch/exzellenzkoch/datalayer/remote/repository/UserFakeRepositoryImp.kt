@@ -87,6 +87,10 @@ class UserFakeRepositoryImp : UserRepository  {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun isTokenSet(): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     companion object {
 
         // For Singleton instantiation

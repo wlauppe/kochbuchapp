@@ -32,6 +32,13 @@ enum class Unit(unit:String) {
         }
     },
 
+    Mililiter("ml")
+    {
+        override fun getText(): String {
+            return "ml"
+        }
+    },
+
     KeineEinheit(""){
         override fun getText(): String{
             return "";

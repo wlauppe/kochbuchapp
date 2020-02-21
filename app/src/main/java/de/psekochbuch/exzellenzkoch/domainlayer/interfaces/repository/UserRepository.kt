@@ -40,4 +40,6 @@ interface UserRepository {
 
     fun setToken(token:String?)
 
+    fun isTokenSet():Boolean
+
 }

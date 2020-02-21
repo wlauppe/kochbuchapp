@@ -177,7 +177,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
                 //First upload the Image.
                     val file : File = File(publicRecipe.imgUrl)
-                    val body = RequestBody.create(MediaType.parse("image/*"), file)
+                    val body = RequestBody.create(MediaType.parse("*/*"), file)
                     val multi = MultipartBody.Part.createFormData("file", file.name, body)
                     val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
                     val response = fileApiService.addImage(multi)
@@ -209,7 +209,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
         val file : File = File(ImageUrl)
 
-        val body = RequestBody.create(MediaType.parse("image/*"), file)
+        val body = RequestBody.create(MediaType.parse("*/*"), file)
         val multi = MultipartBody.Part.createFormData("file", file.name, body)
 
         //val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
@@ -224,12 +224,13 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
-    override suspend fun unreportRecipe(RecipeId: Int) {
+
+    override suspend fun unreportRecipe(recipeId: Int) {
         coroutineScope {
             try {
-                //TODO Implement Admin Api.
+                adminApiService.deReportPublicRecipe(recipeId)
             } catch (error: Throwable) {
-                throw NetworkError("Unable to publish report recipe", error)
+                //throw NetworkError("Unable to publish report recipe", error)
             }
         }
     }
@@ -269,6 +270,14 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         recipeApiService = ApiServiceBuilder(token).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
         fileApiService = ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
         adminApiService = ApiServiceBuilder(token).createApi(AdminApi::class.java) as AdminApi
+    }
+
+    override fun isTokenSet(): Boolean {
+        if(token != null)
+        {
+            return true
+        }
+        return false
     }
 
     companion object {
