@@ -25,7 +25,7 @@ class FavouriteAdapter(var viewModel: FavouriteViewmodel, context: Context)
     var id : Int? = null
     var context  = context
 
-    var favouriteRecipes = listOf<PrivateRecipe>()
+    var favouriteRecipes = listOf<PublicRecipe>()
         set(value) {
             field = value
             notifyDataSetChanged()

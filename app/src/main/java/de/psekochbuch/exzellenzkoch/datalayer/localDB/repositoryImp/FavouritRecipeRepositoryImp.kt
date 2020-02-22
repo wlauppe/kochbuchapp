@@ -8,11 +8,14 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.*
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.IngredientAmountDB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.IngredientChapterDB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PublicRecipeDB
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.FavouritRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import java.util.*
 
@@ -111,5 +114,16 @@ class FavouritRecipeRepositoryImp(application: Application?) : FavouritRecipeRep
 
     fun transformPublicRecipeDBListToPublicRecipeList(recipes: List<PublicRecipeDB>):List<PublicRecipe>{
         return recipes.map(::transformPublicRecipeDBToPublicRecipe)
+    }
+
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile private var instance: FavouritRecipeRepository? = null
+
+        fun getInstance(application:Application) =
+            instance ?: synchronized(this) {
+                instance ?: FavouritRecipeRepositoryImp(application).also { instance = it }
+            }
     }
 }
