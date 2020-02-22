@@ -66,6 +66,19 @@ class PublicRecipe(
     {
         return creationTimeStamp.time
     }
+
+    fun scale(newPortions: Int){
+        for (chapter:IngredientChapter in ingredientChapter)
+            for (ingredients:IngredientAmount in chapter.ingredients)
+                ingredients.quantity = newPortions * ingredients.quantity / portions
+    }
+
+    fun scaleUP(){
+        scale(portions + 1)
+    }
+    fun sclaeDown(){
+        scale(portions - 1)
+    }
 }
 
 

@@ -13,4 +13,7 @@ interface IngredientChapterDao {
 
     @Query("SELECT * from ingredientChapter where recipeId = :recipeId")
     fun getIngredientChapterByRecipeId(recipeId:Int):List<IngredientChapterDB>
+
+    @Query("DELETE FROM ingredientChapter where recipeId = :recipeId")
+    fun deleteChaptersFromRecipe(recipeId:Long)
 }

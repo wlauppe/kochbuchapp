@@ -9,10 +9,10 @@ data class PublicRecipeDB(
     var title:String,
     var ingredientText:String,
     var preparationDescription:String,
-    var picture:String,
     var cookingTime:Int,
     var preparationTime:Int,
-    var userId:String?,
+    var userId:String,
     var creationDate:Long,
-    var portions:Int
+    var portions:Int,
+    var imageUrl:String
 )

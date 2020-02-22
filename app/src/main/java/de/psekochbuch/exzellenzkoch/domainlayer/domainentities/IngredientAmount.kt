@@ -22,7 +22,7 @@ class IngredientAmount (
                         /**
                          * The unit of the amount from the ingredient
                          */
-                        var unit:Unit = Unit.Liter
+                        var unit:String = ""
 
 ){
 
