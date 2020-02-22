@@ -68,7 +68,7 @@
                         tools:layout_editor_absoluteY="417dp" />
 
                     <ImageButton
-                        android:id="@+id/imageButton"
+                        android:id="@+id/imageButton_favourite"
                         android:layout_marginTop="10dp"
                         android:layout_width="60dp"
                         android:layout_height="match_parent"
@@ -161,11 +161,10 @@
 
                     <TextView
                         android:id="@+id/textView_portionen_headline"
-                        android:layout_marginLeft="17dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_width="190dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
                         android:text="@string/portions_headline"
                         android:textSize="20sp" />
 
@@ -175,9 +174,25 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:padding="10dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="17dp"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:text="@{String.valueOf(recipeDisplayViewModel.recipe.portions)}"/>
+
+                    <Button
+                        android:id="@+id/button_portion_plus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="+" />
+
+                    <Button
+                        android:id="@+id/button_portion_minus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="-" />
                 </LinearLayout>
 
                 <TextView

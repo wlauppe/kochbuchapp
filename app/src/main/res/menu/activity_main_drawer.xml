@@ -32,6 +32,11 @@
             android:icon="@drawable/ic_admin_white_24dp"
             android:title="@string/admin_menu_title"
             />
+        <item
+            android:id="@+id/favouriteFragment"
+            android:icon="@drawable/ic_favorite_white_24dp"
+            android:title="@string/favourites_header"
+            />
    </group>
 
 </menu>

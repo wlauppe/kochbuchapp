@@ -59,6 +59,14 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
         }
     }
 
+    fun scaleup(){
+        //TODO Thomas
+    }
+
+    fun scaleDown(){
+        //TODO Thomas
+    }
+
 
 
 

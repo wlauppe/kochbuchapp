@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
+<data>
 
-        <variable
-            name="feedViewModel"
-            type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel" />
+    <variable
+        name="feedViewModel"
+        type="de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel" />
 
-    </data>
+</data>
 
-    <LinearLayout
-        android:orientation="vertical"
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/feed_headline"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="normal" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/feed_headline"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="normal" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/recyclerView_feed" />
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/recyclerView_feed" />
+</LinearLayout>
 </layout>

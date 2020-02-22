@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_recipeDisplayFragment_to_displaySearchListFragment"
             app:destination="@id/displaySearchListFragment" />
+        <action
+            android:id="@+id/action_recipeDisplayFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -158,6 +161,14 @@
         android:label="Feed" >
         <action
             android:id="@+id/action_feed_to_recipeDisplayFragment"
+            app:destination="@id/recipeDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FavouriteFragment"
+        android:label="FavouriteFragment" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_recipeDisplayFragment"
             app:destination="@id/recipeDisplayFragment" />
     </fragment>
 
