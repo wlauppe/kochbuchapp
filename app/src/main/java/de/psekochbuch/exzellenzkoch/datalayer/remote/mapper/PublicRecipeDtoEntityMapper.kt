@@ -26,9 +26,9 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
                     chapter.id,
                     chapter.name,
                     chapter.ingredient.map{
-                            ingredient -> try{IngredientAmount(ingredient.nameIngredient,ingredient.amount,Unit.valueOf(ingredient.unit))}
+                            ingredient -> try{IngredientAmount(ingredient.nameIngredient,ingredient.amount,ingredient.unit)}
                                 catch (e:IllegalArgumentException){
-                                    IngredientAmount(ingredient.nameIngredient,ingredient.amount,Unit.KeineEinheit)
+                                    IngredientAmount(ingredient.nameIngredient,ingredient.amount,"")
                                 }
                     })
             },
@@ -65,7 +65,7 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
                                     chapter.chapterId,
                                     ingredient.ingredient,
                                     ingredient.quantity,
-                                    ingredient.unit.getText())
+                                    ingredient.unit)
                         }
                     )
             },
@@ -76,7 +76,7 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
 
     private fun convertStringToDate(date:String):Date
     {
-        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date)
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date)!!
     }
 
     private fun convertDateToString(date: Date):String

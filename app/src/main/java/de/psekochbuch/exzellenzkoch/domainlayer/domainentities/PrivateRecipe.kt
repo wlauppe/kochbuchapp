@@ -117,9 +117,9 @@ class PrivateRecipe(
                 val unit = ingredientWithUnit.split(" ")[0]
                 val ingredient = ingredientWithUnit.dropWhile{!it.equals(' ')}.dropWhile{it.equals(' ')}
                 try{
-                    return IngredientAmount(ingredient, number, Unit.valueOf(unit))
+                    return IngredientAmount(ingredient, number, unit)
                 }catch(e:java.lang.IllegalArgumentException){
-                    return IngredientAmount(ingredientWithUnit,number,Unit.KeineEinheit)
+                    return IngredientAmount(ingredientWithUnit,number,"")
                 }
             } catch (e: IllegalArgumentException) {
                 continue

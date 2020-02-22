@@ -32,8 +32,8 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         val recipe2 =
             PublicRecipe(2, "Quiche", imgUrl = "file:///android_asset/exampleimages/quiche.png")
 
-        val munit = Unit.EssLöffel
-        val ingredient = IngredientAmount("ingredientAmount", 4.4, munit)
+
+        val ingredient = IngredientAmount("ingredientAmount", 4.4, "Esslöffel")
         val ingredientChapter = IngredientChapter(4, "test", listOf(ingredient))
         val listTags = listOf<String>("tag2", "vegan", "vegetarisch", "tag 4", "tag2", "tag 4")
 
