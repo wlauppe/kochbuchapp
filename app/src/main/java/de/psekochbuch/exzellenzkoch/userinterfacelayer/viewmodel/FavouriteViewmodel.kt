@@ -1,14 +1,16 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.FavouriteRecipeRepository
 
-class FavouriteViewmodel(repository : PrivateRecipeRepository) : ViewModel(){
+class FavouriteViewmodel(repository : FavouriteRecipeRepository) : ViewModel(){
 
     val repo = repository
-    var recipes = repository.getPrivateRecipes()
+    //var recipes = repository.getFavourites()
+    var recipes : LiveData<List<PrivateRecipe>> = MutableLiveData(emptyList())
 
 
     fun deleteRecipeFromFavourites(id: Int){

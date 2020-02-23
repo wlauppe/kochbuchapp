@@ -3,7 +3,7 @@ package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository
 import androidx.lifecycle.LiveData
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 
-interface FavouritRecipeRepository {
+interface FavouriteRecipeRepository {
     /**
      * returns a list of all favourite recipes
      */

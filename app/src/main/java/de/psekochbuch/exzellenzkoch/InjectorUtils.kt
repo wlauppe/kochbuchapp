@@ -2,16 +2,14 @@ package de.psekochbuch.exzellenzkoch
 
 import android.app.Application
 import android.content.Context
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.FavouriteRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.TagFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationFakeImpl
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.TagRepository
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.*
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.factories.*
 
@@ -58,6 +56,9 @@ object InjectorUtils {
        return repo
     }
 
+    private fun getFavouriteRecipeRepository(context:Context): FavouriteRecipeRepository {
+        return FavouriteRecipeRepositoryImp(context.applicationContext as Application)
+    }
 
     private fun getPrivateRecipeRepository(context: Context): PrivateRecipeRepository {
         //return PrivateRecipeFakeRepositoryImp.getInstance()
@@ -119,7 +120,7 @@ object InjectorUtils {
     }
     //Favourite VM Factory
     fun provideFavouriteViewModelFactory(context: Context): FavouriteViewModelFactory {
-        val repository = getPrivateRecipeRepository(context)
+        val repository = getFavouriteRecipeRepository(context)
         return FavouriteViewModelFactory(repository)
     }
 
