@@ -132,6 +132,14 @@
             app:destination="@id/createRecipeFragment" />
     </fragment>
     <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FavouriteFragment"
+        android:label="Meine Favoriten" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_recipeDisplayFragment"
+            app:destination="@id/recipeDisplayFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/createRecipeFragment"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.CreateRecipeFragment"
         android:label="Rezept erstellen/bearbeiten" >
@@ -161,14 +169,6 @@
         android:label="Feed" >
         <action
             android:id="@+id/action_feed_to_recipeDisplayFragment"
-            app:destination="@id/recipeDisplayFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/favouriteFragment"
-        android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FavouriteFragment"
-        android:label="FavouriteFragment" >
-        <action
-            android:id="@+id/action_favouriteFragment_to_recipeDisplayFragment"
             app:destination="@id/recipeDisplayFragment" />
     </fragment>
 

@@ -8,15 +8,21 @@
             android:id="@+id/activity_main_drawer_group">
 
         <item
-            android:id="@+id/loginFragment"
-            android:icon="@drawable/ic_login_white_24dp"
-            android:title="@string/my_profile_title" />
-
-        <item
             android:id="@+id/feed"
             android:icon="@drawable/ic_rss_feed_white_24dp"
             android:title="@string/feed"
             />
+
+        <item
+            android:id="@+id/publicRecipeSearchFragment"
+            android:icon="@drawable/ic_search_white_24dp"
+            android:title="@string/search_suche" />
+
+        <item
+            android:id="@+id/loginFragment"
+            android:icon="@drawable/ic_person_white_24dp"
+            android:title="@string/my_profile_title" />
+
 
         <item
             android:id="@+id/recipeListFragment"
@@ -24,18 +30,15 @@
             android:title="@string/recipe_list_recipe_title" />
 
         <item
-            android:id="@+id/publicRecipeSearchFragment"
-            android:icon="@drawable/ic_search_white_24dp"
-            android:title="@string/search_suche" />
+            android:id="@+id/favouriteFragment"
+            android:icon="@drawable/ic_favorite_white_24dp"
+            android:title="@string/favourites_header"
+            />
+
         <item
             android:id="@+id/adminFragment"
             android:icon="@drawable/ic_admin_white_24dp"
             android:title="@string/admin_menu_title"
-            />
-        <item
-            android:id="@+id/favouriteFragment"
-            android:icon="@drawable/ic_favorite_white_24dp"
-            android:title="@string/favourites_header"
             />
    </group>
 
