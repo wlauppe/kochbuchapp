@@ -174,4 +174,6 @@ dependencies {
     //ImagePicker
     //implementation 'com.github.esafirm.android-image-picker:imagepicker:2.2.0'
 
+
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
 }
