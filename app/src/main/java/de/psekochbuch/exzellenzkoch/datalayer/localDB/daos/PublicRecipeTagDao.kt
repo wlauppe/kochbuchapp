@@ -16,4 +16,7 @@ interface PublicRecipeTagDao {
 
     @Query("DELETE FROM publicRecipeTag where recipeId = :recipeId")
     fun deleteTagsFromRecipe(recipeId:Long)
+
+    @Query("DELETE FROM publicRecipeTag")
+    fun deleteAll()
 }

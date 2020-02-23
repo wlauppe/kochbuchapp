@@ -16,4 +16,7 @@ interface IngredientChapterDao {
 
     @Query("DELETE FROM ingredientChapter where recipeId = :recipeId")
     fun deleteChaptersFromRecipe(recipeId:Long)
+
+    @Query("DELETE FROM ingredientChapter")
+    fun deleteAll()
 }

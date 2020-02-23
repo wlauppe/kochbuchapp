@@ -30,26 +30,8 @@ class PrivateRecipeRepositoryImpTest(){
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Test
-    /**
-     * This method tests if the dao object insert the recipe correctly
-     */
-    fun workwithdao(){
-        val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(ApplicationProvider.getApplicationContext())?.privateRecipeDao();
-
-        val recipe = PrivateRecipeDB(1,"titel","so",1,2,3,4,"lal","so",0)
-
-        privateRecipeDao?.insert(recipe)
-
-        Thread.sleep(1000)
-
-        val recipefromdb = privateRecipeDao?.getRecipe(1)
-
-        assertEquals(recipefromdb!!.title,"titel")
-    }
-
-    @Test
     fun insertdeleteandget(){
-        val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        val repo = PrivateRecipeRepositoryImp.getInstance(ApplicationProvider.getApplicationContext())
 
         val recipe = PrivateRecipe(3,"titel", "so mact man es", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)

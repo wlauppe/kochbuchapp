@@ -66,6 +66,15 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
         }
     }
 
+    override fun deleteAll(){
+        DB.databaseWriteExecutor.execute{
+            publicRecipeDao.deleteAll()
+            publicRecipeTagDao.deleteAll()
+            ingredientAmountDao.deleteAll()
+            ingredientChapterDao.deleteAll()
+        }
+    }
+
     fun transformPublicRecipeToPublicRecipeDB(publicRecipe:PublicRecipe): PublicRecipeDB{
         return PublicRecipeDB(publicRecipe.recipeId,
             publicRecipe.title,

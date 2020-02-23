@@ -23,4 +23,9 @@ interface FavouriteRecipeRepository {
      * inserts a public recipe into the favourites
      */
     fun insertFavourite(recipe: PublicRecipe)
+
+    /**
+     * deletes all favourite recipes
+     */
+    fun deleteAll()
 }
