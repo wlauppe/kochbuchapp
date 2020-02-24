@@ -2,7 +2,7 @@ package de.psekochbuch.exzellenzkoch
 
 import android.app.Application
 import android.content.Context
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.FavouritRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.FavouriteRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.TagFakeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
@@ -56,6 +56,9 @@ object InjectorUtils {
        return repo
     }
 
+    private fun getFavouriteRecipeRepository(context:Context): FavouriteRecipeRepository {
+        return FavouriteRecipeRepositoryImp(context.applicationContext as Application)
+    }
 
     private fun getPrivateRecipeRepository(context: Context): PrivateRecipeRepository {
         //return PrivateRecipeFakeRepositoryImp.getInstance()

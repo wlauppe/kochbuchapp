@@ -13,13 +13,13 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.FavouritRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.FavouriteRecipeRepository
 import kotlinx.coroutines.Dispatchers
 import java.util.*
 
-class FavouritRecipeRepositoryImp(application: Application?) : FavouritRecipeRepository{
+class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeRepository{
     private val publicRecipeDao: PublicRecipeDao = DB.getDatabase(application!!)?.publicRecipeDao()!!
     private val publicRecipeTagDao: PublicRecipeTagDao = DB.getDatabase(application!!)?.publicRecipeTagDao()!!
     private val ingredientChapterDao: IngredientChapterDao = DB.getDatabase(application!!)?.ingredientChapterDao()!!
@@ -66,6 +66,15 @@ class FavouritRecipeRepositoryImp(application: Application?) : FavouritRecipeRep
                     ingredientAmountDao.insert(IngredientAmountDB(0,chapterId,ingredient.ingredient,ingredient.unit,ingredient.quantity))
                 }
             }
+        }
+    }
+
+    override fun deleteAll(){
+        DB.databaseWriteExecutor.execute{
+            publicRecipeDao.deleteAll()
+            publicRecipeTagDao.deleteAll()
+            ingredientAmountDao.deleteAll()
+            ingredientChapterDao.deleteAll()
         }
     }
 

@@ -1,6 +1,8 @@
 package de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp
 
 import android.app.Application
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.test.core.app.ApplicationProvider
@@ -11,56 +13,44 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
+import org.junit.Rule
 import org.junit.Test
 import java.util.*
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.TimeUnit
 
 class PrivateRecipeRepositoryImpTest(){
-    @Test
+
     /**
-     * This method tests if the dao object insert the recipe correctly
+     * Diese Regel sorgt dafür, dass der Test nicht auf einem Hintergrundthread ausgeführt
+     * Ohne diese Regel kommen fehlermeldgunen, in der blocking observe methode, da in Livedata
+     * definiert ist, dass der Observer sich nicht auf einem Hintergrundthread befinden darf
      */
-    fun workwithdao(){
-        val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(ApplicationProvider.getApplicationContext())?.privateRecipeDao();
-
-        val recipe = PrivateRecipeDB(1,"titel","so",1,2,3,4,"lal","so",0)
-
-        privateRecipeDao?.insert(recipe)
-
-        Thread.sleep(1000)
-
-        val recipefromdb = privateRecipeDao?.getRecipe(1)
-
-        assertEquals(recipefromdb!!.title,"titel")
-    }
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Test
     fun insertdeleteandget(){
-        val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        val repo = PrivateRecipeRepositoryImp.getInstance(ApplicationProvider.getApplicationContext())
 
         val recipe = PrivateRecipe(3,"titel", "so mact man es", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)
 
         runBlocking { repo.insertPrivateRecipe(recipe)}
 
-        Thread.sleep(3000)
+        Thread.sleep(1000)
 
-        val lfromDb =   repo.getPrivateRecipe(3)
+        val lfromDb = repo.getPrivateRecipe(3)
 
-        Thread.sleep(3000)
-
-        val rfromDb = lfromDb.value!!
-
-        assertEquals(rfromDb.title,"so mact man es")
+        assertEquals(lfromDb.blockingObserve()!!.ingredientsText,"so mact man es")
 
         runBlocking { repo.deletePrivateRecipe(3)}
 
         Thread.sleep(1000)
 
-        val del = repo.getPrivateRecipe(3)
+        val del = repo.getPrivateRecipe(3).blockingObserve()!!
 
-        Thread.sleep(1000)
-
-        assertEquals(del.value,null)
+        assertEquals(del.title,"Konnte nicht geladen werden")
     }
 
     @Test
@@ -81,12 +71,21 @@ class PrivateRecipeRepositoryImpTest(){
 
         Thread.sleep(1000)
 
-        val recipe = repo.getPrivateRecipe(3)
+        val recipe = repo.getPrivateRecipe(3).blockingObserve()
 
-        Thread.sleep(1000)
-
-
-        val realrecipe = recipe.value
-        assertEquals(realrecipe!!.title,"lalale")
+        assertEquals(recipe!!.title,"lalale")
     }
+}
+
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever{
+        value = it
+        latch.countDown()
+    }
+
+    latch.await(2, TimeUnit.SECONDS)
+    return value
 }

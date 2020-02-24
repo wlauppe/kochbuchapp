@@ -72,14 +72,14 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     //Dies ist die normale Funktion die Search benutzt.
     @Throws
-    override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+    override fun getPublicRecipes(page:Int): LiveData<List<PublicRecipe>> {
         try {
             Log.w(TAG, "getPublicRecipes() wird aufgerufen")
             val lData = liveData(Dispatchers.IO, 1000) {
                 Log.w(TAG, "jetzt bin ich im Coroutine Scope")
                 try {
                     val dtoList =
-                        recipeApiService.search(null, null, null, null, 1, 100)
+                        recipeApiService.search(null, null, null, null, page, 99)
                     //if (!response.isSuccessful) throw error("response not successful")
                     dtoList?.let {
                         val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)

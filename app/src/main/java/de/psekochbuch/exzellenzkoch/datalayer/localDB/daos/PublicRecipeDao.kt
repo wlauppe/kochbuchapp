@@ -19,4 +19,7 @@ interface PublicRecipeDao {
 
     @Query("DELETE FROM publicRecipe where id = :id")
     fun deleteRecipe(id:Long)
+
+    @Query("DELETE FROM publicRecipe")
+    fun deleteAll()
 }

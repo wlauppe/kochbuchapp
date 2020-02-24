@@ -9,7 +9,7 @@ apply plugin: 'com.google.gms.google-services'
 //Thomas: damit das Testen klappt
 apply plugin: 'kotlin-kapt'
 
-
+apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 29
@@ -31,6 +31,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug
+                {
+                    testCoverageEnabled true
+                }
     }
     dataBinding {
         enabled = true
@@ -174,4 +179,6 @@ dependencies {
     //ImagePicker
     //implementation 'com.github.esafirm.android-image-picker:imagepicker:2.2.0'
 
+
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
 }
