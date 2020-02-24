@@ -166,10 +166,9 @@
     <fragment
         android:id="@+id/feed"
         android:name="de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragment"
-        android:label="Feed" >
+        android:label="Neuste Rezepte" >
         <action
             android:id="@+id/action_feed_to_recipeDisplayFragment"
             app:destination="@id/recipeDisplayFragment" />
     </fragment>
-
 </navigation>
