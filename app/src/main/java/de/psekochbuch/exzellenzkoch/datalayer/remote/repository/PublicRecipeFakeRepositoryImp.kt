@@ -68,11 +68,11 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override fun getReportedPublicRecipes(): LiveData<List<PublicRecipe>> {
-        return getPublicRecipes()
+        return getPublicRecipes(0)
     }
 
 
-    override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+    override fun getPublicRecipes(page:Int): LiveData<List<PublicRecipe>> {
         /*val recipe1 = PublicRecipe(1,"trockener Sandkuchen")
         val recipe2 = PublicRecipe(2,"Quiche", imgUrl = "file:///android_asset/exampleimages/quiche.png")
 

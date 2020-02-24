@@ -72,7 +72,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     //Dies ist die normale Funktion die Search benutzt.
     @Throws
-    override fun getPublicRecipes(): LiveData<List<PublicRecipe>> {
+    override fun getPublicRecipes(page:Int): LiveData<List<PublicRecipe>> {
         try {
             Log.w(TAG, "getPublicRecipes() wird aufgerufen")
             val lData = liveData(Dispatchers.IO, 1000) {

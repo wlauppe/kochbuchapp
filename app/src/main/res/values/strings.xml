@@ -100,6 +100,7 @@
     <string name="portions_headline">Anzahl Portionen: </string>
     <string name="portion_amount">Portionenanzahl</string>
     <string name="creation_time_headline">Erstellungsdatum:</string>
+    <string name="load_more">Mehr laden</string>
 
     <string-array name="spinner">
         <item>vegan</item>

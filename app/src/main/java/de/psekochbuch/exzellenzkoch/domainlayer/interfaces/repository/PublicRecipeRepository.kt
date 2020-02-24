@@ -15,7 +15,7 @@ interface PublicRecipeRepository {
 
 
     @Throws
-    fun getPublicRecipes(): LiveData<List<PublicRecipe>>
+    fun getPublicRecipes(page:Int): LiveData<List<PublicRecipe>>
 
     //Neueste Recipes werden zuerst zurueckgegeben.
 
