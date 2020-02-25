@@ -36,6 +36,16 @@ class FeedAdapter( var viewModel: FeedViewModel
             notifyDataSetChanged()
         }
 
+    /**
+     * Observed field which specifies the current page index. If the page is full (recipe size = 100),
+     * the index needs to be incremented.
+     * Since the pages start at 1, it needs to be initialized.
+     */
+    var pageIndex: Int = 1
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -65,13 +75,18 @@ class FeedAdapter( var viewModel: FeedViewModel
 
         // changing fragments on item click
         holder.feedItemBinding.feedLayoutItem.setOnClickListener {
-            //sending the recipename to the recipe display fragment
+            //sending the recipe name to the recipe display fragment
             navController!!.navigate(
                 FeedFragmentDirections
                     .actionFeedToRecipeDisplayFragment()
                     .setRecipeID(feedRecipes[position].recipeId
                     )
             )
+        }
+
+        // update the page Index to load the next page of recipes to show
+        if (itemCount == (pageIndex+99)) {
+            pageIndex++
         }
     }
 
