@@ -60,7 +60,28 @@ class PrivateRecipe(
      */
     var publishedRecipeId : Int = 0
 )  {
+    override fun equals(other: Any?): Boolean {
+        val recipe: PrivateRecipe;
+        try{
+            recipe = other as PrivateRecipe
+        } catch (e: Exception){
+            return false
+        }
+        return recipeId == recipe.recipeId &&
+                title.equals(recipe.title) &&
+                ingredientsText.equals(recipe.ingredientsText) &&
+                tags.size == recipe.tags.size &&
+                tags.zip(recipe.tags).map {it.first.equals(it.second)}.foldRight(true,{a:Boolean,b:Boolean->a&&b}) &&
+                preparation.equals(recipe.preparation) &&
+                imgUrl.equals(recipe.imgUrl) &&
+                cookingTime == recipe.cookingTime &&
+                preparationTime == recipe.preparationTime &&
+                creationTimeStamp.time == recipe.creationTimeStamp.time &&
+                portions == recipe.portions &&
+                publishedRecipeId == recipe.publishedRecipeId
+    }
 
+   
     /**
      * this method converts this to a Public recipe and throws an IllegalArgumentException, if not possible
      * @param user: The user, who wants to convert the recipe
