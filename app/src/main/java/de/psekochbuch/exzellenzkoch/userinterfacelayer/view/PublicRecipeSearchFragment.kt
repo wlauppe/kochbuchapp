@@ -39,10 +39,9 @@ class PublicRecipeSearchFragment : Fragment() {
 
         //initialized navcontoller
         val navController: NavController = findNavController()
-        binding.buttonSearchRecipeSearch.setOnClickListener {
+
+        binding.buttonSearchRecipeSearchButton.setOnClickListener {
         binding.progressBarPublicRecipeSearch.visibility.or(1)
-
-
         //Handle input values via Safeargs
         val recipeName: String = binding.editTextSearchRecipeTitle.text.toString()
         val recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
