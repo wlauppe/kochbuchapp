@@ -30,7 +30,7 @@ class FavouriteFragment : Fragment() {
 
         binding.recyclerViewFavourites.adapter = favouriteAdapter
 
-        val observer = Observer<List<PublicRecipe>> { items ->
+        val observer = Observer<List<PrivateRecipe>> { items ->
             items?.let {
                 favouriteAdapter.favouriteRecipes = items}
         }

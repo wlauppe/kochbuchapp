@@ -128,11 +128,11 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
     companion object {
 
         // For Singleton instantiation
-        @Volatile private var instance: FavouritRecipeRepository? = null
+        @Volatile private var instance: FavouriteRecipeRepository? = null
 
         fun getInstance(application:Application) =
             instance ?: synchronized(this) {
-                instance ?: FavouritRecipeRepositoryImp(application).also { instance = it }
+                instance ?: FavouriteRecipeRepositoryImp(application).also { instance = it }
             }
     }
 }
