@@ -8,6 +8,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.*
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.IngredientAmountDB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.IngredientChapterDB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PublicRecipeDB
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PublicRecipeTagDB
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -21,6 +22,7 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
     private val publicRecipeTagDao: PublicRecipeTagDao = DB.getDatabase(application!!)?.publicRecipeTagDao()!!
     private val ingredientChapterDao: IngredientChapterDao = DB.getDatabase(application!!)?.ingredientChapterDao()!!
     private val ingredientAmountDao: IngredientAmountDao = DB.getDatabase(application!!)?.ingredientAmountDao()!!
+
 
 
     override fun getFavourites(): LiveData<List<PublicRecipe>> {
@@ -41,7 +43,7 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
                 val recipe = transformPublicRecipeDBToPublicRecipe(publicRecipeDao.getRecipe(id.toLong()))
                 emit(recipe)
             } catch (error : Throwable){
-                emit(PublicRecipe(0,"ERROR"))
+                emit(errorRecipe)
             }
         }
         return lData
@@ -51,6 +53,8 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
         DB.databaseWriteExecutor.execute{
             publicRecipeDao.deleteRecipe(id.toLong())
             ingredientChapterDao.deleteChaptersFromRecipe(id.toLong())
+            ingredientAmountDao.deleteFromRecipe(id.toLong())
+            publicRecipeTagDao.deleteTagsFromRecipe(id.toLong())
         }
     }
 
@@ -62,6 +66,9 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
                 for (ingredient: IngredientAmount in chapter.ingredients){
                     ingredientAmountDao.insert(IngredientAmountDB(0,chapterId,ingredient.ingredient,ingredient.unit,ingredient.quantity))
                 }
+            }
+            for (tag: String in recipe.tags){
+                publicRecipeTagDao.insert(PublicRecipeTagDB(0,recipeId,tag))
             }
         }
     }
@@ -100,7 +107,7 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
             val ingredientAmounts = ingredientAmountDao.getIngredientAmountByIngredientChapterId(it.id.toLong()).map {
                 IngredientAmount(it.name,it.amount,it.unit)
             }
-            IngredientChapter(it.id.toInt(),it.title,ingredientAmounts)
+            IngredientChapter(0,it.title,ingredientAmounts)
         }
         return PublicRecipe(publicRecipeDB.id,
             publicRecipeDB.title,
@@ -123,6 +130,7 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
     }
 
     companion object {
+        val errorRecipe = PublicRecipe(0,"ERROR",creationTimeStamp = Date(0))
         // For Singleton instantiation
         @Volatile private var instance: FavouriteRecipeRepository? = null
         fun getInstance(application: Application?) = instance ?: synchronized(this) {

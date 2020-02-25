@@ -33,4 +33,9 @@ interface PrivateRecipeRepository {
        //Wenn das Private Rezept die ID null hat, wirds neu hinzugefügt.
        //Ansonsten das bestehende geupdatet.
     suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe)
+
+    /**
+     * deletes all private recipes
+     */
+    fun deleteAll()
 }

@@ -92,7 +92,14 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
             }
         }
     }
-    
+
+    override fun deleteAll() {
+        DB.databaseWriteExecutor.execute{
+            privateRecipeDao?.deleteAll()
+            privateRecipeTagDao?.deleteAll()
+        }
+    }
+
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{
         //können wir IDs auch als longs abspeichern?
         return PrivateRecipe(recipe.id.toInt(), recipe.title,recipe.ingredientsText,privateRecipeTagDao?.getTagsFromRecipe(recipe.id)!!.map{tag -> tag.tag},recipe.preparationDescription,recipe.imgURL,recipe.cookingTime,recipe.preparationTime, Date(recipe.creationDate),recipe.portions, recipe.publishedID)

@@ -9,11 +9,11 @@ package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
  * @param ingredients: The List of ingredients wich are contained in this particular IngredientChapter
  */
 class IngredientChapter(
-    /**
-     * Id of the chapters
-     */
-    val chapterId:Int,
 
+    /**
+     * unique identifyer to access the ingredientchapter.
+     */
+    var chapterId:Int,
     /**
      * Name of the chapter
      */

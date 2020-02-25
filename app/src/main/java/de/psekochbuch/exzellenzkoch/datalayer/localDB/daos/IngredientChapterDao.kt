@@ -19,4 +19,8 @@ interface IngredientChapterDao {
 
     @Query("DELETE FROM ingredientChapter")
     fun deleteAll()
+
+    //this one is just for testing
+    @Query("SELECT * from ingredientChapter")
+    fun getAll():List<IngredientChapterDB>
 }
