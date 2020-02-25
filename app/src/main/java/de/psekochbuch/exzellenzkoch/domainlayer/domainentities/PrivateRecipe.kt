@@ -81,7 +81,7 @@ class PrivateRecipe(
                 publishedRecipeId == recipe.publishedRecipeId
     }
 
-   
+
     /**
      * this method converts this to a Public recipe and throws an IllegalArgumentException, if not possible
      * @param user: The user, who wants to convert the recipe
