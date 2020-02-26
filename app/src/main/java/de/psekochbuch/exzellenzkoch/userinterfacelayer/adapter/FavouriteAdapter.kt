@@ -64,14 +64,12 @@ class FavouriteAdapter(var viewModel: FavouriteViewmodel, context: Context)
         holder.favouriteItemBinding.favouriteLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(FavouriteFragmentDirections.actionFavouriteFragmentToRecipeDisplayFragment().setRecipeID(favouriteRecipes[position].recipeId))
-
         }
         holder.favouriteItemBinding.buttonRemoveRecipeFromFavourites.setOnClickListener{
             viewModel.deleteRecipeFromFavourites(favouriteRecipes[position].recipeId)
             holder.itemView.visibility = View.GONE
             notifyItemRangeChanged(position, favouriteRecipes.size)
             notifyDataSetChanged()
-            Toast.makeText(context, "gelöscht", Toast.LENGTH_SHORT).show()
         }
     }
 
