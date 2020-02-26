@@ -3,11 +3,14 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 import android.R
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import de.psekochbuch.exzellenzkoch.databinding.ButtonLoadMoreItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.FeedItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.RecyclerButtonLoadmoreBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -20,8 +23,7 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
  *
  *@param viewModel a required AdminViewModel for underlying functions
  */
-class FeedAdapter( var viewModel: FeedViewModel
-, context: Context) :
+class FeedAdapter( var viewModel: FeedViewModel, context: Context) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>(){
 
     /**
@@ -39,8 +41,10 @@ class FeedAdapter( var viewModel: FeedViewModel
             notifyDataSetChanged()
         }
 
+    private var pageSize:Int = 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):FeedViewHolder{
         val inflater = LayoutInflater.from(parent.context)
         navController = parent.findNavController()
         
@@ -87,15 +91,4 @@ class FeedAdapter( var viewModel: FeedViewModel
     */
     class FeedViewHolder(var feedItemBinding: FeedItemBinding)
         : RecyclerView.ViewHolder(feedItemBinding.root)
-
-    class FeedButtonViewHolder(var feedButtonBinding: RecyclerButtonLoadmoreBinding):
-    RecyclerView.ViewHolder(feedButtonBinding.root)
-
-    override fun getItemViewType(position: Int): Int {
-        return if (position == itemCount) {
-            1
-        } else {
-            0
-        }
-    }
 }
