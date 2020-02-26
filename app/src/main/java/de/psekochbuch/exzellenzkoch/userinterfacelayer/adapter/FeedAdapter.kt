@@ -79,11 +79,6 @@ class FeedAdapter( var viewModel: FeedViewModel, context: Context) :
                     )
             )
         }
-
-        // update the page Index to load the next page of recipes to show
-        if (itemCount == (pageIndex+99)) {
-            pageIndex++
-        }
     }
 
     /**

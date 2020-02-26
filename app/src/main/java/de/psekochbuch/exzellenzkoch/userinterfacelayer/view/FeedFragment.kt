@@ -58,13 +58,6 @@ class FeedFragment : Fragment() {
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
 
-        val pageObserver = Observer<Int> {items ->
-            items?.let {
-                feedAdapter.pageIndex = items
-            }
-        }
-        viewModel.pageIndex.observe(this.viewLifecycleOwner, pageObserver)
-
         binding.recyclerViewFeed.setHasFixedSize(true)
 
         // set scroll listener for pagination
