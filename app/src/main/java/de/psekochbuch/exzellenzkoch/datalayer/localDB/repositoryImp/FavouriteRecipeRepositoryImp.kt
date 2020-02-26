@@ -8,15 +8,18 @@ import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.*
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.IngredientAmountDB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.IngredientChapterDB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PublicRecipeDB
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
-import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.FavouritRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.FavouriteRecipeRepository
 import kotlinx.coroutines.Dispatchers
 import java.util.*
 
-class FavouritRecipeRepositoryImp(application: Application?) : FavouritRecipeRepository{
+class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeRepository{
     private val publicRecipeDao: PublicRecipeDao = DB.getDatabase(application!!)?.publicRecipeDao()!!
     private val publicRecipeTagDao: PublicRecipeTagDao = DB.getDatabase(application!!)?.publicRecipeTagDao()!!
     private val ingredientChapterDao: IngredientChapterDao = DB.getDatabase(application!!)?.ingredientChapterDao()!!
@@ -66,6 +69,15 @@ class FavouritRecipeRepositoryImp(application: Application?) : FavouritRecipeRep
         }
     }
 
+    override fun deleteAll(){
+        DB.databaseWriteExecutor.execute{
+            publicRecipeDao.deleteAll()
+            publicRecipeTagDao.deleteAll()
+            ingredientAmountDao.deleteAll()
+            ingredientChapterDao.deleteAll()
+        }
+    }
+
     fun transformPublicRecipeToPublicRecipeDB(publicRecipe:PublicRecipe): PublicRecipeDB{
         return PublicRecipeDB(publicRecipe.recipeId,
             publicRecipe.title,
@@ -111,5 +123,16 @@ class FavouritRecipeRepositoryImp(application: Application?) : FavouritRecipeRep
 
     fun transformPublicRecipeDBListToPublicRecipeList(recipes: List<PublicRecipeDB>):List<PublicRecipe>{
         return recipes.map(::transformPublicRecipeDBToPublicRecipe)
+    }
+
+    companion object {
+
+        // For Singleton instantiation
+        @Volatile private var instance: FavouriteRecipeRepository? = null
+
+        fun getInstance(application:Application) =
+            instance ?: synchronized(this) {
+                instance ?: FavouriteRecipeRepositoryImp(application).also { instance = it }
+            }
     }
 }

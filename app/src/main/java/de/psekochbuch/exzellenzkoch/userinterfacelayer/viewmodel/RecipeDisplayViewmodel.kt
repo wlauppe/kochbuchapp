@@ -60,11 +60,13 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
     }
 
     fun scaleup(){
-        //TODO Thomas
+        recipe.value!!.scaleUP()
+        recipe.postValue(recipe.value!!)
     }
 
     fun scaleDown(){
-        //TODO Thomas
+        recipe.value!!.scaleDown()
+        recipe.postValue(recipe.value!!)
     }
 
 

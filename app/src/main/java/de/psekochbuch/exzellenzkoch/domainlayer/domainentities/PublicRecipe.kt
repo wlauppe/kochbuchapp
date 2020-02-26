@@ -15,7 +15,7 @@ class PublicRecipe(
     /**
      * the ingredients of the recipe as text
      */
-    val ingredientsText: String = "",
+    var ingredientsText: String = "",
     /**
      * the ingredients of the recipe as ingredientchapters datastructure
      */
@@ -52,7 +52,7 @@ class PublicRecipe(
     /**
      * number of portions, the recipe is constructed
      */
-    val portions: Int = 0,
+    var portions: Int = 0,
     /**
      * average rating of the recipe
      */
@@ -68,18 +68,22 @@ class PublicRecipe(
     }
 
     fun scale(newPortions: Int){
-        for (chapter:IngredientChapter in ingredientChapter)
-            for (ingredients:IngredientAmount in chapter.ingredients)
-                ingredients.quantity = newPortions * ingredients.quantity / portions
+        var newtext = ""
+        for (chapter:IngredientChapter in ingredientChapter){
+            newtext += chapter.chapter + "\n"
+            for (ingredient:IngredientAmount in chapter.ingredients) {
+                ingredient.quantity = newPortions * ingredient.quantity / portions
+                newtext += ingredient.quantity.toString() + " " + ingredient.unit + ingredient.ingredient + "\n"
+            }
+        }
+        ingredientsText = newtext
+        portions = newPortions
     }
 
     fun scaleUP(){
         scale(portions + 1)
     }
-    fun sclaeDown(){
+    fun scaleDown(){
         scale(portions - 1)
     }
 }
-
-
-//TODO warum kann man ein Feld nicht tags nennen?, wäre besser als taglist"
