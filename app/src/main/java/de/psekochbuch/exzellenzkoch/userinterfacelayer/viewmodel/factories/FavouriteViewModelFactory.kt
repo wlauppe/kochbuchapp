@@ -7,11 +7,11 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRec
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FavouriteViewmodel
 
-class FavouriteViewModelFactory (private val repository: FavouriteRecipeRepository)
+class FavouriteViewModelFactory (private val repository: FavouriteRecipeRepository, private val publicrepo: PublicRecipeRepository)
     : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return FavouriteViewmodel(repository) as T
+        return FavouriteViewmodel(repository, publicrepo) as T
     }
 }

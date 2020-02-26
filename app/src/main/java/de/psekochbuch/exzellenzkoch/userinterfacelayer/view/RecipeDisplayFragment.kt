@@ -59,9 +59,7 @@ class RecipeDisplayFragment : Fragment(){
         }
 
         binding.imageButtonFavourite.setOnClickListener{
-
-            var navController: NavController = findNavController()
-            navController.navigate(R.id.action_recipeDisplayFragment_to_favouriteFragment)
+            viewModel.favouriterepository.insertFavourite(viewModel.recipe.value!!)
         }
         binding.buttonPortionPlus.setOnClickListener{
             viewModel.scaleup()

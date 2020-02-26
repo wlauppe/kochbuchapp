@@ -121,7 +121,8 @@ object InjectorUtils {
     //Favourite VM Factory
     fun provideFavouriteViewModelFactory(context: Context): FavouriteViewModelFactory {
         val repository = getFavouriteRecipeRepository(context)
-        return FavouriteViewModelFactory(repository)
+        val publicrepo = getPublicRecipeRepository(context)
+        return FavouriteViewModelFactory(repository, publicrepo)
     }
 
     fun provideEditTagViewModelFactory(context: Context): EditTagViewModelFactory {
@@ -159,7 +160,8 @@ object InjectorUtils {
 
     fun provideRecipeDisplayViewModelFactory(context: Context):RecipeDisplayViewModelFactory {
         val repo = getPublicRecipeRepository(context)
-        return RecipeDisplayViewModelFactory(repo)
+        val favouriteRepo = getFavouriteRecipeRepository(context)
+        return RecipeDisplayViewModelFactory(repo, favouriteRepo)
     }
 
     fun provideProfileEditViewModelFactory(context: Context):ProfileEditViewModelFactory {

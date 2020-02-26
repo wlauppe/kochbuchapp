@@ -220,6 +220,7 @@ class PrivateRecipe(
                     "," -> return withoutWS.replace(",",".").toDouble()
                     "/" -> return beforeTrenner.toDouble() / afterTrenner
                     "-" -> return (beforeTrenner.toDouble() +  afterTrenner) / 2
+                    "bis" -> return (beforeTrenner.toDouble() +  afterTrenner) / 2
                     else -> return 0.0
                 }
             }
