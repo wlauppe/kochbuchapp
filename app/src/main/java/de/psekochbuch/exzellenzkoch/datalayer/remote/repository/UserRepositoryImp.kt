@@ -125,7 +125,7 @@ class UserRepositoryImp : UserRepository {
 
     override suspend fun reportUser(userId: String) {
         try {
-                userApiService.reportUser(userId)
+               coroutineScope { userApiService.reportUser(userId)}
         } catch (error: Throwable) {
            // throw NetworkError("Unable to update user", error)
         }
