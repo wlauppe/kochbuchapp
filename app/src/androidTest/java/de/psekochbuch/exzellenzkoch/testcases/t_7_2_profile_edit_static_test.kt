@@ -179,7 +179,7 @@ Log.w(TAG, "in das LOGINFRAGMENT")
         */
         val editText = onView(
             allOf(
-                withId(R.id.textView_enter_userID), withText(""),
+                withId(R.id.textView_enter_userID),
                 childAtPosition(
                     allOf(
                         withId(R.id.linearLayout2),
@@ -218,7 +218,7 @@ Log.w(TAG, "in das LOGINFRAGMENT")
 
         val editText2 = onView(
             allOf(
-                withId(R.id.editText_user_description), withText(""),
+                withId(R.id.editText_user_description),
                 childAtPosition(
                     allOf(
                         withId(R.id.linearLayout2),
@@ -233,6 +233,8 @@ Log.w(TAG, "in das LOGINFRAGMENT")
             )
         )
         editText2.check(matches(isDisplayed()))
+
+
     }
 
     private fun childAtPosition(

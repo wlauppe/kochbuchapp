@@ -188,7 +188,9 @@ class t_7_3_profile_edit_userid_static_test {
         )
         appCompatEditText8.perform(closeSoftKeyboard())
 
-        //Thread.sleep(1000)
+
+        //Transision on target device could be turned on therefore little sleep time
+        Thread.sleep(200)
 
 
 

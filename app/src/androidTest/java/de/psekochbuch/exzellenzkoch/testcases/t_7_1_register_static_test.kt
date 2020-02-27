@@ -38,7 +38,7 @@ class t_7_1_register_static_test {
                 AuthentificationImpl.logout()
             }
         }
-        
+
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
