@@ -80,8 +80,7 @@ class RecipeDisplayFragment : Fragment(){
         viewModel.recipe.observe(this, Observer { recipe ->
             binding.textViewRecipePrepDescription.text = recipe.preparation
             setCreationDate(recipe.creationTimeStamp)})
-
-
+        viewModel.recipe.observeForever(Observer { recipe -> setPortions(recipe.portions)})
 
         return binding.root
     }
@@ -124,6 +123,10 @@ class RecipeDisplayFragment : Fragment(){
     private fun setTimes(prepTime : Int, cookingTime : Int){
         binding.textViewRecipePrepTime.text = Integer.toString(prepTime)
         binding.textViewRecipeCookTime.text = Integer.toString(cookingTime)
+    }
+
+    private fun setPortions(portions : Int){
+        binding.textViewPortions.text = Integer.toString(portions)
     }
 
     /**

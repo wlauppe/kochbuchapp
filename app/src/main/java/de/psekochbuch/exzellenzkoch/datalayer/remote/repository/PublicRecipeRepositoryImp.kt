@@ -3,6 +3,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.BuildConfig
+import de.psekochbuch.exzellenzkoch.PAGE_SIZE
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
@@ -79,7 +80,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 Log.w(TAG, "jetzt bin ich im Coroutine Scope")
                 try {
                     val dtoList =
-                        recipeApiService.search(null, null, null, null, page, 99)
+                        recipeApiService.search(null, null, null, null, page, PAGE_SIZE)
                     //if (!response.isSuccessful) throw error("response not successful")
                     dtoList.let {
                         val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
@@ -100,7 +101,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
-    override fun getPublicRecipes(title:String, tags:List<String>, ingredients: List<String>, creationDate:Date?, sortOrder:String ): LiveData<List<PublicRecipe>>
+    override fun getPublicRecipes(title:String, tags:List<String>, ingredients: List<String>, creationDate:Date?, sortOrder:String,page: Int ): LiveData<List<PublicRecipe>>
     {
         try {
             Log.w(TAG, "getPublicRecipes(parameter) wird aufgerufen")
@@ -108,7 +109,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 Log.w(TAG, "jetzt bin ich im Coroutine Scope")
                 try {
                     val dtoList =
-                        recipeApiService.search(title, tags, ingredients, creationDate, 1, 100)
+                        recipeApiService.search(title, tags, ingredients, creationDate,page,
+                            PAGE_SIZE)
                     //if (!response.isSuccessful) throw error("response not successful")
                     dtoList.let {
                         val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
@@ -129,6 +131,15 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
+    override fun getPublicRecipes(
+        title: String,
+        tags: List<String>,
+        ingredients: List<String>,
+        creationDate: Date?,
+        sortOrder: String
+    ): LiveData<List<PublicRecipe>> {
+        return getPublicRecipes(title,tags,ingredients,creationDate,sortOrder,1)
+    }
 
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
