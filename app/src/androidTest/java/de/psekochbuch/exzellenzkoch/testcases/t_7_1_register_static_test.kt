@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch
+package de.psekochbuch.exzellenzkoch.testcases
 
 
 import android.view.View
@@ -10,6 +10,10 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.MainActivity
+import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -21,7 +25,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_register_static_test {
+class t_7_1_register_static_test {
 
     @Rule
     @JvmField
@@ -29,6 +33,12 @@ class t_7_register_static_test {
 
     @Test
     fun t_7_register_static_test() {
+        runBlocking {
+            if (AuthentificationImpl.isLogIn()) {
+                AuthentificationImpl.logout()
+            }
+        }
+        
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -47,6 +57,8 @@ class t_7_register_static_test {
         )
         appCompatImageButton.perform(click())
 
+        Thread.sleep(200) //must
+
         val navigationMenuItemView = onView(
             allOf(
                 childAtPosition(
@@ -63,6 +75,10 @@ class t_7_register_static_test {
             )
         )
         navigationMenuItemView.perform(click())
+
+
+
+        Thread.sleep(200) //must
 
         val appCompatButton = onView(
             allOf(
@@ -82,6 +98,8 @@ class t_7_register_static_test {
         )
         appCompatButton.perform(click())
 
+        Thread.sleep(200) //must
+
         val textView = onView(
             allOf(
                 withId(R.id.textView_register_email_text), withText("Gib deine E-Mail Adresse ein"),
@@ -96,6 +114,7 @@ class t_7_register_static_test {
             )
         )
         textView.check(matches(withText("Gib deine E-Mail Adresse ein")))
+        Thread.sleep(200) //must
 
         val editText = onView(
             allOf(
@@ -111,6 +130,8 @@ class t_7_register_static_test {
             )
         )
         editText.check(matches(isDisplayed()))
+
+        Thread.sleep(200) //must
 
         val textView2 = onView(
             allOf(
@@ -128,6 +149,8 @@ class t_7_register_static_test {
         )
         textView2.check(matches(withText("Gib dir einen Nutzernamen (optional)")))
 
+        Thread.sleep(200) //must
+
         val editText2 = onView(
             allOf(
                 withId(R.id.editText_register_usernid_input), withText(""),
@@ -142,6 +165,8 @@ class t_7_register_static_test {
             )
         )
         editText2.check(matches(isDisplayed()))
+
+        Thread.sleep(200) //must
 
         val textView3 = onView(
             allOf(
@@ -158,6 +183,8 @@ class t_7_register_static_test {
         )
         textView3.check(matches(withText("Gib dein Passwort ein")))
 
+        Thread.sleep(200) //must
+
         val editText3 = onView(
             allOf(
                 withId(R.id.editText_register_password_input), withText(""),
@@ -172,6 +199,8 @@ class t_7_register_static_test {
             )
         )
         editText3.check(matches(isDisplayed()))
+
+
     }
 
     private fun childAtPosition(

@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -35,6 +36,7 @@ class ProfileDisplayFragment : Fragment() {
         val userID = arguments?.let { ProfileDisplayFragmentArgs.fromBundle(it).userID }
         viewModel.setUserByID(userID!!)
 
+
         // init binding variable
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
         binding.profileDisplayViewmodel = viewModel
@@ -55,7 +57,7 @@ class ProfileDisplayFragment : Fragment() {
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
 
-        viewModel.user.observe(this, Observer { user ->
+        viewModel.user.observe(viewLifecycleOwner, Observer { user ->
             viewModel.userDesc.postValue(user.description)
             viewModel.userID.postValue(user.userId)
 
@@ -86,6 +88,12 @@ class ProfileDisplayFragment : Fragment() {
             val navController = findNavController()
             navController.navigate(R.id.action_profileDisplayFragment_to_publicRecipeSearchFragment)
         }
+
+        viewModel.user.observe(viewLifecycleOwner, Observer {
+            user ->
+            binding.textViewProfileDisplayDescription.text = user.description
+            binding.textViewProfileDisplayFragmentTitle.text = user.userId
+        })
 
         return binding.root
     }
