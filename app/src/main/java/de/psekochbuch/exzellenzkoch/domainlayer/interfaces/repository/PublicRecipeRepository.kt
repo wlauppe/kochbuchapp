@@ -27,6 +27,9 @@ interface PublicRecipeRepository {
     fun getPublicRecipes(title:String, tags:List<String>, ingredients: List<String>, creationDate:Date?, sortOrder:String ): LiveData<List<PublicRecipe>>
 
     @Throws
+    fun getPublicRecipes(title:String, tags:List<String>, ingredients: List<String>, creationDate:Date?, sortOrder:String,page: Int):  LiveData<List<PublicRecipe>>
+
+    @Throws
     fun getPublicRecipe(recipeId : Int): LiveData<PublicRecipe>
 
 
