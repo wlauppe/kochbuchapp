@@ -79,7 +79,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 Log.w(TAG, "jetzt bin ich im Coroutine Scope")
                 try {
                     val dtoList =
-                        recipeApiService.search(null, null, null, null, page, 99)
+                        recipeApiService.search(null, null, null, null, page, 100)
                     //if (!response.isSuccessful) throw error("response not successful")
                     dtoList?.let {
                         val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
@@ -100,7 +100,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
-    override fun getPublicRecipes(title:String, tags:List<String>, ingredients: List<String>, creationDate:Date?, sortOrder:String ): LiveData<List<PublicRecipe>>
+    override fun getPublicRecipes(title:String, tags:List<String>, ingredients: List<String>, creationDate:Date?, sortOrder:String,page: Int ): LiveData<List<PublicRecipe>>
     {
         try {
             Log.w(TAG, "getPublicRecipes(parameter) wird aufgerufen")
@@ -108,7 +108,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 Log.w(TAG, "jetzt bin ich im Coroutine Scope")
                 try {
                     val dtoList =
-                        recipeApiService.search(title, tags, ingredients, creationDate, 1, 100)
+                        recipeApiService.search(title, tags, ingredients, creationDate,page,100)
                     //if (!response.isSuccessful) throw error("response not successful")
                     dtoList.let {
                         val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
@@ -129,6 +129,15 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         }
     }
 
+    override fun getPublicRecipes(
+        title: String,
+        tags: List<String>,
+        ingredients: List<String>,
+        creationDate: Date?,
+        sortOrder: String
+    ): LiveData<List<PublicRecipe>> {
+        return getPublicRecipes(title,tags,ingredients,creationDate,sortOrder,1)
+    }
 
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
