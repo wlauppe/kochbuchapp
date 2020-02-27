@@ -76,9 +76,8 @@ class CreateRecipeFragment : Fragment() {
         }
 
 
-        // set up observer values for the ViewModel attributes (Logatgs are for debugging purposes)
+        // set up observer values for the ViewModel attributes
         viewModel.recipe.observe(this, Observer {
-
             recipe -> viewModel.setTags(recipe.tags)
             setImage(recipe.imgUrl)
             setPreparation(recipe.preparation)

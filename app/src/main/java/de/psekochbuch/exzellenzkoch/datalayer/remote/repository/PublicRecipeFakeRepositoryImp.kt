@@ -113,6 +113,17 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun getPublicRecipes(
+        title: String,
+        tags: List<String>,
+        ingredients: List<String>,
+        creationDate: Date?,
+        sortOrder: String,
+        page: Int
+    ): LiveData<List<PublicRecipe>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         Log.w(TAG, "getPublicRecipe, recipeId $recipeId aufgerufen")
         for(recipe in recipeList){
