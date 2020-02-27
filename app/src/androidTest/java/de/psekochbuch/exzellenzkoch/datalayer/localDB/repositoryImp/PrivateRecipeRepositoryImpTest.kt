@@ -61,18 +61,12 @@ class PrivateRecipeRepositoryImpTest(){
             Date(),4,6)
 
         runBlocking { repo.insertPrivateRecipe(recipe1)}
-
         Thread.sleep(1000)
-
         val recipe2 = PrivateRecipe(3,"lalale", "efg", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)
-
         runBlocking { repo.insertPrivateRecipe(recipe2)}
-
         Thread.sleep(1000)
-
         val recipe = repo.getPrivateRecipe(3).blockingObserve()
-
         assertEquals(recipe!!.title,"lalale")
     }
 }
