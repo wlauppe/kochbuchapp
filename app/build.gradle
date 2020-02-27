@@ -52,7 +52,11 @@ android {
 
      testOptions {
             unitTests.returnDefaultValues = true
+
      }
+    testOptions.unitTests{
+        includeAndroidResources = true
+    }
 
 }
 
@@ -74,7 +78,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
     testImplementation 'junit:junit:4.12'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
@@ -169,6 +175,18 @@ dependencies {
     //Damit LiveData Testen klappt
     testImplementation 'android.arch.core:core-testing:1.1.1'
 
+    //Androidx JVM Testing
+//    testImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
+
+    //testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+
+   // testImplementation "org.robolectric:robolectric:$robolectricVersion"
+
+    //Mockito
+    testImplementation "org.mockito:mockito-core:1.+"
+
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
     //Logging von Retrofit
     //implementation 'com.squareup.okhttp3:logging-interceptor:4.3.1'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
@@ -179,6 +197,6 @@ dependencies {
     //ImagePicker
     //implementation 'com.github.esafirm.android-image-picker:imagepicker:2.2.0'
 
-
+    //Testing UI Espresso
     androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
 }
