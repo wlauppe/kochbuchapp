@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.psekochbuch.exzellenzkoch.InjectorUtils
+import de.psekochbuch.exzellenzkoch.PAGE_SIZE
 import de.psekochbuch.exzellenzkoch.databinding.DisplaySearchlistFragmentBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.DisplaySearchListAdaper
@@ -28,7 +29,7 @@ class DisplaySearchListFragment : Fragment(){
      */
     var bundle: Bundle? = null
 
-    private var pageLimit = 100
+    private var pageLimit = PAGE_SIZE
     private var isLoading: Boolean = false
     private lateinit var adapter : DisplaySearchListAdaper
     private lateinit var layoutManager: LinearLayoutManager
