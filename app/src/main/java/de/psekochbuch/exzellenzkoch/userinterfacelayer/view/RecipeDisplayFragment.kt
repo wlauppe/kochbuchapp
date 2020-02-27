@@ -60,11 +60,13 @@ class RecipeDisplayFragment : Fragment(){
         }
 
         binding.imageButtonFavourite.setOnClickListener{
+
             viewModel.favouriterepository.insertFavourite(viewModel.recipe.value!!)
             val navController: NavController = findNavController()
             // TODO delete unused code
             //navController.navigate(R.id.action_recipeDisplayFragment_to_favouriteFragment)
             Toast.makeText(context, "Rezept favorisiert", Toast.LENGTH_SHORT).show()
+
         }
         binding.buttonPortionPlus.setOnClickListener{
             viewModel.scaleup()
@@ -83,8 +85,7 @@ class RecipeDisplayFragment : Fragment(){
         viewModel.recipe.observe(this, Observer { recipe ->
             binding.textViewRecipePrepDescription.text = recipe.preparation
             setCreationDate(recipe.creationTimeStamp)})
-
-
+        viewModel.recipe.observeForever(Observer { recipe -> setPortions(recipe.portions)})
 
         return binding.root
     }
@@ -127,6 +128,10 @@ class RecipeDisplayFragment : Fragment(){
     private fun setTimes(prepTime : Int, cookingTime : Int){
         binding.textViewRecipePrepTime.text = Integer.toString(prepTime)
         binding.textViewRecipeCookTime.text = Integer.toString(cookingTime)
+    }
+
+    private fun setPortions(portions : Int){
+        binding.textViewPortions.text = Integer.toString(portions)
     }
 
     /**

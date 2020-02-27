@@ -71,6 +71,7 @@ class RecipeDisplayViewmodel(publicrepository:PublicRecipeRepository,favouritere
         if (actualRecipe.portions > 1)
             actualRecipe.scaleDown()
         recipe.postValue(actualRecipe)
+
     }
 
 
