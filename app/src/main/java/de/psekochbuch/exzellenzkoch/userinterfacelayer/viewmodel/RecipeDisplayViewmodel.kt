@@ -65,8 +65,11 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
     }
 
     fun scaleDown(){
-        recipe.value!!.scaleDown()
-        recipe.postValue(recipe.value!!)
+        val portions=recipe.value!!.portions
+        if (portions != 1) {
+            recipe.value!!.scaleDown()
+            recipe.postValue(recipe.value!!)
+        }
     }
 
 
