@@ -74,7 +74,7 @@ class PublicRecipe(
             newtext += chapter.chapter + "\n"
             for (ingredient:IngredientAmount in chapter.ingredients) {
                 ingredient.quantity = newPortions * ingredient.quantity / portions
-                newtext += ingredient.quantity.toString() + " " + ingredient.unit + ingredient.ingredient + "\n"
+                newtext += ingredient.quantity.toString() + " " + ingredient.unit + " " + ingredient.ingredient + "\n"
             }
         }
         ingredientsText = newtext
