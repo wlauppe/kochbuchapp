@@ -2,7 +2,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import de.psekochbuch.exzellenzkoch.IMG_PREFIX
+import de.psekochbuch.exzellenzkoch.BuildConfig
 import de.psekochbuch.exzellenzkoch.PAGE_SIZE
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
@@ -48,7 +48,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
             try {
                 val dtoList =
                     adminApiService.getReportedPublicRecipes(1, 100)
-                dtoList?.let {
+                dtoList.let {
                     val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
                     emit(entityList)
                 }
@@ -82,7 +82,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                     val dtoList =
                         recipeApiService.search(null, null, null, null, page, PAGE_SIZE)
                     //if (!response.isSuccessful) throw error("response not successful")
-                    dtoList?.let {
+                    dtoList.let {
                         val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
                         emit(entityList)
                     }
@@ -196,7 +196,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                     val remoteUrl = response.filePath
                     //speichere filepath in recipe
                     //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
-                    publicRecipe.imgUrl= IMG_PREFIX+remoteUrl
+                    publicRecipe.imgUrl= BuildConfig.IMG_PREFIX+remoteUrl
                     val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
                     returnId = returnDto.id
 
