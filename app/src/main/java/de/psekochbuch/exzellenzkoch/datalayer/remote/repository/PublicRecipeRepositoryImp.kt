@@ -3,6 +3,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.IMG_PREFIX
+import de.psekochbuch.exzellenzkoch.PAGE_SIZE
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
@@ -79,7 +80,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 Log.w(TAG, "jetzt bin ich im Coroutine Scope")
                 try {
                     val dtoList =
-                        recipeApiService.search(null, null, null, null, page, 100)
+                        recipeApiService.search(null, null, null, null, page, PAGE_SIZE)
                     //if (!response.isSuccessful) throw error("response not successful")
                     dtoList?.let {
                         val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
@@ -108,7 +109,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 Log.w(TAG, "jetzt bin ich im Coroutine Scope")
                 try {
                     val dtoList =
-                        recipeApiService.search(title, tags, ingredients, creationDate,page,100)
+                        recipeApiService.search(title, tags, ingredients, creationDate,page,
+                            PAGE_SIZE)
                     //if (!response.isSuccessful) throw error("response not successful")
                     dtoList.let {
                         val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
