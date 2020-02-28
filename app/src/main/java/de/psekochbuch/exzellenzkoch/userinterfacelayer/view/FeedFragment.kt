@@ -74,13 +74,11 @@ class FeedFragment : Fragment() {
                 Log.i("", "1pagenr ist: " + viewModel.pageNumber)
                     if (!isLoading) {
                         if (visibleItemCount + pastVisibleItem >= recyclerViewTotalSize) {
+                            viewModel.pageNumber++
+                            viewModel.loadNextPage()
                             feedAdapter.notifyDataSetChanged()
-
                             Log.i("", "2pagenr ist: " + viewModel.pageNumber)
                         }
-                    } else {
-                        viewModel.pageNumber++
-                        Log.i("", "3pagenr ist: " + viewModel.pageNumber)
                     }
                 }
                 super.onScrolled(recyclerView, dx, dy)
