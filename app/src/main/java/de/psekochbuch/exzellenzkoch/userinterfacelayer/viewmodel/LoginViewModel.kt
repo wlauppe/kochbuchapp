@@ -11,7 +11,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentifica
  * The Login ViewModel handles the information for the LoginFragment.
  * @param authentification: The interface through which the user authenfication methods are handled.
  */
-class LoginViewModel(authentification: Authentification) : ViewModel() {
+class LoginViewModel() : ViewModel() {
 
 
     var email: MutableLiveData<String> = MutableLiveData("")

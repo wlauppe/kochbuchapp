@@ -15,7 +15,6 @@ class LoginViewModelFactory(private val authentification: Authentification)
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return LoginViewModel(
-            authentification
         ) as T
     }
 }
