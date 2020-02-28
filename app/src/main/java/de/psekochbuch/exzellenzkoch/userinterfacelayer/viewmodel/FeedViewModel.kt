@@ -11,7 +11,5 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
  * @param repository: The repository through which the public recipes are handled.
  */
 class FeedViewModel(repository: PublicRecipeRepository): ViewModel() {
-    var pageIndex: LiveData<Int> = MutableLiveData(1)
-    var recipes = repository.getPublicRecipes(pageIndex.value!!)
-
-}
+    var pageNumber:Int = 1
+    var recipes = repository.getPublicRecipes(pageNumber) }

@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -59,9 +60,13 @@ class RecipeDisplayFragment : Fragment(){
         }
 
         binding.imageButtonFavourite.setOnClickListener{
-           
-            var navController: NavController = findNavController()
-            navController.navigate(R.id.action_recipeDisplayFragment_to_favouriteFragment)
+
+            viewModel.favouriterepository.insertFavourite(viewModel.recipe.value!!)
+            val navController: NavController = findNavController()
+            // TODO delete unused code
+            //navController.navigate(R.id.action_recipeDisplayFragment_to_favouriteFragment)
+            Toast.makeText(context, "Rezept favorisiert", Toast.LENGTH_SHORT).show()
+
         }
         binding.buttonPortionPlus.setOnClickListener{
             viewModel.scaleup()

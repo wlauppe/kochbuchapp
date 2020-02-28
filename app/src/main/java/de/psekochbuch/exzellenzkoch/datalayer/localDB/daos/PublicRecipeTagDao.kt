@@ -19,4 +19,8 @@ interface PublicRecipeTagDao {
 
     @Query("DELETE FROM publicRecipeTag")
     fun deleteAll()
+
+    //THis one is just for testing
+    @Query("SELECT * from publicRecipeTag")
+    fun getAll():List<PublicRecipeTagDB>
 }

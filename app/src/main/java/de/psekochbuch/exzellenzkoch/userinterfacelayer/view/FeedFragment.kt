@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import de.psekochbuch.exzellenzkoch.databinding.FeedBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.FeedAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
+import kotlinx.android.synthetic.main.progress_view.*
 
 /**
 * The Fragment class provides logic for binding the respective .xml layout file to the class
@@ -23,41 +25,86 @@ import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 */
 class FeedFragment : Fragment() {
 
+    /**
+     * Global variables used for pagination in RecyclerView
+     */
+    private var pageLimit = 100
+    private var isLoading: Boolean = false
+    private lateinit var feedAdapter : FeedAdapter
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var classViewModel: FeedViewModel
+    private lateinit var classBinding: FeedBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FeedBinding.inflate(inflater, container, false)
-
+        classBinding = binding
         val viewModel : FeedViewModel by viewModels {
             InjectorUtils.provideFeedViewModelFactory(requireContext())
         }
-        binding.recyclerViewFeed.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        val feedAdapter = FeedAdapter(viewModel, requireContext())
+        classViewModel = viewModel
 
+        // init the global feedAdapter and layoutManager
+        layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewFeed.layoutManager = layoutManager
+        feedAdapter = FeedAdapter(viewModel, requireContext())
         binding.recyclerViewFeed.adapter = feedAdapter
+        // call the getPage from ViewModel
+        getPage()
 
+        // observe the recipe list
         val observer = Observer<List<PublicRecipe>> { items ->
             items?.let {
                 feedAdapter.feedRecipes = items}
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
 
-        val pageObserver = Observer<Int> {items ->
-            items?.let {
-                feedAdapter.pageIndex = items
+        binding.recyclerViewFeed.setHasFixedSize(true)
+
+        // set scroll listener for pagination
+        binding.recyclerViewFeed.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (dy > 0) {
+                    val visibleItemCount = layoutManager.itemCount
+                    val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+                    val recyclerViewTotalSize = feedAdapter.itemCount
+
+                    if (!isLoading) {
+                        if (visibleItemCount + pastVisibleItem >= recyclerViewTotalSize) {
+                            viewModel.pageNumber++
+                        }
+                    }
+                }
+                super.onScrolled(recyclerView, dx, dy)
             }
-        }
-        viewModel.pageIndex.observe(this.viewLifecycleOwner, pageObserver)
+        })
 
         binding.recyclerViewFeed.setHasFixedSize(true)
-        // set empty header and footer spacing
-        // binding.recyclerViewFeed.addItemDecoration(HeaderFooterDecoration(100, 100))
-
         return binding.root
     }
 
     /**
+     * Method to get the currently shown page of the RecyclerView and load another one if needed
+     */
+    private fun getPage() {
+        isLoading = true
+        classBinding.feedProgressBar.visibility = View.VISIBLE
+        val start = (classViewModel.pageNumber - 1) * pageLimit
+        val end = classViewModel.pageNumber * pageLimit
+        for (i in start .. end) {
+            feedAdapter.notifyDataSetChanged()
+        }
+        Handler().postDelayed({
+            if (::feedAdapter.isInitialized) {
+                feedAdapter.notifyDataSetChanged()
+            } else {
+                feedAdapter = FeedAdapter(classViewModel, requireContext())
+            }
+        }, 5000)
+    }
+
+    /**
      * Nested class provides logic for an empty header and footer in the RecyclerView, if needed
-     *
+     * TODO unnecessary code delete
      * @param headerHeight defines the header's height in pixels
      * @param footerHeight defines the footer's height in pixels
      */

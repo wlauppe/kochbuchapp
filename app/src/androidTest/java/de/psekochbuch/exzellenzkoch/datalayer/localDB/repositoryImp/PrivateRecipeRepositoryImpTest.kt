@@ -8,19 +8,37 @@ import androidx.lifecycle.liveData
 import androidx.test.core.app.ApplicationProvider
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.DB
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.PrivateRecipeDao
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.daos.PrivateRecipeTagDao
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.entities.PrivateRecipeDB
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
+import org.junit.*
 import org.junit.Assert.*
-import org.junit.Rule
-import org.junit.Test
 import java.util.*
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
 class PrivateRecipeRepositoryImpTest(){
 
+    companion object{
+        lateinit var repo:PrivateRecipeRepository
+        val recipe = PrivateRecipe(1,"titel", "so mact man es", listOf("tag1","tag2"),"lalali","so",1,2,
+            Date(),4,6)
+        val errorrecipe = PrivateRecipe(0,"Konnte nicht geladen werden","",listOf(),"","file://android_assed/exampleimages/error.png",0,0,Date(0),0,0)
+
+        val privateRecipeDao: PrivateRecipeDao = DB.getDatabase(ApplicationProvider.getApplicationContext()!!)?.privateRecipeDao()!!
+        val privateRecipeTagDao: PrivateRecipeTagDao = DB.getDatabase(ApplicationProvider.getApplicationContext()!!)?.privateRecipeTagDao()!!
+
+        @BeforeClass
+        @JvmStatic
+        fun setup(){
+            repo = PrivateRecipeRepositoryImp.getInstance(ApplicationProvider.getApplicationContext())
+            repo.deleteAll()
+            Thread.sleep(1000)
+        }
+    }
     /**
      * Diese Regel sorgt dafür, dass der Test nicht auf einem Hintergrundthread ausgeführt
      * Ohne diese Regel kommen fehlermeldgunen, in der blocking observe methode, da in Livedata
@@ -29,20 +47,33 @@ class PrivateRecipeRepositoryImpTest(){
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
+    @After
+    fun setUp(){
+        repo.deleteAll()
+        Thread.sleep(1000)
+    }
+
+    @Test
+    fun correctdelete(){
+        runBlocking { repo.insertPrivateRecipe(recipe) }
+
+        Thread.sleep(1000)
+
+        runBlocking { repo.deletePrivateRecipe(1) }
+
+        assertEquals(privateRecipeDao.getAll().size,0)
+        assertEquals(privateRecipeTagDao.getAll().size,0)
+    }
+
     @Test
     fun insertdeleteandget(){
-        val repo = PrivateRecipeRepositoryImp.getInstance(ApplicationProvider.getApplicationContext())
-
-        val recipe = PrivateRecipe(3,"titel", "so mact man es", listOf("tag1","tag2"),"lalali","so",1,2,
-            Date(),4,6)
-
         runBlocking { repo.insertPrivateRecipe(recipe)}
 
         Thread.sleep(1000)
 
         val lfromDb = repo.getPrivateRecipe(3)
 
-        assertEquals(lfromDb.blockingObserve()!!.ingredientsText,"so mact man es")
+        assertEquals(lfromDb.blockingObserve(),recipe)
 
         runBlocking { repo.deletePrivateRecipe(3)}
 
@@ -50,24 +81,23 @@ class PrivateRecipeRepositoryImpTest(){
 
         val del = repo.getPrivateRecipe(3).blockingObserve()!!
 
-        assertEquals(del.title,"Konnte nicht geladen werden")
+        assertEquals(del, errorrecipe)
     }
 
     @Test
     fun insertandupdate(){
-        val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        runBlocking { repo.insertPrivateRecipe(recipe)}
 
-        val recipe1 = PrivateRecipe(3,"abc", "efg", listOf("tag1","tag2"),"lalali","so",1,2,
-            Date(),4,6)
-
-        runBlocking { repo.insertPrivateRecipe(recipe1)}
         Thread.sleep(1000)
-        val recipe2 = PrivateRecipe(3,"lalale", "efg", listOf("tag1","tag2"),"lalali","so",1,2,
+
+        val recipe2 = PrivateRecipe(1,"lalale", "efg", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)
         runBlocking { repo.insertPrivateRecipe(recipe2)}
         Thread.sleep(1000)
-        val recipe = repo.getPrivateRecipe(3).blockingObserve()
-        assertEquals(recipe!!.title,"lalale")
+
+        val recipe = repo.getPrivateRecipe(1).blockingObserve()
+
+        assertEquals(recipe,recipe2)
     }
 }
 

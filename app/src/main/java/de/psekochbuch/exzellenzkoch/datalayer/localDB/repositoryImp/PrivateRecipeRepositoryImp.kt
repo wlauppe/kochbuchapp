@@ -48,7 +48,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
                 val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
                 emit(recipe)
             } catch (error : Throwable){
-                emit(PrivateRecipe(0,"Konnte nicht geladen werden","",listOf(),"","file://android_assed/exampleimages/error.png",0,0,Date(System.currentTimeMillis()),0,0))
+                emit(PrivateRecipe(0,"Konnte nicht geladen werden","",listOf(),"","file://android_assed/exampleimages/error.png",0,0,Date(0),0,0))
             }
         }
         return lData
@@ -92,7 +92,14 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
             }
         }
     }
-    
+
+    override fun deleteAll() {
+        DB.databaseWriteExecutor.execute{
+            privateRecipeDao?.deleteAll()
+            privateRecipeTagDao?.deleteAll()
+        }
+    }
+
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{
         //können wir IDs auch als longs abspeichern?
         return PrivateRecipe(recipe.id.toInt(), recipe.title,recipe.ingredientsText,privateRecipeTagDao?.getTagsFromRecipe(recipe.id)!!.map{tag -> tag.tag},recipe.preparationDescription,recipe.imgURL,recipe.cookingTime,recipe.preparationTime, Date(recipe.creationDate),recipe.portions, recipe.publishedID)

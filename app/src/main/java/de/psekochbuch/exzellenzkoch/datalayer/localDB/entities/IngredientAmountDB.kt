@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "ingredientamount")
-data class IngredientAmountDB(@PrimaryKey val id:Long,
+data class IngredientAmountDB(@PrimaryKey(autoGenerate = true) val id:Long,
                             val chapterId:Long,
                             val name:String,
                             val unit:String,

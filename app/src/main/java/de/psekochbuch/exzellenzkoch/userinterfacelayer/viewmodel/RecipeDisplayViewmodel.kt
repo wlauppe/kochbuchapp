@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.FavouriteRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import kotlinx.coroutines.launch
 
@@ -14,10 +15,11 @@ import kotlinx.coroutines.launch
  * @param repository: the public recipe repository through which the recipe related methods
  * are called.
  */
-class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
+class RecipeDisplayViewmodel(publicrepository:PublicRecipeRepository,favouriterepository: FavouriteRecipeRepository) : ViewModel() {
     var Tag = "RecipeDisplayViewmodel"
 
-    val repository=repository
+    val repository=publicrepository
+    val favouriterepository = favouriterepository
 
     var recipe = MutableLiveData(PublicRecipe())
 
@@ -65,11 +67,11 @@ class RecipeDisplayViewmodel(repository:PublicRecipeRepository) : ViewModel() {
     }
 
     fun scaleDown(){
-        val portions=recipe.value!!.portions
-        if (portions != 1) {
-            recipe.value!!.scaleDown()
-            recipe.postValue(recipe.value!!)
-        }
+        val actualRecipe = recipe.value!!
+        if (actualRecipe.portions > 1)
+            actualRecipe.scaleDown()
+        recipe.postValue(actualRecipe)
+
     }
 
 

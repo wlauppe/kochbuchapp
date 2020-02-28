@@ -3,7 +3,7 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import de.psekochbuch.exzellenzkoch.IMG_PREFIX
+import de.psekochbuch.exzellenzkoch.BuildConfig
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
@@ -117,7 +117,7 @@ class UserRepositoryImp : UserRepository {
             val remoteUrl = response.filePath
             //speichere filepath in recipe
             //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
-            user.imgUrl= IMG_PREFIX +remoteUrl
+            user.imgUrl= BuildConfig.IMG_PREFIX +remoteUrl
             val returnDto = userApiService.updateUser(oldUserId,userMapper.toDto(user))
         } catch (error: Throwable) {
           //  throw NetworkError("Unable to update user", error)
@@ -127,7 +127,7 @@ class UserRepositoryImp : UserRepository {
 
     override suspend fun reportUser(userId: String) {
         try {
-                userApiService.reportUser(userId)
+               coroutineScope { userApiService.reportUser(userId)}
         } catch (error: Throwable) {
            // throw NetworkError("Unable to update user", error)
         }

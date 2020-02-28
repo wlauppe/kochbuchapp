@@ -1,24 +1,29 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
+import android.R
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import de.psekochbuch.exzellenzkoch.databinding.ButtonLoadMoreItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.FeedItemBinding
+import de.psekochbuch.exzellenzkoch.databinding.RecyclerButtonLoadmoreBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
+
 
 /**
  * Adapter class that provides logic for the AdminFragment's "Reported User" RecyclerView
  *
  *@param viewModel a required AdminViewModel for underlying functions
  */
-class FeedAdapter( var viewModel: FeedViewModel
-, context: Context) :
+class FeedAdapter( var viewModel: FeedViewModel, context: Context) :
     RecyclerView.Adapter<FeedAdapter.FeedViewHolder>(){
 
     /**
@@ -36,20 +41,11 @@ class FeedAdapter( var viewModel: FeedViewModel
             notifyDataSetChanged()
         }
 
-    /**
-     * Observed field which specifies the current page index. If the page is full (recipe size = 100),
-     * the index needs to be incremented.
-     * Since the pages start at 1, it needs to be initialized.
-     */
-    var pageIndex: Int = 1
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):FeedViewHolder{
         val inflater = LayoutInflater.from(parent.context)
         navController = parent.findNavController()
+        
         val feedItemBinding = FeedItemBinding.inflate(inflater, parent, false)
         return FeedViewHolder(feedItemBinding)
     }
@@ -83,11 +79,6 @@ class FeedAdapter( var viewModel: FeedViewModel
                     )
             )
         }
-
-        // update the page Index to load the next page of recipes to show
-        if (itemCount == (pageIndex+99)) {
-            pageIndex++
-        }
     }
 
     /**
@@ -98,5 +89,4 @@ class FeedAdapter( var viewModel: FeedViewModel
     */
     class FeedViewHolder(var feedItemBinding: FeedItemBinding)
         : RecyclerView.ViewHolder(feedItemBinding.root)
-
 }

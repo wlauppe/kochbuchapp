@@ -1,5 +1,7 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
+import java.lang.Character.isDigit
+
 import java.util.*
 
 /**
@@ -60,6 +62,27 @@ class PrivateRecipe(
      */
     var publishedRecipeId : Int = 0
 )  {
+    override fun equals(other: Any?): Boolean {
+        val recipe: PrivateRecipe;
+        try{
+            recipe = other as PrivateRecipe
+        } catch (e: Exception){
+            return false
+        }
+        return recipeId == recipe.recipeId &&
+                title.equals(recipe.title) &&
+                ingredientsText.equals(recipe.ingredientsText) &&
+                tags.size == recipe.tags.size &&
+                tags.zip(recipe.tags).map {it.first.equals(it.second)}.foldRight(true,{a:Boolean,b:Boolean->a&&b}) &&
+                preparation.equals(recipe.preparation) &&
+                imgUrl.equals(recipe.imgUrl) &&
+                cookingTime == recipe.cookingTime &&
+                preparationTime == recipe.preparationTime &&
+                creationTimeStamp.time == recipe.creationTimeStamp.time &&
+                portions == recipe.portions &&
+                publishedRecipeId == recipe.publishedRecipeId
+    }
+
 
     /**
      * this method converts this to a Public recipe and throws an IllegalArgumentException, if not possible
@@ -93,21 +116,20 @@ class PrivateRecipe(
             parsable = "#Zutaten\n" + toParse
         }
 
-        val toParseChapters = parsable.split("#").toList()
+        val toParseChapters = parsable.split("#").toList().drop(1)
         try{
-            return toParseChapters.subList(1,toParseChapters.size).map(::stringtochapter);
+            return toParseChapters.map(::stringtochapter);
         } catch (e: Exception){
             throw java.lang.IllegalArgumentException("ingredients couldnt be parsed")
         }
-
     }
 
     fun stringtochapter(toParse: String): IngredientChapter{
         var ingredients = toParse.split("\n")
-        ingredients = ingredients.filter { it != "" }
-        return IngredientChapter(0, ingredients[0], ingredients.subList(1, ingredients.size).map(::stringtoingredient));
+        ingredients = ingredients.filter { it != "" } //alle leeren Zeilen werden entfernt
+        return IngredientChapter(0, ingredients[0], ingredients.subList(1, ingredients.size).map(::parseLine));
     }
-
+/*
     fun stringtoingredient(toParse: String): IngredientAmount {
 
         for (i in toParse.length downTo 1) {
@@ -155,5 +177,54 @@ class PrivateRecipe(
             return false
         }
         return true
+    }
+
+ */
+
+
+    //wenn eine unit präfix einer anderen ist, soll die längere Unit zuerst kommen, auserdem nur kleinbuchstaben
+    val units = listOf("gramm","liter","g","l","teelöffel","tl","prise")
+
+    fun parseLine(line: String): IngredientAmount{
+        var number = 0.0
+        for (i in line.length downTo 1){
+            number = parseNumber(line.substring(0,i))
+            if (number > 0){
+                for (unit:String in units)
+                    if (unit.length <= line.length - i && unit.equals(line.substring(i,i + unit.length).toLowerCase()))
+                        return IngredientAmount(line.substring(i+unit.length,line.length).dropWhile {it==' '},number,unit)
+                //keine passende Unit gefunden
+                return IngredientAmount(line.substring(i,line.length),number,"")
+            }
+        }
+        throw Exception("keine Zahl erkannt")
+    }
+
+    /**
+     * this method returns the number represented by the String, and returns number <= 0 if error
+     */
+    fun parseNumber(number: String): Double{
+        val withoutWS = number.replace(" ","")
+        try{
+            //number repräsentiert eine Zahl
+            return withoutWS.toDouble()
+        } catch (e: Exception){}
+
+        try{
+            if (withoutWS.dropWhile(::isDigit).dropWhile{!it.isDigit()}.dropWhile(::isDigit).length == 0){
+                val beforeTrenner = withoutWS.takeWhile(::isDigit).toInt()
+                val afterTrenner = withoutWS.takeLastWhile(::isDigit).toInt()
+                if (beforeTrenner <= 0 || afterTrenner <= 0) return 0.0
+                val trenner = withoutWS.dropWhile(::isDigit).takeWhile{!it.isDigit()}
+                when (trenner){
+                    "," -> return withoutWS.replace(",",".").toDouble()
+                    "/" -> return beforeTrenner.toDouble() / afterTrenner
+                    "-" -> return (beforeTrenner.toDouble() +  afterTrenner) / 2
+                    "bis" -> return (beforeTrenner.toDouble() +  afterTrenner) / 2
+                    else -> return 0.0
+                }
+            }
+        } catch (e: Exception){}
+        return 0.0
     }
 }

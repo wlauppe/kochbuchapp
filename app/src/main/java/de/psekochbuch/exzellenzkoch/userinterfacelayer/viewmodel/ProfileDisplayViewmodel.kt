@@ -24,7 +24,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
 
 
     //User Information LiveData
-    var user  = MutableLiveData(User(""))
+    var user  = MutableLiveData<User>()
         var userID: MutableLiveData<String> = MutableLiveData("")
         var userDesc : MutableLiveData<String> = MutableLiveData("")
         var userImg : MutableLiveData<String> = MutableLiveData("")

@@ -2,7 +2,9 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +27,7 @@ class FavouriteAdapter(var viewModel: FavouriteViewmodel, context: Context)
     var id : Int? = null
     var context  = context
 
-    var favouriteRecipes = listOf<PrivateRecipe>()
+    var favouriteRecipes = listOf<PublicRecipe>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -62,10 +64,12 @@ class FavouriteAdapter(var viewModel: FavouriteViewmodel, context: Context)
         holder.favouriteItemBinding.favouriteLayoutItem.setOnClickListener {
             //sending the recipename to the recipe display fragment
             navController!!.navigate(FavouriteFragmentDirections.actionFavouriteFragmentToRecipeDisplayFragment().setRecipeID(favouriteRecipes[position].recipeId))
-
         }
         holder.favouriteItemBinding.buttonRemoveRecipeFromFavourites.setOnClickListener{
             viewModel.deleteRecipeFromFavourites(favouriteRecipes[position].recipeId)
+            holder.itemView.visibility = View.GONE
+            notifyItemRangeChanged(position, favouriteRecipes.size)
+            notifyDataSetChanged()
         }
     }
 

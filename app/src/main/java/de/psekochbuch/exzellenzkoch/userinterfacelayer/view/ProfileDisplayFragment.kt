@@ -42,6 +42,7 @@ class ProfileDisplayFragment : Fragment() {
         binding.profileDisplayViewmodel = viewModel
         binding.profileDisplayRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.lifecycleOwner = this
 
         val feedAdapter = ProfileDisplayAdapter(viewModel, requireContext())
 
@@ -57,9 +58,9 @@ class ProfileDisplayFragment : Fragment() {
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
 
-        viewModel.user.observe(viewLifecycleOwner, Observer { user ->
-            viewModel.userDesc.postValue(user.description)
-            viewModel.userID.postValue(user.userId)
+        viewModel.user.observe(this.viewLifecycleOwner, Observer { user ->
+            binding.textViewProfileDisplayDescription.text = user.description
+            binding.textViewProfileDisplayFragmentTitle.text = user.userId
 
 
             val imageView = binding.imageView2

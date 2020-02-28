@@ -20,7 +20,7 @@ class PublicRecipeDtoEntityMapperTest{
         val publicRecipe = PublicRecipe(1,
             "titel",
             "ingredientstext",
-            listOf(IngredientChapter(2,"chapter2", listOf(IngredientAmount("ingredient",3.14159,Unit.Prise)))),
+            listOf(IngredientChapter(2,"chapter2", listOf(IngredientAmount("ingredient",3.14159,"")))),
             listOf("tag1","tag2")
         )
 
@@ -50,6 +50,6 @@ class PublicRecipeDtoEntityMapperTest{
 
         val convertedrecipe = mapper.toEntity(publicRecipeDto)
 
-        assertEquals(convertedrecipe.ingredientChapter.last().ingredients.last().unit.getText(),"")
+        assertEquals(convertedrecipe.ingredientChapter.last().ingredients.last().unit,"")
     }
 }

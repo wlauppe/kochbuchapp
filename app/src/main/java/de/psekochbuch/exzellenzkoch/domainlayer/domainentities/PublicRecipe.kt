@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
+import java.lang.Exception
 import java.util.*
 
 
@@ -73,7 +74,7 @@ class PublicRecipe(
             newtext += chapter.chapter + "\n"
             for (ingredient:IngredientAmount in chapter.ingredients) {
                 ingredient.quantity = newPortions * ingredient.quantity / portions
-                newtext += ingredient.quantity.toString() + " " + ingredient.unit + ingredient.ingredient + "\n"
+                newtext += ingredient.quantity.toString() + " " + ingredient.unit + " " + ingredient.ingredient + "\n"
             }
         }
         ingredientsText = newtext
@@ -85,5 +86,38 @@ class PublicRecipe(
     }
     fun scaleDown(){
         scale(portions - 1)
+    }
+
+    override fun equals(other: Any?): Boolean {
+        val recipe: PublicRecipe
+        try{
+            recipe = other as PublicRecipe
+        } catch (e: Exception){
+            return false
+        }
+        return recipeId == recipe.recipeId && //sameRecipeid
+            title.equals(recipe.title) && //sameTitle
+            ingredientsText.equals(recipe.ingredientsText) &&//sameIngredientsText
+            ingredientChapter.size == recipe.ingredientChapter.size && //sameNumberOfIngredientChapters
+            ingredientChapter.zip(recipe.ingredientChapter).map {
+                it.first.chapter.equals(it.second.chapter) && //sameChapter
+            //    it.first.chapterId == it.second.chapterId && //sameId
+                it.first.ingredients.size == it.second.ingredients.size && //sameNumberOfIngredientAmount
+                it.first.ingredients.zip(it.second.ingredients).map{
+                    it.first.quantity == it.second.quantity && //sameQuantity
+                    it.first.ingredient.equals(it.second.ingredient) && //sameIngredient
+                    it.first.unit.equals(it.second.unit) //sameUnit
+                }.foldRight(true,{a:Boolean,b:Boolean->a&&b}) //sameIngredientAmount
+            }.foldRight(true,{a:Boolean,b:Boolean->a&&b}) && //sameIngredientChapter
+            tags.size == recipe.tags.size && //sameNumberOfTags
+            tags.zip(recipe.tags).map {it.first.equals(it.second)}.foldRight(true,{a:Boolean,b:Boolean->a&&b}) && //sameTags
+            preparation.equals(recipe.preparation) && //samePreparation
+            imgUrl.equals(recipe.imgUrl) && //sameImgUrl
+            cookingTime == recipe.cookingTime && //sameCookingTime
+            preparationTime == recipe.preparationTime && //samePreparationTime
+            user.description.equals(recipe.user.description) && user.imgUrl.equals(recipe.user.imgUrl) && user.userId.equals(recipe.user.userId) && //sameUser
+            getDateAsLong() == recipe.getDateAsLong() && //sameCreationTimeStamp
+            portions == recipe.portions && //samePortions
+            avgRating == recipe.avgRating //sameRating
     }
 }
