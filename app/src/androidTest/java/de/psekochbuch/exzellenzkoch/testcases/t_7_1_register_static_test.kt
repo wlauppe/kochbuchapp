@@ -4,12 +4,14 @@ package de.psekochbuch.exzellenzkoch.testcases
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
@@ -19,6 +21,8 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -30,6 +34,16 @@ class t_7_1_register_static_test {
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
+
+    @Before
+    fun registerIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
 
     @Test
     fun t_7_register_static_test() {
@@ -57,7 +71,7 @@ class t_7_1_register_static_test {
         )
         appCompatImageButton.perform(click())
 
-        Thread.sleep(200) //must
+      //  Thread.sleep(200) //must
 
         val navigationMenuItemView = onView(
             allOf(
@@ -78,7 +92,7 @@ class t_7_1_register_static_test {
 
 
 
-        Thread.sleep(200) //must
+     //   Thread.sleep(200) //must
 
         val appCompatButton = onView(
             allOf(
@@ -98,7 +112,7 @@ class t_7_1_register_static_test {
         )
         appCompatButton.perform(click())
 
-        Thread.sleep(200) //must
+      //  Thread.sleep(200) //must
 
         val textView = onView(
             allOf(
@@ -114,7 +128,7 @@ class t_7_1_register_static_test {
             )
         )
         textView.check(matches(withText("Gib deine E-Mail Adresse ein")))
-        Thread.sleep(200) //must
+    //    Thread.sleep(200) //must
 
         val editText = onView(
             allOf(
@@ -131,7 +145,7 @@ class t_7_1_register_static_test {
         )
         editText.check(matches(isDisplayed()))
 
-        Thread.sleep(200) //must
+       // Thread.sleep(200) //must
 
         val textView2 = onView(
             allOf(
@@ -149,7 +163,7 @@ class t_7_1_register_static_test {
         )
         textView2.check(matches(withText("Gib dir einen Nutzernamen (optional)")))
 
-        Thread.sleep(200) //must
+      //  Thread.sleep(200) //must
 
         val editText2 = onView(
             allOf(
@@ -166,7 +180,7 @@ class t_7_1_register_static_test {
         )
         editText2.check(matches(isDisplayed()))
 
-        Thread.sleep(200) //must
+       // Thread.sleep(200) //must
 
         val textView3 = onView(
             allOf(
@@ -183,7 +197,7 @@ class t_7_1_register_static_test {
         )
         textView3.check(matches(withText("Gib dein Passwort ein")))
 
-        Thread.sleep(200) //must
+       // Thread.sleep(200) //must
 
         val editText3 = onView(
             allOf(

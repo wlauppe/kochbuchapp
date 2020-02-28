@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.LoginFragmentBinding
@@ -43,6 +44,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         checkIsLogin(navController)
 
         binding.buttonLoginFragmentLogin.setOnClickListener {
+            EspressoIdlingResource.increment() //For Espresso tests
             setLoadingScreen(false)
             val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
@@ -61,6 +63,11 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
                                 userId
                             )
                         )
+
+
+                        EspressoIdlingResource.decrement()
+
+
                     } else {
                         setLoadingScreen(true)
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()

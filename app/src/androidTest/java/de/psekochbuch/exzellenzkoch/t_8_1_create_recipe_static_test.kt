@@ -317,7 +317,8 @@ class t_8_1_create_recipe_static_test {
         )
         appCompatEditText9.perform(scrollTo(), replaceText("Karotten"), closeSoftKeyboard())
 
-        val appCompatCheckBox = onView(
+        /*
+       val appCompatCheckBox = onView(
             allOf(
                 withId(R.id.checkBox_publish_create_recipe_fragment), withText("veröffentlichen"),
                 childAtPosition(
@@ -330,6 +331,11 @@ class t_8_1_create_recipe_static_test {
             )
         )
         appCompatCheckBox.perform(scrollTo(), click())
+
+
+         */
+
+
 
 
 
@@ -351,29 +357,13 @@ class t_8_1_create_recipe_static_test {
         )
         appCompatButton2.perform(scrollTo(), click())
 
-        Thread.sleep(500)
 
-        val appCompatImageButton2 = onView(
-            allOf(
-                withContentDescription("Nach oben"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton2.perform(click())
+        pressBack()
+
+
 
         Thread.sleep(5000)
 
-        pressBack()
 
         @AfterClass
         fun tearDown(){

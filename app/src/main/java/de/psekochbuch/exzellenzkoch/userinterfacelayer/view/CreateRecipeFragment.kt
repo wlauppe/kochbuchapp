@@ -160,6 +160,8 @@ class CreateRecipeFragment : Fragment() {
 
         }
         binding.checkBoxPublishCreateRecipeFragment.setOnClickListener() {
+
+
             view -> if (view is CheckBox) {
             val checked: Boolean = view.isChecked
             if (checked) {

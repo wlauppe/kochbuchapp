@@ -98,7 +98,9 @@ class ApiServiceBuilder(firebaseToken:String?) {
                     "Authorization", token
                 )
                 val newRequest: Request = builder.build()
-                return chain.proceed(newRequest)
+
+                    return chain.proceed(newRequest)
+
             }
         }).addInterceptor(logging)
             .build()

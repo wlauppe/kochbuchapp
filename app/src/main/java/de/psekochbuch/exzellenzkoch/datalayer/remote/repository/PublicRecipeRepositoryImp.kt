@@ -187,9 +187,10 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
 
                 //First upload the Image.
-                    val file : File = File(publicRecipe.imgUrl)
-                    val body = RequestBody.create(MediaType.parse("*/*"), file)
-                    val multi = MultipartBody.Part.createFormData("file", file.name, body)
+
+                //    val file : File = File(publicRecipe.imgUrl)
+                  ////val body = RequestBody.create(MediaType.parse("*/*"), file)
+                 /*   val multi = MultipartBody.Part.createFormData("file", file.name, body)
                     val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
                     val response = fileApiService.addImage(multi)
                     //TODO Baseurl hinzufügen eventuell in den Mapper.
@@ -197,12 +198,15 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                     //speichere filepath in recipe
                     //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
                     publicRecipe.imgUrl= BuildConfig.IMG_PREFIX+remoteUrl
-                    val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
+                  */  val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
                     returnId = returnDto.id
+
+
 
                 }
                 catch (error : Throwable) {
                     throw NetworkError("Unable to publish recipe", error)
+                    error.printStackTrace()
                 }
 
             }
