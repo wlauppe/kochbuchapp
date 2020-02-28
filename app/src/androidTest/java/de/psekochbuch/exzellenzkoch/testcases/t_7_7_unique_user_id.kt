@@ -1,17 +1,18 @@
-package de.psekochbuch.exzellenzkoch
+package de.psekochbuch.exzellenzkoch.testcases
 
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
+import de.psekochbuch.exzellenzkoch.MainActivity
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -26,28 +27,28 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_5_delete_user_test {
+class t_7_7_unique_user_id {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-
     @Before
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+        AuthentificationImpl.logout()
+        AuthentificationImpl.userDelete()
     }
 
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+        AuthentificationImpl.userDelete()
+        AuthentificationImpl.logout()
     }
-    @Before
-    fun setup(){
 
-        if(AuthentificationImpl.isLogIn()){
-            AuthentificationImpl.logout()
-        }
+    @Test
+    fun t_7_7_unique_user_id() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -114,39 +115,10 @@ class t_7_5_delete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("thommyy@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("tempo@muster.de"), closeSoftKeyboard())
+
 
         val appCompatEditText2 = onView(
-            allOf(
-                withId(R.id.editText_register_usernid_input),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    4
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText2.perform(replaceText(""), closeSoftKeyboard())
-
-        val appCompatEditText3 = onView(
-            allOf(
-                withId(R.id.editText_register_usernid_input),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    4
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText3.perform(pressImeActionButton())
-
-        val appCompatEditText4 = onView(
             allOf(
                 withId(R.id.editText_register_password_input),
                 childAtPosition(
@@ -159,22 +131,8 @@ class t_7_5_delete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditText4.perform(replaceText("123456"), closeSoftKeyboard())
+        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
-        val appCompatEditText5 = onView(
-            allOf(
-                withId(R.id.editText_register_password_input), withText("123456"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    6
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText5.perform(pressImeActionButton())
 
         val appCompatButton2 = onView(
             allOf(
@@ -191,17 +149,33 @@ class t_7_5_delete_user_test {
         )
         appCompatButton2.perform(click())
 
-        Thread.sleep(1000)
 
+        Thread.sleep(500)
+        val appCompatEditText3 = onView(
+            allOf(
+                withId(R.id.textView_enter_userID),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout2),
+                        childAtPosition(
+                            withClassName(`is`("android.widget.ScrollView")),
+                            0
+                        )
+                    ),
+                    1
+                )
+            )
+        )
+        appCompatEditText3.perform(
+            scrollTo(),
+            replaceText("eindeutigeindeutig"),
+            closeSoftKeyboard()
+        )
 
-    }
-    @Test
-    fun t_7_5_delete_user_test() {
-        Thread.sleep(1000)
 
         val appCompatButton3 = onView(
             allOf(
-                withId(R.id.button_delete_profile), withText("Profil löschen"),
+                withId(R.id.button_save_profile_changes), withText("Speichern"),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -210,89 +184,15 @@ class t_7_5_delete_user_test {
                             0
                         )
                     ),
-                    3
+                    2
                 ),
                 isDisplayed()
             )
         )
         appCompatButton3.perform(click())
 
-        val appCompatEditText6 = onView(
-            allOf(
-                withId(R.id.editText_register_email_input),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    2
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText6.perform(replaceText("thommy@muster.de"), closeSoftKeyboard())
-
-        pressBack()
-
-        val appCompatEditText7 = onView(
-            allOf(
-                withId(R.id.editText_register_password_input),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    6
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText7.perform(replaceText("123456"), closeSoftKeyboard())
-
-        val appCompatEditText8 = onView(
-            allOf(
-                withId(R.id.editText_register_password_input), withText("123456"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    6
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText8.perform(pressImeActionButton())
-
-        val appCompatButton4 = onView(
-            allOf(
-                withId(R.id.button_register_fragment_register), withText("Registrieren"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    7
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatButton4.perform(click())
-
-        val textView = onView(
-            allOf(
-                withId(R.id.textView_register_fragment_title), withText("Registrieren"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        textView.check(matches(withText("Registrieren")))
+        //Der Nutzer hat sich registriert und hat sich eine id zugewiesen
+        //zu testen bleibt, ob die ID eindeutig ist
     }
 
     private fun childAtPosition(

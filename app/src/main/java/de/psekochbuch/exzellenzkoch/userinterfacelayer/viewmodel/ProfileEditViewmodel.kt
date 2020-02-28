@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import kotlinx.coroutines.launch
@@ -28,8 +29,10 @@ class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
      * @param id: The userId which connects to the user
      */
     fun deleteUser(id: String) {
+        AuthentificationImpl.userDelete()
+        AuthentificationImpl.logout()
 
-
+        //TODO Test die Rezepte, die der nutzer veröffentlicht hat müssen noch privat gesetzt werden
     }
 
     /**

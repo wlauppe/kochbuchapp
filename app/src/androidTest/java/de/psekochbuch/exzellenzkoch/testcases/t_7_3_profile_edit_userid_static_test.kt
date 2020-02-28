@@ -206,7 +206,7 @@ class t_7_3_profile_edit_userid_static_test {
 
 
         //Transision on target device could be turned on therefore little sleep time
-        //Thread.sleep(200)
+        Thread.sleep(200)
 
 
 

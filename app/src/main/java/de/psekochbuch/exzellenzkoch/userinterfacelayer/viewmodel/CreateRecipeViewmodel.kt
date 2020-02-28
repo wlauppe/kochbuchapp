@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
@@ -98,11 +99,13 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      * @param id The id for the corresponding recipe
      */
     fun setRecipeByID(id: Int) {
+        EspressoIdlingResource.increment()
         recipeID = id
         if(id != 0) {
             recipe = privateRepo.getPrivateRecipe(recipeID) as MutableLiveData<PrivateRecipe>
 
         }
+        EspressoIdlingResource.decrement()
 }
 
     /**
@@ -116,6 +119,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
      */
 
     fun publishRecipe() {
+        EspressoIdlingResource.increment()
         val loggedIn = AuthentificationImpl.isLogIn()
         if(loggedIn) {
             _snackbarMessage.value = "Beim Speichern wird Rezept als öffentlich verfügbar gemacht"
@@ -124,6 +128,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             _snackbarMessage.value = "Fehler: Sie sind nicht mit einem Account eingeloggt."
         }
         _showSnackbarEvent.value = true
+        EspressoIdlingResource.decrement()
     }
 
     fun dontPublishRecipe() {
@@ -132,6 +137,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
     }
 
         fun saveRecipe(context: Context) {
+            EspressoIdlingResource.increment()
             if(tagCheckBoxPublish.value == true) {
                 _snackbarMessage.value = "Rezept wird gespeichert und veröffentlicht"
             }
@@ -194,10 +200,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 
             }
         }
+            EspressoIdlingResource.decrement()
 
     }
 
     fun getCheckedTags():List<String>{
+        EspressoIdlingResource.increment()
         var list = mutableListOf<String>()
 
        if(this.tagCheckBoxVegan.value!!){
@@ -221,6 +229,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             list.add("sweet")
             Log.i(Tag, "süß ist enthalten" )
         }
+        EspressoIdlingResource.decrement()
         return list.toList()
     }
 
