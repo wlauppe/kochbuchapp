@@ -3,7 +3,6 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.InjectorUtils
-import de.psekochbuch.exzellenzkoch.PAGE_SIZE
 import de.psekochbuch.exzellenzkoch.databinding.FeedBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.FeedAdapter
@@ -31,7 +29,7 @@ class FeedFragment : Fragment() {
     /**
      * Global variables used for pagination in RecyclerView
      */
-    private var pageLimit = PAGE_SIZE
+    private var pageLimit = 100
     private var isLoading: Boolean = false
     private lateinit var feedAdapter : FeedAdapter
     private lateinit var layoutManager: LinearLayoutManager
@@ -64,24 +62,17 @@ class FeedFragment : Fragment() {
 
         binding.recyclerViewFeed.setHasFixedSize(true)
 
-        // call the getPage
-        getPage()
-
         // set scroll listener for pagination
         binding.recyclerViewFeed.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-               if (dy > 0) {
+                if (dy > 0) {
                     val visibleItemCount = layoutManager.itemCount
                     val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
                     val recyclerViewTotalSize = feedAdapter.itemCount
 
-                Log.i("", "1pagenr ist: " + viewModel.pageNumber)
                     if (!isLoading) {
                         if (visibleItemCount + pastVisibleItem >= recyclerViewTotalSize) {
                             viewModel.pageNumber++
-                            viewModel.loadNextPage()
-                            feedAdapter.notifyDataSetChanged()
-                            Log.i("", "2pagenr ist: " + viewModel.pageNumber)
                         }
                     }
                 }
@@ -94,7 +85,7 @@ class FeedFragment : Fragment() {
     }
 
     /**
-     * Method to get the currently shown page of the RecyclerView and load the next one if needed
+     * Method to get the currently shown page of the RecyclerView and load another one if needed
      */
     private fun getPage() {
         isLoading = true
@@ -110,8 +101,6 @@ class FeedFragment : Fragment() {
             } else {
                 feedAdapter = FeedAdapter(classViewModel, requireContext())
             }
-            isLoading = false;
-            classBinding.feedProgressBar.visibility = View.GONE
         }, 5000)
     }
 

@@ -60,10 +60,5 @@
             android:paddingRight="8dp"
             android:layout_marginTop="10dp"/>
 
-        <ProgressBar
-            android:id="@+id/searchlist_progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"/>
-
     </LinearLayout>
 </layout>
