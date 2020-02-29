@@ -164,7 +164,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //Coroutine Saving in Room Database
         viewModelScope.launch {
             try {
+                EspressoIdlingResource.increment()
                 privateRepo.insertPrivateRecipe(newPrivateRecipe)
+                EspressoIdlingResource.decrement()
             } catch (error: Error) {
                 _snackbarMessage.value = error.message
                 Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
@@ -182,7 +184,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //Coroutine
             viewModelScope.launch {
                 try {
+                    EspressoIdlingResource.increment()
                    val newId = publicRepo.publishRecipe(convertedPublicRecipe)
+                    EspressoIdlingResource.decrement()
 
                     //muss jetzt noch mal das private Recipe mit der Id unter der das Rezept gepublished
                     //wurde speichern.
@@ -191,7 +195,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                         PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
                             resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, newId)
                     //Coroutine Saving in Room Database
+                    EspressoIdlingResource.increment()
                             privateRepo.insertPrivateRecipe(newPrivateRecipe)
+                    EspressoIdlingResource.decrement()
 
                 } catch (error: Error) {
                     _snackbarMessage.value = error.message

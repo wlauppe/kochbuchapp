@@ -77,7 +77,7 @@ class CreateRecipeFragment : Fragment() {
 
 
         // set up observer values for the ViewModel attributes
-        viewModel.recipe.observe(this, Observer {
+        viewModel.recipe.observe(viewLifecycleOwner, Observer {
             recipe -> viewModel.setTags(recipe.tags)
             setImage(recipe.imgUrl)
             setPreparation(recipe.preparation)
@@ -179,7 +179,7 @@ class CreateRecipeFragment : Fragment() {
         val navController: NavController = findNavController()
 
         //Snackbar, die Fehlermeldungen anzeigt.
-        viewModel.showSnackBarEvent.observe(this, Observer {
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it == true) { // Observed state is true.
                 Snackbar.make(view!!,
                     //getString(R.string.cleared_message),
@@ -399,6 +399,12 @@ class CreateRecipeFragment : Fragment() {
             viewModelTemp!!.tagCheckBoxSavoury.value = true
             viewModelTemp?.tagCheckBoxSavoury   = MutableLiveData(true)
         }
+    }
+
+    override fun onPause() {
+        viewModelTemp?.saveRecipe(requireContext())
+        super.onPause()
+
     }
 
 

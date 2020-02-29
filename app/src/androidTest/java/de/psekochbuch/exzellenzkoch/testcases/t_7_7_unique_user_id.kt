@@ -213,3 +213,8 @@ class t_7_7_unique_user_id {
         }
     }
 }
+
+/*
+T 7_7 schlägt fehl (Could not connect to server)
+
+ */

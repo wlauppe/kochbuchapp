@@ -39,9 +39,12 @@ class t_7_6_delete_profile_private_recipe_test {
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
 
+
+
     @Before
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+        AuthentificationImpl.logout()
 
 
         val appCompatImageButton = onView(
@@ -112,7 +115,6 @@ class t_7_6_delete_profile_private_recipe_test {
         )
         appCompatEditText.perform(replaceText("temp@muster.de"), closeSoftKeyboard())
 
-        pressBack()
 
         val appCompatEditText2 = onView(
             allOf(
@@ -129,7 +131,6 @@ class t_7_6_delete_profile_private_recipe_test {
         )
         appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
-        pressBack()
 
         val appCompatButton2 = onView(
             allOf(
@@ -438,3 +439,14 @@ class t_7_6_delete_profile_private_recipe_test {
         }
     }
 }
+/*
+T 7_6 Der Nutzer löscht sein profil und seine erstellten Rezepte, die veröffentlicht waren
+sollten nun nicht mehr als veröffentlicht bei dem Nutzer angezeigt werden. -> Das Häckchen
+soll nicht mehr gesetzt werden. Idee: beim Löschen des Profils wird für jedes Private Rezepte
+ das Published Recipe Attribut auf 0 gesetzt.
+ */
+
+/*
+Schlägt fehl. Der nutzer kann sich nicht mit den daten registrieren, oder einloggen.
+->Authentification broken ?
+ */
