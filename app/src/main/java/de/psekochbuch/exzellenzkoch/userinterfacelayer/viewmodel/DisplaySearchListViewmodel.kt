@@ -15,7 +15,7 @@ import java.util.*
  */
 class DisplaySearchListViewmodel(repo:PublicRecipeRepository) : ViewModel() {
     val TAG = "DisplaySearchListVM"
-
+    var pageNumber = 1
 
 
     /*Das ViewModel sollte eine Liste der Rezepte verwalten Der Adapter zeigt nur die Namen und besitzt
