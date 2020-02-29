@@ -3,6 +3,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.BuildConfig
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.PAGE_SIZE
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
@@ -74,13 +75,16 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     //Dies ist die normale Funktion die Search benutzt.
     @Throws
     override fun getPublicRecipes(page:Int): LiveData<List<PublicRecipe>> {
+
         try {
             Log.w(TAG, "getPublicRecipes() wird aufgerufen")
+
             val lData = liveData(Dispatchers.IO, 1000) {
                 Log.w(TAG, "jetzt bin ich im Coroutine Scope")
                 try {
                     val dtoList =
                         recipeApiService.search(null, null, null, null, page, PAGE_SIZE)
+
                     //if (!response.isSuccessful) throw error("response not successful")
                     dtoList.let {
                         val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
@@ -90,7 +94,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                  catch(error : Throwable) {
                      emit(listOf(PublicRecipe(0, "Error Fetching Recipes!", imgUrl = "file:///android_asset/exampleimages/error.png")))
                  }
-
             }
             return lData
         }

@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch
+package de.psekochbuch.exzellenzkoch.testcases
 
 
 import android.view.View
@@ -9,6 +9,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.MainActivity
+import de.psekochbuch.exzellenzkoch.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`

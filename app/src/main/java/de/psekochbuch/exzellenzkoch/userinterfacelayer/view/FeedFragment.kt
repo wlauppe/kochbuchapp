@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.databinding.FeedBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -49,6 +50,7 @@ class FeedFragment : Fragment() {
         feedAdapter = FeedAdapter(viewModel, requireContext())
         binding.recyclerViewFeed.adapter = feedAdapter
         // call the getPage from ViewModel
+
         getPage()
 
         // observe the recipe list

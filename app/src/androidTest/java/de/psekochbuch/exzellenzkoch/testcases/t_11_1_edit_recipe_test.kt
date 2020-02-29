@@ -30,6 +30,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class t_11_1_edit_recipe_test {
 
+
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
@@ -408,7 +409,7 @@ class t_11_1_edit_recipe_test {
             )
         )
         textView.check(ViewAssertions.matches(ViewMatchers.withText("NeuesRezept")))
-
+ //TODO check ob rezept serverseitig existiert und aktualisiert wurde
     }
 
     private fun childAtPosition(

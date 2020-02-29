@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 
 /**
@@ -11,5 +12,10 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
  * @param repository: The repository through which the public recipes are handled.
  */
 class FeedViewModel(repository: PublicRecipeRepository): ViewModel() {
+
+
     var pageNumber:Int = 1
-    var recipes = repository.getPublicRecipes(pageNumber) }
+
+    var recipes = repository.getPublicRecipes(pageNumber)
+
+}
