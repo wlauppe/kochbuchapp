@@ -140,6 +140,6 @@ private fun <T> LiveData<T>.blockingObserve(): T? {
         latch.countDown()
     }
 
-    latch.await(2, TimeUnit.SECONDS)
+    latch.await()
     return value
 }

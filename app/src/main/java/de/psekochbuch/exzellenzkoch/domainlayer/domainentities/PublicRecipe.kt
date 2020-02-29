@@ -12,7 +12,7 @@ class PublicRecipe(
     /**
      * the title of the recipe
      */
-    val title: String = "",
+    var title: String = "",
     /**
      * the ingredients of the recipe as text
      */
@@ -45,7 +45,7 @@ class PublicRecipe(
     /**
      * the user who created the recipe
      */
-    val user:User = User("Musterman"),
+    var user:User = User("Musterman"),
     /**
      * the time the recipe was published
      */
