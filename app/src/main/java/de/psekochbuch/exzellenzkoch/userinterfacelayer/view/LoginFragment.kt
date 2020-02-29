@@ -44,7 +44,6 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
         checkIsLogin(navController)
 
         binding.buttonLoginFragmentLogin.setOnClickListener {
-            EspressoIdlingResource.increment() //For Espresso tests
             setLoadingScreen(false)
             val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
@@ -63,9 +62,6 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
                                 userId
                             )
                         )
-
-
-                        EspressoIdlingResource.decrement()
 
 
                     } else {
