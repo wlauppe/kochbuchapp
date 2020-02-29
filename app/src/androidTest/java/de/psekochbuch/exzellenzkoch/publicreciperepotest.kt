@@ -39,15 +39,15 @@ class publicreciperepotest{
 
         assertEquals(authResult, AuthenticationResult.LOGINSUCCESS)
 
+        val fromrepo = repo.getPublicRecipe(2).blockingObserve()!!
+        fromrepo.user = User(AuthentificationImpl.getUserId())
 
-        val recipe = PublicRecipe(123455324,"titeellll","soooooo",listOf(IngredientChapter(1,"zutagen",listOf(
-            IngredientAmount("halal",2.0,"schweine")
-        ))),listOf("tag1"),"prep","jf",3,3, User(AuthentificationImpl.getUserId()))
+        val titlewithoutnumber = "Testrunde 2, rezept: "
 
-        val fromrepo = repo.getPublicRecipe(1).blockingObserve()
-        1
-        runBlocking { repo.publishRecipe(recipe)}
-
+        runBlocking { for (i in 0 .. 1000){
+            fromrepo.title = titlewithoutnumber + i.toString()
+            repo.publishRecipe(fromrepo)}
+        }
     }
 }
 
@@ -60,6 +60,6 @@ private fun <T> LiveData<T>.blockingObserve(): T? {
         latch.countDown()
     }
 
-    latch.await(2, TimeUnit.SECONDS)
+    latch.await()
     return value
 }
