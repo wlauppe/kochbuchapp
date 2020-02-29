@@ -1,11 +1,14 @@
 package de.psekochbuch.exzellenzkoch
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import com.google.firebase.FirebaseApp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import kotlinx.coroutines.runBlocking
@@ -37,9 +40,26 @@ class publicreciperepotest{
         assertEquals(authResult, AuthenticationResult.LOGINSUCCESS)
 
 
-        val recipe = PublicRecipe(1,"titeellll","soooooo",listOf(),listOf(),"prep","",3,3, User(AuthentificationImpl.getUserId()))
+        val recipe = PublicRecipe(123455324,"titeellll","soooooo",listOf(IngredientChapter(1,"zutagen",listOf(
+            IngredientAmount("halal",2.0,"schweine")
+        ))),listOf("tag1"),"prep","jf",3,3, User(AuthentificationImpl.getUserId()))
 
+        val fromrepo = repo.getPublicRecipe(1).blockingObserve()
+        1
         runBlocking { repo.publishRecipe(recipe)}
 
     }
+}
+
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever{
+        value = it
+        latch.countDown()
+    }
+
+    latch.await(2, TimeUnit.SECONDS)
+    return value
 }
