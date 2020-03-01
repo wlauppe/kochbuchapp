@@ -1,7 +1,7 @@
 package de.psekochbuch.exzellenzkoch.testcases
 
 
-import android.util.Log
+import android.app.Application
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
@@ -15,10 +15,7 @@ import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
-import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileEditViewmodel
-import kotlinx.coroutines.runBlocking
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -33,29 +30,30 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_3_profile_edit_userid_static_test {
-
-    var TAG = "profileedituseridstatictest"
-
+class t_11_3_delete_private_recipe_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-
     @Before
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+
     }
 
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+        var repo = PrivateRecipeRepositoryImp(Application())
+        repo.deleteAll()
     }
 
-
     @Test
-    fun t_7_2_profile_edit_static_test() {
+    fun t_11_3_delete_private_recipe_test() {
+
+
+
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -84,135 +82,16 @@ class t_7_3_profile_edit_userid_static_test {
                             0
                         )
                     ),
-                    3
+                    4
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-
-        Log.w(TAG, "in das LOGINFRAGMENT")
-        //Das Problem ist, dass der User token gesetzt ist und direkt angemeldet ist
-
-        //Falls der User eingeloggt ist -> überspringe
-        if(!AuthentificationImpl.isLogIn()) {
-            val appCompatEditText = onView(
-                allOf(
-                    withId(R.id.editText_login_fragment_email),
-                    childAtPosition(
-                        allOf(
-                            withId(R.id.constraintLayout),
-                            childAtPosition(
-                                withId(R.id.nav_host_fragment),
-                                0
-                            )
-                        ),
-                        1
-                    ),
-                    isDisplayed()
-                )
-            )
-            appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
-
-
-            Log.w(TAG, "max.musterman@muster.de")
-            val appCompatEditText2 = onView(
-                allOf(
-                    withId(R.id.editText_login_fragment_password),
-                    childAtPosition(
-                        allOf(
-                            withId(R.id.constraintLayout),
-                            childAtPosition(
-                                withId(R.id.nav_host_fragment),
-                                0
-                            )
-                        ),
-                        3
-                    ),
-                    isDisplayed()
-                )
-            )
-            appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
-            //Thread.sleep(1000)
-
-
-            val appCompatButton = onView(
-                allOf(
-                    withId(R.id.button_login_fragment_login), withText("Einloggen"),
-                    childAtPosition(
-                        allOf(
-                            withId(R.id.constraintLayout),
-                            childAtPosition(
-                                withId(R.id.nav_host_fragment),
-                                0
-                            )
-                        ),
-                        4
-                    ),
-                    isDisplayed()
-                )
-            )
-            appCompatButton.perform(click())
-
-            // Thread.sleep(1000)
-        }
-
-
-        //App muss warten, bis fragment geladen ist
-        var name = ""
-        var vm = ProfileEditViewmodel(UserRepositoryImp())
-        runBlocking { name = vm.user.value?.userId.toString() }
-
-      //  Thread.sleep(1000)
-
-
-        val appCompatButton2 = onView(
+        val appCompatButton = onView(
             allOf(
-                withId(R.id.button_profile_display_fragment_edit_profile),
-                withText("Profil Bearbeiten"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        5
-                    ),
-                    0
-                )
-            )
-        )
-        appCompatButton2.perform(scrollTo(), click())
-
-        // Thread.sleep(1000)
-
-
-
-        val appCompatEditText8 = onView(
-            allOf(
-                withId(R.id.textView_enter_userID),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.linearLayout2),
-                        childAtPosition(
-                            withClassName(`is`("android.widget.ScrollView")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText8.perform(closeSoftKeyboard())
-
-
-        //Transision on target device could be turned on therefore little sleep time
-        Thread.sleep(200)
-
-
-
-        val appCompatButton5 = onView(
-            allOf(
-                withId(R.id.button_save_profile_changes), withText("Speichern"),
+                withId(R.id.button_create_recipe), withText("Neues Rezept erstellen"),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -221,29 +100,108 @@ class t_7_3_profile_edit_userid_static_test {
                             0
                         )
                     ),
-                    2
+                    1
                 ),
                 isDisplayed()
             )
         )
-        appCompatButton5.perform(click())
+        appCompatButton.perform(click())
 
-        // Thread.sleep(1000)
-
-        val textView = onView(
+        val appCompatEditText = onView(
             allOf(
-                withId(R.id.textView_profile_display_description),
+                withId(R.id.editText_recipe_title_create_recipe_fragment),
                 childAtPosition(
                     childAtPosition(
-                        IsInstanceOf.instanceOf(android.widget.ScrollView::class.java),
+                        withClassName(`is`("android.widget.ScrollView")),
                         0
+                    ),
+                    1
+                )
+            )
+        )
+        appCompatEditText.perform(scrollTo(), replaceText("Titel"), closeSoftKeyboard())
+
+
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
+                    ),
+                    10
+                )
+            )
+        )
+        appCompatButton2.perform(scrollTo(), click())
+
+        val appCompatImageButton2 = onView(
+            allOf(
+                withContentDescription("Nach oben"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.toolbar),
+                        childAtPosition(
+                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatImageButton2.perform(click())
+
+        val appCompatImageButton3 = onView(
+            allOf(
+                withId(R.id.button_remove_recipe),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.recipe_list_layout_item),
+                        childAtPosition(
+                            withId(R.id.recyclerView_recipe_list_fragment),
+                            0
+                        )
                     ),
                     2
                 ),
                 isDisplayed()
             )
         )
-        textView.check(matches(isDisplayed()))
+        appCompatImageButton3.perform(click())
+
+        val viewGroup = onView(
+            allOf(
+                withId(R.id.constraintLayout),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.nav_host_fragment),
+                        childAtPosition(
+                            IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
+                            0
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        viewGroup.check(matches(isDisplayed()))
+
+        var repo = PrivateRecipeRepositoryImp(Application())
+        
+        repo.deleteAll()
+        var recipes = repo.getPrivateRecipes()
+        if(recipes.value != null){
+            for(recipe in recipes.value!!){
+                    if(recipe.title == "Titel"){
+                        assert(false)
+                    }
+            }
+        }
+        assert(true)
     }
 
     private fun childAtPosition(
