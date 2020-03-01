@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
@@ -11,7 +12,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentifica
  * The Login ViewModel handles the information for the LoginFragment.
  * @param authentification: The interface through which the user authenfication methods are handled.
  */
-class LoginViewModel(authentification: Authentification) : ViewModel() {
+class LoginViewModel() : ViewModel() {
 
 
     var email: MutableLiveData<String> = MutableLiveData("")
@@ -29,6 +30,7 @@ class LoginViewModel(authentification: Authentification) : ViewModel() {
      *
      */
     fun login(updateUi: (String, AuthenticationResult, String?) -> Unit) {
+        EspressoIdlingResource.increment()
 
         val em = email.value
         val pw = password.value
@@ -46,7 +48,7 @@ class LoginViewModel(authentification: Authentification) : ViewModel() {
             updateUi("", AuthenticationResult.LOGINFAILED, "email or password are empty")
         }
 
-
+EspressoIdlingResource.decrement()
     }
 
     /**
