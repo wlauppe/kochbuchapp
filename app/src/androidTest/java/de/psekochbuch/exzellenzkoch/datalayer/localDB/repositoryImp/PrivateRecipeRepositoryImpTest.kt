@@ -69,17 +69,13 @@ class PrivateRecipeRepositoryImpTest(){
     fun insertdeleteandget(){
         runBlocking { repo.insertPrivateRecipe(recipe)}
 
-        Thread.sleep(1000)
+        val lfromDb = repo.getPrivateRecipe(1).blockingObserve()
 
-        val lfromDb = repo.getPrivateRecipe(3)
+        assertEquals(lfromDb,recipe)
 
-        assertEquals(lfromDb.blockingObserve(),recipe)
+        runBlocking { repo.deletePrivateRecipe(1)}
 
-        runBlocking { repo.deletePrivateRecipe(3)}
-
-        Thread.sleep(1000)
-
-        val del = repo.getPrivateRecipe(3).blockingObserve()!!
+        val del = repo.getPrivateRecipe(1).blockingObserve()!!
 
         assertEquals(del, errorrecipe)
     }
