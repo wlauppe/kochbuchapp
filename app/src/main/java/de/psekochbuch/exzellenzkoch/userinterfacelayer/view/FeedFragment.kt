@@ -74,9 +74,7 @@ class FeedFragment : Fragment() {
                 Log.i("", "1pagenr ist: " + viewModel.pageNumber)
                     if (!isLoading) {
                         if (visibleItemCount + pastVisibleItem >= recyclerViewTotalSize) {
-                            viewModel.pageNumber++
-                            viewModel.loadNextPage()
-                            feedAdapter.notifyDataSetChanged()
+                            getPage()
                             Log.i("", "2pagenr ist: " + viewModel.pageNumber)
                         }
                     }
@@ -93,6 +91,8 @@ class FeedFragment : Fragment() {
      * Method to get the currently shown page of the RecyclerView and load the next one if needed
      */
     private fun getPage() {
+        Log.i("", "getPage pagenr ist: " + classViewModel.pageNumber)
+
         isLoading = true
         classBinding.feedProgressBar.visibility = View.VISIBLE
         val start = (classViewModel.pageNumber - 1) * pageLimit
@@ -102,6 +102,12 @@ class FeedFragment : Fragment() {
         }
         Handler().postDelayed({
             if (::feedAdapter.isInitialized) {
+                Log.i("", "2getPage pagenr ist: " + classViewModel.pageNumber)
+
+                classViewModel.pageNumber++
+                classViewModel.loadNextPage()
+                Log.i("", "3getPage pagenr ist: " + classViewModel.pageNumber)
+
                 feedAdapter.notifyDataSetChanged()
             } else {
                 feedAdapter = FeedAdapter(classViewModel, requireContext())
@@ -109,22 +115,5 @@ class FeedFragment : Fragment() {
             isLoading = false;
             classBinding.feedProgressBar.visibility = View.GONE
         }, 5000)
-    }
-
-    /**
-     * Nested class provides logic for an empty header and footer in the RecyclerView, if needed
-     * TODO unnecessary code delete
-     * @param headerHeight defines the header's height in pixels
-     * @param footerHeight defines the footer's height in pixels
-     */
-    class HeaderFooterDecoration(private val headerHeight: Int, private val footerHeight: Int) : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-            val adapter = parent.adapter ?: return
-            when (parent.getChildAdapterPosition(view)) {
-                0 -> outRect.top = headerHeight
-                adapter.itemCount - 1 -> outRect.bottom = footerHeight
-                else -> outRect.set(0, 0, 0, 0)
-            }
-        }
     }
 }

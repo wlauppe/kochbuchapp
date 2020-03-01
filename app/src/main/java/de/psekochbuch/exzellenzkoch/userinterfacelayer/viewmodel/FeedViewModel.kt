@@ -1,12 +1,11 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import android.util.Log
+import androidx.lifecycle.*
 import de.psekochbuch.exzellenzkoch.PAGE_SIZE
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -15,27 +14,31 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicReci
  */
 class FeedViewModel(val repository: PublicRecipeRepository): ViewModel() {
     var pageNumber:Int = 1
-    var recipePage : LiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
-    var recipes : LiveData<List<PublicRecipe>> = repository.getPublicRecipes(pageNumber)
+    var recipePage : MutableLiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
+    var recipes : MutableLiveData<List<PublicRecipe>> = MutableLiveData(emptyList())
 
     init {
-        recipePage.observeForever({ recipePageList: List<PublicRecipe> ->
-            recipes = liveData {
+        recipePage.observeForever { recipePageList: List<PublicRecipe> ->
+            // set recipe list value
                 if (recipes.value.isNullOrEmpty()) {
-                    emit(recipePageList)
+                    Log.i("", "recipe is null or empty")
+                    recipes.value = recipePageList
                 } else {
+                    Log.i("", "recipe list appended")
                     val oldList = recipes.value!!
                     val joined = ArrayList<PublicRecipe>()
                     joined.addAll(oldList)
                     joined.addAll(recipePageList)
-                    emit(joined.toList())
+                    recipes.value = joined
                 }
-            }
-        })
-        recipePage = repository.getPublicRecipes(pageNumber)
+        }
+        viewModelScope.launch {
+            recipePage = repository.getPublicRecipes(pageNumber) as MutableLiveData<List<PublicRecipe>>
+        }
+
     }
 
     fun loadNextPage() {
-        recipePage = repository.getPublicRecipes(pageNumber)
+        recipePage = repository.getPublicRecipes(pageNumber) as MutableLiveData<List<PublicRecipe>>
     }
 }

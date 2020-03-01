@@ -196,7 +196,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                     val remoteUrl = response.filePath
                     //speichere filepath in recipe
                     //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
-                    //publicRecipe.imgUrl= BuildConfig.IMG_PREFIX+remoteUrl
+                    publicRecipe.imgUrl= BuildConfig.IMG_PREFIX+remoteUrl
                     val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
                     returnId = returnDto.id
 
