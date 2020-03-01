@@ -11,13 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.databinding.FeedBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.FeedAdapter
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
-import kotlinx.android.synthetic.main.progress_view.*
 
 /**
 * The Fragment class provides logic for binding the respective .xml layout file to the class

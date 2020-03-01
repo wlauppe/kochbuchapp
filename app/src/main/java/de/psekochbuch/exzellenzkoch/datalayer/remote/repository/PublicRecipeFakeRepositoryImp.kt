@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
-import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.Unit
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import java.util.*
 

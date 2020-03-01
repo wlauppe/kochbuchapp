@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
@@ -41,10 +40,8 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
      * Returns the private recipes from the particular user.
      */
     fun getPrivateRecipes() {
-        EspressoIdlingResource.increment()
         recipes = privateRepo.getPrivateRecipes()
-        EspressoIdlingResource.decrement()
-    }
+        }
 
     /**
      * Deletes the recipe from the local database and the server.

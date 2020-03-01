@@ -1,6 +1,5 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
-import java.lang.Exception
 import java.util.*
 
 

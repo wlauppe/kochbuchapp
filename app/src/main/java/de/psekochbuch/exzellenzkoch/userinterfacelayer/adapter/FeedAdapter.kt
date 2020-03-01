@@ -1,18 +1,13 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter
 
-import android.R
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import de.psekochbuch.exzellenzkoch.databinding.ButtonLoadMoreItemBinding
 import de.psekochbuch.exzellenzkoch.databinding.FeedItemBinding
-import de.psekochbuch.exzellenzkoch.databinding.RecyclerButtonLoadmoreBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.FeedFragmentDirections
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel

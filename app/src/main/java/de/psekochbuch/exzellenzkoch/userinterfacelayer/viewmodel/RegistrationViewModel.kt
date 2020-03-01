@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
@@ -36,7 +35,6 @@ class RegistrationViewModel(authentification: Authentification, repo: UserReposi
      * @param updateUi: updates the interface
      */
     fun registerOnClick(updateUi: (String?, AuthenticationResult, String?) -> Unit) {
-EspressoIdlingResource.increment()
         val em = email.value
         val pw = password.value
         if (em != null && pw != null) {
@@ -146,7 +144,6 @@ EspressoIdlingResource.increment()
         } else {
             updateUi("", AuthenticationResult.REGISTRATIONFAILED, "email and password empty")
         }
-        EspressoIdlingResource.decrement()
     }
 
     fun registrationSuccess(): Boolean {
