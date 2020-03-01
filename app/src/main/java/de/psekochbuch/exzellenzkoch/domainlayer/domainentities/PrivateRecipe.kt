@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.domainentities
 
+import de.psekochbuch.exzellenzkoch.DEFAULT_IMAGE
 import java.lang.Character.isDigit
 
 import java.util.*
@@ -91,6 +92,8 @@ class PrivateRecipe(
      */
     fun convertToPublicRepipe(user:User) : PublicRecipe
     {
+        var img = ""
+        if(imgUrl != DEFAULT_IMAGE)  img = imgUrl
         return PublicRecipe(
             publishedRecipeId,
             title,
@@ -98,7 +101,7 @@ class PrivateRecipe(
             stringtochapters(ingredientsText),
             tags,
             preparation,
-            imgUrl,
+            img,
             cookingTime,
             preparationTime,
             user,
