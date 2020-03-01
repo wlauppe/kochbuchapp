@@ -41,11 +41,15 @@ class t_7_4_default_userid_static_test {
     @Before
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+        AuthentificationImpl.logout()
+
+
     }
 
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+        AuthentificationImpl.logout()
     }
 
     @Test
@@ -108,7 +112,7 @@ class t_7_4_default_userid_static_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("nutzerohneid@id.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
 
       //  Thread.sleep(100)
 
@@ -212,3 +216,7 @@ class t_7_4_default_userid_static_test {
         }
     }
 }
+
+/*
+Login funktioniert nicht. Problem: Loginviewmodel zeile 41 : Updateui....
+ */

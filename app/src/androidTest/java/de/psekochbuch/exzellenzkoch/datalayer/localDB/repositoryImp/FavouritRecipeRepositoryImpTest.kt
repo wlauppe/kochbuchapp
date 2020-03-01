@@ -54,7 +54,6 @@ class FavouritRecipeRepositoryImpTest(){
     @Before
     fun setUp(){
         repo.insertFavourite(recipe)
-        Thread.sleep(1000)
     }
 
     @After
@@ -64,7 +63,8 @@ class FavouritRecipeRepositoryImpTest(){
 
     }
 
-    @Test
+
+    //der hier wird ignoriert, da synchronisationsprimoitve nur in repos sind und nicht in daos
     fun deleteAll(){
         repo.deleteAll()
 

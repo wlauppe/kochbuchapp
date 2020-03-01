@@ -5,8 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -15,7 +14,6 @@ import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
-import kotlinx.coroutines.runBlocking
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -29,7 +27,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_1_register_static_test {
+class t_7_7_unique_user_id {
 
     @Rule
     @JvmField
@@ -39,22 +37,18 @@ class t_7_1_register_static_test {
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         AuthentificationImpl.logout()
+        AuthentificationImpl.userDelete()
     }
 
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+        AuthentificationImpl.userDelete()
         AuthentificationImpl.logout()
     }
 
     @Test
-    fun t_7_register_static_test() {
-        runBlocking {
-            if (AuthentificationImpl.isLogIn()) {
-                AuthentificationImpl.logout()
-            }
-        }
-
+    fun t_7_7_unique_user_id() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -73,8 +67,6 @@ class t_7_1_register_static_test {
         )
         appCompatImageButton.perform(click())
 
-      //  Thread.sleep(200) //must
-
         val navigationMenuItemView = onView(
             allOf(
                 childAtPosition(
@@ -91,10 +83,6 @@ class t_7_1_register_static_test {
             )
         )
         navigationMenuItemView.perform(click())
-
-
-
-     //   Thread.sleep(200) //must
 
         val appCompatButton = onView(
             allOf(
@@ -114,27 +102,9 @@ class t_7_1_register_static_test {
         )
         appCompatButton.perform(click())
 
-      //  Thread.sleep(200) //must
-
-        val textView = onView(
+        val appCompatEditText = onView(
             allOf(
-                withId(R.id.textView_register_email_text), withText("Gib deine E-Mail Adresse ein"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        textView.check(matches(withText("Gib deine E-Mail Adresse ein")))
-    //    Thread.sleep(200) //must
-
-        val editText = onView(
-            allOf(
-                withId(R.id.editText_register_email_input), withText(""),
+                withId(R.id.editText_register_email_input),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.nav_host_fragment),
@@ -145,65 +115,12 @@ class t_7_1_register_static_test {
                 isDisplayed()
             )
         )
-        editText.check(matches(isDisplayed()))
+        appCompatEditText.perform(replaceText("tempo@muster.de"), closeSoftKeyboard())
 
-       // Thread.sleep(200) //must
 
-        val textView2 = onView(
+        val appCompatEditText2 = onView(
             allOf(
-                withId(R.id.textView_register_userid_text),
-                withText("Gib dir einen Nutzernamen (optional)"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
-        )
-        textView2.check(matches(withText("Gib dir einen Nutzernamen (optional)")))
-
-      //  Thread.sleep(200) //must
-
-        val editText2 = onView(
-            allOf(
-                withId(R.id.editText_register_usernid_input), withText(""),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    4
-                ),
-                isDisplayed()
-            )
-        )
-        editText2.check(matches(isDisplayed()))
-
-       // Thread.sleep(200) //must
-
-        val textView3 = onView(
-            allOf(
-                withId(R.id.textView_register_password_text), withText("Gib dein Passwort ein"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    5
-                ),
-                isDisplayed()
-            )
-        )
-        textView3.check(matches(withText("Gib dein Passwort ein")))
-
-       // Thread.sleep(200) //must
-
-        val editText3 = onView(
-            allOf(
-                withId(R.id.editText_register_password_input), withText(""),
+                withId(R.id.editText_register_password_input),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.nav_host_fragment),
@@ -214,9 +131,68 @@ class t_7_1_register_static_test {
                 isDisplayed()
             )
         )
-        editText3.check(matches(isDisplayed()))
+        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
 
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.button_register_fragment_register), withText("Registrieren"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    7
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton2.perform(click())
+
+
+        Thread.sleep(500)
+        val appCompatEditText3 = onView(
+            allOf(
+                withId(R.id.textView_enter_userID),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout2),
+                        childAtPosition(
+                            withClassName(`is`("android.widget.ScrollView")),
+                            0
+                        )
+                    ),
+                    1
+                )
+            )
+        )
+        appCompatEditText3.perform(
+            scrollTo(),
+            replaceText("eindeutigeindeutig"),
+            closeSoftKeyboard()
+        )
+
+
+        val appCompatButton3 = onView(
+            allOf(
+                withId(R.id.button_save_profile_changes), withText("Speichern"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton3.perform(click())
+
+        //Der Nutzer hat sich registriert und hat sich eine id zugewiesen
+        //zu testen bleibt, ob die ID eindeutig ist
     }
 
     private fun childAtPosition(
@@ -237,3 +213,8 @@ class t_7_1_register_static_test {
         }
     }
 }
+
+/*
+T 7_7 schlägt fehl (Could not connect to server)
+
+ */
