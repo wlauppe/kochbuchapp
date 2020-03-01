@@ -54,7 +54,6 @@ class FavouritRecipeRepositoryImpTest(){
     @Before
     fun setUp(){
         repo.insertFavourite(recipe)
-        Thread.sleep(1000)
     }
 
     @After
