@@ -326,6 +326,13 @@ class t_10_1_create_recipe_local_server_test {
         )
         appCompatButton3.perform(scrollTo(), click())
 
+        var repo = PrivateRecipeRepositoryImp(Application())
+        var recipes = repo.getPrivateRecipes()
+
+        if(recipes.value != null){
+            assert(recipes.value!!.size > 0)
+        }
+
         //TODO testen, ob rezept lokal und serverseitig existiert
 
     }

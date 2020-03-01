@@ -169,23 +169,12 @@ class t_10_2_create_uncomplete_recipe_test {
 
         Thread.sleep(3000)
 
-        val textView = onView(
-            allOf(
-                withId(R.id.textView_recipe_title_item), withText("Titel"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.recipe_list_layout_item),
-                        childAtPosition(
-                            withId(R.id.recyclerView_recipe_list_fragment),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        textView.check(matches(withText("Titel")))
+       var repo = PrivateRecipeRepositoryImp(Application())
+
+        var recipes = repo.getPrivateRecipes()
+        if(recipes.value != null){
+            assert(recipes.value!!.size != 0)
+        }
 
 
         //TODO testen,dass es nicht serverseitig veröffentlicht wurde
