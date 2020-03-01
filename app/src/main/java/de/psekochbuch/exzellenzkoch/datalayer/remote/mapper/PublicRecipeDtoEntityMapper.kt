@@ -17,6 +17,9 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
 
     override fun toEntity(dto: PublicRecipeDto): PublicRecipe {
 
+        var imgUrl = ""
+        if(dto.picture != "") imgUrl = BuildConfig.IMG_PREFIX+dto.picture
+
         return PublicRecipe(
             dto.id,
             dto.title,
@@ -34,7 +37,7 @@ class PublicRecipeDtoEntityMapper() : EntityMapper<PublicRecipe,PublicRecipeDto>
             },
             dto.recipeTag.map{ tag -> tag.name},
             dto.preparationDescription,
-            BuildConfig.IMG_PREFIX+dto.picture,
+            imgUrl,
             dto.cookingTime,
             dto.preparationTime,
             User(dto.userId),
