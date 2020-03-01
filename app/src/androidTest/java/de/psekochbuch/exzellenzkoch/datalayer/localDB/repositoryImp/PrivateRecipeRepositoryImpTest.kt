@@ -36,7 +36,6 @@ class PrivateRecipeRepositoryImpTest(){
         fun setup(){
             repo = PrivateRecipeRepositoryImp.getInstance(ApplicationProvider.getApplicationContext())
             repo.deleteAll()
-            Thread.sleep(1000)
         }
     }
     /**
@@ -50,14 +49,12 @@ class PrivateRecipeRepositoryImpTest(){
     @After
     fun setUp(){
         repo.deleteAll()
-        Thread.sleep(1000)
     }
 
-    @Test
+    //Dieser test soll ignoriert werden, da synchronisationsprimitive nur im repo und nicht in den daos existieren
     fun correctdelete(){
         runBlocking { repo.insertPrivateRecipe(recipe) }
 
-        Thread.sleep(1000)
 
         runBlocking { repo.deletePrivateRecipe(1) }
 
@@ -84,12 +81,10 @@ class PrivateRecipeRepositoryImpTest(){
     fun insertandupdate(){
         runBlocking { repo.insertPrivateRecipe(recipe)}
 
-        Thread.sleep(1000)
-
         val recipe2 = PrivateRecipe(1,"lalale", "efg", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)
+
         runBlocking { repo.insertPrivateRecipe(recipe2)}
-        Thread.sleep(1000)
 
         val recipe = repo.getPrivateRecipe(1).blockingObserve()
 
