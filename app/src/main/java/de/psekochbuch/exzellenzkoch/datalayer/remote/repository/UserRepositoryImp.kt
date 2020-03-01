@@ -67,16 +67,18 @@ class UserRepositoryImp : UserRepository {
         val lData = liveData(Dispatchers.IO, 1000) {
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
+                Log.w(TAG, "vor dem getUser")
                 val dto =
                     userApiService.getUser(userId)
                 dto?.let {
+                    Log.w(TAG, "vor dem Mapper")
                     val entity = UserDtoEntityMapper().toEntity(dto)
                     emit(entity)
                 }
             } catch (error: Throwable) {
                 emit(
                     User(
-                        userId = "Error Fetching User! with Id=$userId",
+                        userId = "Error Fetching User! with Id = $userId",
                         imgUrl = "file:///android_asset/exampleimages/error.png"
                     )
                 )

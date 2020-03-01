@@ -1,34 +1,58 @@
-package de.psekochbuch.exzellenzkoch
+package de.psekochbuch.exzellenzkoch.testcases
 
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
+import de.psekochbuch.exzellenzkoch.MainActivity
+import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t7_1_registration_static_test {
+class t_7_1_register_static_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
+    @Before
+    fun registerIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
+
     @Test
-    fun t7_1_registration_static_test() {
+    fun t_7_register_static_test() {
+        runBlocking {
+            if (AuthentificationImpl.isLogIn()) {
+                AuthentificationImpl.logout()
+            }
+        }
+
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -47,6 +71,8 @@ class t7_1_registration_static_test {
         )
         appCompatImageButton.perform(click())
 
+      //  Thread.sleep(200) //must
+
         val navigationMenuItemView = onView(
             allOf(
                 childAtPosition(
@@ -63,6 +89,10 @@ class t7_1_registration_static_test {
             )
         )
         navigationMenuItemView.perform(click())
+
+
+
+     //   Thread.sleep(200) //must
 
         val appCompatButton = onView(
             allOf(
@@ -82,6 +112,8 @@ class t7_1_registration_static_test {
         )
         appCompatButton.perform(click())
 
+      //  Thread.sleep(200) //must
+
         val textView = onView(
             allOf(
                 withId(R.id.textView_register_email_text), withText("Gib deine E-Mail Adresse ein"),
@@ -96,6 +128,24 @@ class t7_1_registration_static_test {
             )
         )
         textView.check(matches(withText("Gib deine E-Mail Adresse ein")))
+    //    Thread.sleep(200) //must
+
+        val editText = onView(
+            allOf(
+                withId(R.id.editText_register_email_input), withText(""),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        editText.check(matches(isDisplayed()))
+
+       // Thread.sleep(200) //must
 
         val textView2 = onView(
             allOf(
@@ -113,6 +163,25 @@ class t7_1_registration_static_test {
         )
         textView2.check(matches(withText("Gib dir einen Nutzernamen (optional)")))
 
+      //  Thread.sleep(200) //must
+
+        val editText2 = onView(
+            allOf(
+                withId(R.id.editText_register_usernid_input), withText(""),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    4
+                ),
+                isDisplayed()
+            )
+        )
+        editText2.check(matches(isDisplayed()))
+
+       // Thread.sleep(200) //must
+
         val textView3 = onView(
             allOf(
                 withId(R.id.textView_register_password_text), withText("Gib dein Passwort ein"),
@@ -127,6 +196,25 @@ class t7_1_registration_static_test {
             )
         )
         textView3.check(matches(withText("Gib dein Passwort ein")))
+
+       // Thread.sleep(200) //must
+
+        val editText3 = onView(
+            allOf(
+                withId(R.id.editText_register_password_input), withText(""),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    6
+                ),
+                isDisplayed()
+            )
+        )
+        editText3.check(matches(isDisplayed()))
+
+
     }
 
     private fun childAtPosition(
