@@ -215,11 +215,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                     throw NetworkError("Unable to publish recipe", error)
                 }
 
-            }
-            catch (error : Throwable) {
-                throw NetworkError("Unable to publish recipe", error)
-                error.printStackTrace()
-            }
             workLock.unlock()
         }
         //das ist der Rückgabewert der
@@ -270,7 +265,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         untilThreadStartsLock.acquire()
         Log.w(TAG, "getPublicRecipes() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
-            workLock.lock()
+            //workLock.lock()
             untilThreadStartsLock.release()
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
@@ -286,7 +281,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 error.printStackTrace()
                 emit(listOf(PublicRecipe(0, "Error Fetching Recipes!", imgUrl = "file:///android_asset/exampleimages/error.png")))
             }
-            workLock.unlock()
+          //  workLock.unlock()
         }
         return lData
     }
