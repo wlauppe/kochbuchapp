@@ -27,7 +27,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_12_1_load_public_recipe_test {
+class T_12_1_load_public_recipe_test {
 
     @Rule
     @JvmField

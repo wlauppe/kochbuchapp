@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_11_1_edit_recipe_test {
+class T_11_1_edit_recipe_test {
 
 
     @Rule

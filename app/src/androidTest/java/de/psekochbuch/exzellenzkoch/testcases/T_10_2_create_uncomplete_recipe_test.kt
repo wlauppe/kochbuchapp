@@ -21,7 +21,6 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.hamcrest.core.IsInstanceOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -30,7 +29,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_11_3_delete_private_recipe_test {
+class T_10_2_create_uncomplete_recipe_test {
 
     @Rule
     @JvmField
@@ -50,10 +49,7 @@ class t_11_3_delete_private_recipe_test {
     }
 
     @Test
-    fun t_11_3_delete_private_recipe_test() {
-
-
-
+    fun t_10_2_create_uncomplete_recipe_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -121,6 +117,19 @@ class t_11_3_delete_private_recipe_test {
         )
         appCompatEditText.perform(scrollTo(), replaceText("Titel"), closeSoftKeyboard())
 
+        val appCompatCheckBox = onView(
+            allOf(
+                withId(R.id.checkBox_publish_create_recipe_fragment), withText("veröffentlichen"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        9
+                    ),
+                    0
+                )
+            )
+        )
+        appCompatCheckBox.perform(scrollTo(), click())
 
         val appCompatButton2 = onView(
             allOf(
@@ -154,9 +163,9 @@ class t_11_3_delete_private_recipe_test {
         )
         appCompatImageButton2.perform(click())
 
-        val appCompatImageButton3 = onView(
+        val textView = onView(
             allOf(
-                withId(R.id.button_remove_recipe),
+                withId(R.id.textView_recipe_title_item), withText("Titel"),
                 childAtPosition(
                     allOf(
                         withId(R.id.recipe_list_layout_item),
@@ -165,43 +174,15 @@ class t_11_3_delete_private_recipe_test {
                             0
                         )
                     ),
-                    2
+                    1
                 ),
                 isDisplayed()
             )
         )
-        appCompatImageButton3.perform(click())
+        textView.check(matches(withText("Titel")))
 
-        val viewGroup = onView(
-            allOf(
-                withId(R.id.constraintLayout),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.nav_host_fragment),
-                        childAtPosition(
-                            IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
-                            0
-                        )
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        viewGroup.check(matches(isDisplayed()))
 
-        var repo = PrivateRecipeRepositoryImp(Application())
-        
-        repo.deleteAll()
-        var recipes = repo.getPrivateRecipes()
-        if(recipes.value != null){
-            for(recipe in recipes.value!!){
-                    if(recipe.title == "Titel"){
-                        assert(false)
-                    }
-            }
-        }
-        assert(true)
+        //TODO testen,dass es nicht serverseitig veröffentlicht wurde
     }
 
     private fun childAtPosition(
@@ -222,3 +203,7 @@ class t_11_3_delete_private_recipe_test {
         }
     }
 }
+/*
+die veröffentlichen funktion funkioniert nicht. daher wird das rezept nicht lokal gespeichert
+und der test schlägt fehl.
+ */

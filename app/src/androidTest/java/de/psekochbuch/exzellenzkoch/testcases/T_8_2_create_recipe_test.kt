@@ -29,7 +29,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_9_1_create_recipe_autosave_test {
+class T_8_2_create_recipe_test {
 
     @Rule
     @JvmField
@@ -193,6 +193,19 @@ class t_9_1_create_recipe_autosave_test {
         appCompatEditText6.perform(scrollTo(), replaceText("4"), closeSoftKeyboard())
 
 
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
+                    ),
+                    10
+                )
+            )
+        )
+        appCompatButton2.perform(scrollTo(), click())
 
         val appCompatImageButton2 = onView(
             allOf(
@@ -211,9 +224,6 @@ class t_9_1_create_recipe_autosave_test {
             )
         )
         appCompatImageButton2.perform(click())
-        Thread.sleep(500)
-
-        //nun sollte das rezept gespeichert sein ! schlägt fehl
 
         val linearLayout = onView(
             allOf(
@@ -271,6 +281,5 @@ class t_9_1_create_recipe_autosave_test {
     }
 }
 /*
-test schlägt fehl, da wir noch nicht implementiert haben, dass ein rezept beim verlassen
-des fragments gespeichert wird.
+läuft wunderbar
  */

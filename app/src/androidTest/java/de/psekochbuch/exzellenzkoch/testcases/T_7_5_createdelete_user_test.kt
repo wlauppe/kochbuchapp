@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_5_createdelete_user_test {
+class T_7_5_createdelete_user_test {
 
     @Rule
     @JvmField

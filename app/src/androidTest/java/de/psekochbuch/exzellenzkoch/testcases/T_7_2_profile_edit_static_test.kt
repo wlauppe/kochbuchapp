@@ -33,7 +33,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_2_profile_edit_static_test {
+class T_7_2_profile_edit_static_test {
     var TAG = "profileEditStaticTest"
 
 

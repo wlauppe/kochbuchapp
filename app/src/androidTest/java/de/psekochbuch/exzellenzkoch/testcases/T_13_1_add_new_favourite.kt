@@ -24,7 +24,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_13_1_add_new_favourite {
+class T_13_1_add_new_favourite {
 
     @Rule
     @JvmField
