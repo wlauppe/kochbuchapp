@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.testcases
+package de.psekochbuch.exzellenzkoch.testcases.t7
 
 
 import android.view.View

@@ -29,6 +29,8 @@ class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
      * @param id: The userId which connects to the user
      */
     fun deleteUser(id: String) {
+
+        //TODO alle rezepte müssen auf privat gestellt werden
         AuthentificationImpl.userDelete()
     }
 

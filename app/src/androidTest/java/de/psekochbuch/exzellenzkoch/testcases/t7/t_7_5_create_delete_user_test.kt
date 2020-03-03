@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.testcases
+package de.psekochbuch.exzellenzkoch.testcases.t7
 
 
 import android.view.View
@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -28,7 +27,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_5_createdelete_user_test {
+class t_7_5_create_delete_user_test {
 
     @Rule
     @JvmField
@@ -38,16 +37,19 @@ class t_7_5_createdelete_user_test {
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         AuthentificationImpl.logout()
+
     }
 
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
         AuthentificationImpl.userDelete()
+
     }
 
+
     @Test
-    fun t_7_5_createdelete_user_test() {
+    fun create_delete_user_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -114,11 +116,11 @@ class t_7_5_createdelete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("irgendeiner.muster@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("test@muster.de"), closeSoftKeyboard())
 
 
 
-        val appCompatEditText3 = onView(
+        val appCompatEditText2 = onView(
             allOf(
                 withId(R.id.editText_register_password_input),
                 childAtPosition(
@@ -131,7 +133,7 @@ class t_7_5_createdelete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditText3.perform(replaceText("123456"), closeSoftKeyboard())
+        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
 
         val appCompatButton2 = onView(
@@ -235,6 +237,10 @@ class t_7_5_createdelete_user_test {
         )
         appCompatButton5.perform(click())
 
+
+        //-----------------------------------------------
+
+
         val appCompatImageButton3 = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -251,13 +257,110 @@ class t_7_5_createdelete_user_test {
                 isDisplayed()
             )
         )
-
-
-        AuthentificationImpl.logout()
-
-        //--hier versucht der nutzer sich mit der Registrierung von eben anzumelden -> geht nicht -> test grün
         appCompatImageButton3.perform(click())
-        val appCompatImageButton10 = onView(
+
+        val navigationMenuItemViews = onView(
+            allOf(
+                childAtPosition(
+                    allOf(
+                        withId(R.id.design_navigation_view),
+                        childAtPosition(
+                            withId(R.id.nav_view),
+                            0
+                        )
+                    ),
+                    3
+                ),
+                isDisplayed()
+            )
+        )
+        navigationMenuItemViews.perform(click())
+
+        val appCompatButtone = onView(
+            allOf(
+                withId(R.id.button_login_fragment_register), withText("Registrieren"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    6
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButtone.perform(click())
+
+        val appCompatEditTexts = onView(
+            allOf(
+                withId(R.id.editText_register_email_input),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditTexts.perform(replaceText("test@muster.de"), closeSoftKeyboard())
+
+
+
+        val appCompatEditTextf = onView(
+            allOf(
+                withId(R.id.editText_register_password_input),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    6
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditTextf.perform(replaceText("123456"), closeSoftKeyboard())
+
+
+        val appCompatButton6 = onView(
+            allOf(
+                withId(R.id.button_register_fragment_register), withText("Registrieren"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    7
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton6.perform(click())
+
+        val appCompatButtonn = onView(
+            allOf(
+                withId(R.id.button_save_profile_changes), withText("Speichern"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButtonn.perform(click())
+
+        val appCompatImageButtonm = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
                 childAtPosition(
@@ -273,9 +376,9 @@ class t_7_5_createdelete_user_test {
                 isDisplayed()
             )
         )
-        appCompatImageButton10.perform(click())
+        appCompatImageButtonm.perform(click())
 
-        val navigationMenuItemView3 = onView(
+        val navigationMenuItemViewx = onView(
             allOf(
                 childAtPosition(
                     allOf(
@@ -290,31 +393,26 @@ class t_7_5_createdelete_user_test {
                 isDisplayed()
             )
         )
-        navigationMenuItemView3.perform(click())
+        navigationMenuItemViewx.perform(click())
 
-
-
-        val appCompatEditText4 = onView(
+        val appCompatButtonb = onView(
             allOf(
-                withId(R.id.editText_login_fragment_email), withText("me.muster@muster.de"),
+                withId(R.id.button_profile_display_fragment_edit_profile),
+                withText("Profil Bearbeiten"),
                 childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
+                    childAtPosition(
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        5
                     ),
-                    1
-                ),
-                isDisplayed()
+                    0
+                )
             )
         )
-        appCompatEditText4.perform(closeSoftKeyboard())
+        appCompatButtonb.perform(scrollTo(), click())
 
-        val appCompatEditText5 = onView(
+        val appCompatButtonj = onView(
             allOf(
-                withId(R.id.editText_login_fragment_password),
+                withId(R.id.button_delete_profile), withText("Profil löschen"),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -328,49 +426,7 @@ class t_7_5_createdelete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditText5.perform(replaceText("123456"), closeSoftKeyboard())
-
-        val appCompatButton9 = onView(
-            allOf(
-                withId(R.id.button_login_fragment_login), withText("Einloggen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    4
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatButton9.perform(click())
-
-        val textView = onView(
-            allOf(
-                withId(R.id.textView_register_email_text), withText("Gib deine E-Mail Adresse ein"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        textView.check(ViewAssertions.matches(isDisplayed()))
-
-    }
-
-    @After
-    fun deleteUser(){
-        AuthentificationImpl.userDelete()
+        appCompatButtonj.perform(click())
     }
 
     private fun childAtPosition(

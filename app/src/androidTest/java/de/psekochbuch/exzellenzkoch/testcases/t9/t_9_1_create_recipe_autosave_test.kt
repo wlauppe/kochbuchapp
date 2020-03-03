@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.testcases
+package de.psekochbuch.exzellenzkoch.testcases.t9
 
 
 import android.app.Application
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -15,7 +16,6 @@ import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -29,7 +29,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_11_1_create_edit_local_recipe_test {
+class t_9_1_create_recipe_autosave_test {
 
     @Rule
     @JvmField
@@ -38,20 +38,19 @@ class t_11_1_create_edit_local_recipe_test {
     @Before
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
+
     }
 
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
 
         var repo = PrivateRecipeRepositoryImp(Application())
         repo.deleteAll()
     }
 
     @Test
-    fun t_11_1_create_edit_local_recipe_test() {
+    fun t_9_2_create_recipe_autosave_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -80,103 +79,14 @@ class t_11_1_create_edit_local_recipe_test {
                             0
                         )
                     ),
-                    3
+                    4
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-        val appCompatEditText = onView(
-            allOf(
-                withId(R.id.editText_login_fragment_email),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
-
-        val appCompatEditText2 = onView(
-            allOf(
-                withId(R.id.editText_login_fragment_password),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
-
         val appCompatButton = onView(
-            allOf(
-                withId(R.id.button_login_fragment_login), withText("Einloggen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    4
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatButton.perform(click())
-
-        val appCompatImageButton2 = onView(
-            allOf(
-                withContentDescription("Navigationsleiste öffnen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton2.perform(click())
-
-        val navigationMenuItemView2 = onView(
-            allOf(
-                childAtPosition(
-                    allOf(
-                        withId(R.id.design_navigation_view),
-                        childAtPosition(
-                            withId(R.id.nav_view),
-                            0
-                        )
-                    ),
-                    4
-                ),
-                isDisplayed()
-            )
-        )
-        navigationMenuItemView2.perform(click())
-
-        val appCompatButton2 = onView(
             allOf(
                 withId(R.id.button_create_recipe), withText("Neues Rezept erstellen"),
                 childAtPosition(
@@ -192,9 +102,9 @@ class t_11_1_create_edit_local_recipe_test {
                 isDisplayed()
             )
         )
-        appCompatButton2.perform(click())
+        appCompatButton.perform(click())
 
-        val appCompatEditText3 = onView(
+        val appCompatEditText = onView(
             allOf(
                 withId(R.id.editText_recipe_title_create_recipe_fragment),
                 childAtPosition(
@@ -206,9 +116,10 @@ class t_11_1_create_edit_local_recipe_test {
                 )
             )
         )
-        appCompatEditText3.perform(scrollTo(), replaceText("Titel"), closeSoftKeyboard())
+        appCompatEditText.perform(scrollTo(), replaceText("Superrezept"), closeSoftKeyboard())
 
-        val appCompatEditText4 = onView(
+
+        val appCompatEditText2 = onView(
             allOf(
                 withId(R.id.editText_preparing_time_create_recipe_fragment), withText("0"),
                 childAtPosition(
@@ -220,11 +131,11 @@ class t_11_1_create_edit_local_recipe_test {
                 )
             )
         )
-        appCompatEditText4.perform(scrollTo(), replaceText("20"))
+        appCompatEditText2.perform(scrollTo(), replaceText("10"))
 
-        val appCompatEditText5 = onView(
+        val appCompatEditText3 = onView(
             allOf(
-                withId(R.id.editText_preparing_time_create_recipe_fragment), withText("20"),
+                withId(R.id.editText_preparing_time_create_recipe_fragment), withText("10"),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.LinearLayout")),
@@ -235,9 +146,9 @@ class t_11_1_create_edit_local_recipe_test {
                 isDisplayed()
             )
         )
-        appCompatEditText5.perform(closeSoftKeyboard())
+        appCompatEditText3.perform(closeSoftKeyboard())
 
-        val appCompatEditText6 = onView(
+        val appCompatEditText4 = onView(
             allOf(
                 withId(R.id.editText_cooking_time_create_recipe_fragment), withText("0"),
                 childAtPosition(
@@ -249,11 +160,11 @@ class t_11_1_create_edit_local_recipe_test {
                 )
             )
         )
-        appCompatEditText6.perform(scrollTo(), replaceText("20"))
+        appCompatEditText4.perform(scrollTo(), replaceText("10"))
 
-        val appCompatEditText7 = onView(
+        val appCompatEditText5 = onView(
             allOf(
-                withId(R.id.editText_cooking_time_create_recipe_fragment), withText("20"),
+                withId(R.id.editText_cooking_time_create_recipe_fragment), withText("10"),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.LinearLayout")),
@@ -264,23 +175,26 @@ class t_11_1_create_edit_local_recipe_test {
                 isDisplayed()
             )
         )
-        appCompatEditText7.perform(closeSoftKeyboard())
+        appCompatEditText5.perform(closeSoftKeyboard())
 
-        val appCompatButton3 = onView(
+
+        val appCompatEditText6 = onView(
             allOf(
-                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
+                withId(R.id.editText_portions_input),
                 childAtPosition(
                     childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        5
                     ),
-                    10
+                    1
                 )
             )
         )
-        appCompatButton3.perform(scrollTo(), click())
+        appCompatEditText6.perform(scrollTo(), replaceText("4"), closeSoftKeyboard())
 
-        val appCompatImageButton3 = onView(
+
+
+        val appCompatImageButton2 = onView(
             allOf(
                 withContentDescription("Nach oben"),
                 childAtPosition(
@@ -296,7 +210,10 @@ class t_11_1_create_edit_local_recipe_test {
                 isDisplayed()
             )
         )
-        appCompatImageButton3.perform(click())
+        appCompatImageButton2.perform(click())
+        Thread.sleep(500)
+
+        //nun sollte das rezept gespeichert sein ! schlägt fehl
 
         val linearLayout = onView(
             allOf(
@@ -314,82 +231,11 @@ class t_11_1_create_edit_local_recipe_test {
                 isDisplayed()
             )
         )
-        linearLayout.perform(click())
+        linearLayout.check(matches(isDisplayed()))
 
-        val appCompatEditText8 = onView(
-            allOf(
-                withId(R.id.editText_recipe_title_create_recipe_fragment), withText("Titel"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    1
-                )
-            )
-        )
-        appCompatEditText8.perform(scrollTo(), replaceText("Titelt"))
-
-        val appCompatEditText9 = onView(
-            allOf(
-                withId(R.id.editText_recipe_title_create_recipe_fragment), withText("Titelt"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText9.perform(closeSoftKeyboard())
-
-        val appCompatButton4 = onView(
-            allOf(
-                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    10
-                )
-            )
-        )
-        appCompatButton4.perform(scrollTo(), click())
-
-        val appCompatImageButton4 = onView(
-            allOf(
-                withContentDescription("Nach oben"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton4.perform(click())
-
-        var repo = PrivateRecipeRepositoryImp(Application())
-        var recipe = repo.getPrivateRecipes()
-
-        if(recipe.value != null){
-            assert(recipe.value!!.first().title.equals("Titelt"))
-        }
-
-        //TODO rezept muss noch richtig angezeigt werden
-
-        /*
         val textView = onView(
             allOf(
-                withId(R.id.textView_recipe_title_item), withText("Titelt"),
+                withId(R.id.textView_recipe_title_item), withText("Superrezept"),
                 childAtPosition(
                     allOf(
                         withId(R.id.recipe_list_layout_item),
@@ -403,9 +249,7 @@ class t_11_1_create_edit_local_recipe_test {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Titelt")))
-
-         */
+        textView.check(matches(withText("Superrezept")))
     }
 
     private fun childAtPosition(
@@ -426,3 +270,7 @@ class t_11_1_create_edit_local_recipe_test {
         }
     }
 }
+/*
+test schlägt fehl, da wir noch nicht implementiert haben, dass ein rezept beim verlassen
+des fragments gespeichert wird.
+ */
