@@ -158,6 +158,7 @@ class t_11_1_create_edit_local_recipe_test {
             )
         )
         appCompatImageButton2.perform(click())
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val navigationMenuItemView2 = onView(
             allOf(
@@ -176,6 +177,7 @@ class t_11_1_create_edit_local_recipe_test {
         )
         navigationMenuItemView2.perform(click())
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
         val appCompatButton2 = onView(
             allOf(
                 withId(R.id.button_create_recipe), withText("Neues Rezept erstellen"),

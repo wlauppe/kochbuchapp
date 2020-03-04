@@ -47,7 +47,6 @@ class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
     }
     fun changeLoginData() {
 
-
     }
 
     /**

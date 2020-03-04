@@ -116,7 +116,7 @@ class t_7_5_create_delete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("testo@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("testomatos@muster.de"), closeSoftKeyboard())
 
 
 
@@ -170,6 +170,7 @@ class t_7_5_create_delete_user_test {
             )
         )
         appCompatButton3.perform(click())
+
 
         val appCompatImageButton2 = onView(
             allOf(
@@ -309,7 +310,7 @@ class t_7_5_create_delete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditTexts.perform(replaceText("testo@muster.de"), closeSoftKeyboard())
+        appCompatEditTexts.perform(replaceText("testomatos@muster.de"), closeSoftKeyboard())
 
 
 
