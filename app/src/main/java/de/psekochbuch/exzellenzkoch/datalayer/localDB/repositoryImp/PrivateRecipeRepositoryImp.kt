@@ -31,17 +31,13 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
      * @return the recipes from DB wrapped in Livedata
      */
     override fun getPrivateRecipes(): LiveData<List<PrivateRecipe>> {
-        untilThreadStartsLock.acquire()
         val lData = liveData(Dispatchers.IO){
-            workLock.lock()
-            untilThreadStartsLock.release()
             try{
                 val recipes = transformListPrivateRecipeDBToListPrivateRecipeDB(privateRecipeDao?.getAll()!!)
                 emit(recipes)
             } catch (error : Throwable){
                 emit(listOf())
             }
-            workLock.unlock()
         }
         return lData
     }
@@ -52,17 +48,13 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
      * @return: returns the recipe with the id wrapped in Livedata
      */
     override fun getPrivateRecipe(id: Int): LiveData<PrivateRecipe> {
-        untilThreadStartsLock.acquire()
         val lData = liveData(Dispatchers.IO){
-            workLock.lock()
-            untilThreadStartsLock.release()
             try{
                 val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
                 emit(recipe)
             } catch (error : Throwable){
                 emit(PrivateRecipe(0,"Konnte nicht geladen werden","",listOf(),"","file://android_assed/exampleimages/error.png",0,0,Date(0),0,0))
             }
-            workLock.unlock()
         }
         return lData
     }
@@ -83,13 +75,9 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
      * @param id: The id of the recipe
      */
     override suspend fun deletePrivateRecipe(id: Int) {
-        untilThreadStartsLock.acquire()
         DB.databaseWriteExecutor.execute{
-            workLock.lock()
-            untilThreadStartsLock.release()
             privateRecipeDao?.deleteRecipe(id.toLong())
             privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
-            workLock.unlock()
         }
 
     }
@@ -101,27 +89,19 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
      * @param privateRecipe: The recipe to insert.
      */
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
-        untilThreadStartsLock.acquire()
         DB.databaseWriteExecutor.execute{
-            workLock.lock()
-            untilThreadStartsLock.release()
             val id = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!
             privateRecipeTagDao?.deleteTagsFromRecipe(id)
             for (tag: String in privateRecipe.tags){
                 privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,id,tag))
             }
-            workLock.unlock()
         }
     }
 
     override fun deleteAll() {
-        untilThreadStartsLock.acquire()
         DB.databaseWriteExecutor.execute{
-            workLock.lock()
-            untilThreadStartsLock.release()
             privateRecipeDao?.deleteAll()
             privateRecipeTagDao?.deleteAll()
-            workLock.unlock()
         }
     }
 
