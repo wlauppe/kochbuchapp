@@ -46,10 +46,6 @@ class MainActivity : AppCompatActivity() {
             )
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
-
-            // TODO Für Login Menü ändern
-            val menu:Menu = navView.menu
-            loginMenuItem = menu.findItem(R.id.loginFragment)
         }
 
 
@@ -57,50 +53,6 @@ class MainActivity : AppCompatActivity() {
             val navController = findNavController(R.id.nav_host_fragment)
             return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
         }
-
-
-        //setSupportActionBar(findViewById(R.id.my_toolbar))
-
-
-        //val frag = supportFragmentManager.findFragmentById(R.id.regisFrag)
-
-        /*val call : PublicRecipeApi = ApiServiceBuilder(
-            null
-        ).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
-        call.getRecipe(1).enqueue(object : Callback<PublicRecipeDto?> {
-            override fun onResponse(
-                call: Call<PublicRecipeDto?>?,
-                response: Response<PublicRecipeDto?>?
-            ) {
-                if(response!!.isSuccessful)
-                {
-                    val publicRecipe = response.body()
-                }
-            }
-
-            override fun onFailure(
-                call: Call<PublicRecipeDto?>,
-                t: Throwable
-            ) {
-                val t = ""
-            }
-        })*/
-
-
-       /* repo.getRecipe(1).enqueue(Callback<PublicRecipeDto>()
-        {
-
-        })*/
-
-        //ResponseCallback({
-        //            var publicrecipe : PublicRecipeDto = it as PublicRecipeDto
-        //        }) as Callback<PublicRecipeDto?>)
-
-
-        /*val auth = Authentification()
-        auth.registrate("test@test.de", "12345678"){ it, status ->
-            if(it != null) Log.d("ContentValues", "Ypeee")
-        }*/
     }
 
 

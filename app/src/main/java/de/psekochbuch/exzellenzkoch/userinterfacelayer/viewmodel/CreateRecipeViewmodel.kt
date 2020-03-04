@@ -188,7 +188,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 }
                 
             }
-        } else if (this.tagCheckBoxPublish.value == false && AuthentificationImpl.isLogIn()){
+        } else if (this.tagCheckBoxPublish.value == false){
             viewModelScope.launch {
                 try {
                     privateRepo.insertPrivateRecipe(newPrivateRecipe)

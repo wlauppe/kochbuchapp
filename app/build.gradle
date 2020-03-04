@@ -39,12 +39,19 @@ android {
             buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
         }
 
-        debug
-                {
+        debug {
                     testCoverageEnabled true
                     buildConfigField "String", "BASEURL", '"http://193.196.38.185:8080/api/"'
                     buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
                 }
+
+        extraTestServer {
+            initWith debug
+            testCoverageEnabled true
+            buildConfigField "String", "BASEURL", '"http://193.196.36.57:8080/api/"'
+            buildConfigField "String", "IMG_PREFIX", '"http://193.196.36.57:8080/"'
+        }
+
         confTest{
             initWith debug
             testCoverageEnabled true
@@ -202,7 +209,7 @@ dependencies {
    // testImplementation "org.robolectric:robolectric:$robolectricVersion"
 
     //Mockito
-    testImplementation "org.mockito:mockito-core:1.+"
+    testImplementation 'org.mockito:mockito-core:1.'
 
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
