@@ -107,6 +107,10 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun getAllPublishedIds(): LiveData<List<Int>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     fun getRecipe(recipeId: Int): LiveData<PrivateRecipe> {
 
         for(recipe in recipeList){

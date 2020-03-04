@@ -84,10 +84,11 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
 
     }
 
-    fun getAllPublishedIds(doWork: (List<Int>) ->Unit){
-        DB.databaseWriteExecutor.execute{
-            doWork(privateRecipeDao?.getAllPublishedIds()!!)
+    override fun getAllPublishedIds():LiveData<List<Int>>{
+        val lData = liveData(Dispatchers.IO){
+            emit(privateRecipeDao?.getAllPublishedIds()!!)
         }
+        return lData
     }
 
     /**
