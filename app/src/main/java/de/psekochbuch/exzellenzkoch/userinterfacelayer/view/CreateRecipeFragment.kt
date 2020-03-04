@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,6 +25,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import de.psekochbuch.exzellenzkoch.InjectorUtils
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.CreateRecipeFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.CreateRecipeViewmodel
 
@@ -196,7 +198,7 @@ class CreateRecipeFragment : Fragment() {
         // logic for the "Save recipe"-button
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
             viewModel.saveRecipe(requireContext())
-           //TODO wieder reinmachen ist nur temporär draußen navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
+            navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
         }
 
         //Image intent to get an image out of the user's galery
@@ -222,6 +224,20 @@ class CreateRecipeFragment : Fragment() {
                 pickImageFromGallery();
             }
         }
+
+        // custom action for the back button to autosave the recipe
+        // This callback will only be called when MyFragment is at least Started.
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Handle the back button event
+                    viewModel.saveRecipe(requireContext())
+                    navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
+                }
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+        // The callback can be enabled or disabled here or in handleOnBackPressed()
+
         return binding.root
     }
 

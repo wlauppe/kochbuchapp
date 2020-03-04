@@ -1,34 +1,57 @@
-package de.psekochbuch.exzellenzkoch
+package de.psekochbuch.exzellenzkoch.testcases.t7
 
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
+import de.psekochbuch.exzellenzkoch.MainActivity
+import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import junit.framework.Assert.assertEquals
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class t_7_3_edit_user_id_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
+    @Before
+    fun setup(){
+        AuthentificationImpl.logout()
+    }
+
+    @After
+    fun tearDown(){
+        AuthentificationImpl.logout()
+    }
+
+    @Rule
+    @JvmField
+    var mGrantPermissionRule =
+        GrantPermissionRule.grant(
+            "android.permission.READ_EXTERNAL_STORAGE"
+        )
 
     @Test
-    fun mainActivityTest() {
+    fun t_7_3_edit_user_id_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -63,26 +86,6 @@ class MainActivityTest {
             )
         )
         navigationMenuItemView.perform(click())
-
-        val appCompatButton = onView(
-            allOf(
-                withId(R.id.button_login_fragment_register), withText("Registrieren"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    6
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatButton.perform(click())
-
-        pressBack()
 
         val appCompatEditText = onView(
             allOf(
@@ -120,7 +123,7 @@ class MainActivityTest {
         )
         appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
-        val appCompatButton2 = onView(
+        val appCompatButton = onView(
             allOf(
                 withId(R.id.button_login_fragment_login), withText("Einloggen"),
                 childAtPosition(
@@ -136,9 +139,11 @@ class MainActivityTest {
                 isDisplayed()
             )
         )
-        appCompatButton2.perform(click())
+        appCompatButton.perform(click())
 
-        val appCompatButton3 = onView(
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+        val appCompatButton2 = onView(
             allOf(
                 withId(R.id.button_profile_display_fragment_edit_profile),
                 withText("Profil Bearbeiten"),
@@ -151,7 +156,9 @@ class MainActivityTest {
                 )
             )
         )
-        appCompatButton3.perform(scrollTo(), click())
+        appCompatButton2.perform(scrollTo(), click())
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatEditText3 = onView(
             allOf(
@@ -187,6 +194,28 @@ class MainActivityTest {
             )
         )
         appCompatEditText4.perform(closeSoftKeyboard())
+
+
+        val appCompatButton3 = onView(
+            allOf(
+                withId(R.id.button_save_profile_changes), withText("Speichern"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton3.perform(click())
+
+        assertEquals(AuthentificationImpl.getUserId(), "Maxo")
+
     }
 
     private fun childAtPosition(

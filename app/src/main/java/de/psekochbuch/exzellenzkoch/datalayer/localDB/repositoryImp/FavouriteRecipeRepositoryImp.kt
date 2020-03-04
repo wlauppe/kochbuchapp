@@ -33,55 +33,40 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
     private val workLock = ReentrantLock(true)
 
     override fun getFavourites(): LiveData<List<PublicRecipe>> {
-        untilThreadStartsLock.acquire()
         val lData = liveData(Dispatchers.IO){
-            workLock.lock()
-            untilThreadStartsLock.release()
             try{
                 val recipes = transformPublicRecipeDBListToPublicRecipeList(publicRecipeDao.getAll())
                 emit(recipes)
             } catch (error : Throwable){
                 emit(listOf())
             }
-            workLock.unlock()
         }
         return lData
     }
 
     override fun getFavourite(id: Int): LiveData<PublicRecipe> {
-        untilThreadStartsLock.acquire()
         val lData = liveData(Dispatchers.IO){
-            workLock.lock()
-            untilThreadStartsLock.release()
             try{
                 val recipe = transformPublicRecipeDBToPublicRecipe(publicRecipeDao.getRecipe(id.toLong()))
                 emit(recipe)
             } catch (error : Throwable){
                 emit(errorRecipe)
             }
-            workLock.unlock()
         }
         return lData
     }
 
     override fun removeFavourite(id: Int) {
-        untilThreadStartsLock.acquire()
         DB.databaseWriteExecutor.execute{
-            workLock.lock()
-            untilThreadStartsLock.release()
             publicRecipeDao.deleteRecipe(id.toLong())
             ingredientChapterDao.deleteChaptersFromRecipe(id.toLong())
             ingredientAmountDao.deleteFromRecipe(id.toLong())
             publicRecipeTagDao.deleteTagsFromRecipe(id.toLong())
-            workLock.unlock()
         }
     }
 
     override fun insertFavourite(recipe: PublicRecipe) {
-        untilThreadStartsLock.acquire()
         DB.databaseWriteExecutor.execute{
-            workLock.lock()
-            untilThreadStartsLock.release()
             val recipeId = publicRecipeDao.insert(transformPublicRecipeToPublicRecipeDB(recipe))
             for (chapter: IngredientChapter in recipe.ingredientChapter){
                 val chapterId = ingredientChapterDao.insert(IngredientChapterDB(0,recipeId,chapter.chapter))
@@ -92,20 +77,15 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
             for (tag: String in recipe.tags){
                 publicRecipeTagDao.insert(PublicRecipeTagDB(0,recipeId,tag))
             }
-            workLock.unlock()
         }
     }
 
     override fun deleteAll(){
-        untilThreadStartsLock.acquire()
         DB.databaseWriteExecutor.execute{
-            workLock.lock()
-            untilThreadStartsLock.release()
             publicRecipeDao.deleteAll()
             publicRecipeTagDao.deleteAll()
             ingredientAmountDao.deleteAll()
             ingredientChapterDao.deleteAll()
-            workLock.unlock()
         }
     }
 

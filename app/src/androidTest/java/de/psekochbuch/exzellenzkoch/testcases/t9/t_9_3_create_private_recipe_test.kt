@@ -255,6 +255,8 @@ class t_9_3_create_private_recipe_test {
         )
         appCompatImageButton2.perform(click())
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
         val linearLayout = onView(
             allOf(
                 withId(R.id.recipe_list_layout_item),
@@ -272,6 +274,8 @@ class t_9_3_create_private_recipe_test {
             )
         )
         linearLayout.check(matches(isDisplayed()))
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val textView = onView(
             allOf(

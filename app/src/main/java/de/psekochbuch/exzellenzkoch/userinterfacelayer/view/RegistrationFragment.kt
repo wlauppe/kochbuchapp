@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.RegistrationFragmentBinding
@@ -49,8 +48,6 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
 
         val navController: NavController = findNavController()
         binding.buttonRegisterFragmentRegister.setOnClickListener {
-
-            EspressoIdlingResource.increment()
 
 
             setLoadingScreen(false)
@@ -105,7 +102,6 @@ class RegistrationFragment : Fragment(R.layout.registration_fragment) {
                 }
 
                 setLoadingScreen(true)
-                EspressoIdlingResource.decrement()
             }
 
         }

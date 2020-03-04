@@ -2,11 +2,14 @@ package de.psekochbuch.exzellenzkoch.datalayer.remote
 
 
 //import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import androidx.test.espresso.IdlingResource
+import com.jakewharton.espresso.OkHttp3IdlingResource
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import de.psekochbuch.exzellenzkoch.BuildConfig
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -89,8 +92,7 @@ class ApiServiceBuilder(firebaseToken:String?) {
 
         // add logging as last interceptor
 
-
-        return OkHttpClient().newBuilder().addInterceptor(object : Interceptor {
+        val client = OkHttpClient().newBuilder().addInterceptor(object : Interceptor {
             @Throws(IOException::class)
             override fun intercept(chain: Interceptor.Chain): okhttp3.Response? {
                 val originalRequest: Request = chain.request()
@@ -99,11 +101,15 @@ class ApiServiceBuilder(firebaseToken:String?) {
                 )
                 val newRequest: Request = builder.build()
 
-                    return chain.proceed(newRequest)
+                return chain.proceed(newRequest)
 
             }
         }).addInterceptor(logging)
             .build()
+        //val resource = OkHttp3IdlingResource.create("OkHttp", client)
+        //Espresso.registerIdlingResources(resource);
+        //EspressoIdlingResource. = resource
+        return client
 
     }
 

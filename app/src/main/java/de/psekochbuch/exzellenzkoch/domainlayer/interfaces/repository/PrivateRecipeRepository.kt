@@ -38,4 +38,9 @@ interface PrivateRecipeRepository {
      * deletes all private recipes
      */
     fun deleteAll()
+
+    /**
+     * returns all published IDs from the recipes in the database
+     */
+    fun getAllPublishedIds():LiveData<List<Int>>
 }

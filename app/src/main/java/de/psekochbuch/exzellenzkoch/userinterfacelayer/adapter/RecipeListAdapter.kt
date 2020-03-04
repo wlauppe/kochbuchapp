@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.databinding.RecipeListItemBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.view.RecipeListFragmentDirections
@@ -65,7 +64,9 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
 
         // Delete a recipe in the list from the ListAdapterItem
         holder.recipeListItemBinding.buttonRemoveRecipe.setOnClickListener{
+
             viewModel.deleteRecipe(recipes[position].recipeId)
+
             holder.itemView.visibility = View.GONE
             notifyItemRangeChanged(position, recipes.size)
             notifyDataSetChanged()

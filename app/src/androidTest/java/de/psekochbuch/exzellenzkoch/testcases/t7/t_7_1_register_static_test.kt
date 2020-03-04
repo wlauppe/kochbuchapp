@@ -11,7 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
+
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
@@ -35,17 +35,7 @@ class t_7_1_register_static_test {
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    @Before
-    fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
-    }
 
-    @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
-    }
 
     @Test
     fun t_7_register_static_test() {

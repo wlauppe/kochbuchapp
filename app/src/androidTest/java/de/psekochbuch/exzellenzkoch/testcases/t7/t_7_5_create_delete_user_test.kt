@@ -116,7 +116,7 @@ class t_7_5_create_delete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("test@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("testomatos@muster.de"), closeSoftKeyboard())
 
 
 
@@ -151,6 +151,8 @@ class t_7_5_create_delete_user_test {
         )
         appCompatButton2.perform(click())
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
         val appCompatButton3 = onView(
             allOf(
                 withId(R.id.button_save_profile_changes), withText("Speichern"),
@@ -168,6 +170,7 @@ class t_7_5_create_delete_user_test {
             )
         )
         appCompatButton3.perform(click())
+
 
         val appCompatImageButton2 = onView(
             allOf(
@@ -307,7 +310,7 @@ class t_7_5_create_delete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditTexts.perform(replaceText("test@muster.de"), closeSoftKeyboard())
+        appCompatEditTexts.perform(replaceText("testomatos@muster.de"), closeSoftKeyboard())
 
 
 
@@ -341,6 +344,8 @@ class t_7_5_create_delete_user_test {
             )
         )
         appCompatButton6.perform(click())
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButtonn = onView(
             allOf(

@@ -13,6 +13,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
+
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
@@ -38,15 +39,7 @@ class t_7_2_profile_edit_static_test {
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    @Before
-    fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
 
-    @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
 
 
     @Test
@@ -146,6 +139,7 @@ Log.w(TAG, "in das LOGINFRAGMENT")
             )
             appCompatButton.perform(click())
         }
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButton2 = onView(
             allOf(
@@ -200,8 +194,10 @@ Log.w(TAG, "in das LOGINFRAGMENT")
         )
         editText.check(matches(isDisplayed()))
 
-/*
-        val editText2 = onView(
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+
+        val editText24 = onView(
             allOf(
                 withId(R.id.editText_user_description), withText("Ich bin ein Muster"),
                 childAtPosition(
@@ -217,9 +213,9 @@ Log.w(TAG, "in das LOGINFRAGMENT")
                 isDisplayed()
             )
         )
-        editText2.check(matches(withText("Ich bin ein Muster")))
+        editText24.check(matches(withText("Ich bin ein Muster")))
 
- */
+
 
         val editText2 = onView(
             allOf(

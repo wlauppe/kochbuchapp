@@ -3,6 +3,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.BuildConfig
+
 import de.psekochbuch.exzellenzkoch.PAGE_SIZE
 import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
@@ -48,10 +49,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
 
     override fun getReportedPublicRecipes(): LiveData<List<PublicRecipe>> {
-        untilThreadStartsLock.acquire()
         val lData = liveData(Dispatchers.IO, 1000) {
-            workLock.lock()
-            untilThreadStartsLock.release()
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
                 val dtoList =
@@ -70,7 +68,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 )
                 emit(list)
             }
-            workLock.unlock()
         }
         return lData
     }
@@ -79,11 +76,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     //Dies ist die normale Funktion die Search benutzt.
     @Throws
     override fun getPublicRecipes(page:Int): LiveData<List<PublicRecipe>> {
-        untilThreadStartsLock.acquire()
         Log.w(TAG, "getPublicRecipes() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
-            workLock.lock()
-            untilThreadStartsLock.release()
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
                 val dtoList =
@@ -97,7 +91,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
              catch(error : Throwable) {
                  emit(listOf(PublicRecipe(0, "Error Fetching Recipes!", imgUrl = "file:///android_asset/exampleimages/error.png")))
              }
-            workLock.unlock()
         }
         return lData
 
@@ -105,11 +98,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override fun getPublicRecipes(title:String, tags:List<String>, ingredients: List<String>, creationDate:Date?, sortOrder:String,page: Int ): LiveData<List<PublicRecipe>>
     {
-        untilThreadStartsLock.acquire()
         Log.w(TAG, "getPublicRecipes(parameter) wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
-            workLock.lock()
-            untilThreadStartsLock.release()
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
                 val dtoList =
@@ -124,7 +114,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
             catch(error : Throwable) {
                 emit(listOf(PublicRecipe(0, "Error Fetching Recipes!", imgUrl = "file:///android_asset/exampleimages/error.png")))
             }
-            workLock.unlock()
         }
         return lData
 
@@ -143,10 +132,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     override fun getPublicRecipe(recipeId: Int): LiveData<PublicRecipe> {
         Log.w(TAG, "getPublicRecipe() wird aufgerufen mit id $recipeId")
-        untilThreadStartsLock.acquire()
         val lData = liveData(Dispatchers.IO, 1000) {
-            workLock.lock()
-            untilThreadStartsLock.release()
             try {
                 val dto = recipeApiService.getRecipe(recipeId)
                 //if (!response.isSuccessful) throw error("response not successful")
@@ -156,7 +142,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
             catch(error : Throwable) {
                 emit(PublicRecipe(0, "Error Fetching Recipe!", imgUrl = "file:///android_asset/exampleimages/error.png"))
             }
-            workLock.unlock()
         }
         return lData
     }
@@ -164,13 +149,9 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override suspend fun  deleteRecipe(recipeId: Int) {
-        untilThreadStartsLock.acquire()
         try {
             val result = withTimeout(0) {
-                workLock.lock()
-                untilThreadStartsLock.release()
                 recipeApiService.deleteRecipe(recipeId)
-                workLock.unlock()
             }
         } catch (error: Throwable) {
            // throw NetworkError("Unable to delete recipe", error)
@@ -181,10 +162,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
         var returnId : Int = 0
         Log.w(TAG, "publishRecipe() wird aufgerufen für recipe mit titel = ${publicRecipe.title} und img=${publicRecipe.imgUrl} id=${publicRecipe.recipeId}")
-        untilThreadStartsLock.acquire()
         coroutineScope{
-            workLock.lock()
-            untilThreadStartsLock.release()
             try {
                 val recipeId=publicRecipe.recipeId
                 if (recipeId != 0) {
@@ -216,7 +194,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
             }
 
         }
-        workLock.unlock()
 
         //das ist der Rückgabewert der
         return returnId
@@ -228,7 +205,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     }
 
     override suspend fun setImage(recipeId: Int, ImageUrl: String) {
-        workLock.lock()
         val file : File = File(ImageUrl)
 
         val body = RequestBody.create(MediaType.parse("*/*"), file)
@@ -236,22 +212,18 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
         //val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
         fileApiService.addImage(multi)
-        workLock.unlock()
     }
 
     override suspend fun reportRecipe(recipeId: Int) {
-        workLock.lock()
         try{
             coroutineScope{recipeApiService.reportRecipe(recipeId)}
         } catch (error: Throwable) {
             throw NetworkError("Unable to report recipe", error)
         }
-        workLock.unlock()
     }
 
 
     override suspend fun unreportRecipe(recipeId: Int) {
-        workLock.lock()
         coroutineScope {
             try {
                 adminApiService.deReportPublicRecipe(recipeId)
@@ -259,15 +231,11 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 //throw NetworkError("Unable to publish report recipe", error)
             }
         }
-        workLock.unlock()
     }
 
     override fun getRecipesFromUser(userId: String): LiveData<List<PublicRecipe>> {
-        untilThreadStartsLock.acquire()
         Log.w(TAG, "getPublicRecipes() wird aufgerufen")
         val lData = liveData(Dispatchers.IO, 1000) {
-            //workLock.lock()
-            untilThreadStartsLock.release()
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
                 val dtoList =
@@ -282,7 +250,6 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 error.printStackTrace()
                 emit(listOf(PublicRecipe(0, "Error Fetching Recipes!", imgUrl = "file:///android_asset/exampleimages/error.png")))
             }
-          //  workLock.unlock()
         }
         return lData
     }

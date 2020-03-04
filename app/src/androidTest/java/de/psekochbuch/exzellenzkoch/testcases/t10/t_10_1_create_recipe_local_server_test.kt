@@ -45,9 +45,11 @@ class t_10_1_create_recipe_local_server_test {
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+
+        AuthentificationImpl.logout()
+
         var repo = PrivateRecipeRepositoryImp(Application())
         repo.deleteAll()
-        AuthentificationImpl.logout()
     }
 
     @Test
@@ -59,6 +61,8 @@ class t_10_1_create_recipe_local_server_test {
                     "com.google.android.material.appbar.AppBarLayout")),0)),1),
                 isDisplayed()))
         appCompatImageButton.perform(click())
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val navigationMenuItemView = onView(
             allOf(
@@ -76,6 +80,7 @@ class t_10_1_create_recipe_local_server_test {
             )
         )
         navigationMenuItemView.perform(click())
+
 
         val appCompatEditText = onView(
             allOf(
@@ -148,6 +153,7 @@ class t_10_1_create_recipe_local_server_test {
             )
         )
         appCompatImageButton2.perform(click())
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val navigationMenuItemView2 = onView(
             allOf(
@@ -165,6 +171,7 @@ class t_10_1_create_recipe_local_server_test {
             )
         )
         navigationMenuItemView2.perform(click())
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButton2 = onView(
             allOf(
