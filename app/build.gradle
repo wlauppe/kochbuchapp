@@ -30,10 +30,10 @@ android {
         }
     }
 
-
     buildTypes {
         release {
             minifyEnabled false
+            initWith debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASEURL", '"http://193.196.38.185:8080/api/"'
             buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
@@ -223,6 +223,10 @@ dependencies {
 
     debugImplementation 'com.android.support.test.espresso.idling:idling-concurrent:3.0.0'
     implementation 'com.jakewharton.espresso:okhttp3-idling-resource:1.0.0'
+
+    //LifeData Testing,
+    androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
+
 
 
 }
