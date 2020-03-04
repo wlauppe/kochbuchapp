@@ -5,14 +5,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 /**
  * The ProfileEditViewmodel handles the information for the ProfileEditFragment.
  * @param repo: the user repository through which the user related methods are executed.
  */
-class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
+class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecipeRepository, val privateRepo: PrivateRecipeRepository) : ViewModel() {
 
     var user : MutableLiveData<User> = MutableLiveData(User(""))
 
@@ -29,8 +32,13 @@ class ProfileEditViewmodel(var repo: UserRepository) : ViewModel() {
      * @param id: The userId which connects to the user
      */
     fun deleteUser(id: String) {
+        privateRepo.getAllPublishedIds().observeForever{
+            runBlocking {
+                for (id:Int in it)
+                    publicRepo.deleteRecipe(id)
+            }
+        }
 
-        //TODO alle rezepte müssen auf privat gestellt werden
         AuthentificationImpl.userDelete()
     }
 

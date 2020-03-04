@@ -168,7 +168,9 @@ object InjectorUtils {
 
     fun provideProfileEditViewModelFactory(context: Context):ProfileEditViewModelFactory {
         val repo = getUserRepository(context)
-        return ProfileEditViewModelFactory(repo)
+        val publicRepo = getPublicRecipeRepository(context)
+        val privateRepo = getPrivateRecipeRepository(context)
+        return ProfileEditViewModelFactory(repo,publicRepo,privateRepo)
     }
 
     fun provideRegistrationViewModelFactory(context: Context):RegistrationViewModelFactory {

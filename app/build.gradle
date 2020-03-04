@@ -33,7 +33,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            initWith debug
+            //initWith debug
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASEURL", '"http://193.196.38.185:8080/api/"'
             buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
@@ -56,6 +56,7 @@ android {
             initWith debug
             testCoverageEnabled true
             buildConfigField "String", "BASEURL", '"http://193.196.38.185:8081/api/"'
+            buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8081/"'
         }
 
     }

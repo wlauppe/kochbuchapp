@@ -84,6 +84,13 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
 
     }
 
+    override fun getAllPublishedIds():LiveData<List<Int>>{
+        val lData = liveData(Dispatchers.IO){
+            emit(privateRecipeDao?.getAllPublishedIds()!!)
+        }
+        return lData
+    }
+
     /**
      * this method inserts a private recipe to the DB. If the recipe has id 0, the DB
      * gives the recipe a unique identifier.
