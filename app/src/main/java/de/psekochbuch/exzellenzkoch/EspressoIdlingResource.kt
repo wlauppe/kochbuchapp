@@ -6,7 +6,10 @@ object EspressoIdlingResource {
 
     private const val Resource = "GLOBAL"
 
+
     @JvmField val countingIdlingResource = CountingIdlingResource(Resource)
+
+
 
 
     fun increment(){
@@ -19,4 +22,6 @@ object EspressoIdlingResource {
         }
 
     }
+
+    val Sleep = 4000
 }

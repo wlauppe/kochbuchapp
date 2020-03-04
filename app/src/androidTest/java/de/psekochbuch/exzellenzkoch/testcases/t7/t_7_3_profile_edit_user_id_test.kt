@@ -11,6 +11,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
+
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
@@ -35,13 +36,13 @@ class t_7_3_profile_edit_user_id_test {
 
     @Before
     fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+
         AuthentificationImpl.logout()
     }
 
     @After
     fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+
     }
 
     @Test
@@ -134,6 +135,9 @@ class t_7_3_profile_edit_user_id_test {
             )
         )
         appCompatButton.perform(click())
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
 
         val appCompatButton2 = onView(
             allOf(

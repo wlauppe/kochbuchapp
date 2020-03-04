@@ -37,7 +37,7 @@ class t_7_4_default_userid_static_test {
 
     @Before
     fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+       IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         AuthentificationImpl.logout()
 
 

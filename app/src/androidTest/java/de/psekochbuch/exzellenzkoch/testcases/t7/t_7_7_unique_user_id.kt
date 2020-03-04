@@ -116,7 +116,7 @@ class t_7_7_unique_user_id {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("tempomato@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("temtomate@muster.de"), closeSoftKeyboard())
 
 
         val appCompatEditText2 = onView(
@@ -152,7 +152,8 @@ class t_7_7_unique_user_id {
 
 
 
-        Thread.sleep(500)
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
         val appCompatEditText3 = onView(
             allOf(
                 withId(R.id.textView_enter_userID),
@@ -198,9 +199,8 @@ class t_7_7_unique_user_id {
         var userRepo = UserRepositoryImp()
         var user = userRepo.getUser("eindeutigeindeutig")
 
-        Thread.sleep(200)
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
-       Thread.sleep(1500)
         assert(user.value!!.userId.equals("eindeutigeindeutig"))
 
 

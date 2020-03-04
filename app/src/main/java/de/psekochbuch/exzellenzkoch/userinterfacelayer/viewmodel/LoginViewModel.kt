@@ -3,7 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
+
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.services.Authentification
@@ -30,7 +30,7 @@ class LoginViewModel() : ViewModel() {
      *
      */
     fun login(updateUi: (String, AuthenticationResult, String?) -> Unit) {
-        EspressoIdlingResource.increment()
+
 
         val em = email.value
         val pw = password.value
@@ -48,7 +48,6 @@ class LoginViewModel() : ViewModel() {
             updateUi("", AuthenticationResult.LOGINFAILED, "email or password are empty")
         }
 
-EspressoIdlingResource.decrement()
     }
 
     /**

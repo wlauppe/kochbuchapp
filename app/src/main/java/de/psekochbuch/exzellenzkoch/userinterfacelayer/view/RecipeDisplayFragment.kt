@@ -78,11 +78,11 @@ class RecipeDisplayFragment : Fragment(){
         //initialized navcontoller
         var navController: NavController = findNavController()
 
-        viewModel.recipe.observe(this, Observer { recipe -> setImage(recipe.imgUrl)})
-        viewModel.recipe.observe(this, Observer { recipe -> setTitle(recipe.title) })
-        viewModel.recipe.observe(this, Observer { recipe -> setTimes(recipe.preparationTime, recipe.cookingTime) })
-        viewModel.recipe.observe(this, Observer { recipe -> setTagsAndIngredietText(recipe.tags, recipe.ingredientsText) })
-        viewModel.recipe.observe(this, Observer { recipe ->
+        viewModel.recipe.observe(this.viewLifecycleOwner, Observer { recipe -> setImage(recipe.imgUrl)})
+        viewModel.recipe.observe(viewLifecycleOwner, Observer { recipe -> setTitle(recipe.title) })
+        viewModel.recipe.observe(viewLifecycleOwner, Observer { recipe -> setTimes(recipe.preparationTime, recipe.cookingTime) })
+        viewModel.recipe.observe(viewLifecycleOwner, Observer { recipe -> setTagsAndIngredietText(recipe.tags, recipe.ingredientsText) })
+        viewModel.recipe.observe(viewLifecycleOwner, Observer { recipe ->
             binding.textViewRecipePrepDescription.text = recipe.preparation
             setCreationDate(recipe.creationTimeStamp)})
         viewModel.recipe.observeForever(Observer { recipe -> setPortions(recipe.portions)})

@@ -15,6 +15,7 @@ import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -436,6 +437,23 @@ class T_8_1_create_recipe_update_date_test {
         )
         appCompatButton4.perform(click())
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+        var repo = PublicRecipeRepositoryImp()
+        var localRepo = PrivateRecipeRepositoryImp(Application())
+
+        var localRecipe = localRepo.getPrivateRecipes()
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+        
+
+        var list = emptyList<String>()
+
+        var recipes = repo.getPublicRecipe()
+
+
+
+
 
         //TODO testen, ob das rezept serverseitig angezeigr wird mit dem aktuellen datum
 
@@ -463,9 +481,4 @@ class T_8_1_create_recipe_update_date_test {
         }
     }
 }
-/*
-T 8_1 kann nicht getestet werden, da wir bei privaten Rezepten noch kein Datum als Attribut haben
-Serverseitig wird ein Erstellungsdatum angezeigt, jedoch funktioniert das Paging noch nicht,
-weshalb momentan nicht auf gerade ersterstellte Rezepte zugegriffen werden kann
 
- */

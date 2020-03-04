@@ -112,7 +112,7 @@ class t_7_6_delete_profile_private_recipe_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("temp@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("tempoo@muster.de"), closeSoftKeyboard())
 
 
         val appCompatEditText2 = onView(
@@ -146,6 +146,9 @@ class t_7_6_delete_profile_private_recipe_test {
         )
         appCompatButton2.perform(click())
 
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
         val appCompatButton3 = onView(
             allOf(
                 withId(R.id.button_save_profile_changes), withText("Speichern"),
@@ -163,6 +166,7 @@ class t_7_6_delete_profile_private_recipe_test {
             )
         )
         appCompatButton3.perform(click())
+
 
         val appCompatImageButton2 = onView(
             allOf(
@@ -337,10 +341,12 @@ class t_7_6_delete_profile_private_recipe_test {
         )
 
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
         val appCompatEditText13 = onView(
             allOf(
                 withId(R.id.editText_preparation_description_create_recipe_fragment),
-                withText("Zicker zu kern "),
+                withText( ""),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.ScrollView")),
@@ -366,6 +372,8 @@ class t_7_6_delete_profile_private_recipe_test {
             )
         )
         appCompatCheckBox.perform(scrollTo(), click())
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButton5 = onView(
             allOf(
@@ -401,6 +409,8 @@ class t_7_6_delete_profile_private_recipe_test {
 
         //Das Viewmodel lädt alle Rezepte und überprüft, ob die Published ID gleich 0 ist.
        vm.getPrivateRecipes()
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
         for(recipe in vm.recipes.value!!){
             if(recipe.publishedRecipeId != 0){
                 assert(false)
@@ -413,7 +423,6 @@ class t_7_6_delete_profile_private_recipe_test {
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-
         AuthentificationImpl.userDelete()
         AuthentificationImpl.logout()
     }
