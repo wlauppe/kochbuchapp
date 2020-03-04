@@ -106,9 +106,9 @@ class ApiServiceBuilder(firebaseToken:String?) {
             }
         }).addInterceptor(logging)
             .build()
-        val resource = OkHttp3IdlingResource.create("OkHttp", client)
-        Espresso.registerIdlingResources(resource);
-        EspressoIdlingResource. = resource
+        //val resource = OkHttp3IdlingResource.create("OkHttp", client)
+        //Espresso.registerIdlingResources(resource);
+        //EspressoIdlingResource. = resource
         return client
 
     }
