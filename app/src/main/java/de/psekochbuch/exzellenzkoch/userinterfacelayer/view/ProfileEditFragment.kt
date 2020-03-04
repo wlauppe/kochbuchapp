@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,6 +23,7 @@ import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.ProfileEditFragmentBinding
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileEditViewmodel
+
 
 /**
  * The Fragment class provides logic for binding the respective .xml layout file to the class
@@ -113,6 +115,7 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
                 pickImageFromGallery();
             }
         }
+
         return binding.root
     }
 
