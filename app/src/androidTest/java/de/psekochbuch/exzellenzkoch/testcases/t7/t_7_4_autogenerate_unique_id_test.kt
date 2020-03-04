@@ -4,7 +4,6 @@ package de.psekochbuch.exzellenzkoch.testcases.t7
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -29,32 +28,23 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_4_default_userid_static_test {
+class t_7_4_autogenerate_unique_id_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Before
-    fun registerIdlingResource(){
-       IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    fun setUp(){
         AuthentificationImpl.logout()
-
-
     }
-
     @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    fun tearDown(){
+        AuthentificationImpl.userDelete()
         AuthentificationImpl.logout()
     }
-
     @Test
-    fun t_7_4_default_userid_static_test() {
-        if(AuthentificationImpl.isLogIn()){
-            AuthentificationImpl.logout()
-        }
-
+    fun t_7_4_autogenerate_unique_id_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -73,7 +63,6 @@ class t_7_4_default_userid_static_test {
         )
         appCompatImageButton.perform(click())
 
-
         val navigationMenuItemView = onView(
             allOf(
                 childAtPosition(
@@ -91,11 +80,9 @@ class t_7_4_default_userid_static_test {
         )
         navigationMenuItemView.perform(click())
 
-       // Thread.sleep(100)
-
-        val appCompatEditText = onView(
+        val appCompatButton = onView(
             allOf(
-                withId(R.id.editText_login_fragment_email),
+                withId(R.id.button_login_fragment_register), withText("Registrieren"),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -104,95 +91,79 @@ class t_7_4_default_userid_static_test {
                             0
                         )
                     ),
-                    1
+                    6
                 ),
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
+        appCompatButton.perform(click())
 
-      //  Thread.sleep(100)
+        val appCompatEditText = onView(
+            allOf(
+                withId(R.id.editText_register_email_input),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText.perform(replaceText("werner@muster.de"), closeSoftKeyboard())
+
 
         val appCompatEditText2 = onView(
             allOf(
-                withId(R.id.editText_login_fragment_password),
+                withId(R.id.editText_register_password_input),
                 childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
                     ),
-                    3
+                    6
                 ),
                 isDisplayed()
             )
         )
         appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
-       // Thread.sleep(100)
 
-        val appCompatButton = onView(
+
+        val appCompatButton2 = onView(
             allOf(
-                withId(R.id.button_login_fragment_login), withText("Einloggen"),
+                withId(R.id.button_register_fragment_register), withText("Registrieren"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    7
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton2.perform(click())
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+        val editText = onView(
+            allOf(
+                withId(R.id.textView_enter_userID),
                 childAtPosition(
                     allOf(
-                        withId(R.id.constraintLayout),
+                        withId(R.id.linearLayout2),
                         childAtPosition(
-                            withId(R.id.nav_host_fragment),
+                            IsInstanceOf.instanceOf(android.widget.ScrollView::class.java),
                             0
                         )
                     ),
-                    4
-                ),
-                isDisplayed()
-            )
-        )
-            appCompatButton.perform(click())
-      //  Thread.sleep(500)
-
-
-        //Vorbedingung
-
-        val textView = onView(
-            allOf(
-                withId(R.id.textView_profile_display_fragment_title),
-                childAtPosition(
-                    childAtPosition(
-                        IsInstanceOf.instanceOf(android.widget.ScrollView::class.java),
-                        0
-                    ),
                     1
                 ),
                 isDisplayed()
             )
         )
-        textView.check(matches(isDisplayed()))
-
-       // Thread.sleep(100)
-
-        //schlägt fehl
-        /*
-        val textView2 = onView(
-            allOf(
-                withId(R.id.textView_profile_display_fragment_title),
-                withText("Error Fetching User! with Id = KochDummy"),
-                childAtPosition(
-                    childAtPosition(
-                        IsInstanceOf.instanceOf(android.widget.ScrollView::class.java),
-                        0
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        textView2.check(matches(withText("KochDummy")))
-
-         */
-
-
-        //Thread.sleep(1000)
+        editText.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(
@@ -213,7 +184,3 @@ class t_7_4_default_userid_static_test {
         }
     }
 }
-
-/*
-Login funktioniert nicht. Problem: Loginviewmodel zeile 41 : Updateui....
- */

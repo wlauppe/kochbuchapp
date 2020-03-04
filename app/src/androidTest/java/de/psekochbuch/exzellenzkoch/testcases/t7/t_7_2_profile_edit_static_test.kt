@@ -192,8 +192,8 @@ Log.w(TAG, "in das LOGINFRAGMENT")
         )
         editText.check(matches(isDisplayed()))
 
-/*
-        val editText2 = onView(
+
+        val editText24 = onView(
             allOf(
                 withId(R.id.editText_user_description), withText("Ich bin ein Muster"),
                 childAtPosition(
@@ -209,9 +209,9 @@ Log.w(TAG, "in das LOGINFRAGMENT")
                 isDisplayed()
             )
         )
-        editText2.check(matches(withText("Ich bin ein Muster")))
+        editText24.check(matches(withText("Ich bin ein Muster")))
 
- */
+
 
         val editText2 = onView(
             allOf(
