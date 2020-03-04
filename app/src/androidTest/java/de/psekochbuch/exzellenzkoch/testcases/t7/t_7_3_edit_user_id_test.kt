@@ -4,17 +4,17 @@ package de.psekochbuch.exzellenzkoch.testcases.t7
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
+import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
-
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import junit.framework.Assert.assertEquals
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -28,25 +28,30 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_3_profile_edit_user_id_test {
+class t_7_3_edit_user_id_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
-
     @Before
-    fun registerIdlingResource(){
-
+    fun setup(){
         AuthentificationImpl.logout()
     }
 
     @After
-    fun unregister(){
-
+    fun tearDown(){
+        AuthentificationImpl.logout()
     }
 
+    @Rule
+    @JvmField
+    var mGrantPermissionRule =
+        GrantPermissionRule.grant(
+            "android.permission.READ_EXTERNAL_STORAGE"
+        )
+
     @Test
-    fun t_7_3_profile_edit_user_id_test() {
+    fun t_7_3_edit_user_id_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -138,7 +143,6 @@ class t_7_3_profile_edit_user_id_test {
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
-
         val appCompatButton2 = onView(
             allOf(
                 withId(R.id.button_profile_display_fragment_edit_profile),
@@ -154,9 +158,11 @@ class t_7_3_profile_edit_user_id_test {
         )
         appCompatButton2.perform(scrollTo(), click())
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
         val appCompatEditText3 = onView(
             allOf(
-                withId(R.id.textView_enter_userID),
+                withId(R.id.textView_enter_userID), withText("Max"),
                 childAtPosition(
                     allOf(
                         withId(R.id.linearLayout2),
@@ -169,9 +175,25 @@ class t_7_3_profile_edit_user_id_test {
                 )
             )
         )
-        appCompatEditText3.perform(scrollTo(), replaceText("Max1"))
+        appCompatEditText3.perform(scrollTo(), replaceText("Maxo"))
 
-
+        val appCompatEditText4 = onView(
+            allOf(
+                withId(R.id.textView_enter_userID), withText("Maxo"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout2),
+                        childAtPosition(
+                            withClassName(`is`("android.widget.ScrollView")),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText4.perform(closeSoftKeyboard())
 
 
         val appCompatButton3 = onView(
@@ -191,7 +213,9 @@ class t_7_3_profile_edit_user_id_test {
             )
         )
         appCompatButton3.perform(click())
-        //TODO testen, ob id serverseitig geändert wird
+
+        assertEquals(AuthentificationImpl.getUserId(), "Maxo")
+
     }
 
     private fun childAtPosition(
