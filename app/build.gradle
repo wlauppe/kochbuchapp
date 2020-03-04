@@ -39,12 +39,19 @@ android {
             buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
         }
 
-        debug
-                {
+        debug {
                     testCoverageEnabled true
                     buildConfigField "String", "BASEURL", '"http://193.196.38.185:8080/api/"'
                     buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
                 }
+
+        extraTestServer {
+            initWith debug
+            testCoverageEnabled true
+            buildConfigField "String", "BASEURL", '"http://193.196.36.57:8080/api/"'
+            buildConfigField "String", "IMG_PREFIX", '"http://193.196.36.57:8080/"'
+        }
+
         confTest{
             initWith debug
             testCoverageEnabled true
