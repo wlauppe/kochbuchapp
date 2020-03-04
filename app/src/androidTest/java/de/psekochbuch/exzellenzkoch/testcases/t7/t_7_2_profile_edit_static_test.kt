@@ -12,6 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
@@ -138,6 +139,7 @@ Log.w(TAG, "in das LOGINFRAGMENT")
             )
             appCompatButton.perform(click())
         }
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButton2 = onView(
             allOf(
@@ -191,6 +193,8 @@ Log.w(TAG, "in das LOGINFRAGMENT")
             )
         )
         editText.check(matches(isDisplayed()))
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
 
         val editText24 = onView(
