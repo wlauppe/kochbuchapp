@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
@@ -16,6 +17,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserReposi
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.lang.Exception
 import java.util.*
 
 /**
@@ -165,11 +167,17 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             val userId = AuthentificationImpl.getUserId()
             val user = User(userId)
             //val _user = userRepo.getUser(userId)
-           val convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(user)
+            var convertedPublicRecipe:PublicRecipe = PublicRecipe()
+            try{
+                convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(user)
+           }catch (e:Exception){
+                _snackbarMessage.value = e.message
+                return
+            }
            // val convertedPublicRecipe = PublicRecipe(title="Test", user=user,imgUrl = newPrivateRecipe.imgUrl)
             Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
             //Coroutine
-            viewModelScope.launch {
+            runBlocking {
                 try {
                    val newId = publicRepo.publishRecipe(convertedPublicRecipe)
 

@@ -37,10 +37,9 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
             runBlocking {
                 for (id:Int in it)
                     publicRepo.deleteRecipe(id)
+                AuthentificationImpl.userDelete()
             }
         }
-
-        AuthentificationImpl.userDelete()
     }
 
     /**
