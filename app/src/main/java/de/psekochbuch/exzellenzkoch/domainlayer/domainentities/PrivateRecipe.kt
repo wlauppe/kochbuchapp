@@ -120,11 +120,7 @@ class PrivateRecipe(
         }
 
         val toParseChapters = parsable.split("#").toList().drop(1)
-        try{
-            return toParseChapters.map(::stringtochapter);
-        } catch (e: Exception){
-            throw java.lang.IllegalArgumentException("ingredients couldnt be parsed")
-        }
+        return toParseChapters.map(::stringtochapter);
     }
 
     fun stringtochapter(toParse: String): IngredientChapter{
@@ -200,7 +196,7 @@ class PrivateRecipe(
                 return IngredientAmount(line.substring(i,line.length),number,"")
             }
         }
-        throw Exception("keine Zahl erkannt")
+        throw Exception("Die Zeile: " + line + "konnte nicht geparst werden")
     }
 
     /**
