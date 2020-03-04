@@ -13,7 +13,9 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
 /**
@@ -131,26 +133,26 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         _showSnackbarEvent.value = true
     }
 
-        fun saveRecipe(context: Context) {
-            if(tagCheckBoxPublish.value == true) {
-                _snackbarMessage.value = "Rezept wird gespeichert und veröffentlicht"
-            }
-            else {
-                _snackbarMessage.value = "Rezept wird gespeichert"
-            }
-            _showSnackbarEvent.value = true
+    fun saveRecipe(context: Context) {
+        if(tagCheckBoxPublish.value == true) {
+            _snackbarMessage.value = "Rezept wird gespeichert und veröffentlicht"
+        }
+        else {
+            _snackbarMessage.value = "Rezept wird gespeichert"
+        }
+        _showSnackbarEvent.value = true
 
         Log.i("CreateRecipeViewmodel", "funktion save recipe wird aufgerufen")
 
         // save to room database or update if already exists in room database
         // if recipe ID = 0, it's a new recipe, else update the existing one
         var resultTags = getCheckedTags()
-       if (imgUrl.value.equals("") ) {
+        if (imgUrl.value.equals("") ) {
            imgUrl.value = recipe.value?.imgUrl
-       }
-            if(imgUrl.value.isNullOrEmpty()){
-                imgUrl.value =  "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
-            }
+        }
+        if(imgUrl.value.isNullOrEmpty()){
+            imgUrl.value =  "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
+        }
        var newPrivateRecipe =
            PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
                resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, publishedID)
@@ -193,8 +195,15 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 }
                 
             }
+        } else if (this.tagCheckBoxPublish.value == false && AuthentificationImpl.isLogIn()){
+            runBlocking{
+                privateRepo.getPrivateRecipe(recipeID).observeForever{
+                    runBlocking {
+                        publicRepo.deleteRecipe(it.publishedRecipeId)
+                    }
+                }
+            }
         }
-
     }
 
     fun getCheckedTags():List<String>{

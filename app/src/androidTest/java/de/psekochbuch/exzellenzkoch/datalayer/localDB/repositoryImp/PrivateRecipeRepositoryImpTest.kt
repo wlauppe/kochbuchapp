@@ -35,7 +35,10 @@ class PrivateRecipeRepositoryImpTest(){
         @JvmStatic
         fun setup(){
             repo = PrivateRecipeRepositoryImp.getInstance(ApplicationProvider.getApplicationContext())
-            repo.deleteAll()
+
+
+
+
         }
     }
     /**
@@ -46,7 +49,7 @@ class PrivateRecipeRepositoryImpTest(){
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    @After
+    @Before
     fun setUp(){
         repo.deleteAll()
     }
