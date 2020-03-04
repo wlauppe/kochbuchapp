@@ -6,12 +6,16 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.psekochbuch.exzellenzkoch.InjectorUtils
+import de.psekochbuch.exzellenzkoch.PAGE_SIZE
+import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.FeedBinding
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.adapter.FeedAdapter
@@ -28,7 +32,7 @@ class FeedFragment : Fragment() {
     /**
      * Global variables used for pagination in RecyclerView
      */
-    private var pageLimit = 100
+    private var pageLimit = PAGE_SIZE
     private var isLoading: Boolean = false
     private lateinit var feedAdapter : FeedAdapter
     private lateinit var layoutManager: LinearLayoutManager
@@ -79,6 +83,7 @@ class FeedFragment : Fragment() {
         })
 
         binding.recyclerViewFeed.setHasFixedSize(true)
+
         return binding.root
     }
 
@@ -99,7 +104,7 @@ class FeedFragment : Fragment() {
             } else {
                 feedAdapter = FeedAdapter(classViewModel, requireContext())
             }
-        }, 5000)
+        }, 4000)
     }
 
     /**

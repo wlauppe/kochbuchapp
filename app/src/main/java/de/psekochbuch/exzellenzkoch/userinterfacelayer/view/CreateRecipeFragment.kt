@@ -226,7 +226,6 @@ class CreateRecipeFragment : Fragment() {
         }
 
         // custom action for the back button to autosave the recipe
-        // This callback will only be called when MyFragment is at least Started.
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -236,7 +235,6 @@ class CreateRecipeFragment : Fragment() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-        // The callback can be enabled or disabled here or in handleOnBackPressed()
 
         return binding.root
     }
