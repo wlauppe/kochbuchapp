@@ -36,7 +36,6 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
      */
     private lateinit var binding: ProfileEditFragmentBinding
     var viewModelTemp : ProfileEditViewmodel? = null
-    private var isSaved : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
