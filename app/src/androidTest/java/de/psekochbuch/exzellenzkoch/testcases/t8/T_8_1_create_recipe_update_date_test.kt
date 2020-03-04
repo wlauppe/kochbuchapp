@@ -12,6 +12,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource.Sleep
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
@@ -437,19 +438,27 @@ class T_8_1_create_recipe_update_date_test {
         )
         appCompatButton4.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+        Thread.sleep(Sleep.toLong())
 
         var repo = PublicRecipeRepositoryImp()
         var localRepo = PrivateRecipeRepositoryImp(Application())
 
         var localRecipe = localRepo.getPrivateRecipes()
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+        Thread.sleep(Sleep.toLong())
 
-        
+        if(localRecipe.value != null){
+            var publicRecipe = repo.getPublicRecipe(localRecipe.value!!.first().publishedRecipeId)
+            Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+            if(publicRecipe.value != null){
+                assert(publicRecipe.value!!.title.equals("Neuling"))
+            }else{
+                assert(false)
+            }
+        }else{
+            assert(false)
+        }
 
-        var list = emptyList<String>()
 
-        var recipes = repo.getPublicRecipe()
 
 
 
