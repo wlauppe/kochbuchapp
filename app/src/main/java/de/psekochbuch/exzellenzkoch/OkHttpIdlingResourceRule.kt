@@ -6,7 +6,7 @@ import androidx.test.espresso.IdlingResource
 import java.sql.Statement
 
 
-class OkHttpIdlingResourceRule: Testrule {
+class OkHttpIdlingResourceRule //: TestRule {
 /*
     private val resource : IdlingResource = OkHttp3IdlingResource.create("okhttp", OkHttpProvider.instance)
 
@@ -21,4 +21,4 @@ class OkHttpIdlingResourceRule: Testrule {
     }
 
  */
-}
+//}
