@@ -6,8 +6,7 @@ object EspressoIdlingResource {
 
     private const val Resource = "GLOBAL"
 
-
-    @JvmField val countingIdlingResource = CountingIdlingResource(Resource)
+    @JvmField var countingIdlingResource = CountingIdlingResource(Resource)
 
 
 

@@ -158,14 +158,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, publishedID)
 
             //Coroutine Saving in Room Database
-        viewModelScope.launch {
-            try {
-                privateRepo.insertPrivateRecipe(newPrivateRecipe)
-            } catch (error: Error) {
-                _snackbarMessage.value = error.message
-                Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
-            }
-        }
+
          //Man muss da Zugriff auf den Benutzer haben,
          // und wenn keiner angemeldet ist soll man ja auch nicht publishen können
         if(this.tagCheckBoxPublish.value == true && AuthentificationImpl.isLogIn()){
@@ -196,11 +189,12 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 
             }
         } else if (this.tagCheckBoxPublish.value == false && AuthentificationImpl.isLogIn()){
-            runBlocking{
-                privateRepo.getPrivateRecipe(recipeID).observeForever{
-                    runBlocking {
-                        publicRepo.deleteRecipe(it.publishedRecipeId)
-                    }
+            viewModelScope.launch {
+                try {
+                    privateRepo.insertPrivateRecipe(newPrivateRecipe)
+                } catch (error: Error) {
+                    _snackbarMessage.value = error.message
+                    Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
                 }
             }
         }
