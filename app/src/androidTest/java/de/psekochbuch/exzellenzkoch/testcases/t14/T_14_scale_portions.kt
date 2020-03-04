@@ -36,6 +36,8 @@ class T_14_scale_portions {
 
     @Test
     fun t_14_scale_portions() {
+        Thread.sleep(3000)
+
         val linearLayout = onView(
             allOf(
                 withId(R.id.feed_layout_item),
@@ -73,6 +75,8 @@ class T_14_scale_portions {
         )
         textView.check(matches(withText("#Für die Windbeutel\r 250 ml Wasser \r 1 Prise Salz  \r 80 g Butter \r 150 g Mehl \r 4 Eier \r 100 g Zartbitter Kuvertüre \r #Für die Schokofüllung\r 100 g Zartbitter Schokolade \r 100 g Vollmilch Schokolade \r 400 ml Sahne")))
 
+        Thread.sleep(3000)
+
         val appCompatButton = onView(
             allOf(
                 withId(R.id.button_portion_plus), withText("+"),
@@ -86,6 +90,8 @@ class T_14_scale_portions {
             )
         )
         appCompatButton.perform(scrollTo(), click())
+
+        Thread.sleep(3000)
 
         val textView2 = onView(
             allOf(
@@ -104,7 +110,10 @@ class T_14_scale_portions {
                 isDisplayed()
             )
         )
+        Thread.sleep(3000)
         textView2.check(matches(withText("Für die Windbeutel 160.0 g Butter 8.0 Stück Eier 300.0 g Mehl 2.0 Prise Salz 500.0 ml Wasser 200.0 g Zartbitter-Kuvertüre Für die Schokofüllung 800.0 ml Sahne 200.0 g Vollmilch-Schokolade 200.0 g Zartbitter-Schokolade ")))
+
+        Thread.sleep(3000)
 
         val appCompatButton2 = onView(
             allOf(
@@ -119,6 +128,8 @@ class T_14_scale_portions {
             )
         )
         appCompatButton2.perform(scrollTo(), click())
+
+        Thread.sleep(3000)
 
         val textView3 = onView(
             allOf(

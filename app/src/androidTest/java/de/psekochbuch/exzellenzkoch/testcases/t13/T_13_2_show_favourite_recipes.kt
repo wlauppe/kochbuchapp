@@ -4,6 +4,7 @@ package de.psekochbuch.exzellenzkoch.testcases
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -36,6 +37,9 @@ class T_13_2_show_favourite_recipes {
 
     @Test
     fun t_13_2_show_favourite_recipes() {
+
+        Thread.sleep(3000)
+
         val linearLayout = onView(
             allOf(
                 withId(R.id.feed_layout_item),
@@ -54,6 +58,8 @@ class T_13_2_show_favourite_recipes {
         )
         linearLayout.perform(click())
 
+        Thread.sleep(3000)
+
         val appCompatImageButton = onView(
             allOf(
                 withId(R.id.imageButton_favourite),
@@ -68,69 +74,7 @@ class T_13_2_show_favourite_recipes {
         )
         appCompatImageButton.perform(scrollTo(), click())
 
-        val linearLayout2 = onView(
-            allOf(
-                withId(R.id.feed_layout_item),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.recyclerView_feed),
-                        childAtPosition(
-                            withClassName(`is`("android.widget.LinearLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        linearLayout2.perform(click())
-
-        val appCompatImageButton2 = onView(
-            allOf(
-                withId(R.id.imageButton_favourite),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.linearLayout4),
-                        1
-                    ),
-                    1
-                )
-            )
-        )
-        appCompatImageButton2.perform(scrollTo(), click())
-
-        val linearLayout3 = onView(
-            allOf(
-                withId(R.id.feed_layout_item),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.recyclerView_feed),
-                        childAtPosition(
-                            withClassName(`is`("android.widget.LinearLayout")),
-                            0
-                        )
-                    ),
-                    2
-                ),
-                isDisplayed()
-            )
-        )
-        linearLayout3.perform(click())
-
-        val appCompatImageButton3 = onView(
-            allOf(
-                withId(R.id.imageButton_favourite),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.linearLayout4),
-                        1
-                    ),
-                    1
-                )
-            )
-        )
-        appCompatImageButton3.perform(scrollTo(), click())
+        Thread.sleep(3000)
 
         val appCompatImageButton4 = onView(
             allOf(
@@ -167,6 +111,8 @@ class T_13_2_show_favourite_recipes {
         )
         navigationMenuItemView.perform(click())
 
+        Thread.sleep(3000)
+
         val recyclerView = onView(
             allOf(
                 withId(R.id.recyclerView_favourites),
@@ -181,6 +127,8 @@ class T_13_2_show_favourite_recipes {
             )
         )
         recyclerView.check(matches(isDisplayed()))
+
+        Thread.sleep(3000)
 
         val textView = onView(
             allOf(
@@ -201,6 +149,8 @@ class T_13_2_show_favourite_recipes {
         )
         textView.check(matches(withText("Windbeutel mit Schokofüllung")))
 
+        Thread.sleep(3000)
+
         val textView2 = onView(
             allOf(
                 withId(R.id.textView_recipe_name_favourite), withText("Testrunde1, rezept:3"),
@@ -218,6 +168,8 @@ class T_13_2_show_favourite_recipes {
             )
         )
         textView2.check(matches(withText("Testrunde1, rezept:3")))
+
+        Thread.sleep(3000)
 
         val textView3 = onView(
             allOf(

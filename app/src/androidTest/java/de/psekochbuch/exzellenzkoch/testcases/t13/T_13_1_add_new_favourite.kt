@@ -32,6 +32,9 @@ class T_13_1_add_new_favourite {
 
     @Test
     fun t_13_1_add_new_favourite() {
+
+        Thread.sleep(3000)
+
         val linearLayout = onView(
             allOf(
                 withId(R.id.feed_layout_item),
@@ -50,6 +53,8 @@ class T_13_1_add_new_favourite {
         )
         linearLayout.perform(click())
 
+        Thread.sleep(3000)
+
         val appCompatImageButton = onView(
             allOf(
                 withId(R.id.imageButton_favourite),
@@ -63,6 +68,8 @@ class T_13_1_add_new_favourite {
             )
         )
         appCompatImageButton.perform(scrollTo(), click())
+
+        Thread.sleep(3000)
 
         val appCompatImageButton2 = onView(
             allOf(
@@ -99,6 +106,8 @@ class T_13_1_add_new_favourite {
         )
         navigationMenuItemView.perform(click())
 
+        Thread.sleep(3000)
+
         val linearLayout2 = onView(
             allOf(
                 withId(R.id.favourite_layout_item),
@@ -116,6 +125,8 @@ class T_13_1_add_new_favourite {
             )
         )
         linearLayout2.perform(click())
+
+        Thread.sleep(3000)
 
         val textView = onView(
             allOf(
