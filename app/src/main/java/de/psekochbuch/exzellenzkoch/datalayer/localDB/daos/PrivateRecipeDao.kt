@@ -22,4 +22,7 @@ interface PrivateRecipeDao {
 
     @Query("DELETE FROM privateRecipe")
     fun deleteAll()
+
+    @Query("SELECT publishedID from privateRecipe where publishedID != 0")
+    fun getAllPublishedIds(): List<Int>
 }

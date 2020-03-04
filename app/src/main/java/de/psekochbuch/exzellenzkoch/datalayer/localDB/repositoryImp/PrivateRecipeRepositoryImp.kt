@@ -84,6 +84,12 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
 
     }
 
+    fun getAllPublishedIds(doWork: (List<Int>) ->Unit){
+        DB.databaseWriteExecutor.execute{
+            doWork(privateRecipeDao?.getAllPublishedIds()!!)
+        }
+    }
+
     /**
      * this method inserts a private recipe to the DB. If the recipe has id 0, the DB
      * gives the recipe a unique identifier.
