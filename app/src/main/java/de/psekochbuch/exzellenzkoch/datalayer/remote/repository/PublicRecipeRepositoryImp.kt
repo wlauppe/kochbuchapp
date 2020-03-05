@@ -85,7 +85,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 //if (!response.isSuccessful) throw error("response not successful")
                 dtoList.let {
                     val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
-                    emit(entityList)
+                    // emit in reversed order to show most recent one first
+                    emit(entityList.reversed())
                 }
             }
              catch(error : Throwable) {
