@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.testcases.t13
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
@@ -13,6 +14,8 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -21,6 +24,7 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.internal.matchers.Null
 
 /**
  * This test first adds new favors from the existing published recipes and then checks,
@@ -29,6 +33,11 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class T_13_2_show_favourite_recipes {
+
+    private var repo = PublicRecipeRepositoryImp.getInstance()
+    private var firstFeedRecipe = repo.getPublicRecipes(1)
+    private lateinit var recipe : PublicRecipe
+    private lateinit var title : String
 
     @Rule
     @JvmField
@@ -127,12 +136,19 @@ class T_13_2_show_favourite_recipes {
         )
         recyclerView.check(matches(isDisplayed()))
 
-        Thread.sleep(3000)
+        // TODO get recipe title from first feed recipe for assertion
+        Thread.sleep(5000)
+        //recipe = firstFeedRecipe.value!![1]
+        if (firstFeedRecipe.value == null) {
+            title = "NULLTITLE"
+        } else {
+            title = "test1"
+        }
 
         val textView = onView(
             allOf(
                 withId(R.id.textView_recipe_name_favourite),
-                withText("Windbeutel mit Schokofüllung"),
+                withText(title),
                 childAtPosition(
                     allOf(
                         withId(R.id.favourite_layout_item),
@@ -146,47 +162,8 @@ class T_13_2_show_favourite_recipes {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Windbeutel mit Schokofüllung")))
+        textView.check(matches(withText(title)))
 
-        Thread.sleep(3000)
-
-        val textView2 = onView(
-            allOf(
-                withId(R.id.textView_recipe_name_favourite), withText("Testrunde1, rezept:3"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.favourite_layout_item),
-                        childAtPosition(
-                            withId(R.id.recyclerView_favourites),
-                            1
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        textView2.check(matches(withText("Testrunde1, rezept:3")))
-
-        Thread.sleep(3000)
-
-        val textView3 = onView(
-            allOf(
-                withId(R.id.textView_recipe_name_favourite), withText("Testrunde1, rezept:8"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.favourite_layout_item),
-                        childAtPosition(
-                            withId(R.id.recyclerView_favourites),
-                            2
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        textView3.check(matches(withText("Testrunde1, rezept:8")))
     }
 
     private fun childAtPosition(
