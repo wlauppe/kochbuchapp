@@ -73,9 +73,7 @@ class T_14_scale_portions {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("#Für die Windbeutel\r 250 ml Wasser \r 1 Prise Salz  \r 80 g Butter \r 150 g Mehl \r 4 Eier \r 100 g Zartbitter Kuvertüre \r #Für die Schokofüllung\r 100 g Zartbitter Schokolade \r 100 g Vollmilch Schokolade \r 400 ml Sahne")))
-
-        Thread.sleep(3000)
+        var initText = "#Für die Windbeutel\r 250 ml Wasser \r 1 Prise Salz  \r 80 g Butter \r 150 g Mehl \r 4 Eier \r 100 g Zartbitter Kuvertüre \r #Für die Schokofüllung\r 100 g Zartbitter Schokolade \r 100 g Vollmilch Schokolade \r 400 ml Sahne"
 
         val appCompatButton = onView(
             allOf(
@@ -110,8 +108,7 @@ class T_14_scale_portions {
                 isDisplayed()
             )
         )
-        Thread.sleep(3000)
-        textView2.check(matches(withText("Für die Windbeutel 160.0 g Butter 8.0 Stück Eier 300.0 g Mehl 2.0 Prise Salz 500.0 ml Wasser 200.0 g Zartbitter-Kuvertüre Für die Schokofüllung 800.0 ml Sahne 200.0 g Vollmilch-Schokolade 200.0 g Zartbitter-Schokolade ")))
+        var oncePressed = "Für die Windbeutel 160.0 g Butter 8.0 Stück Eier 300.0 g Mehl 2.0 Prise Salz 500.0 ml Wasser 200.0 g Zartbitter-Kuvertüre Für die Schokofüllung 800.0 ml Sahne 200.0 g Vollmilch-Schokolade 200.0 g Zartbitter-Schokolade "
 
         Thread.sleep(3000)
 
@@ -148,7 +145,7 @@ class T_14_scale_portions {
                 isDisplayed()
             )
         )
-        textView3.check(matches(withText("Für die Windbeutel 80.0 g Butter 4.0 Stück Eier 150.0 g Mehl 1.0 Prise Salz 250.0 ml Wasser 100.0 g Zartbitter-Kuvertüre Für die Schokofüllung 400.0 ml Sahne 100.0 g Vollmilch-Schokolade 100.0 g Zartbitter-Schokolade ")))
+        textView3.check(matches(withText(initText)))
     }
 
     private fun childAtPosition(
