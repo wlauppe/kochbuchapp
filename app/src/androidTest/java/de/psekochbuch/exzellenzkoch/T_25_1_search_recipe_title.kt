@@ -1,54 +1,37 @@
-package de.psekochbuch.exzellenzkoch.testcases
+package de.psekochbuch.exzellenzkoch
 
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
-import de.psekochbuch.exzellenzkoch.MainActivity
-import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class login_test_max_musterman {
+class T_25_1_search_recipe_title {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
-    @Before
-    fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
-    }
-
-    @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
-    }
 
     @Test
-    fun login_test_max_musterman() {
+    fun t_25_1_search_recipe_title() {
         val appCompatImageButton = onView(
             allOf(
-                withContentDescription("Navigationsleiste öffnen"),
+                withContentDescription("Open navigation drawer"),
                 childAtPosition(
                     allOf(
                         withId(R.id.toolbar),
@@ -57,7 +40,7 @@ class login_test_max_musterman {
                             0
                         )
                     ),
-                    3
+                    1
                 ),
                 isDisplayed()
             )
@@ -74,7 +57,7 @@ class login_test_max_musterman {
                             0
                         )
                     ),
-                    3
+                    2
                 ),
                 isDisplayed()
             )
@@ -83,12 +66,63 @@ class login_test_max_musterman {
 
         val appCompatEditText = onView(
             allOf(
-                withId(R.id.editText_login_fragment_email),
+                withId(R.id.editText_search_recipe_title),
                 childAtPosition(
                     allOf(
-                        withId(R.id.constraintLayout),
+                        withId(R.id.linearLayout3),
                         childAtPosition(
                             withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText.perform(replaceText("salat"), closeSoftKeyboard())
+
+        val appCompatButton = onView(
+            allOf(
+                withId(R.id.button_search_recipe_search_button), withText("Suchen"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout3),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    8
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton.perform(click())
+
+        val recyclerView = onView(
+            allOf(
+                withId(R.id.recyclerView_searchlist_fragment),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        recyclerView.check(matches(isDisplayed()))
+
+        val textView = onView(
+            allOf(
+                withId(R.id.textView_recipe_name), withText("Gartensalat"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.display_searchlist_layout_Item),
+                        childAtPosition(
+                            withId(R.id.recyclerView_searchlist_fragment),
                             0
                         )
                     ),
@@ -97,43 +131,61 @@ class login_test_max_musterman {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
+        textView.check(matches(withText("Gartensalat")))
 
-        val appCompatEditText2 = onView(
+        val textView2 = onView(
             allOf(
-                withId(R.id.editText_login_fragment_password),
+                withId(R.id.textView_recipe_name), withText("dersalat"),
                 childAtPosition(
                     allOf(
-                        withId(R.id.constraintLayout),
+                        withId(R.id.display_searchlist_layout_Item),
                         childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
+                            withId(R.id.recyclerView_searchlist_fragment),
+                            1
                         )
                     ),
-                    3
+                    1
                 ),
                 isDisplayed()
             )
         )
-        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
+        textView2.check(matches(withText("dersalat")))
 
-        val appCompatButton = onView(
+        val textView3 = onView(
             allOf(
-                withId(R.id.button_login_fragment_login), withText("Einloggen"),
+                withId(R.id.textView_recipe_name), withText("Salatt"),
                 childAtPosition(
                     allOf(
-                        withId(R.id.constraintLayout),
+                        withId(R.id.display_searchlist_layout_Item),
                         childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
+                            withId(R.id.recyclerView_searchlist_fragment),
+                            2
                         )
                     ),
-                    4
+                    1
                 ),
                 isDisplayed()
             )
         )
-        appCompatButton.perform(click())
+        textView3.check(matches(withText("Salatt")))
+
+        val textView4 = onView(
+            allOf(
+                withId(R.id.textView_recipe_name), withText("Salatt"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.display_searchlist_layout_Item),
+                        childAtPosition(
+                            withId(R.id.recyclerView_searchlist_fragment),
+                            2
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        textView4.check(matches(withText("Salatt")))
     }
 
     private fun childAtPosition(
