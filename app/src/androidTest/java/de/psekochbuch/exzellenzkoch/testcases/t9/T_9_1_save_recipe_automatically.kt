@@ -1,19 +1,16 @@
 package de.psekochbuch.exzellenzkoch.testcases.t9
 
 
-import android.app.Application
 import android.view.View
 import android.view.ViewGroup
-import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
@@ -22,43 +19,28 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.junit.After
-import org.junit.Before
+import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_9_1_create_recipe_autosave_test {
+abstract class T_9_1_save_recipe_automatically {
+
+    private val repo: PrivateRecipeRepositoryImp.Companion
+        get() = PrivateRecipeRepositoryImp
+
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    @Before
-    fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-
-
-
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
-        repo.deleteAll()
-    }
-
-    @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
-        repo.deleteAll()
-    }
-
     @Test
-    fun t_9_2_create_recipe_autosave_test() {
+    fun t_9_1_save_recipe_automatically() {
         val appCompatImageButton = onView(
             allOf(
-                withContentDescription("Navigationsleiste öffnen"),
+                withContentDescription("Open navigation drawer"),
                 childAtPosition(
                     allOf(
                         withId(R.id.toolbar),
@@ -91,7 +73,7 @@ class t_9_1_create_recipe_autosave_test {
         )
         navigationMenuItemView.perform(click())
 
-        val appCompatButton = onView(
+        val appCompatButtonNewRecipe = onView(
             allOf(
                 withId(R.id.button_create_recipe), withText("Neues Rezept erstellen"),
                 childAtPosition(
@@ -107,53 +89,9 @@ class t_9_1_create_recipe_autosave_test {
                 isDisplayed()
             )
         )
-        appCompatButton.perform(click())
+        appCompatButtonNewRecipe.perform(click())
 
-        val appCompatEditText = onView(
-            allOf(
-                withId(R.id.editText_recipe_title_create_recipe_fragment),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    1
-                )
-            )
-        )
-        appCompatEditText.perform(scrollTo(), replaceText("Superrezept"), closeSoftKeyboard())
-
-
-        val appCompatEditText2 = onView(
-            allOf(
-                withId(R.id.editText_preparing_time_create_recipe_fragment), withText("0"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        3
-                    ),
-                    1
-                )
-            )
-        )
-        appCompatEditText2.perform(scrollTo(), replaceText("10"))
-
-        val appCompatEditText3 = onView(
-            allOf(
-                withId(R.id.editText_preparing_time_create_recipe_fragment), withText("10"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.LinearLayout")),
-                        3
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText3.perform(closeSoftKeyboard())
-
-        val appCompatEditText4 = onView(
+        val appCompatEditTextCookingTime = onView(
             allOf(
                 withId(R.id.editText_cooking_time_create_recipe_fragment), withText("0"),
                 childAtPosition(
@@ -165,11 +103,25 @@ class t_9_1_create_recipe_autosave_test {
                 )
             )
         )
-        appCompatEditText4.perform(scrollTo(), replaceText("10"))
+        appCompatEditTextCookingTime.perform(scrollTo(), longClick())
 
-        val appCompatEditText5 = onView(
+        val appCompatEditTextCookingTime2 = onView(
             allOf(
-                withId(R.id.editText_cooking_time_create_recipe_fragment), withText("10"),
+                withId(R.id.editText_cooking_time_create_recipe_fragment), withText("0"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        4
+                    ),
+                    1
+                )
+            )
+        )
+        appCompatEditTextCookingTime2.perform(scrollTo(), replaceText("20"))
+
+        val appCompatEditText3 = onView(
+            allOf(
+                withId(R.id.editText_cooking_time_create_recipe_fragment), withText("20"),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.LinearLayout")),
@@ -180,45 +132,72 @@ class t_9_1_create_recipe_autosave_test {
                 isDisplayed()
             )
         )
-        appCompatEditText5.perform(closeSoftKeyboard())
+        appCompatEditText3.perform(closeSoftKeyboard())
 
-
-        val appCompatEditText6 = onView(
+        val appCompatEditTextPrepTime = onView(
             allOf(
-                withId(R.id.editText_portions_input),
+                withId(R.id.editText_preparing_time_create_recipe_fragment), withText("0"),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.LinearLayout")),
-                        5
+                        3
                     ),
                     1
                 )
             )
         )
-        appCompatEditText6.perform(scrollTo(), replaceText("4"), closeSoftKeyboard())
+        appCompatEditTextPrepTime.perform(scrollTo(), replaceText("40"))
 
-
-
-        val appCompatImageButton2 = onView(
+        val appCompatEditTextPrepTime2 = onView(
             allOf(
-                withContentDescription("Nach oben"),
+                withId(R.id.editText_preparing_time_create_recipe_fragment), withText("40"),
                 childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
+                    childAtPosition(
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        3
                     ),
                     1
                 ),
                 isDisplayed()
             )
         )
-        appCompatImageButton2.perform(click())
-        Thread.sleep(500)
+        appCompatEditTextPrepTime2.perform(closeSoftKeyboard())
 
-        //nun sollte das rezept gespeichert sein ! schlägt fehl
+        val appCompatEditTextRecipeTitle = onView(
+            allOf(
+                withId(R.id.editText_recipe_title_create_recipe_fragment),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
+                    ),
+                    1
+                )
+            )
+        )
+        appCompatEditTextRecipeTitle.perform(
+            scrollTo(),
+            replaceText("Pizza teig"),
+            closeSoftKeyboard()
+        )
+
+        val appCompatCheckBox = onView(
+            allOf(
+                withId(R.id.checkBox_vegan_create_recipe_fragment), withText("vegan"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        0
+                    ),
+                    0
+                )
+            )
+        )
+        appCompatCheckBox.perform(scrollTo(), click())
+
+        // go back to recipelist
+        Espresso.pressBack()
+        Thread.sleep(5000)
 
         val linearLayout = onView(
             allOf(
@@ -236,25 +215,72 @@ class t_9_1_create_recipe_autosave_test {
                 isDisplayed()
             )
         )
-        linearLayout.check(matches(isDisplayed()))
 
-        val textView = onView(
+        Thread.sleep(2000)
+        // click on recipe
+        linearLayout.perform(click())
+
+        val editTextTitle = onView(
             allOf(
-                withId(R.id.textView_recipe_title_item), withText("Superrezept"),
+                withId(R.id.editText_recipe_title_create_recipe_fragment), withText("Pizza teig"),
                 childAtPosition(
-                    allOf(
-                        withId(R.id.recipe_list_layout_item),
-                        childAtPosition(
-                            withId(R.id.recyclerView_recipe_list_fragment),
-                            0
-                        )
+                    childAtPosition(
+                        IsInstanceOf.instanceOf(android.widget.ScrollView::class.java),
+                        0
                     ),
                     1
                 ),
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Superrezept")))
+        editTextTitle.check(matches(withText("Pizza teig")))
+
+
+        val editTextPrepTime = onView(
+            allOf(
+                withId(R.id.editText_preparing_time_create_recipe_fragment), withText("40"),
+                childAtPosition(
+                    childAtPosition(
+                        IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
+                        3
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        editTextPrepTime.check(matches(withText("40")))
+
+        val editTextCookingTime = onView(
+            allOf(
+                withId(R.id.editText_cooking_time_create_recipe_fragment), withText("20"),
+                childAtPosition(
+                    childAtPosition(
+                        IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
+                        4
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        editTextCookingTime.check(matches(withText("20")))
+
+        val checkBox = onView(
+            allOf(
+                withId(R.id.checkBox_vegan_create_recipe_fragment),
+                childAtPosition(
+                    childAtPosition(
+                        IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        checkBox.check(matches(isDisplayed()))
+
     }
 
     private fun childAtPosition(
@@ -275,7 +301,3 @@ class t_9_1_create_recipe_autosave_test {
         }
     }
 }
-/*
-test schlägt fehl, da wir noch nicht implementiert haben, dass ein rezept beim verlassen
-des fragments gespeichert wird.
- */
