@@ -2,6 +2,7 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">193.196.38.185</domain>
+        <domain includeSubdomains="true">193.196.36.57</domain>
         <domain includeSubdomains="true">192.168.0.110</domain>
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">127.0.0.1</domain>

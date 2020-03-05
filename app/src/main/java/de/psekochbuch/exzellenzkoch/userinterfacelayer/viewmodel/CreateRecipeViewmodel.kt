@@ -177,7 +177,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
            // val convertedPublicRecipe = PublicRecipe(title="Test", user=user,imgUrl = newPrivateRecipe.imgUrl)
             Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
             //Coroutine
-            runBlocking {
+            viewModelScope.launch {
                 try {
                    val newId = publicRepo.publishRecipe(convertedPublicRecipe)
 
