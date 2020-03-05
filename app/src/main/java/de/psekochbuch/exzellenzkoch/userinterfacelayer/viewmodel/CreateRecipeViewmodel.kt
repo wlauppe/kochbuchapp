@@ -14,6 +14,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -177,7 +178,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
            // val convertedPublicRecipe = PublicRecipe(title="Test", user=user,imgUrl = newPrivateRecipe.imgUrl)
             Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
             //Coroutine
-            viewModelScope.launch {
+            //da dieser Job nicht gecancelt werden soll, wenn man das Viewmodel beendet wird und das Rezept noch nicht fertig gepublisht
+            //wird muss die Koroutine im globalScope gelauncht werden.
+            GlobalScope.launch {
                 try {
                    val newId = publicRepo.publishRecipe(convertedPublicRecipe)
 

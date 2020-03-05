@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 /**
  * The RecipeListViewmodel handles the information for the RecipeListFragment.
@@ -53,6 +55,14 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
         if(id !=null) {
             //coroutine
             viewModelScope.launch {
+                     val recipeLiveData = privateRepo.getPrivateRecipe(id)
+                     delay(500L)
+                   publicRepo.deleteRecipe(recipeLiveData.value!!.publishedRecipeId)
+
+                   // recipeLiveData.observeForever { recipe ->
+                   //                             runBlocking() { publicRepo.deleteRecipe(recipe.publishedRecipeId) }
+                   // }
+
                 try {
                     privateRepo.deletePrivateRecipe(id)
                 } catch (error: Error) {
