@@ -32,7 +32,7 @@ abstract class DB : RoomDatabase() {
                 synchronized(DB::class.java) {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
-                            context.getApplicationContext(),
+                            context.applicationContext,
                             DB::class.java, "database"
                         )
                             .build()

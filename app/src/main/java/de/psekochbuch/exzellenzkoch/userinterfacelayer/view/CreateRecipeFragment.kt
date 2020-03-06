@@ -15,6 +15,8 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -226,7 +228,6 @@ class CreateRecipeFragment : Fragment() {
         }
 
         // custom action for the back button to autosave the recipe
-        // This callback will only be called when MyFragment is at least Started.
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -236,7 +237,6 @@ class CreateRecipeFragment : Fragment() {
                 }
             }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-        // The callback can be enabled or disabled here or in handleOnBackPressed()
 
         return binding.root
     }

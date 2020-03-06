@@ -1,53 +1,37 @@
-package de.psekochbuch.exzellenzkoch.testcases
+package de.psekochbuch.exzellenzkoch.testcases.t28
 
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.junit.After
-import org.junit.Before
+import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class login_test_max_musterman {
+class t_28_2_feed_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
-    @Before
-    fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
-    }
-
-    @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
-    }
 
     @Test
-    fun login_test_max_musterman() {
-
-
+    fun t_28_2_feed_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -76,21 +60,21 @@ class login_test_max_musterman {
                             0
                         )
                     ),
-                    3
+                    2
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-        val appCompatEditText = onView(
+        val appCompatImageButton2 = onView(
             allOf(
-                withId(R.id.editText_login_fragment_email),
+                withContentDescription("Navigationsleiste öffnen"),
                 childAtPosition(
                     allOf(
-                        withId(R.id.constraintLayout),
+                        withId(R.id.toolbar),
                         childAtPosition(
-                            withId(R.id.nav_host_fragment),
+                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
                             0
                         )
                     ),
@@ -99,43 +83,62 @@ class login_test_max_musterman {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
+        appCompatImageButton2.perform(click())
 
-        val appCompatEditText2 = onView(
+        val navigationMenuItemView2 = onView(
             allOf(
-                withId(R.id.editText_login_fragment_password),
                 childAtPosition(
                     allOf(
-                        withId(R.id.constraintLayout),
+                        withId(R.id.design_navigation_view),
                         childAtPosition(
-                            withId(R.id.nav_host_fragment),
+                            withId(R.id.nav_view),
                             0
                         )
                     ),
-                    3
+                    1
                 ),
                 isDisplayed()
             )
         )
-        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
+        navigationMenuItemView2.perform(click())
 
-        val appCompatButton = onView(
+        Thread.sleep(400)
+
+        val linearLayout = onView(
             allOf(
-                withId(R.id.button_login_fragment_login), withText("Einloggen"),
+                withId(R.id.feed_layout_item),
                 childAtPosition(
                     allOf(
-                        withId(R.id.constraintLayout),
+                        withId(R.id.recyclerView_feed),
                         childAtPosition(
-                            withId(R.id.nav_host_fragment),
+                            IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
                             0
                         )
                     ),
-                    4
+                    0
                 ),
                 isDisplayed()
             )
         )
-        appCompatButton.perform(click())
+        linearLayout.check(matches(isDisplayed()))
+
+        val linearLayout2 = onView(
+            allOf(
+                withId(R.id.feed_layout_item),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.recyclerView_feed),
+                        childAtPosition(
+                            IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        linearLayout2.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(
