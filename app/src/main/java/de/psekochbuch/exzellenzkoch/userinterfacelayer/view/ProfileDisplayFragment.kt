@@ -86,8 +86,7 @@ class ProfileDisplayFragment : Fragment() {
         binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener{
             viewModel.flagUserById()
             Toast.makeText(requireContext(), "Profil gemeldet", Toast.LENGTH_SHORT).show()
-            val navController = findNavController()
-            navController.navigate(R.id.action_profileDisplayFragment_to_publicRecipeSearchFragment)
+
         }
 
         viewModel.user.observe(viewLifecycleOwner, Observer {

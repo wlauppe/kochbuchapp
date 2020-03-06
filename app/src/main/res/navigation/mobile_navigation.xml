@@ -45,12 +45,6 @@
             android:name="recipeID"
             app:argType="integer"
             android:defaultValue="0" />
-        <action
-            android:id="@+id/action_recipeDisplayFragment_to_displaySearchListFragment"
-            app:destination="@id/displaySearchListFragment" />
-        <action
-            android:id="@+id/action_recipeDisplayFragment_to_favouriteFragment"
-            app:destination="@id/favouriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -70,9 +64,6 @@
         <action
             android:id="@+id/action_profileDisplayFragment_to_recipeDisplayFragment"
             app:destination="@id/recipeDisplayFragment" />
-        <action
-            android:id="@+id/action_profileDisplayFragment_to_publicRecipeSearchFragment"
-            app:destination="@id/publicRecipeSearchFragment" />
         <action
             android:id="@+id/action_profileDisplayFragment_to_profileEditFragment"
             app:destination="@id/profileEditFragment" />

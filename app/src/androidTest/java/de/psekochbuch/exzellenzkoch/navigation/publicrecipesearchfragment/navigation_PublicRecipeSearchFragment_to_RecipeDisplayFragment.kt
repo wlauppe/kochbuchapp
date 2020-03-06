@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation
+package de.psekochbuch.exzellenzkoch.navigation.publicrecipesearchfragment
 
 
 import android.view.View
@@ -25,7 +25,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_searchlist_recipe_display_test {
+class navigation_PublicRecipeSearchFragment_to_RecipeDisplayFragment {
 
     @Rule
     @JvmField
