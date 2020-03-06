@@ -11,7 +11,7 @@ class PrivateRecipeTest{
      */
     fun test(){
         val recipe = PrivateRecipe(1,"Bergsteiger",
-            "2,3   Gramm köse#kapitel1#kapitel2  \n1-3Gramm rabarber\n2#kapitel2\n 3/3 Gramm Frischkäse",
+            "2,3   Gramm käse#kapitel1#kapitel2  \n1-3 Gramm rabarber\n2#kapitel2\n 3/3 Gramm Frischkäse",
             listOf(),"prep","pics/NSFL",1,2, Date(),3)
 
         val con = recipe.convertToPublicRepipe(User("testuser"))
@@ -20,7 +20,7 @@ class PrivateRecipeTest{
         assertEquals(con.ingredientChapter.last().chapter,"kapitel2")
 
         val ingredient = con.ingredientChapter.last().ingredients.last()
-        assertEquals(ingredient.unit,Unit.Gramm)
+        assertEquals(ingredient.unit, Unit.Gramm)
         assertEquals(ingredient.ingredient,"Frischkäse")
     }
 }
