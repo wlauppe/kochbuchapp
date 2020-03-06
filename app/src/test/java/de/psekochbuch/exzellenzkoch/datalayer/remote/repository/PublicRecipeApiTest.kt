@@ -34,19 +34,6 @@ class PublicRecipeApiTest{
         mainThreadSurrogate.close()
     }
 
-/*
-    @Test
-    fun test()  = runBlocking{
-        launch(Dispatchers.Main) {
-            val retrofit: PublicRecipeApi =
-                ApiServiceBuilder(null).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
-            var recipe: PublicRecipeDto
-            retrofit.getRecipe(1)
-        }
-
-     //  assertEquals(call.execute().body()!!.creationDate, "test")
-    }
-*/
     @Test
     fun testapi(){
         runBlocking {  val retrofit: PublicRecipeApi =
@@ -64,10 +51,6 @@ class PublicRecipeApiTest{
                     "die Schaufel und schaufelt den Sand in das Förmchen. " +
                     "Dann drückt man alles fest und dreht das Förmchen auf einen Tisch um." +
                     " Dann hebt man das Förmchen hoch und man hat den Sandkuchen auf dem Tisch liegen.")
-
-          //  val newrecipe = retrofit.getRecipe(15).body()!!
-
-        //    assertEquals(newrecipe.preparationDescription, "lalali")
         }
 
     }
