@@ -63,6 +63,7 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
                 if(it.publishedRecipeId != 0){
                     GlobalScope.launch {
                         try {
+                            Log.i(tag, "public Repo delete Recipe wird aufgerufen")
                             publicRepo.deleteRecipe(it.publishedRecipeId)
                         } catch (error: Error) {
                             _errorLiveDataString.value = error.message

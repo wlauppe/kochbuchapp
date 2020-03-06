@@ -35,8 +35,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     private var token :String? = null
     //TODO token von Authentification Interface bekommen.
 
-    private val untilThreadStartsLock = Semaphore(1)
-    private val workLock = ReentrantLock(true)
+    //private val untilThreadStartsLock = Semaphore(1)
+    //private val workLock = ReentrantLock(true)
 
     var recipeApiService: PublicRecipeApi =
         ApiServiceBuilder(token).createApi(PublicRecipeApi::class.java) as PublicRecipeApi
@@ -150,8 +150,9 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override suspend fun  deleteRecipe(recipeId: Int) {
+        Log.w(TAG, "deleteRecipe wird aufgerufen")
         try {
-            val result = withTimeout(0) {
+            val result = withTimeout(5000) {
                 recipeApiService.deleteRecipe(recipeId)
             }
         } catch (error: Throwable) {
