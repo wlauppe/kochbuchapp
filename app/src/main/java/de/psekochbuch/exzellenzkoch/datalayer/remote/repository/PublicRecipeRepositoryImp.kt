@@ -35,6 +35,8 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
     private var token :String? = null
     //TODO token von Authentification Interface bekommen.
 
+    private var errorRecipe = PublicRecipe(0, "Error Fetching Recipe!", imgUrl = "file:///android_asset/exampleimages/error.png",creationTimeStamp = Date(0))
+
     //private val untilThreadStartsLock = Semaphore(1)
     //private val workLock = ReentrantLock(true)
 
@@ -90,7 +92,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 }
             }
              catch(error : Throwable) {
-                 emit(listOf(PublicRecipe(0, "Error Fetching Recipes!", imgUrl = "file:///android_asset/exampleimages/error.png")))
+                 emit(listOf(errorRecipe))
              }
         }
         return lData
@@ -113,7 +115,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 }
             }
             catch(error : Throwable) {
-                emit(listOf(PublicRecipe(0, "Error Fetching Recipes!", imgUrl = "file:///android_asset/exampleimages/error.png")))
+                emit(listOf(errorRecipe))
             }
         }
         return lData
@@ -141,7 +143,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 emit(entity)
             }
             catch(error : Throwable) {
-                emit(PublicRecipe(0, "Error Fetching Recipe!", imgUrl = "file:///android_asset/exampleimages/error.png"))
+                emit(errorRecipe)
             }
         }
         return lData
