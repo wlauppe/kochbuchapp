@@ -129,6 +129,8 @@ class t_7_4_autogenerate_unique_id_test {
         )
         appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
 
         val appCompatButton2 = onView(
             allOf(

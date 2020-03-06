@@ -46,6 +46,8 @@ class login_test_max_musterman {
 
     @Test
     fun login_test_max_musterman() {
+
+
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),

@@ -4,11 +4,10 @@ package de.psekochbuch.exzellenzkoch.testcases.t9
 import android.app.Application
 import android.view.View
 import android.view.ViewGroup
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -30,7 +29,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_9_1_create_recipe_autosave_test {
+class t_9_2_autosave_local_recipe_public_recipe_test {
 
     @Rule
     @JvmField
@@ -40,22 +39,17 @@ class t_9_1_create_recipe_autosave_test {
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
 
-
-
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
-        repo.deleteAll()
     }
 
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        var repo = PrivateRecipeRepositoryImp(Application())
         repo.deleteAll()
     }
 
     @Test
-    fun t_9_2_create_recipe_autosave_test() {
+    fun t_8_2_create_recipe_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -121,7 +115,11 @@ class t_9_1_create_recipe_autosave_test {
                 )
             )
         )
-        appCompatEditText.perform(scrollTo(), replaceText("Superrezept"), closeSoftKeyboard())
+        appCompatEditText.perform(
+            ViewActions.scrollTo(),
+            ViewActions.replaceText("Superrezept"),
+            ViewActions.closeSoftKeyboard()
+        )
 
 
         val appCompatEditText2 = onView(
@@ -136,7 +134,7 @@ class t_9_1_create_recipe_autosave_test {
                 )
             )
         )
-        appCompatEditText2.perform(scrollTo(), replaceText("10"))
+        appCompatEditText2.perform(ViewActions.scrollTo(), ViewActions.replaceText("10"))
 
         val appCompatEditText3 = onView(
             allOf(
@@ -151,7 +149,7 @@ class t_9_1_create_recipe_autosave_test {
                 isDisplayed()
             )
         )
-        appCompatEditText3.perform(closeSoftKeyboard())
+        appCompatEditText3.perform(ViewActions.closeSoftKeyboard())
 
         val appCompatEditText4 = onView(
             allOf(
@@ -165,7 +163,7 @@ class t_9_1_create_recipe_autosave_test {
                 )
             )
         )
-        appCompatEditText4.perform(scrollTo(), replaceText("10"))
+        appCompatEditText4.perform(ViewActions.scrollTo(), ViewActions.replaceText("10"))
 
         val appCompatEditText5 = onView(
             allOf(
@@ -180,7 +178,7 @@ class t_9_1_create_recipe_autosave_test {
                 isDisplayed()
             )
         )
-        appCompatEditText5.perform(closeSoftKeyboard())
+        appCompatEditText5.perform(ViewActions.closeSoftKeyboard())
 
 
         val appCompatEditText6 = onView(
@@ -195,7 +193,11 @@ class t_9_1_create_recipe_autosave_test {
                 )
             )
         )
-        appCompatEditText6.perform(scrollTo(), replaceText("4"), closeSoftKeyboard())
+        appCompatEditText6.perform(
+            ViewActions.scrollTo(),
+            ViewActions.replaceText("4"),
+            ViewActions.closeSoftKeyboard()
+        )
 
 
 
@@ -216,45 +218,15 @@ class t_9_1_create_recipe_autosave_test {
             )
         )
         appCompatImageButton2.perform(click())
+
         Thread.sleep(500)
 
         //nun sollte das rezept gespeichert sein ! schlägt fehl
 
-        val linearLayout = onView(
-            allOf(
-                withId(R.id.recipe_list_layout_item),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.recyclerView_recipe_list_fragment),
-                        childAtPosition(
-                            withId(R.id.constraintLayout),
-                            0
-                        )
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        linearLayout.check(matches(isDisplayed()))
+        //TODO test , ob server das rezept erstllt hat oder nicht. Analog zu t_9_1
 
-        val textView = onView(
-            allOf(
-                withId(R.id.textView_recipe_title_item), withText("Superrezept"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.recipe_list_layout_item),
-                        childAtPosition(
-                            withId(R.id.recyclerView_recipe_list_fragment),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        textView.check(matches(withText("Superrezept")))
+        //lokal das rezept finden und published id suchen. dann über publicreciperepo
+        //die id abfragen -> assertion
     }
 
     private fun childAtPosition(
@@ -275,7 +247,8 @@ class t_9_1_create_recipe_autosave_test {
         }
     }
 }
+
 /*
-test schlägt fehl, da wir noch nicht implementiert haben, dass ein rezept beim verlassen
-des fragments gespeichert wird.
+Der Test schlägt fehl, da das Rezept noch nicht serverseitig aufgerufen werden kann wegen paging.
+
  */

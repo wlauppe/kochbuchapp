@@ -237,23 +237,7 @@ class t_9_3_create_private_recipe_test {
         )
         appCompatButton2.perform(scrollTo(), click())
 
-        val appCompatImageButton2 = onView(
-            allOf(
-                withContentDescription("Nach oben"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton2.perform(click())
+
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 

@@ -48,7 +48,6 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
      * @param id: the id from the specific user which should be deleted
      */
     fun deleteRecipe(id: Int?) {
-        
 
         if(id !=null) {
             //coroutine
