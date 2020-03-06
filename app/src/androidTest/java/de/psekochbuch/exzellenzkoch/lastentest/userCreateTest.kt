@@ -18,12 +18,12 @@ class userCreateTest{
 
     @Test
     fun test(){
-        for (user:Int in 1..2) {
+        for (user:Int in 1..300) {
             var authResult: AuthenticationResult? = null
             val repo = PublicRecipeRepositoryImp.getInstance()
             FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
             val latch = CountDownLatch(1)
-            val userId = "user" + user + "@test.de"
+            val userId = "extraTestServer" + user + "@test.de"
             val pw = "123456"
             AuthentificationImpl.register(userId, pw, userId, { t, r ->
                 authResult = r
