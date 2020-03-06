@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.snackbar.Snackbar
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -173,6 +174,10 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(user)
            }catch (e:Exception){
                 _snackbarMessage.value = e.message
+
+                Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+
+
                 return
             }
            // val convertedPublicRecipe = PublicRecipe(title="Test", user=user,imgUrl = newPrivateRecipe.imgUrl)
@@ -195,7 +200,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
                 } catch (error: Error) {
                     _snackbarMessage.value = error.message
-                    Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
+
+
+                  //  Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
                 }
                 
             }

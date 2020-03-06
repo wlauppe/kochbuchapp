@@ -1,24 +1,26 @@
-package de.psekochbuch.exzellenzkoch.testcases
+package de.psekochbuch.exzellenzkoch.navigation
 
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.core.IsInstanceOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -27,27 +29,26 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class login_test_max_musterman {
+class navigation_create_recipe_recipelist_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
+
     @Before
-    fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
+    fun setup(){
+        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        repo.deleteAll()
     }
+
 
     @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
+    fun tearDown(){
+        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        repo.deleteAll()
     }
-
     @Test
-    fun login_test_max_musterman() {
-
-
+    fun navigation_create_recipe_recipelist_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -76,16 +77,16 @@ class login_test_max_musterman {
                             0
                         )
                     ),
-                    3
+                    4
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-        val appCompatEditText = onView(
+        val appCompatButton = onView(
             allOf(
-                withId(R.id.editText_login_fragment_email),
+                withId(R.id.button_create_recipe), withText("Neues Rezept erstellen"),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -99,43 +100,39 @@ class login_test_max_musterman {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
-
-        val appCompatEditText2 = onView(
-            allOf(
-                withId(R.id.editText_login_fragment_password),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
-
-        val appCompatButton = onView(
-            allOf(
-                withId(R.id.button_login_fragment_login), withText("Einloggen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    4
-                ),
-                isDisplayed()
-            )
-        )
         appCompatButton.perform(click())
+
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
+                    ),
+                    10
+                )
+            )
+        )
+        appCompatButton2.perform(scrollTo(), click())
+
+        val viewGroup = onView(
+            allOf(
+                withId(R.id.constraintLayout),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.nav_host_fragment),
+                        childAtPosition(
+                            IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
+                            0
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        viewGroup.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

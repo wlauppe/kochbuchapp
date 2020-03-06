@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -166,17 +167,28 @@ class t_10_2_create_uncomplete_recipe_test {
         )
         appCompatImageButton2.perform(click())
 
-        Thread.sleep(3000)
-
-       var repo = PrivateRecipeRepositoryImp(Application())
-
-        var recipes = repo.getPrivateRecipes()
-        if(recipes.value != null){
-            assert(recipes.value!!.size != 0)
-        }
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
 
-        //TODO testen,dass es nicht serverseitig veröffentlicht wurde
+        val textView = onView(
+            allOf(
+                withId(R.id.textView_recipe_title_item),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.recipe_list_layout_item),
+                        childAtPosition(
+                            withId(R.id.recyclerView_recipe_list_fragment),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        textView.check(ViewAssertions.matches(isDisplayed()))
+
+
     }
 
     private fun childAtPosition(
