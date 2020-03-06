@@ -40,11 +40,18 @@ android {
             buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
         }
 
+        //debug {
+        //            testCoverageEnabled true
+        //            buildConfigField "String", "BASEURL", '"http://193.196.38.185:8080/api/"'
+        //            buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
+        //        }
+
         debug {
-                    testCoverageEnabled true
-                    buildConfigField "String", "BASEURL", '"http://193.196.38.185:8080/api/"'
-                    buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
-                }
+            testCoverageEnabled true
+            buildConfigField "String", "BASEURL", '"http://193.196.39.122:8080/api/"'
+            buildConfigField "String", "IMG_PREFIX", '"http://193.196.39.122:8080/"'
+        }
+
 
         extraTestServer{
             initWith debug

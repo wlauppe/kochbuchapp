@@ -15,6 +15,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
+import java.util.*
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -22,6 +23,12 @@ class publicreciperepotest{
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
+    fun getRandomString(length: Int) : String {
+    val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+    return (1..length)
+        .map { allowedChars.random() }
+        .joinToString("")
+}
 
     @Test
     fun getPublicRecipe() {
@@ -29,25 +36,37 @@ class publicreciperepotest{
         val repo = PublicRecipeRepositoryImp.getInstance()
         FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
         val latch = CountDownLatch(1)
-        AuthentificationImpl.login("user1@test.de","123456",{ a, b->
+        val randomStr=getRandomString(12)
+        AuthentificationImpl.register("extraTestServer${randomStr}@test.de","123456","random${randomStr}"){ a, b->
             authResult = b
             repo.setToken(a)
             latch.countDown()
-            })
+            }
 
         latch.await(2, TimeUnit.SECONDS)
 
-        assertEquals(authResult, AuthenticationResult.LOGINSUCCESS)
+        assertEquals(authResult, AuthenticationResult.REGISTRATIONSUCCESS)
 
-        val fromrepo = repo.getPublicRecipe(2).blockingObserve()!!
+        var fromrepo = repo.getPublicRecipe(2).blockingObserve()!!
+
+        fromrepo.imgUrl = ""
+
+        fromrepo = PublicRecipe(1,"titel","ingredients",
+            listOf(IngredientChapter(2, "chapter",listOf(IngredientAmount("ingedient",2.0,"Einheit")))),
+            listOf("tag1","tag2"),"So macht man es","",1,2,User(""),
+            Date(System.currentTimeMillis()),3,4.0)
         fromrepo.user = User(AuthentificationImpl.getUserId())
-
 
         val titlewithoutnumber = "Testrunde 2, rezept: "
 
-        for (i in 0 .. 3){
-            fromrepo.title = titlewithoutnumber + i.toString()
-            runBlocking { repo.publishRecipe(fromrepo) }
+        try {
+            for (i in 0 .. 3){
+                fromrepo.title = titlewithoutnumber + i.toString()
+                runBlocking { repo.publishRecipe(fromrepo) }
+            }
+        } catch (e:Exception){}
+        finally {
+            AuthentificationImpl.userDelete()
         }
     }
 }
