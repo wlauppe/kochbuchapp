@@ -1,37 +1,51 @@
-package de.psekochbuch.exzellenzkoch.navigation
+package de.psekochbuch.exzellenzkoch.navigation.profiledisplayfragment
 
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_menu_search_test {
+class navigation_profiledisplayfragment_profileeditfragment {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
+    @Before
+    fun setUp(){
+        AuthentificationImpl.logout()
+    }
+
+
+    @Before
+    fun tearDown(){
+        AuthentificationImpl.logout()
+    }
+
     @Test
-    fun navigation_menu_search_test() {
+    fun navigation_profiledisplayfragment_profileeditfragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -60,16 +74,87 @@ class navigation_menu_search_test {
                             0
                         )
                     ),
-                    2
+                    3
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
+        val appCompatEditText = onView(
+            allOf(
+                withId(R.id.editText_login_fragment_email),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
+
+        val appCompatEditText2 = onView(
+            allOf(
+                withId(R.id.editText_login_fragment_password),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    3
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
+
+        val appCompatButton = onView(
+            allOf(
+                withId(R.id.button_login_fragment_login), withText("Einloggen"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    4
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton.perform(click())
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.button_profile_display_fragment_edit_profile),
+                withText("Profil Bearbeiten"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        5
+                    ),
+                    0
+                )
+            )
+        )
+        appCompatButton2.perform(scrollTo(), click())
+
         val viewGroup = onView(
             allOf(
-                withId(R.id.linearLayout3),
+                withId(R.id.constraintLayout),
                 childAtPosition(
                     allOf(
                         withId(R.id.nav_host_fragment),

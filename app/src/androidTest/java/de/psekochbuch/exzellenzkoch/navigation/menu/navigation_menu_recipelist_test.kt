@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation
+package de.psekochbuch.exzellenzkoch.navigation.menu
 
 
 import android.view.View
@@ -24,14 +24,14 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_menu_admin_test {
+class navigation_menu_recipelist_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun navigation_menu_admin_tst() {
+    fun navigation_menu_recipelist_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -60,15 +60,16 @@ class navigation_menu_admin_test {
                             0
                         )
                     ),
-                    6
+                    4
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-        val linearLayout = onView(
+        val viewGroup = onView(
             allOf(
+                withId(R.id.constraintLayout),
                 childAtPosition(
                     allOf(
                         withId(R.id.nav_host_fragment),
@@ -82,7 +83,7 @@ class navigation_menu_admin_test {
                 isDisplayed()
             )
         )
-        linearLayout.check(matches(isDisplayed()))
+        viewGroup.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

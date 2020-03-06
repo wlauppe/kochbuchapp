@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation
+package de.psekochbuch.exzellenzkoch.navigation.adminfragment
 
 
 import android.view.View
@@ -24,14 +24,14 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_recipelist_create_recipe_test {
+class navigation_adminfragment_to_recipe_display_fragment {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun navigation_recipelist_create_recipe_test() {
+    fun navigation_adminfragment_to_recipe_display_fragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -60,39 +60,22 @@ class navigation_recipelist_create_recipe_test {
                             0
                         )
                     ),
-                    4
+                    6
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-        val appCompatButton = onView(
-            allOf(
-                withId(R.id.button_create_recipe), withText("Neues Rezept erstellen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatButton.perform(click())
-
         val linearLayout = onView(
             allOf(
+                withId(R.id.admin_reported_recipe_item_layout),
                 childAtPosition(
                     allOf(
-                        withId(R.id.nav_host_fragment),
+                        withId(R.id.recyclerView_admin_recipes),
                         childAtPosition(
-                            IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
-                            0
+                            withClassName(`is`("android.widget.LinearLayout")),
+                            1
                         )
                     ),
                     0
@@ -100,7 +83,22 @@ class navigation_recipelist_create_recipe_test {
                 isDisplayed()
             )
         )
-        linearLayout.check(matches(isDisplayed()))
+        linearLayout.perform(click())
+
+        val linearLayout2 = onView(
+            allOf(
+                withId(R.id.linearLayout4),
+                childAtPosition(
+                    childAtPosition(
+                        IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        linearLayout2.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(
