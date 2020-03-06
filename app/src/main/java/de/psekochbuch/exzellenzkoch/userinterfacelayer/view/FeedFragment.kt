@@ -66,21 +66,4 @@ class FeedFragment : Fragment() {
 
         return binding.root
     }
-
-    /**
-     * Nested class provides logic for an empty header and footer in the RecyclerView, if needed
-     * TODO unnecessary code delete
-     * @param headerHeight defines the header's height in pixels
-     * @param footerHeight defines the footer's height in pixels
-     */
-    class HeaderFooterDecoration(private val headerHeight: Int, private val footerHeight: Int) : RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-            val adapter = parent.adapter ?: return
-            when (parent.getChildAdapterPosition(view)) {
-                0 -> outRect.top = headerHeight
-                adapter.itemCount - 1 -> outRect.bottom = footerHeight
-                else -> outRect.set(0, 0, 0, 0)
-            }
-        }
-    }
 }
