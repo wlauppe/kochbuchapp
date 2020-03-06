@@ -24,8 +24,8 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
     private val privateRecipeDao: PrivateRecipeDao? = DB.getDatabase(application!!)?.privateRecipeDao();
     private val privateRecipeTagDao: PrivateRecipeTagDao? = DB.getDatabase(application!!)?.privateRecipeTagDao();
 
-    private val untilThreadStartsLock = Semaphore(1)
-    private val workLock = ReentrantLock(true)
+    //private val untilThreadStartsLock = Semaphore(1)
+    //private val workLock = ReentrantLock(true)
 
     /**
      * This Method returns all private recipes
@@ -55,7 +55,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
                 val recipe = transformPrivateRecipeDBToPrivateRecipe(privateRecipeDao?.getRecipe(id.toLong())!!)
                 emit(recipe)
             } catch (error : Throwable){
-                emit(PrivateRecipe(0,"Konnte nicht geladen werden","",listOf(),"","file://android_assed/exampleimages/error.png",0,0,Date(0),0,0))
+                emit(PrivateRecipe(0,"Konnte nicht geladen werden","",listOf(""),"","file://android_assed/exampleimages/error.png",0,0,Date(0),0,0))
             }
         }
         return lData

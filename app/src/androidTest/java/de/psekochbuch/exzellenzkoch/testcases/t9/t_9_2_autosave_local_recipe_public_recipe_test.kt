@@ -29,7 +29,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_9_2_autosave_recipe_public_recipe_test {
+class t_9_2_autosave_local_recipe_public_recipe_test {
 
     @Rule
     @JvmField

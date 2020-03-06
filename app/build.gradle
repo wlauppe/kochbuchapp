@@ -13,6 +13,7 @@ apply plugin: 'jacoco'
 
 android {
     testBuildType "confTest"
+    testBuildType "extraTestServer"
 
 
     compileSdkVersion 29
@@ -45,7 +46,7 @@ android {
                     buildConfigField "String", "IMG_PREFIX", '"http://193.196.38.185:8080/"'
                 }
 
-        extraTestServer {
+        extraTestServer{
             initWith debug
             testCoverageEnabled true
             buildConfigField "String", "BASEURL", '"http://193.196.36.57:8080/api/"'
@@ -234,6 +235,10 @@ dependencies {
 
     //LifeData Testing,
     androidTestImplementation "androidx.arch.core:core-testing:2.0.0"
+
+
+
+
 
 
 

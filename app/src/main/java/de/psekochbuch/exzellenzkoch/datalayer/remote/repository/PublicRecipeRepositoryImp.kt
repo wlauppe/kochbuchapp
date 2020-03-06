@@ -164,12 +164,20 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
         var returnId : Int = 0
         Log.w(TAG, "publishRecipe() wird aufgerufen für recipe mit titel = ${publicRecipe.title} und img=${publicRecipe.imgUrl} id=${publicRecipe.recipeId}")
         coroutineScope{
+            val recipeId=publicRecipe.recipeId
+            if (recipeId != 0) {
+                //fileApiService.deleteImage() koennte auch ausgefuehrt werden.
+               try {
+                   recipeApiService.deleteRecipe(recipeId)
+               }
+               catch  (error : Throwable) {
+                   //manchmal kommt es vor, dass das veröffentlichte Rezept nicht existiert, dann kann es nicht gelöscht werden
+                   //das ist ok.
+               }
+            }
+
             try {
-                val recipeId=publicRecipe.recipeId
-                if (recipeId != 0) {
-                    //fileApiService.deleteImage() koennte auch ausgefuehrt werden.
-                    recipeApiService.deleteRecipe(recipeId)
-                }
+
 
                 //First upload the Image.
                 if(publicRecipe.imgUrl != "") {

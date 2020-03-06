@@ -210,23 +210,7 @@ class t_8_2_create_recipe_test {
         )
         appCompatButton2.perform(scrollTo(), click())
 
-        val appCompatImageButton2 = onView(
-            allOf(
-                withContentDescription("Nach oben"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton2.perform(click())
+
 
         val linearLayout = onView(
             allOf(

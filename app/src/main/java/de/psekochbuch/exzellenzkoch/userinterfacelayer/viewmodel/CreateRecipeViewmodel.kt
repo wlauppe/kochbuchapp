@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.snackbar.Snackbar
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
@@ -14,6 +15,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -172,12 +174,18 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
                 convertedPublicRecipe = newPrivateRecipe.convertToPublicRepipe(user)
            }catch (e:Exception){
                 _snackbarMessage.value = e.message
+
+                Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+
+
                 return
             }
            // val convertedPublicRecipe = PublicRecipe(title="Test", user=user,imgUrl = newPrivateRecipe.imgUrl)
             Log.i("CreateRecipeViewmodel", "bin am veröffentlichen des Rezepts")
             //Coroutine
-            runBlocking {
+            //da dieser Job nicht gecancelt werden soll, wenn man das Viewmodel beendet wird und das Rezept noch nicht fertig gepublisht
+            //wird muss die Koroutine im globalScope gelauncht werden.
+            GlobalScope.launch {
                 try {
                    val newId = publicRepo.publishRecipe(convertedPublicRecipe)
 
@@ -192,7 +200,9 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
                 } catch (error: Error) {
                     _snackbarMessage.value = error.message
-                    Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
+
+
+                  //  Toast.makeText(context, _snackbarMessage.value, Toast.LENGTH_SHORT).show()
                 }
                 
             }
