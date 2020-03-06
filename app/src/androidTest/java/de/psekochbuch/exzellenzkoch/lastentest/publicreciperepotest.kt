@@ -23,6 +23,12 @@ class publicreciperepotest{
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
+    fun getRandomString(length: Int) : String {
+    val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+    return (1..length)
+        .map { allowedChars.random() }
+        .joinToString("")
+}
 
     @Test
     fun getPublicRecipe() {
@@ -30,7 +36,8 @@ class publicreciperepotest{
         val repo = PublicRecipeRepositoryImp.getInstance()
         FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
         val latch = CountDownLatch(1)
-        AuthentificationImpl.register("extraTestServer300@test.de","123456",""){ a, b->
+        val randomStr=getRandomString(12)
+        AuthentificationImpl.register("extraTestServer${randomStr}@test.de","123456","random${randomStr}"){ a, b->
             authResult = b
             repo.setToken(a)
             latch.countDown()
