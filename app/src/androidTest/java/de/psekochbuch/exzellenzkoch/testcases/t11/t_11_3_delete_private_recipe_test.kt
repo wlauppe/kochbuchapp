@@ -139,24 +139,6 @@ class t_11_3_delete_private_recipe_test {
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
-        val appCompatImageButton2 = onView(
-            allOf(
-                withContentDescription("Nach oben"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton2.perform(click())
-
 
         val appCompatImageButton3 = onView(
             allOf(
