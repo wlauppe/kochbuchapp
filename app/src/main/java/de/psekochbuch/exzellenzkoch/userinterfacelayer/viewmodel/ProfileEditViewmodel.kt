@@ -23,6 +23,7 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
         var userID : MutableLiveData<String> = MutableLiveData("")
         var userDesc : MutableLiveData<String> = MutableLiveData("")
         var userImgURL  : MutableLiveData<String> = MutableLiveData("")
+        var isSaved : Boolean = false;
 
 
 
@@ -67,7 +68,7 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
             } catch (error: Error) {
             }
         }
-
+        isSaved = true
     }
 }
 

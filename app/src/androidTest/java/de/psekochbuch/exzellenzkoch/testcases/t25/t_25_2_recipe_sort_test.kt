@@ -31,6 +31,7 @@ class t_25_2_recipe_sort_test {
 
     @Test
     fun t_25_2_recipe_sort_test() {
+        Thread.sleep(3000)
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),

@@ -1,35 +1,40 @@
-package de.psekochbuch.exzellenzkoch
+package de.psekochbuch.exzellenzkoch.testcases.t13
 
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
+import de.psekochbuch.exzellenzkoch.MainActivity
+import de.psekochbuch.exzellenzkoch.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_28_2_feed_test {
+class T_13_add_favourite {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun t_28_2_feed_test() {
+    fun t_13_1_add_favourite() {
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -65,7 +70,75 @@ class t_28_2_feed_test {
         )
         navigationMenuItemView.perform(click())
 
+        val appCompatEditText = onView(
+            allOf(
+                withId(R.id.editText_search_recipe_title),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout3),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText.perform(replaceText("salat"), closeSoftKeyboard())
+
+        val appCompatButton = onView(
+            allOf(
+                withId(R.id.button_search_recipe_search_button), withText("Suchen"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout3),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    8
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton.perform(click())
+
+        val linearLayout = onView(
+            allOf(
+                withId(R.id.display_searchlist_layout_Item),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.recyclerView_searchlist_fragment),
+                        childAtPosition(
+                            withClassName(`is`("android.widget.LinearLayout")),
+                            1
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        linearLayout.perform(click())
+
         val appCompatImageButton2 = onView(
+            allOf(
+                withId(R.id.imageButton_favourite),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.linearLayout4),
+                        1
+                    ),
+                    1
+                )
+            )
+        )
+        appCompatImageButton2.perform(scrollTo(), click())
+
+        val appCompatImageButton3 = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
                 childAtPosition(
@@ -81,7 +154,7 @@ class t_28_2_feed_test {
                 isDisplayed()
             )
         )
-        appCompatImageButton2.perform(click())
+        appCompatImageButton3.perform(click())
 
         val navigationMenuItemView2 = onView(
             allOf(
@@ -93,41 +166,21 @@ class t_28_2_feed_test {
                             0
                         )
                     ),
-                    1
+                    5
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView2.perform(click())
 
-        Thread.sleep(400)
-
-        val linearLayout = onView(
+        val textView = onView(
             allOf(
-                withId(R.id.feed_layout_item),
+                withId(R.id.textView_recipe_name_favourite), withText("Gartensalat"),
                 childAtPosition(
                     allOf(
-                        withId(R.id.recyclerView_feed),
+                        withId(R.id.favourite_layout_item),
                         childAtPosition(
-                            IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
-                            0
-                        )
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        linearLayout.check(matches(isDisplayed()))
-
-        val linearLayout2 = onView(
-            allOf(
-                withId(R.id.feed_layout_item),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.recyclerView_feed),
-                        childAtPosition(
-                            IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
+                            withId(R.id.recyclerView_favourites),
                             0
                         )
                     ),
@@ -136,7 +189,25 @@ class t_28_2_feed_test {
                 isDisplayed()
             )
         )
-        linearLayout2.check(matches(isDisplayed()))
+        textView.check(matches(withText("Gartensalat")))
+
+        val appCompatImageButton4 = onView(
+            allOf(
+                withId(R.id.button_remove_recipe_from_favourites),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.favourite_layout_item),
+                        childAtPosition(
+                            withId(R.id.recyclerView_favourites),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatImageButton4.perform(click())
     }
 
     private fun childAtPosition(
