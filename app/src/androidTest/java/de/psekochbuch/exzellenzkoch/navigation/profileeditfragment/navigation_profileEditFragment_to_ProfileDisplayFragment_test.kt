@@ -195,6 +195,7 @@ class navigation_profileEditFragment_to_ProfileDisplayFragment_test {
         )
         appCompatEditText4.perform(closeSoftKeyboard())
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButton3 = onView(
             allOf(

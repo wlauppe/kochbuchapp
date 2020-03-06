@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation.menu
+package de.psekochbuch.exzellenzkoch.navigation.registrationfragment
 
 
 import android.view.View
@@ -28,16 +28,26 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_menu_to_profiledisplayfragment {
+class navigation_registrationFragment_to_ProfileEditFragment {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Before
-    fun setUp(){
+    fun setup(){
+        AuthentificationImpl.logout()
+    }
+
+    @After
+    fun tearDown(){
+        AuthentificationImpl.userDelete()
         AuthentificationImpl.logout()
 
+    }
+
+    @Test
+    fun navigation_registrationFragment_to_ProfileEditFragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -73,45 +83,9 @@ class navigation_menu_to_profiledisplayfragment {
         )
         navigationMenuItemView.perform(click())
 
-        val appCompatEditText = onView(
-            allOf(
-                withId(R.id.editText_login_fragment_email),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
-
-        val appCompatEditText2 = onView(
-            allOf(
-                withId(R.id.editText_login_fragment_password),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.constraintLayout),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
-
         val appCompatButton = onView(
             allOf(
-                withId(R.id.button_login_fragment_login), withText("Einloggen"),
+                withId(R.id.button_login_fragment_register), withText("Registrieren"),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -120,63 +94,81 @@ class navigation_menu_to_profiledisplayfragment {
                             0
                         )
                     ),
-                    4
+                    6
                 ),
                 isDisplayed()
             )
         )
         appCompatButton.perform(click())
 
+        val appCompatEditText = onView(
+            allOf(
+                withId(R.id.editText_register_email_input),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText.perform(replaceText("zww@muster.de"), closeSoftKeyboard())
+
+
+
+        val appCompatEditText2 = onView(
+            allOf(
+                withId(R.id.editText_register_password_input),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    6
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText2.perform(click())
+
+        val appCompatEditText3 = onView(
+            allOf(
+                withId(R.id.editText_register_password_input),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    6
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText3.perform(replaceText("123456"), closeSoftKeyboard())
+
+
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.button_register_fragment_register), withText("Registrieren"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    7
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton2.perform(click())
+
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
-    }
-
-    @After
-    fun tearDown(){
-        AuthentificationImpl.logout()
-    }
-
-    @Test
-    fun navigation_menu_to_profiledisplayfragment() {
-
-        val appCompatImageButton2 = onView(
+        val viewGroup = onView(
             allOf(
-                withContentDescription("Navigationsleiste öffnen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton2.perform(click())
-
-
-        val navigationMenuItemView2 = onView(
-            allOf(
-                childAtPosition(
-                    allOf(
-                        withId(R.id.design_navigation_view),
-                        childAtPosition(
-                            withId(R.id.nav_view),
-                            0
-                        )
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
-        )
-        navigationMenuItemView2.perform(click())
-
-        val linearLayout = onView(
-            allOf(
+                withId(R.id.constraintLayout),
                 childAtPosition(
                     allOf(
                         withId(R.id.nav_host_fragment),
@@ -190,7 +182,7 @@ class navigation_menu_to_profiledisplayfragment {
                 isDisplayed()
             )
         )
-        linearLayout.check(matches(isDisplayed()))
+        viewGroup.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

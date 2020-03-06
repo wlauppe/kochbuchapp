@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation.menu
+package de.psekochbuch.exzellenzkoch.navigation.profiledisplayfragment
 
 
 import android.view.View
@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_menu_to_profiledisplayfragment {
+class navigation_ProfileDisplayFragment_to_RecipeDisplayFragment {
 
     @Rule
     @JvmField
@@ -36,8 +36,17 @@ class navigation_menu_to_profiledisplayfragment {
 
     @Before
     fun setUp(){
+
+        AuthentificationImpl.logout()
+    }
+    @After
+    fun tearDown(){
         AuthentificationImpl.logout()
 
+    }
+
+    @Test
+    fun navigation_ProfileDisplayFragment_to_RecipeDisplayFragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -89,7 +98,7 @@ class navigation_menu_to_profiledisplayfragment {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("nichtloeschen@wehe.de"), closeSoftKeyboard())
 
         val appCompatEditText2 = onView(
             allOf(
@@ -129,68 +138,37 @@ class navigation_menu_to_profiledisplayfragment {
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
-    }
-
-    @After
-    fun tearDown(){
-        AuthentificationImpl.logout()
-    }
-
-    @Test
-    fun navigation_menu_to_profiledisplayfragment() {
-
-        val appCompatImageButton2 = onView(
-            allOf(
-                withContentDescription("Navigationsleiste öffnen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton2.perform(click())
-
-
-        val navigationMenuItemView2 = onView(
-            allOf(
-                childAtPosition(
-                    allOf(
-                        withId(R.id.design_navigation_view),
-                        childAtPosition(
-                            withId(R.id.nav_view),
-                            0
-                        )
-                    ),
-                    3
-                ),
-                isDisplayed()
-            )
-        )
-        navigationMenuItemView2.perform(click())
-
         val linearLayout = onView(
             allOf(
+                withId(R.id.profile_display_recipe_layout_item),
                 childAtPosition(
                     allOf(
-                        withId(R.id.nav_host_fragment),
+                        withId(R.id.profileDisplayRecyclerView),
                         childAtPosition(
-                            IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
-                            0
+                            withClassName(`is`("android.widget.LinearLayout")),
+                            4
                         )
+                    ),
+                    0
+                )
+            )
+        )
+        linearLayout.perform(scrollTo(), click())
+
+        val linearLayout2 = onView(
+            allOf(
+                withId(R.id.linearLayout4),
+                childAtPosition(
+                    childAtPosition(
+                        IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
+                        0
                     ),
                     0
                 ),
                 isDisplayed()
             )
         )
-        linearLayout.check(matches(isDisplayed()))
+        linearLayout2.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

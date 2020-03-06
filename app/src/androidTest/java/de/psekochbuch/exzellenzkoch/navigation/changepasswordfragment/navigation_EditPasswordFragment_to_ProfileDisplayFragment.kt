@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation.menu
+package de.psekochbuch.exzellenzkoch.navigation.changepasswordfragment
 
 
 import android.view.View
@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_menu_to_profiledisplayfragment {
+class navigation_EditPasswordFragment_to_ProfileDisplayFragment {
 
     @Rule
     @JvmField
@@ -37,7 +37,15 @@ class navigation_menu_to_profiledisplayfragment {
     @Before
     fun setUp(){
         AuthentificationImpl.logout()
+    }
 
+    @After
+    fun tearDown(){
+        AuthentificationImpl.logout()
+    }
+
+    @Test
+    fun navigation_EditPasswordFragment_to_ProfileDisplayFragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -89,7 +97,7 @@ class navigation_menu_to_profiledisplayfragment {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("nichtloeschen@wehe.de"), closeSoftKeyboard())
 
         val appCompatEditText2 = onView(
             allOf(
@@ -129,24 +137,29 @@ class navigation_menu_to_profiledisplayfragment {
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
-    }
-
-    @After
-    fun tearDown(){
-        AuthentificationImpl.logout()
-    }
-
-    @Test
-    fun navigation_menu_to_profiledisplayfragment() {
-
-        val appCompatImageButton2 = onView(
+        val appCompatButton2 = onView(
             allOf(
-                withContentDescription("Navigationsleiste öffnen"),
+                withId(R.id.button_profile_display_fragment_edit_profile),
+                withText("Profil Bearbeiten"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        5
+                    ),
+                    0
+                )
+            )
+        )
+        appCompatButton2.perform(scrollTo(), click())
+
+        val appCompatButton3 = onView(
+            allOf(
+                withId(R.id.button_change_login_data), withText("Login Daten ändern"),
                 childAtPosition(
                     allOf(
-                        withId(R.id.toolbar),
+                        withId(R.id.constraintLayout),
                         childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
+                            withId(R.id.nav_host_fragment),
                             0
                         )
                     ),
@@ -155,25 +168,37 @@ class navigation_menu_to_profiledisplayfragment {
                 isDisplayed()
             )
         )
-        appCompatImageButton2.perform(click())
+        appCompatButton3.perform(click())
 
-
-        val navigationMenuItemView2 = onView(
+        val appCompatEditText3 = onView(
             allOf(
+                withId(R.id.textEdit_change_password),
                 childAtPosition(
-                    allOf(
-                        withId(R.id.design_navigation_view),
-                        childAtPosition(
-                            withId(R.id.nav_view),
-                            0
-                        )
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
                     ),
-                    3
+                    1
                 ),
                 isDisplayed()
             )
         )
-        navigationMenuItemView2.perform(click())
+        appCompatEditText3.perform(replaceText("123456"), closeSoftKeyboard())
+
+        val appCompatButton4 = onView(
+            allOf(
+                withId(R.id.button_change_password), withText("Passwort ändern"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton4.perform(click())
 
         val linearLayout = onView(
             allOf(

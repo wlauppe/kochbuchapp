@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation.publicrecipesearchfragment
+package de.psekochbuch.exzellenzkoch.navigation.feedfragment
 
 
 import android.view.View
@@ -19,84 +19,37 @@ import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_PublicRecipeSearchFragment_to_RecipeDisplayFragment {
+class navigation_feed_recipe_display_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    @Test
-    fun navigation_searchlist_recipe_display_test() {
-        val appCompatImageButton = onView(
-            allOf(
-                withContentDescription("Navigationsleiste öffnen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton.perform(click())
-
-        val navigationMenuItemView = onView(
-            allOf(
-                childAtPosition(
-                    allOf(
-                        withId(R.id.design_navigation_view),
-                        childAtPosition(
-                            withId(R.id.nav_view),
-                            0
-                        )
-                    ),
-                    2
-                ),
-                isDisplayed()
-            )
-        )
-        navigationMenuItemView.perform(click())
-
-        val appCompatButton = onView(
-            allOf(
-                withId(R.id.button_search_recipe_search_button), withText("Suchen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.linearLayout3),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    8
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatButton.perform(click())
-
+    @Before
+    fun setup(){
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+    }
+
+    @Test
+    fun navigation_feed_recipe_display_test() {
+
 
         val linearLayout = onView(
             allOf(
-                withId(R.id.display_searchlist_layout_Item),
+                withId(R.id.feed_layout_item),
                 childAtPosition(
                     allOf(
-                        withId(R.id.recyclerView_searchlist_fragment),
+                        withId(R.id.recyclerView_feed),
                         childAtPosition(
                             withClassName(`is`("android.widget.LinearLayout")),
-                            1
+                            0
                         )
                     ),
                     0
@@ -105,6 +58,7 @@ class navigation_PublicRecipeSearchFragment_to_RecipeDisplayFragment {
             )
         )
         linearLayout.perform(click())
+
 
         val linearLayout2 = onView(
             allOf(
@@ -119,6 +73,7 @@ class navigation_PublicRecipeSearchFragment_to_RecipeDisplayFragment {
                 isDisplayed()
             )
         )
+
         linearLayout2.check(matches(isDisplayed()))
     }
 
