@@ -162,9 +162,10 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     @Throws
     override suspend fun publishRecipe(publicRecipe: PublicRecipe): Int {
+
         var returnId : Int = 0
         Log.w(TAG, "publishRecipe() wird aufgerufen für recipe mit titel = ${publicRecipe.title} und img=${publicRecipe.imgUrl} id=${publicRecipe.recipeId}")
-        coroutineScope{
+
             val recipeId=publicRecipe.recipeId
             if (recipeId != 0) {
                 //fileApiService.deleteImage() koennte auch ausgefuehrt werden.
@@ -203,7 +204,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 throw NetworkError("Unable to publish recipe", error)
             }
 
-        }
+
 
         //das ist der Rückgabewert der
         return returnId
