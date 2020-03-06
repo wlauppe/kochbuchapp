@@ -40,7 +40,7 @@ abstract class T_9_1_save_recipe_automatically {
     fun t_9_1_save_recipe_automatically() {
         val appCompatImageButton = onView(
             allOf(
-                withContentDescription("Open navigation drawer"),
+                withContentDescription("Navigationsleiste öffnen"),
                 childAtPosition(
                     allOf(
                         withId(R.id.toolbar),
