@@ -55,7 +55,7 @@ class T_21_2_upload_profile_pic {
     fun t_21_2_upload_profile_pic() {
         val appCompatImageButton = onView(
             allOf(
-                withContentDescription("Open navigation drawer"),
+                withContentDescription("Navigationsleiste öffnen"),
                 childAtPosition(
                     allOf(
                         withId(R.id.toolbar),
