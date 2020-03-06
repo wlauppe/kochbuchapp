@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +9,10 @@ import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 /**
  * The RecipeListViewmodel handles the information for the RecipeListFragment.
@@ -22,6 +26,7 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
     var privateRepo = privateRepository
     val publicRepo = publicRepo
     var recipes : LiveData<List<PrivateRecipe>> = MutableLiveData(emptyList())
+    var tag = "RecipeListVM"
 
     /*
 * This variable is private because we don't want to expose MutableLiveData
@@ -50,17 +55,12 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
     fun deleteRecipe(id: Int?) {
 
         if(id !=null) {
-            //coroutine
-            viewModelScope.launch {
-                try {
-                    privateRepo.deletePrivateRecipe(id)
-                } catch (error: Error) {
-                    _errorLiveDataString.value = error.message
-                }
-            }
+            Log.i(tag, "funktion delete recipe wird aufgerufen")
+
             this.recipes.value?.forEach {if(it.recipeId == id){
+                Log.i(tag, "habe privates Rezept in Liste gefunden, kann öffentliches Rezept löschen, had id ${it.publishedRecipeId}")
                 if(it.publishedRecipeId != 0){
-                    viewModelScope.launch {
+                    GlobalScope.launch {
                         try {
                             publicRepo.deleteRecipe(it.publishedRecipeId)
                         } catch (error: Error) {
@@ -69,6 +69,23 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
                     }
                 }
             }
+            //coroutine
+            viewModelScope.launch {
+                   //  val recipeLiveData = privateRepo.getPrivateRecipe(id)
+                   //  delay(2000L)
+                  // publicRepo.deleteRecipe(recipeLiveData.value!!.publishedRecipeId)
+
+                   // recipeLiveData.observeForever { recipe ->
+                   //                             runBlocking() { publicRepo.deleteRecipe(recipe.publishedRecipeId) }
+                   // }
+
+                try {
+                    privateRepo.deletePrivateRecipe(id)
+                } catch (error: Error) {
+                    _errorLiveDataString.value = error.message
+                }
+            }
+
             }
         }
     }
