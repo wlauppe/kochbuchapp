@@ -63,6 +63,8 @@ class t_21_2_upload_profile_pic_integration_test{
 
         val fromrepo = userRepo.getUser("random${randomStr}").blockingObserve()!!
 
+        assertEquals(fromrepo.userId,"random${randomStr}")
+
         AuthentificationImpl.userDelete()
     }
 }
