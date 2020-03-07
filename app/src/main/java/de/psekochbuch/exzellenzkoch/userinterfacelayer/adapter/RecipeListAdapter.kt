@@ -31,10 +31,13 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
     var id : Int ? = null
     var context = context
 
-    var recipes = listOf<PrivateRecipe>()
+
+
+    var recipes = arrayListOf<PrivateRecipe>()
         set(value) {
             field = value
             notifyDataSetChanged()
+
         }
 
     //Overridden Methods
@@ -67,9 +70,9 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
 
             viewModel.deleteRecipe(recipes[position].recipeId)
 
-            holder.itemView.visibility = View.GONE
-            notifyItemRangeChanged(position, recipes.size)
-            notifyDataSetChanged()
+            recipes.removeAt(position)
+
+            notifyItemRemoved(position)
         }
 
         // Glide logic to provide default image, if no image is set in recipe
