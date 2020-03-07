@@ -98,7 +98,7 @@ class navigation_ProfileDisplayFragment_to_RecipeDisplayFragment {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("nichtloeschen@wehe.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
 
         val appCompatEditText2 = onView(
             allOf(
