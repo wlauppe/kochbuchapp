@@ -20,6 +20,7 @@ import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -52,7 +53,7 @@ class T_21_2_upload_profile_pic {
             "android.permission.READ_EXTERNAL_STORAGE"
         )
 
-    @Test
+    @Test @Ignore
     fun t_21_2_upload_profile_pic() {
         val appCompatImageButton = onView(
             allOf(

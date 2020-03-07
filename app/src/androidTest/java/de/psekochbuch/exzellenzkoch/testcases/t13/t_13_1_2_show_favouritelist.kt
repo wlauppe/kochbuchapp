@@ -57,6 +57,7 @@ class t_13_1_2_show_favouritelist {
 
     @Test
     fun t_13_2_show_favouritelist() {
+
         val linearLayout = onView(
             allOf(
                 withId(R.id.feed_layout_item),
