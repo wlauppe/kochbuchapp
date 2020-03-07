@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,6 +19,7 @@ import kotlinx.coroutines.runBlocking
 class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecipeRepository, val privateRepo: PrivateRecipeRepository) : ViewModel() {
 
     var user : MutableLiveData<User> = MutableLiveData(User(""))
+    val tag = "ProfileEditViewModel"
 
         //LiveData
         var userID : MutableLiveData<String> = MutableLiveData("")
@@ -62,6 +64,7 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
      */
     fun save() {
         var newUser = User(user.value!!.userId,user.value!!.imgUrl,user.value!!.description)
+        Log.i(tag,"User wird gespeichert werte sind. ${newUser.userId}, Url=${newUser.imgUrl}")
         viewModelScope.launch {
             try {
                 repo.updateUser(userID.value!!,newUser)
