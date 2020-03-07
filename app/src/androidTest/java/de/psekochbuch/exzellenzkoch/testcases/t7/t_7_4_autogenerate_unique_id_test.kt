@@ -148,6 +148,7 @@ class t_7_4_autogenerate_unique_id_test {
         appCompatButton2.perform(click())
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val editText = onView(
             allOf(
