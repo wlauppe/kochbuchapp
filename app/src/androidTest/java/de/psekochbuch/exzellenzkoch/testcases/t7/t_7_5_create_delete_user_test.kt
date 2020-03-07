@@ -350,6 +350,7 @@ class t_7_5_create_delete_user_test {
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
         val appCompatButtonn = onView(
             allOf(
                 withId(R.id.button_save_profile_changes), withText("Speichern"),
