@@ -44,8 +44,6 @@ class t_9_1_save_recipe_automatically {
         repo.deleteAll()
     }
 
-
-
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)

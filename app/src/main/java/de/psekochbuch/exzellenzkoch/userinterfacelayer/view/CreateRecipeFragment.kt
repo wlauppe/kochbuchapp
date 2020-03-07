@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.CreateRecipeFragmentBinding
@@ -199,8 +200,12 @@ class CreateRecipeFragment : Fragment() {
 
         // logic for the "Save recipe"-button
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
+
+
             viewModel.saveRecipe(requireContext())
+
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)
+
         }
 
         //Image intent to get an image out of the user's galery

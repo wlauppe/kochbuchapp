@@ -249,7 +249,3 @@ class t_9_2_autosave_local_recipe_public_recipe_test {
     }
 }
 
-/*
-Der Test schlägt fehl, da das Rezept noch nicht serverseitig aufgerufen werden kann wegen paging.
-
- */
