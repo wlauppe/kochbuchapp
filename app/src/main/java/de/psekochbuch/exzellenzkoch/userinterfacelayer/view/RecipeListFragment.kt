@@ -46,6 +46,8 @@ class RecipeListFragment : Fragment() {
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
 
+        adapter.notifyDataSetChanged()
+
         // ClickListener to change fragment
         binding.buttonCreateRecipe.setOnClickListener{
             val navController:NavController = findNavController()

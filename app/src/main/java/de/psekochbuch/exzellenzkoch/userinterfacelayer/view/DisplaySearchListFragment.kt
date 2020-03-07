@@ -64,6 +64,8 @@ class DisplaySearchListFragment : Fragment(){
             viewModel.recipes.postValue(viewModel.recipesSortedDate.value!!)
         }
 
+        adapter.notifyDataSetChanged()
+
         binding.radioButtonTitel.setOnClickListener {
             viewModel.recipes.postValue(viewModel.recipesSortedTitle.value!!)
         }

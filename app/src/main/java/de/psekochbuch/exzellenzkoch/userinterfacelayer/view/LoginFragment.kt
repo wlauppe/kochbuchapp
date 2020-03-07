@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.InjectorUtils
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.databinding.LoginFragmentBinding
@@ -44,6 +45,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
 
         binding.buttonLoginFragmentLogin.setOnClickListener {
 
+
             setLoadingScreen(false)
             val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
@@ -62,10 +64,6 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
                                 userId
                             )
                         )
-
-
-
-
                     } else {
                         setLoadingScreen(true)
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -75,7 +73,6 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
                 setLoadingScreen(true)
                 Toast.makeText(context, "No connection to the internet", Toast.LENGTH_SHORT).show()
             }
-
         }
         binding.buttonLoginFragmentRegister.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_registrationFragment)
