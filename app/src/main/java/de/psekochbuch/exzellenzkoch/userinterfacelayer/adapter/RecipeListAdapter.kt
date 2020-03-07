@@ -72,7 +72,9 @@ class RecipeListAdapter(val viewModel:RecipeListViewmodel, context:Context) :
 
             recipes.removeAt(position)
 
-            notifyItemRemoved(position)
+            notifyDataSetChanged()
+
+     //       notifyItemRemoved(position)
         }
 
         // Glide logic to provide default image, if no image is set in recipe

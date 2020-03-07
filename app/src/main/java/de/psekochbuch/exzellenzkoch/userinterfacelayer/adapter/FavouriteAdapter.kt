@@ -27,7 +27,7 @@ class FavouriteAdapter(var viewModel: FavouriteViewmodel, context: Context)
     var id : Int? = null
     var context  = context
 
-    var favouriteRecipes = listOf<PublicRecipe>()
+    var favouriteRecipes = ArrayList<PublicRecipe>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -67,8 +67,10 @@ class FavouriteAdapter(var viewModel: FavouriteViewmodel, context: Context)
         }
         holder.favouriteItemBinding.buttonRemoveRecipeFromFavourites.setOnClickListener{
             viewModel.deleteRecipeFromFavourites(favouriteRecipes[position].recipeId)
-            holder.itemView.visibility = View.GONE
-            notifyItemRangeChanged(position, favouriteRecipes.size)
+
+            favouriteRecipes.removeAt(position)
+
+      //      notifyItemRemoved(position)
             notifyDataSetChanged()
         }
     }
