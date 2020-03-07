@@ -70,6 +70,7 @@ class ProfileDisplayFragment : Fragment() {
                 binding.textViewProfileDisplayFragmentTitle.text = user.userId
 
 
+
                 val imageView = binding.imageView2
                 var urlString = user.imgUrl
                 if(urlString == "" || urlString.isEmpty()){

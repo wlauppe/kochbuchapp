@@ -67,7 +67,6 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
             binding.textViewEnterUserID.setText(user.userId)
             binding.editTextUserDescription.setText(user.description)
 
-
             val imageView = binding.imageViewUserImg
             var urlString = user.imgUrl
             if(urlString == ""){
