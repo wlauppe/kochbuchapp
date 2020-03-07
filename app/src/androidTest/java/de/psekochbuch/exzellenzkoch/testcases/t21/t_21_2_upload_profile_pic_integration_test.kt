@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.testcases.t21
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import com.google.firebase.FirebaseApp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
@@ -54,12 +55,27 @@ class t_21_2_opload_profile_pic_integration_test{
             userRepo.addUser("random${randomStr}")
         }
 
-        val newUser = User("random${randomStr}","img","der bin ich")
+        val newUser = User("random${randomStr}", "https://s.gravatar.com/avatar/f849c680f420d89b5b0b49979d1df5ec?s=80", "Toast")
 
         runBlocking {
             userRepo.updateUser("random${randomStr}", newUser)
         }
 
+        val fromrepo = userRepo.getUser("random${randomStr}").blockingObserve()!!
+
         AuthentificationImpl.userDelete()
     }
+}
+
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever{
+        value = it
+        latch.countDown()
+    }
+
+    latch.await()
+    return value
 }
