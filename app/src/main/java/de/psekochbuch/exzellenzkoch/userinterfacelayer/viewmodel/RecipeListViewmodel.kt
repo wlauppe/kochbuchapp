@@ -66,18 +66,11 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
                         }
                     }
                 }
-            }
+            }}
+
             //coroutine
             viewModelScope.launch {
                    Log.i(tag, "habe privates Rezept in Liste")
-                   //  val recipeLiveData = privateRepo.getPrivateRecipe(id)
-                   //  delay(2000L)
-                  // publicRepo.deleteRecipe(recipeLiveData.value!!.publishedRecipeId)
-
-                   // recipeLiveData.observeForever { recipe ->
-                   //                             runBlocking() { publicRepo.deleteRecipe(recipe.publishedRecipeId) }
-                   // }
-
                 try {
                     privateRepo.deletePrivateRecipe(id)
                 } catch (error: Error) {
@@ -85,7 +78,6 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
                 }
             }
 
-            }
         }
     }
 }

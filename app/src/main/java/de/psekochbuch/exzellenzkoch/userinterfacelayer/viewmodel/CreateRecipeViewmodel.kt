@@ -125,6 +125,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         }
         else {
             _snackbarMessage.value = "Fehler: Sie sind nicht mit einem Account eingeloggt."
+            tagCheckBoxPublish.postValue(false)
+
         }
         _showSnackbarEvent.value = true
     }
