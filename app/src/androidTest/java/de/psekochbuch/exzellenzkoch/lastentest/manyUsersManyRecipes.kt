@@ -118,20 +118,18 @@ class manyUserManyRecipes {
             //var fromrepo = repo.getPublicRecipe(2).blockingObserve()!!
             //fromrepo.imgUrl = ""
 
-            val recipe = createRandomRecipe(user)
-
-            //recipe.user = User(AuthentificationImpl.getUserId())
-
-            val titlewithoutnumber = "Testrunde 2, rezept: "
-
-            try {
-                for (i in 1..recipeCount) {
+            for (i in 1..recipeCount) {
+                val recipe = createRandomRecipe(user)
+                //recipe.user = User(AuthentificationImpl.getUserId())
+                try {
+                    val titlewithoutnumber = "Testrunde 2, rezept: "
                     Log.i(tag, "creating recipe ${i}")
                     recipe.title = titlewithoutnumber + i.toString()
                     runBlocking { repo.publishRecipe(recipe) }
+
+                } catch (e: Error) {
+                    Log.w(tag, "publish Recipe, returned Error ${e.message}")
                 }
-            } catch (e: Error) {
-                Log.w(tag, "publish Recipe, returned Error ${e.message}")
             }
 
             //finally {

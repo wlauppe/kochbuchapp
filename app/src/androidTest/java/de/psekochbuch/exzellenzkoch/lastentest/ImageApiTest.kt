@@ -26,6 +26,8 @@ class ImageApiTest {
     val imagePath = "/storage/emulated/0/recipe_pictures"
     var imgUrlList = mutableListOf<String>()
     var token = ""
+    val imageCount = 100
+    val userCount = 2
 
     private fun initalizeImgUrlList() {
         File(imagePath).walk().forEach {
@@ -60,51 +62,56 @@ class ImageApiTest {
 
     @Test
     fun testApi(){
-        initalizeImgUrlList()
-        var authResult: AuthenticationResult? = null
-        val repo = PublicRecipeRepositoryImp.getInstance()
-        val userRepo = UserRepositoryImp.getInstance()
-        FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
-        val latch = CountDownLatch(1)
+        for (i in 1..userCount) {
+            initalizeImgUrlList()
+            var authResult: AuthenticationResult? = null
+            val repo = PublicRecipeRepositoryImp.getInstance()
+            val userRepo = UserRepositoryImp.getInstance()
+            FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
+            val latch = CountDownLatch(1)
 
-        val user = createRandomUser()
-        Log.i(tag, "user created with id: ${user.userId}")
-        val email = "${user.userId}@test.de"
-        val password = "123456"
+            val user = createRandomUser()
+            Log.i(tag, "user created with id: ${user.userId}")
+            val email = "${user.userId}@test.de"
+            val password = "123456"
 
 
 
-        AuthentificationImpl.register(email, password, user.userId) { a, b ->
-            authResult = b
-            repo.setToken(a)
-            userRepo.setToken(a)
-            token=a!!
-            latch.countDown()
-        }
-
-        latch.await(10, TimeUnit.SECONDS)
-
-        var fileApiService: FileApi =
-            ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
-        val imgUrl = getNextImgUrl()
-        //First upload the Image.
-        if (imgUrl != "") {
-            val file: File = File(imgUrl)
-            val ex = file.exists()
-            val body = RequestBody.create(MediaType.parse("*/*"), file)
-            val multi = MultipartBody.Part.createFormData("file", file.name, body)
-            val requestFile: RequestBody =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            lateinit var response: FileDto
-            runBlocking {
-                response = fileApiService.addImage(multi)
+            AuthentificationImpl.register(email, password, user.userId) { a, b ->
+                authResult = b
+                repo.setToken(a)
+                userRepo.setToken(a)
+                token = a!!
+                latch.countDown()
             }
-            //TODO Baseurl hinzufügen eventuell in den Mapper.
-            val remoteUrl = response.filePath
-            //speichere filepath in recipe
-            //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
-            var newimgUrl = BuildConfig.IMG_PREFIX + remoteUrl
-            Log.i(tag,"neue url wäre $newimgUrl")
+
+            latch.await(10, TimeUnit.SECONDS)
+
+            var fileApiService: FileApi =
+                ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
+
+            for (i in 1..imageCount) {
+                val imgUrl = getNextImgUrl()
+                //First upload the Image.
+                if (imgUrl != "") {
+                    val file: File = File(imgUrl)
+                    val ex = file.exists()
+                    val body = RequestBody.create(MediaType.parse("*/*"), file)
+                    val multi = MultipartBody.Part.createFormData("file", file.name, body)
+                    val requestFile: RequestBody =
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    lateinit var response: FileDto
+                    runBlocking {
+                        response = fileApiService.addImage(multi)
+                    }
+                    //TODO Baseurl hinzufügen eventuell in den Mapper.
+                    val remoteUrl = response.filePath
+                    //speichere filepath in recipe
+                    //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
+                    var newimgUrl = BuildConfig.IMG_PREFIX + remoteUrl
+                    Log.i(tag, "neue url wäre $newimgUrl")
+                }
+            }
         }
 
 
