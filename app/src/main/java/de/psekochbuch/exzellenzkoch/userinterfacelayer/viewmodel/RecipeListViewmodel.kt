@@ -9,10 +9,7 @@ import androidx.lifecycle.viewModelScope
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PrivateRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 /**
  * The RecipeListViewmodel handles the information for the RecipeListFragment.
@@ -60,7 +57,7 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
             this.recipes.value?.forEach {if(it.recipeId == id){
                 Log.i(tag, "habe privates Rezept in Liste gefunden, kann öffentliches Rezept löschen, had id ${it.publishedRecipeId}")
                 if(it.publishedRecipeId != 0){
-                    GlobalScope.launch {
+                    GlobalScope.async {
                         try {
                             Log.i(tag, "public Repo delete Recipe wird aufgerufen")
                             publicRepo.deleteRecipe(it.publishedRecipeId)
@@ -72,6 +69,7 @@ class RecipeListViewmodel(privateRepository: PrivateRecipeRepository,
             }
             //coroutine
             viewModelScope.launch {
+                   Log.i(tag, "habe privates Rezept in Liste")
                    //  val recipeLiveData = privateRepo.getPrivateRecipe(id)
                    //  delay(2000L)
                   // publicRepo.deleteRecipe(recipeLiveData.value!!.publishedRecipeId)

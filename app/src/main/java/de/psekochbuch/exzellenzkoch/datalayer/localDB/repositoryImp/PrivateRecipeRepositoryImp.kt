@@ -14,6 +14,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRec
 import kotlinx.coroutines.Dispatchers
 import java.util.*
 import java.util.concurrent.Semaphore
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.locks.ReentrantLock
 
 /**
@@ -97,6 +98,7 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
      * IF the id is not 0 and a private recipe exists in DB with that id, it will be overwritten
      * @param privateRecipe: The recipe to insert.
      */
+
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
         DB.databaseWriteExecutor.execute{
             val id = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!
@@ -105,6 +107,19 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
                 privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,id,tag))
             }
         }
+    }
+
+    override suspend fun insertPrivateRecipeAndReturnId(privateRecipe: PrivateRecipe): Int {
+        var id : Long = 0
+        DB.databaseWriteExecutor.execute{
+            id = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!
+            privateRecipeTagDao?.deleteTagsFromRecipe(id)
+            for (tag: String in privateRecipe.tags){
+                privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,id,tag))
+            }
+        }
+        DB.databaseWriteExecutor.awaitTermination(2, TimeUnit.SECONDS)
+        return id.toInt()
     }
 
     override fun deleteAll() {
