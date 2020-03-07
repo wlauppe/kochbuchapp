@@ -344,6 +344,42 @@ class t_11_1_create_update_public_recipe_test {
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
+        val appCompatImageButton6 = onView(
+            allOf(
+                withContentDescription("Navigationsleiste öffnen"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.toolbar),
+                        childAtPosition(
+                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatImageButton6.perform(click())
+
+        val navigationMenuItemView5 = onView(
+            allOf(
+                childAtPosition(
+                    allOf(
+                        withId(R.id.design_navigation_view),
+                        childAtPosition(
+                            withId(R.id.nav_view),
+                            0
+                        )
+                    ),
+                    4
+                ),
+                isDisplayed()
+            )
+        )
+        navigationMenuItemView5.perform(click())
+
+
 
         val linearLayout = onView(
             allOf(
