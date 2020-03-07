@@ -9,6 +9,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.PublicRecipeApi
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.FileDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.PublicRecipeDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
@@ -180,35 +181,44 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                }
             }
 
-            try {
+            var response: FileDto
+            val remoteUrl : String
 
 
                 //First upload the Image.
                 if(publicRecipe.imgUrl != "") {
-                    val file: File = File(publicRecipe.imgUrl)
-                    val ex = file.exists()
-                    val body = RequestBody.create(MediaType.parse("*/*"), file)
-                    val multi = MultipartBody.Part.createFormData("file", file.name, body)
-                    val requestFile: RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                    val response = fileApiService.addImage(multi)
+                    try {
+                        val file: File = File(publicRecipe.imgUrl)
+                        Log.i(TAG,"ImgUrl is ${publicRecipe.imgUrl}")
+                        val ex = file.exists()
+                        if(!ex) {
+                               throw NetworkError("cant publish image, it doesnt exist ${publicRecipe.imgUrl}", Error())
+                        }
+                        val body = RequestBody.create(MediaType.parse("*/*"), file)
+                        val multi = MultipartBody.Part.createFormData("file", file.name, body)
+                        val requestFile: RequestBody =
+                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        response = fileApiService.addImage(multi)
+                    }
+                    catch(error : Throwable) {
+                        throw NetworkError("Unable to publish recipe image", error)
+                    }
+                    try {
                     //TODO Baseurl hinzufügen eventuell in den Mapper.
                     val remoteUrl = response.filePath
                     //speichere filepath in recipe
                     //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
                     publicRecipe.imgUrl = BuildConfig.IMG_PREFIX + remoteUrl
-                }
-                val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
-                returnId = returnDto.id
-
-            }
-            catch (error : Throwable) {
-                error.printStackTrace()
+                    val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
+                    returnId = returnDto.id
+                    }
+                catch (error : Throwable) {
                 throw NetworkError("Unable to publish recipe", error)
             }
 
-
-
         //das ist der Rückgabewert der
+
+    }
         return returnId
     }
 
