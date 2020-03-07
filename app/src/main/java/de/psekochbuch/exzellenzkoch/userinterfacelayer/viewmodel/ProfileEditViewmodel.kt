@@ -9,6 +9,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -65,7 +66,7 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
     fun save() {
         var newUser = User(user.value!!.userId,user.value!!.imgUrl,user.value!!.description)
         Log.i(tag,"User wird gespeichert werte sind. ${newUser.userId}, Url=${newUser.imgUrl}")
-        viewModelScope.launch {
+        GlobalScope.launch {
             try {
                 repo.updateUser(userID.value!!,newUser)
             } catch (error: Error) {
