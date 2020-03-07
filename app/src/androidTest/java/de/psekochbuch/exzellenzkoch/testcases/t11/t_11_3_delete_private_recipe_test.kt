@@ -4,6 +4,7 @@ package de.psekochbuch.exzellenzkoch.testcases.t11
 import android.app.Application
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
@@ -45,7 +46,7 @@ class t_11_3_delete_private_recipe_test {
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        var repo = PrivateRecipeRepositoryImp(Application())
+        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
     }
 
@@ -176,7 +177,7 @@ class t_11_3_delete_private_recipe_test {
         )
         viewGroup.check(matches(isDisplayed()))
 
-        var repo = PrivateRecipeRepositoryImp(Application())
+        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         
         repo.deleteAll()
         var recipes = repo.getPrivateRecipes()

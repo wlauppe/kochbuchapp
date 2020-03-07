@@ -4,6 +4,7 @@ package de.psekochbuch.exzellenzkoch.testcases.t7
 import android.app.Application
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
@@ -403,7 +404,7 @@ class t_7_6_delete_profile_private_recipe_test {
 
 
 
-        val privaterepo = PrivateRecipeRepositoryImp(Application())
+        val privaterepo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         val publicrepo = PublicRecipeRepositoryImp()
         val vm = RecipeListViewmodel(privaterepo, publicrepo)
 

@@ -4,6 +4,7 @@ package de.psekochbuch.exzellenzkoch.testcases.t10
 import android.app.Application
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
@@ -47,7 +48,7 @@ class t_10_4_create_public_recipe_test {
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        var repo = PrivateRecipeRepositoryImp(Application())
+        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
         AuthentificationImpl.logout()
     }

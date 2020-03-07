@@ -48,7 +48,7 @@ class t_8_2_create_recipe_test {
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
 
-        var repo = PrivateRecipeRepositoryImp(Application())
+        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
     }
 
