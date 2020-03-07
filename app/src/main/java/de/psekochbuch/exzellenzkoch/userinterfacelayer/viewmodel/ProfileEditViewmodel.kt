@@ -65,7 +65,7 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
      * Stores the users changes
      */
     fun save() {
-        var newUser = User(user.value!!.userId,user.value!!.imgUrl,user.value!!.description)
+        var newUser = User(user.value!!.userId,user.value!!.imgUrl,userDesc.value!!)
         Log.i(tag,"User wird gespeichert werte sind. ${newUser.userId}, Url=${newUser.imgUrl}")
         GlobalScope.launch {
             try {

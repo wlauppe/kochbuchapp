@@ -134,7 +134,7 @@ class UserRepositoryImp : UserRepository {
             //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
             user.imgUrl= BuildConfig.IMG_PREFIX +remoteUrl
             Log.w(TAG,"update user, $oldUserId imageUrl =${user.imgUrl}")
-            val returnDto = userApiService.updateUser(oldUserId,userMapper.toDto(user))
+            userApiService.updateUser(oldUserId,userMapper.toDto(user))
         } catch (error: Throwable) {
             Log.e(TAG,"update User, hat nicht Funktioniert error: error.message")
           //  throw NetworkError("Unable to update user", error)
