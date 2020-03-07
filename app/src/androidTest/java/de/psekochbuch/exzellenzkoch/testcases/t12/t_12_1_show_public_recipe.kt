@@ -35,6 +35,7 @@ class t_12_1_show_public_recipe {
     fun t_12_1_show_public_recipe() {
 
         Thread.sleep(EspressoIdlingResource.Sleep)
+        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val linearLayout = onView(
             allOf(

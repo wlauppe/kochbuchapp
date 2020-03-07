@@ -42,7 +42,6 @@ class t_10_4_create_public_recipe_test {
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         AuthentificationImpl.logout()
-
     }
 
     @After

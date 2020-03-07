@@ -108,7 +108,6 @@ class CreateRecipeFragment : Fragment() {
             binding.checkBoxVeganCreateRecipeFragment.isChecked = true
         }
             Log.i(Tagg, viewModel.tagCheckBoxVegan.value.toString().plus(" ist im VMMM ") . plus(binding.checkBoxVeganCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
-
         }
 
         binding.checkBoxVegetarianCreateRecipeFragment.setOnClickListener{
@@ -120,7 +119,6 @@ class CreateRecipeFragment : Fragment() {
             binding.checkBoxVegetarianCreateRecipeFragment.isChecked = true
         }
             Log.i(Tagg, viewModel.tagCheckBoxVegetarian.value.toString().plus(" ist vegetarisch im VMMM ") . plus(binding.checkBoxVegetarianCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
-
         }
         binding.checkBoxHeartyCreateRecipeFragment.setOnClickListener{
             if(viewModel.tagCheckBoxSavoury.value!!){
@@ -133,6 +131,7 @@ class CreateRecipeFragment : Fragment() {
             Log.i(Tagg, viewModel.tagCheckBoxVegetarian.value.toString().plus(" ist herzhaft im VMMM ") . plus(binding.checkBoxVegetarianCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
 
         }
+
         binding.checkBoxSweetCreateRecipeFragment.setOnClickListener{
             if(viewModel.tagCheckBoxSweet.value!!){
                 viewModel.tagCheckBoxSweet.value = false
@@ -401,32 +400,37 @@ class CreateRecipeFragment : Fragment() {
      * Inserts the tags provided by the recipe to the bound XML and the viewmodel attributes
      * @param tags The tags in the Format List<String>
      */
+
     fun getTagsFromRecipe(tags : List<String>){
-        if(tags.contains("vegan")){
-            viewModelTemp!!.tagCheckBoxVegan.value = true
-            binding.checkBoxVeganCreateRecipeFragment.isChecked = true
-        }
-        if(tags.contains("vegetarisch")){
-            viewModelTemp!!.tagCheckBoxVegetarian.value = true
-            viewModelTemp?.tagCheckBoxVegetarian = MutableLiveData(true)
-        }
-        if(tags.contains("salzig")){
-            viewModelTemp!!.tagCheckBoxSalty.value = true
-            viewModelTemp?.tagCheckBoxSalty   = MutableLiveData(true)
-        }
-        if(tags.contains("sweet")){
-            viewModelTemp!!.tagCheckBoxSweet.value = true
-            viewModelTemp?.tagCheckBoxSweet   = MutableLiveData(true)
-        }
-        if(tags.contains("günstig")){
-            viewModelTemp!!.tagCheckBoxCheap.value = true
-            viewModelTemp?.tagCheckBoxCheap   = MutableLiveData(true)
-        }
-        if(tags.contains("herzhaft")){
-            viewModelTemp!!.tagCheckBoxSavoury.value = true
-            viewModelTemp?.tagCheckBoxSavoury   = MutableLiveData(true)
+        for(tag in tags ){
+            if(tag == "vegan"){
+                viewModelTemp!!.tagCheckBoxVegan.value = true
+                binding.checkBoxVeganCreateRecipeFragment.isChecked = true
+            }
+            if(tag == "vegetarisch"){
+                viewModelTemp!!.tagCheckBoxVegetarian.value = true
+                binding.checkBoxVegetarianCreateRecipeFragment.isChecked = true
+            }
+             if(tag == "salzig"){
+                viewModelTemp!!.tagCheckBoxSalty.value = true
+                binding.checkBoxSaltyCreateRecipeFragment.isChecked = true
+            }
+             if(tag == "herzhaft"){
+                viewModelTemp!!.tagCheckBoxSavoury.value = true
+                binding.checkBoxHeartyCreateRecipeFragment.isChecked = true
+            }
+             if(tag == "günstig"){
+                viewModelTemp!!.tagCheckBoxCheap.value = true
+                binding.checkBoxCheap.isChecked = true
+            }
+             if(tag == "süß"){
+                viewModelTemp!!.tagCheckBoxSweet.value = true
+                binding.checkBoxSweetCreateRecipeFragment.isChecked = true
+            }
         }
     }
+
+
 
 
 

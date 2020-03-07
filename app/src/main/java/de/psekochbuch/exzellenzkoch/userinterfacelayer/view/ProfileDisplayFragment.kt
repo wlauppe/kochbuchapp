@@ -59,8 +59,9 @@ class ProfileDisplayFragment : Fragment() {
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
 
         viewModel.user.observe(this.viewLifecycleOwner, Observer { user ->
-            binding.textViewProfileDisplayDescription.text = user.description
             binding.textViewProfileDisplayFragmentTitle.text = user.userId
+            binding.textViewProfileDisplayDescription.text = user.description
+
 
 
             val imageView = binding.imageView2
