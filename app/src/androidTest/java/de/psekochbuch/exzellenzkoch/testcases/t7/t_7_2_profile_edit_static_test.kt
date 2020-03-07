@@ -36,10 +36,20 @@ class t_7_2_profile_edit_static_test {
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
+    @Before
+    fun setUp(){
+        AuthentificationImpl.logout()
+    }
+
+    @After
+    fun tearDown(){
+        AuthentificationImpl.logout()
+    }
 
 
 
-    @Test
+
+    @Test @Ignore
     fun t_7_2_profile_edit_static_test() {
         val appCompatImageButton = onView(
             allOf(
@@ -154,7 +164,7 @@ Log.w(TAG, "in das LOGINFRAGMENT")
         appCompatButton2.perform(scrollTo(), click())
 
 
-      
+
         /*
         val editText24 = onView(
             allOf(

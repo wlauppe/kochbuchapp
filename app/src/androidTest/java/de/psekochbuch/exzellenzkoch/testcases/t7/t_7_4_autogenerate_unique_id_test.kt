@@ -111,7 +111,7 @@ class t_7_4_autogenerate_unique_id_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("werner@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("wernero@muster.de"), closeSoftKeyboard())
 
 
         val appCompatEditText2 = onView(
