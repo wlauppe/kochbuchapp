@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import org.hamcrest.Description
@@ -83,7 +84,7 @@ class t_25_1_search_recipe_title_rest {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("Beutel"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("a"), closeSoftKeyboard())
 
         val appCompatButton = onView(
             allOf(
@@ -103,7 +104,7 @@ class t_25_1_search_recipe_title_rest {
         )
         appCompatButton.perform(click())
 
-        Thread.sleep(1500)
+        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val linearLayout = onView(
             allOf(

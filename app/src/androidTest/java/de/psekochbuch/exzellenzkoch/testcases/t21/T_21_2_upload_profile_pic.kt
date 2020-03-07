@@ -11,6 +11,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import org.hamcrest.Description
@@ -89,7 +90,8 @@ class T_21_2_upload_profile_pic {
         )
         navigationMenuItemView.perform(click())
 
-        Thread.sleep(4000)
+        Thread.sleep(EspressoIdlingResource.Sleep)
+
 
         val appCompatEditText = onView(
             allOf(

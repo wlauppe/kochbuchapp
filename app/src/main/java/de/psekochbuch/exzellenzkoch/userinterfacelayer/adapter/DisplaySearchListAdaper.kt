@@ -33,11 +33,11 @@ class DisplaySearchListAdaper(context: Context)
 
     var recipes = listOf<PublicRecipe>()
         set(value) {
-            EspressoIdlingResource.increment()
             field = value
             notifyDataSetChanged()
-            EspressoIdlingResource.decrement()
         }
+
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DisplaySearchListViewHolder {

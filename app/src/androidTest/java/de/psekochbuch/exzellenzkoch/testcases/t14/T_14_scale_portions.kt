@@ -11,6 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import org.hamcrest.Description
@@ -56,6 +57,8 @@ class T_14_scale_portions {
         )
         linearLayout.perform(click())
 
+        Thread.sleep(EspressoIdlingResource.Sleep)
+
         val textView = onView(
             allOf(
                 withId(R.id.textView_ingredient_list),
@@ -89,7 +92,7 @@ class T_14_scale_portions {
         )
         appCompatButton.perform(scrollTo(), click())
 
-        Thread.sleep(3000)
+        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val textView2 = onView(
             allOf(
@@ -110,7 +113,7 @@ class T_14_scale_portions {
         )
         var oncePressed = "Für die Windbeutel 160.0 g Butter 8.0 Stück Eier 300.0 g Mehl 2.0 Prise Salz 500.0 ml Wasser 200.0 g Zartbitter-Kuvertüre Für die Schokofüllung 800.0 ml Sahne 200.0 g Vollmilch-Schokolade 200.0 g Zartbitter-Schokolade "
 
-        Thread.sleep(3000)
+        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val appCompatButton2 = onView(
             allOf(
@@ -126,7 +129,7 @@ class T_14_scale_portions {
         )
         appCompatButton2.perform(scrollTo(), click())
 
-        Thread.sleep(3000)
+        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val textView3 = onView(
             allOf(

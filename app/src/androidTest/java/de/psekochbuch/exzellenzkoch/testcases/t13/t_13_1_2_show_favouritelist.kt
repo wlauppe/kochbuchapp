@@ -77,7 +77,7 @@ class t_13_1_2_show_favouritelist {
 
         Thread.sleep(EspressoIdlingResource.Sleep)
 
-        
+
         val appCompatImageButton = onView(
             allOf(
                 withId(R.id.imageButton_favourite),

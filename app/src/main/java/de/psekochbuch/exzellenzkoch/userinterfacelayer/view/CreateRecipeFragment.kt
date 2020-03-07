@@ -201,7 +201,6 @@ class CreateRecipeFragment : Fragment() {
         // logic for the "Save recipe"-button
         binding.buttonCreateRecipeAndGotoRecipeList.setOnClickListener {
 
-
             viewModel.saveRecipe(requireContext())
 
             navController.navigate(R.id.action_createRecipeFragment_to_recipeListFragment)

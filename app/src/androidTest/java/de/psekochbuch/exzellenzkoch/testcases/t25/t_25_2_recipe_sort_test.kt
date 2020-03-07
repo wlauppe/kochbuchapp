@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import org.hamcrest.Description
@@ -31,7 +32,7 @@ class t_25_2_recipe_sort_test {
 
     @Test
     fun t_25_2_recipe_sort_test() {
-        Thread.sleep(3000)
+        Thread.sleep(EspressoIdlingResource.Sleep)
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -83,7 +84,7 @@ class t_25_2_recipe_sort_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("Beutel"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText(""), closeSoftKeyboard())
 
         val appCompatButton = onView(
             allOf(
@@ -124,7 +125,7 @@ class t_25_2_recipe_sort_test {
 
         val textView = onView(
             allOf(
-                withId(R.id.textView_recipe_name), withText("Beutel"),
+                withId(R.id.textView_recipe_name),
                 childAtPosition(
                     allOf(
                         withId(R.id.display_searchlist_layout_Item),
