@@ -22,5 +22,5 @@ object EspressoIdlingResource {
 
     }
 
-    val Sleep = 4000
+    val Sleep = 4000.toLong()
 }
