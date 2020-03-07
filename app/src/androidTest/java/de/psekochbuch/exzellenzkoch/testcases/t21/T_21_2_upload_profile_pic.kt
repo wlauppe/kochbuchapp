@@ -89,7 +89,7 @@ class T_21_2_upload_profile_pic {
         )
         navigationMenuItemView.perform(click())
 
-        Thread.sleep(3000)
+        Thread.sleep(4000)
 
         val appCompatEditText = onView(
             allOf(
@@ -238,6 +238,7 @@ class T_21_2_upload_profile_pic {
             public override fun matchesSafely(view: View): Boolean {
                 val parent = view.parent
                 return parent is ViewGroup && parentMatcher.matches(parent)
+                        && view == parent.getChildAt(position)
                         && view == parent.getChildAt(position)
             }
         }

@@ -99,7 +99,7 @@ class PublicRecipe(
         return true &&
            // recipeId == recipe.recipeId && //sameRecipeid
             title.equals(recipe.title) && //sameTitle
-            ingredientsText.equals(recipe.ingredientsText) &&//sameIngredientsText
+         //   ingredientsText.equals(recipe.ingredientsText) &&//sameIngredientsText
             ingredientChapter.size == recipe.ingredientChapter.size && //sameNumberOfIngredientChapters
             ingredientChapter.zip(recipe.ingredientChapter).map {
                 it.first.chapter.equals(it.second.chapter) && //sameChapter
