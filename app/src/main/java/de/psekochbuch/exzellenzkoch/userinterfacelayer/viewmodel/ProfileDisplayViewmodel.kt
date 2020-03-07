@@ -64,6 +64,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
         user = userRepo.getUser(id) as MutableLiveData<User>
 
 
+
        /* viewModelScope.launch {
             try {
                  user = userRepo.getUser(id) as MutableLiveData<User>

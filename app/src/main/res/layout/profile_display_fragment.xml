@@ -50,7 +50,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:text="@{profileDisplayViewmodel.userDesc}"
+                    android:text="@={profileDisplayViewmodel.userDesc}"
                     android:textSize="20sp" />
 
                 <TextView

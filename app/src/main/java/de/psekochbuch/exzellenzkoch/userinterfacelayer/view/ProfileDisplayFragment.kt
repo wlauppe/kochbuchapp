@@ -37,7 +37,7 @@ class ProfileDisplayFragment : Fragment() {
 
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
 
-        AuthentificationImpl.getToken(true, {
+        AuthentificationImpl.getToken(true) {
             viewModel.userRepo.setToken(it)
             viewModel.setUserByID(userID!!)
 
@@ -64,6 +64,9 @@ class ProfileDisplayFragment : Fragment() {
 
             viewModel.user.observe(this.viewLifecycleOwner, Observer { user ->
                 binding.textViewProfileDisplayDescription.text = user.description
+                viewModel.userDesc.value = user.description
+
+
                 binding.textViewProfileDisplayFragmentTitle.text = user.userId
 
 
@@ -76,11 +79,11 @@ class ProfileDisplayFragment : Fragment() {
             })
 
             viewModel.user.observe(viewLifecycleOwner, Observer {
-                user ->
-            binding.textViewProfileDisplayDescription.text = user.description
-            binding.textViewProfileDisplayFragmentTitle.text = user.userId
+                    user ->
+                binding.textViewProfileDisplayDescription.text = user.description
+                binding.textViewProfileDisplayFragmentTitle.text = user.userId
             })
-        })
+        }
 
 
 

@@ -61,11 +61,13 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
      * Stores the users changes
      */
     fun save() {
-        var newUser = User(user.value!!.userId,user.value!!.imgUrl,user.value!!.description)
+        var newUser = User(user.value!!.userId,user.value!!.imgUrl,userDesc.value!!)
         viewModelScope.launch {
             try {
                 repo.updateUser(userID.value!!,newUser)
             } catch (error: Error) {
+                println(error.stackTrace)
+
             }
         }
         isSaved = true
