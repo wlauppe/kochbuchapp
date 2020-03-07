@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,18 +43,16 @@ class PublicRecipeSearchFragment : Fragment() {
         val navController: NavController = findNavController()
 
         binding.buttonSearchRecipeSearchButton.setOnClickListener {
-            EspressoIdlingResource.increment()
         binding.progressBarPublicRecipeSearch.visibility.or(1)
         //Handle input values via Safeargs
         val recipeName: String = binding.editTextSearchRecipeTitle.text.toString()
         val recipeIngredients: String = binding.editTextSearchIngredients.text.toString()
         val tags : String = binding.editTextSearchTags.text.toString()
-
         //safeargs sent with bundle to
+
+            Log.w("PublicRecipeSearchFragm", "recipesearchfragmentbutton")
         navController.navigate(PublicRecipeSearchFragmentDirections.actionPublicRecipeSearchFragmentToDisplaySearchListFragment()
                 .setIngredients(recipeIngredients).setRecipeTitle(recipeName).setTags(tags))
-
-            EspressoIdlingResource.decrement()
         }
 
         return binding.root

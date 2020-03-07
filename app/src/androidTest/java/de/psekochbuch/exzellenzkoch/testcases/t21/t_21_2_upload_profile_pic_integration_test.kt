@@ -16,7 +16,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
 
-class t_21_2_opload_profile_pic_integration_test{
+class t_21_2_upload_profile_pic_integration_test{
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
