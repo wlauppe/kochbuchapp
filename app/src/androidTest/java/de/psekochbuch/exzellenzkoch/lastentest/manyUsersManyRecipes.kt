@@ -132,7 +132,7 @@ class manyUserManyRecipes {
                 val titlewithoutnumber = "xrun2 Testrezept user: $userNo, rezept: "
                 Log.i(tag, "creating recipe ${i}")
                 recipe.title = titlewithoutnumber + i.toString()
-                GlobalScope.async {
+                runBlocking {
                     repo.publishRecipe(recipe)
                 }
 
