@@ -29,7 +29,7 @@ interface UserApi {
      * @param userId The id of the user
      */
     @PUT("users/{userId}")
-    fun updateUser( userId:String, @Body user:UserDto)
+    fun updateUser(@Path ("userId") userId:String, @Body user:UserDto)
 
     /**
      * DELETE-Request to delete an user
