@@ -52,6 +52,7 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
      */
     fun setUserByID(id:String){
         if(id != "") {
+
             user = repo.getUser(id) as MutableLiveData<User>
         }
 
