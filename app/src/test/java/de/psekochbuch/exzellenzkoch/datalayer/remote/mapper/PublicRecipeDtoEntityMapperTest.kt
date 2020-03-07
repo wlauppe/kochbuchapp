@@ -50,6 +50,6 @@ class PublicRecipeDtoEntityMapperTest{
 
         val convertedrecipe = mapper.toEntity(publicRecipeDto)
 
-        assertEquals(convertedrecipe.ingredientChapter.last().ingredients.last().unit,"")
+        assertEquals(convertedrecipe.ingredientChapter.last().ingredients.last().unit,"sollnichtparseablesein!!!")
     }
 }

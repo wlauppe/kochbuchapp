@@ -49,7 +49,7 @@ class PublicRecipe(
     /**
      * the time the recipe was published
      */
-    val creationTimeStamp: Date = Date(System.currentTimeMillis()),
+    var creationTimeStamp: Date = Date(System.currentTimeMillis()),
     /**
      * number of portions, the recipe is constructed
      */
@@ -95,7 +95,9 @@ class PublicRecipe(
         } catch (e: Exception){
             return false
         }
-        return recipeId == recipe.recipeId && //sameRecipeid
+
+        return true &&
+           // recipeId == recipe.recipeId && //sameRecipeid
             title.equals(recipe.title) && //sameTitle
             ingredientsText.equals(recipe.ingredientsText) &&//sameIngredientsText
             ingredientChapter.size == recipe.ingredientChapter.size && //sameNumberOfIngredientChapters
@@ -116,7 +118,7 @@ class PublicRecipe(
             cookingTime == recipe.cookingTime && //sameCookingTime
             preparationTime == recipe.preparationTime && //samePreparationTime
             user.description.equals(recipe.user.description) && user.imgUrl.equals(recipe.user.imgUrl) && user.userId.equals(recipe.user.userId) && //sameUser
-            getDateAsLong() == recipe.getDateAsLong() && //sameCreationTimeStamp
+         //   getDateAsLong() == recipe.getDateAsLong() && //sameCreationTimeStamp
             portions == recipe.portions && //samePortions
             avgRating == recipe.avgRating //sameRating
     }
