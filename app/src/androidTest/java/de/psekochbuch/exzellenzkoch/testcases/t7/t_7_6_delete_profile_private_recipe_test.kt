@@ -113,7 +113,7 @@ class t_7_6_delete_profile_private_recipe_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("tempoo@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("tempoox@muster.de"), closeSoftKeyboard())
 
 
         val appCompatEditText2 = onView(
@@ -343,6 +343,7 @@ class t_7_6_delete_profile_private_recipe_test {
 
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val appCompatEditText13 = onView(
             allOf(
@@ -408,7 +409,6 @@ class t_7_6_delete_profile_private_recipe_test {
         val publicrepo = PublicRecipeRepositoryImp()
         val vm = RecipeListViewmodel(privaterepo, publicrepo)
 
-        //Das Viewmodel lädt alle Rezepte und überprüft, ob die Published ID gleich 0 ist.
        vm.getPrivateRecipes()
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
@@ -448,14 +448,3 @@ class t_7_6_delete_profile_private_recipe_test {
         }
     }
 }
-/*
-T 7_6 Der Nutzer löscht sein profil und seine erstellten Rezepte, die veröffentlicht waren
-sollten nun nicht mehr als veröffentlicht bei dem Nutzer angezeigt werden. -> Das Häckchen
-soll nicht mehr gesetzt werden. Idee: beim Löschen des Profils wird für jedes Private Rezepte
- das Published Recipe Attribut auf 0 gesetzt.
- */
-
-/*
-Schlägt fehl. Der nutzer kann sich nicht mit den daten registrieren, oder einloggen.
-->Authentification broken ?
- */

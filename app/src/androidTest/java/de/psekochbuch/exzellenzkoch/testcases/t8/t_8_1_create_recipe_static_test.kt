@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.testcases.t8
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.*
@@ -10,8 +11,10 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -361,14 +364,13 @@ class t_8_1_create_recipe_static_test {
 
         pressBack()
 
+        Thread.sleep(EspressoIdlingResource.Sleep)
 
 
-        Thread.sleep(5000)
-
-
-        @AfterClass
+        @After
         fun tearDown(){
-            //Rezepte löschen
+            var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+            repo.deleteAll()
         }
     }
 
