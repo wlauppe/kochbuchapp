@@ -21,16 +21,18 @@ import org.junit.Test
 import java.io.File
 import java.util.*
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.ThreadLocalRandom
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random.Default.nextInt
 
 class manyUserManyRecipes {
     @get:Rule
     val rule = InstantTaskExecutorRule()
-    val recipeCount = 100
-    val userCount = 2
+    val recipeCount = 35
+    val userCount = 301
     val imagePath = "/storage/emulated/0/recipe_pictures"
     var imgUrlList = mutableListOf<String>()
-        //val userCount = 35
+
     val tag = "manyUsersManyRecipes"
 
 
@@ -53,7 +55,9 @@ class manyUserManyRecipes {
     }
 
     private fun getNextImgUrl() : String {
-        val url = imgUrlList.get(0)
+        val limit = imgUrlList.size -1
+        val randomInteger = ThreadLocalRandom.current().nextInt(0, 10)
+        val url = imgUrlList.get(randomInteger)
         return url
     }
 
