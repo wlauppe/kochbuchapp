@@ -15,10 +15,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import java.lang.Exception
 import java.util.*
 
@@ -128,6 +125,8 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         }
         else {
             _snackbarMessage.value = "Fehler: Sie sind nicht mit einem Account eingeloggt."
+            tagCheckBoxPublish.postValue(false)
+
         }
         _showSnackbarEvent.value = true
     }
@@ -185,15 +184,16 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             //Coroutine
             //da dieser Job nicht gecancelt werden soll, wenn man das Viewmodel beendet wird und das Rezept noch nicht fertig gepublisht
             //wird muss die Koroutine im globalScope gelauncht werden.
-            GlobalScope.launch {
+            GlobalScope.async {
                 try {
+                   var privateId = privateRepo.insertPrivateRecipeAndReturnId(newPrivateRecipe)
                    val newId = publicRepo.publishRecipe(convertedPublicRecipe)
 
                     //muss jetzt noch mal das private Recipe mit der Id unter der das Rezept gepublished
                     //wurde speichern.
 
                     var newPrivateRecipe =
-                        PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
+                        PrivateRecipe(privateId, title.value!!,ingredients.value!!,
                             resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, newId)
                     //Coroutine Saving in Room Database
                             privateRepo.insertPrivateRecipe(newPrivateRecipe)

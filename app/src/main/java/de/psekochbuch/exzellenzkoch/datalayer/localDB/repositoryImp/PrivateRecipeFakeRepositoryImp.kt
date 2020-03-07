@@ -103,6 +103,10 @@ class PrivateRecipeFakeRepositoryImp : PrivateRecipeRepository {
 
     }
 
+    override suspend fun insertPrivateRecipeAndReturnId(privateRecipe: PrivateRecipe): Int {
+        TODO("Not yet implemented")
+    }
+
     override fun deleteAll() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

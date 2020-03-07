@@ -166,6 +166,11 @@ class CreateRecipeFragment : Fragment() {
             Log.i(Tagg, viewModel.tagCheckBoxVegetarian.value.toString().plus(" ist günstig im VMMM ") . plus(binding.checkBoxVegetarianCreateRecipeFragment.isChecked.toString().plus(" ist im Binding")))
 
         }
+
+        viewModel.tagCheckBoxPublish.observe(viewLifecycleOwner, Observer { it ->
+            binding.checkBoxPublishCreateRecipeFragment.isActivated = it
+        })
+
         binding.checkBoxPublishCreateRecipeFragment.setOnClickListener() {
 
 
