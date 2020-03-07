@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation
+package de.psekochbuch.exzellenzkoch.navigation.feedfragment
 
 
 import android.view.View

@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation
+package de.psekochbuch.exzellenzkoch.navigation.adminfragment
 
 
 import android.view.View
@@ -24,14 +24,14 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_menu_search_test {
+class navigation_adminfragment_to_profiledisplayfragment {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun navigation_menu_search_test() {
+    fun navigation_adminfragment_to_profiledisplayfragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -60,16 +60,33 @@ class navigation_menu_search_test {
                             0
                         )
                     ),
-                    2
+                    6
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-        val viewGroup = onView(
+        val linearLayout = onView(
             allOf(
-                withId(R.id.linearLayout3),
+                withId(R.id.admin_reported_user_item_layout),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.recyclerView_admin_users),
+                        childAtPosition(
+                            withClassName(`is`("android.widget.LinearLayout")),
+                            4
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        linearLayout.perform(click())
+
+        val linearLayout2 = onView(
+            allOf(
                 childAtPosition(
                     allOf(
                         withId(R.id.nav_host_fragment),
@@ -83,7 +100,7 @@ class navigation_menu_search_test {
                 isDisplayed()
             )
         )
-        viewGroup.check(matches(isDisplayed()))
+        linearLayout2.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

@@ -1,13 +1,11 @@
-package de.psekochbuch.exzellenzkoch.testcases.t10
+package de.psekochbuch.exzellenzkoch.navigation.profiledisplayfragment
 
 
-import android.app.Application
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -15,13 +13,13 @@ import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.junit.After
+import org.hamcrest.core.IsInstanceOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -29,27 +27,25 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_10_2_create_uncomplete_recipe_test {
+class navigation_profiledisplayfragment_profileeditfragment {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Before
-    fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-
+    fun setUp(){
+        AuthentificationImpl.logout()
     }
 
-    @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        var repo = PrivateRecipeRepositoryImp(Application())
-        repo.deleteAll()
+
+    @Before
+    fun tearDown(){
+        AuthentificationImpl.logout()
     }
 
     @Test
-    fun t_10_2_create_uncomplete_recipe_test() {
+    fun navigation_profiledisplayfragment_profileeditfragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -78,16 +74,16 @@ class t_10_2_create_uncomplete_recipe_test {
                             0
                         )
                     ),
-                    4
+                    3
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-        val appCompatButton = onView(
+        val appCompatEditText = onView(
             allOf(
-                withId(R.id.button_create_recipe), withText("Neues Rezept erstellen"),
+                withId(R.id.editText_login_fragment_email),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -101,94 +97,78 @@ class t_10_2_create_uncomplete_recipe_test {
                 isDisplayed()
             )
         )
-        appCompatButton.perform(click())
+        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
 
-
-        val appCompatEditText = onView(
+        val appCompatEditText2 = onView(
             allOf(
-                withId(R.id.editText_recipe_title_create_recipe_fragment),
+                withId(R.id.editText_login_fragment_password),
                 childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
                     ),
-                    1
-                )
+                    3
+                ),
+                isDisplayed()
             )
         )
-        appCompatEditText.perform(scrollTo(), replaceText("Titel"), closeSoftKeyboard())
+        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
-        val appCompatCheckBox = onView(
+        val appCompatButton = onView(
             allOf(
-                withId(R.id.checkBox_publish_create_recipe_fragment), withText("veröffentlichen"),
+                withId(R.id.button_login_fragment_login), withText("Einloggen"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    4
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton.perform(click())
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.button_profile_display_fragment_edit_profile),
+                withText("Profil Bearbeiten"),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.LinearLayout")),
-                        9
+                        5
                     ),
                     0
                 )
             )
         )
-        appCompatCheckBox.perform(scrollTo(), click())
-
-
-
-        val appCompatButton2 = onView(
-            allOf(
-                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    10
-                )
-            )
-        )
         appCompatButton2.perform(scrollTo(), click())
-        Thread.sleep(300)
 
-        val appCompatImageButton2 = onView(
+        val viewGroup = onView(
             allOf(
-                withContentDescription("Nach oben"),
+                withId(R.id.constraintLayout),
                 childAtPosition(
                     allOf(
-                        withId(R.id.toolbar),
+                        withId(R.id.nav_host_fragment),
                         childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
+                            IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
                             0
                         )
                     ),
-                    1
+                    0
                 ),
                 isDisplayed()
             )
         )
-        appCompatImageButton2.perform(click())
-
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
-
-
-        val textView = onView(
-            allOf(
-                withId(R.id.textView_recipe_title_item),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.recipe_list_layout_item),
-                        childAtPosition(
-                            withId(R.id.recyclerView_recipe_list_fragment),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        textView.check(ViewAssertions.matches(isDisplayed()))
-
-
+        viewGroup.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(
@@ -209,8 +189,3 @@ class t_10_2_create_uncomplete_recipe_test {
         }
     }
 }
-/*
-die veröffentlichen funktion funkioniert nicht. Wenn das veröffentlichen häckchen gesetzt ist funktioniert
-es nicht. Wenn es nicht geseetzt ist, funktioniert es . daher wird das rezept nicht lokal gespeichert
-und der test schlägt fehl.
- */

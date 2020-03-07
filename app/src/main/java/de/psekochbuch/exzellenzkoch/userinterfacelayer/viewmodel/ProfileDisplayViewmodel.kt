@@ -49,9 +49,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
     var recipes: MutableLiveData<List<PublicRecipe>> = MutableLiveData()
 
 
-    fun isOwner(): Boolean {
-        return true // TODO implement
-    }
+
 
     fun setUserByID(id: String) {
         //SetUserID Dummy
@@ -62,6 +60,7 @@ class ProfileDisplayViewmodel(userRepository:UserRepository,
         recipes = recipeRepo.getRecipesFromUser(id) as MutableLiveData<List<PublicRecipe>>
 
         user = userRepo.getUser(id) as MutableLiveData<User>
+
 
 
        /* viewModelScope.launch {

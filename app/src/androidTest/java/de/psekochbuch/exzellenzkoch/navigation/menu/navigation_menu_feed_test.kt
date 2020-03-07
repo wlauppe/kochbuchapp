@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation
+package de.psekochbuch.exzellenzkoch.navigation.menu
 
 
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import org.hamcrest.Description
@@ -24,14 +25,18 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_menu_admin_test {
+class navigation_menu_feed_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun navigation_menu_admin_tst() {
+    fun navigation_menu_feed_test() {
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -60,7 +65,7 @@ class navigation_menu_admin_test {
                             0
                         )
                     ),
-                    6
+                    1
                 ),
                 isDisplayed()
             )

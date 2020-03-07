@@ -69,6 +69,8 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
             try {
                 repo.updateUser(userID.value!!,newUser)
             } catch (error: Error) {
+                println(error.stackTrace)
+
             }
         }
         isSaved = true

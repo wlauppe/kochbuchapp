@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.testcases.t13
+package de.psekochbuch.exzellenzkoch.navigation.profileeditfragment
 
 
 import android.view.View
@@ -10,27 +10,33 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.core.IsInstanceOf
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class T_13_2_show_favourite_list {
+class navigation_profileEditFragment_to_RegistrationFragment {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    @Test
-    fun t_13_2_show_favourite_list() {
+    @Before
+    fun setUp(){
+
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -59,7 +65,141 @@ class T_13_2_show_favourite_list {
                             0
                         )
                     ),
+                    3
+                ),
+                isDisplayed()
+            )
+        )
+        navigationMenuItemView.perform(click())
+
+        val appCompatButton = onView(
+            allOf(
+                withId(R.id.button_login_fragment_register), withText("Registrieren"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    6
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton.perform(click())
+
+        val appCompatEditText = onView(
+            allOf(
+                withId(R.id.editText_register_email_input),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
                     2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText.perform(replaceText("maxos.musterman@muster.de"), closeSoftKeyboard())
+
+
+
+        val appCompatEditText2 = onView(
+            allOf(
+                withId(R.id.editText_register_password_input),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    6
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
+
+
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.button_register_fragment_register), withText("Registrieren"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    7
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton2.perform(click())
+
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+        val appCompatButton3 = onView(
+            allOf(
+                withId(R.id.button_save_profile_changes), withText("Speichern"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton3.perform(click())
+
+        AuthentificationImpl.logout()
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+    }
+
+    @After
+    fun tearDown(){
+        AuthentificationImpl.userDelete()
+        AuthentificationImpl.logout()
+    }
+
+    @Test
+    fun navigation_peofileEditFragment_to_Registration_Fragment() {
+        val appCompatImageButton = onView(
+            allOf(
+                withContentDescription("Navigationsleiste öffnen"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.toolbar),
+                        childAtPosition(
+                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
+                            0
+                        )
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatImageButton.perform(click())
+
+        val navigationMenuItemView = onView(
+            allOf(
+                childAtPosition(
+                    allOf(
+                        withId(R.id.design_navigation_view),
+                        childAtPosition(
+                            withId(R.id.nav_view),
+                            0
+                        )
+                    ),
+                    3
                 ),
                 isDisplayed()
             )
@@ -68,225 +208,111 @@ class T_13_2_show_favourite_list {
 
         val appCompatEditText = onView(
             allOf(
-                withId(R.id.editText_search_recipe_title),
+                withId(R.id.editText_login_fragment_email),
                 childAtPosition(
                     allOf(
-                        withId(R.id.linearLayout3),
+                        withId(R.id.constraintLayout),
                         childAtPosition(
                             withId(R.id.nav_host_fragment),
                             0
                         )
                     ),
-                    2
+                    1
                 ),
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("salat"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("maxos.musterman@muster.de"), closeSoftKeyboard())
 
-        val appCompatButton = onView(
+        val appCompatEditText2 = onView(
             allOf(
-                withId(R.id.button_search_recipe_search_button), withText("Suchen"),
+                withId(R.id.editText_login_fragment_password),
                 childAtPosition(
                     allOf(
-                        withId(R.id.linearLayout3),
+                        withId(R.id.constraintLayout),
                         childAtPosition(
                             withId(R.id.nav_host_fragment),
                             0
                         )
                     ),
-                    8
+                    3
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
+
+        val appCompatButton = onView(
+            allOf(
+                withId(R.id.button_login_fragment_login), withText("Einloggen"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    4
                 ),
                 isDisplayed()
             )
         )
         appCompatButton.perform(click())
 
-        val linearLayout = onView(
-            allOf(
-                withId(R.id.display_searchlist_layout_Item),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.recyclerView_searchlist_fragment),
-                        childAtPosition(
-                            withClassName(`is`("android.widget.LinearLayout")),
-                            1
-                        )
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        linearLayout.perform(click())
-
-        val appCompatImageButton2 = onView(
-            allOf(
-                withId(R.id.imageButton_favourite),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.linearLayout4),
-                        1
-                    ),
-                    1
-                )
-            )
-        )
-        appCompatImageButton2.perform(scrollTo(), click())
-
-        val appCompatImageButton3 = onView(
-            allOf(
-                withContentDescription("Navigationsleiste öffnen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton3.perform(click())
-
-        val navigationMenuItemView2 = onView(
-            allOf(
-                childAtPosition(
-                    allOf(
-                        withId(R.id.design_navigation_view),
-                        childAtPosition(
-                            withId(R.id.nav_view),
-                            0
-                        )
-                    ),
-                    2
-                ),
-                isDisplayed()
-            )
-        )
-        navigationMenuItemView2.perform(click())
-
-        val appCompatEditText2 = onView(
-            allOf(
-                withId(R.id.editText_search_recipe_title),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.linearLayout3),
-                        childAtPosition(
-                            withId(R.id.nav_host_fragment),
-                            0
-                        )
-                    ),
-                    2
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText2.perform(replaceText("windbeutel"), closeSoftKeyboard())
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButton2 = onView(
             allOf(
-                withId(R.id.button_search_recipe_search_button), withText("Suchen"),
+                withId(R.id.button_profile_display_fragment_edit_profile),
+                withText("Profil Bearbeiten"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.LinearLayout")),
+                        5
+                    ),
+                    0
+                )
+            )
+        )
+        appCompatButton2.perform(scrollTo(), click())
+
+        val appCompatButton3 = onView(
+            allOf(
+                withId(R.id.button_delete_profile), withText("Profil löschen"),
                 childAtPosition(
                     allOf(
-                        withId(R.id.linearLayout3),
+                        withId(R.id.constraintLayout),
                         childAtPosition(
                             withId(R.id.nav_host_fragment),
                             0
                         )
                     ),
-                    8
+                    3
                 ),
                 isDisplayed()
             )
         )
-        appCompatButton2.perform(click())
+        appCompatButton3.perform(click())
 
-        val linearLayout2 = onView(
-            allOf(
-                withId(R.id.display_searchlist_layout_Item),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.recyclerView_searchlist_fragment),
-                        childAtPosition(
-                            withClassName(`is`("android.widget.LinearLayout")),
-                            1
-                        )
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        linearLayout2.perform(click())
-
-        val appCompatImageButton4 = onView(
-            allOf(
-                withId(R.id.imageButton_favourite),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.linearLayout4),
-                        1
-                    ),
-                    1
-                )
-            )
-        )
-        appCompatImageButton4.perform(scrollTo(), click())
-
-        val appCompatImageButton5 = onView(
-            allOf(
-                withContentDescription("Navigationsleiste öffnen"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.toolbar),
-                        childAtPosition(
-                            withClassName(`is`("com.google.android.material.appbar.AppBarLayout")),
-                            0
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatImageButton5.perform(click())
-
-        val navigationMenuItemView3 = onView(
+        val viewGroup = onView(
             allOf(
                 childAtPosition(
                     allOf(
-                        withId(R.id.design_navigation_view),
-                        childAtPosition(
-                            withId(R.id.nav_view),
-                            0
-                        )
-                    ),
-                    5
-                ),
-                isDisplayed()
-            )
-        )
-        navigationMenuItemView3.perform(click())
-
-        val recyclerView = onView(
-            allOf(
-                withId(R.id.recyclerView_favourites),
-                childAtPosition(
-                    childAtPosition(
                         withId(R.id.nav_host_fragment),
-                        0
+                        childAtPosition(
+                            IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
+                            0
+                        )
                     ),
                     0
                 ),
                 isDisplayed()
             )
         )
-        recyclerView.check(matches(isDisplayed()))
-    }
+        viewGroup.check(matches(isDisplayed()))
+
+      }
 
     private fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int

@@ -19,8 +19,7 @@ object EspressoIdlingResource {
         if(!countingIdlingResource.isIdleNow){
             countingIdlingResource.decrement()
         }
-
     }
 
-    val Sleep = 4000
+    val Sleep = 4000.toLong()
 }

@@ -34,46 +34,65 @@ class ProfileDisplayFragment : Fragment() {
         }
         //SafeArgs
         val userID = arguments?.let { ProfileDisplayFragmentArgs.fromBundle(it).userID }
-        viewModel.setUserByID(userID!!)
 
-
-        // init binding variable
         val binding = ProfileDisplayFragmentBinding.inflate(inflater, container, false)
-        binding.profileDisplayViewmodel = viewModel
-        binding.profileDisplayRecyclerView.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.lifecycleOwner = this
 
-        val feedAdapter = ProfileDisplayAdapter(viewModel, requireContext())
+        AuthentificationImpl.getToken(true) {
+            viewModel.userRepo.setToken(it)
+            viewModel.setUserByID(userID!!)
 
-        //Adapter
-        binding.profileDisplayRecyclerView.adapter = feedAdapter
-             // set observer
-        val observer = Observer<List<PublicRecipe>> { items ->
-            items?.let {
-                feedAdapter.recipes = items}
-        }
+            // init binding variable
 
-        // set observables
-        viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+            binding.profileDisplayViewmodel = viewModel
+            binding.profileDisplayRecyclerView.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            binding.lifecycleOwner = this
+
+            val feedAdapter = ProfileDisplayAdapter(viewModel, requireContext())
+
+            //Adapter
+            binding.profileDisplayRecyclerView.adapter = feedAdapter
+            // set observer
+            val observer = Observer<List<PublicRecipe>> { items ->
+                items?.let {
+                    feedAdapter.recipes = items}
+            }
+
+            // set observables
+            viewModel.recipes.observe(this.viewLifecycleOwner, observer)
             binding.profileDisplayRecyclerView.setHasFixedSize(true)
 
-        viewModel.user.observe(this.viewLifecycleOwner, Observer { user ->
-            binding.textViewProfileDisplayDescription.text = user.description
-            binding.textViewProfileDisplayFragmentTitle.text = user.userId
+            viewModel.user.observe(this.viewLifecycleOwner, Observer { user ->
+                binding.textViewProfileDisplayDescription.text = user.description
+                viewModel.userDesc.value = user.description
 
 
-            val imageView = binding.imageView2
-            var urlString = user.imgUrl
-            if(urlString == "" || urlString.isEmpty()){
-                urlString = "file:///android_asset/exampleimages/chef_avatar.png"
-            }
-            context?.let { Glide.with(it).load(urlString).into(imageView) }
-        })
+                binding.textViewProfileDisplayFragmentTitle.text = user.userId
+
+
+
+                val imageView = binding.imageView2
+                var urlString = user.imgUrl
+                if(urlString == "" || urlString.isEmpty()){
+                    urlString = "file:///android_asset/exampleimages/chef_avatar.png"
+                }
+                context?.let { Glide.with(it).load(urlString).into(imageView) }
+            })
+
+            viewModel.user.observe(viewLifecycleOwner, Observer {
+                    user ->
+                binding.textViewProfileDisplayDescription.text = user.description
+                binding.textViewProfileDisplayFragmentTitle.text = user.userId
+            })
+        }
+
+
+
+
 
         binding.buttonProfileDisplayFragmentEditProfile.setOnClickListener{
             val navController = findNavController()
-            navController.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToProfileEditFragment().setUserID(userID))
+            navController.navigate(ProfileDisplayFragmentDirections.actionProfileDisplayFragmentToProfileEditFragment().setUserID(userID!!))
         }
 
         binding.buttonProfileDisplayFragmentLogout.setOnClickListener{
@@ -86,15 +105,10 @@ class ProfileDisplayFragment : Fragment() {
         binding.buttonProfileDisplayFragmentFlagUser.setOnClickListener{
             viewModel.flagUserById()
             Toast.makeText(requireContext(), "Profil gemeldet", Toast.LENGTH_SHORT).show()
-            val navController = findNavController()
-            navController.navigate(R.id.action_profileDisplayFragment_to_publicRecipeSearchFragment)
+
         }
 
-        viewModel.user.observe(viewLifecycleOwner, Observer {
-            user ->
-            binding.textViewProfileDisplayDescription.text = user.description
-            binding.textViewProfileDisplayFragmentTitle.text = user.userId
-        })
+
 
         return binding.root
     }

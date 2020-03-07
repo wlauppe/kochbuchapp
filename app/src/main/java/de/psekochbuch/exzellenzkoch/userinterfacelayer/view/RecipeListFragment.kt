@@ -41,10 +41,15 @@ class RecipeListFragment : Fragment() {
         // if the
         val observer = Observer<List<PrivateRecipe>> { items ->
             items?.let {
-                adapter.recipes = items}
+                val array = arrayListOf<PrivateRecipe>()
+                array.addAll(items)
+                adapter.recipes = array
+            }
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
         binding.recyclerViewRecipeListFragment.setHasFixedSize(true)
+
+        adapter.notifyDataSetChanged()
 
         // ClickListener to change fragment
         binding.buttonCreateRecipe.setOnClickListener{

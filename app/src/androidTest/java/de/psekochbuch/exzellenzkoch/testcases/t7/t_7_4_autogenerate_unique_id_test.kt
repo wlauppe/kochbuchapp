@@ -111,7 +111,7 @@ class t_7_4_autogenerate_unique_id_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("werner@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText("wernero@muster.de"), closeSoftKeyboard())
 
 
         val appCompatEditText2 = onView(
@@ -147,6 +147,7 @@ class t_7_4_autogenerate_unique_id_test {
         )
         appCompatButton2.perform(click())
 
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val editText = onView(

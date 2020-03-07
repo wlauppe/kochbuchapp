@@ -20,10 +20,7 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 
 @LargeTest
@@ -51,6 +48,7 @@ class t_7_3_edit_user_id_test {
         )
 
     @Test
+    @Ignore //not implemented -> integration test
     fun t_7_3_edit_user_id_test() {
         val appCompatImageButton = onView(
             allOf(

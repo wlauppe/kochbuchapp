@@ -32,7 +32,9 @@ class FavouriteFragment : Fragment() {
 
         val observer = Observer<List<PublicRecipe>> { items ->
             items?.let {
-                favouriteAdapter.favouriteRecipes = items}
+                val array = arrayListOf<PublicRecipe>()
+                array.addAll(it)
+                favouriteAdapter.favouriteRecipes = array}
         }
         viewModel.recipes = viewModel.repo.getFavourites()
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)

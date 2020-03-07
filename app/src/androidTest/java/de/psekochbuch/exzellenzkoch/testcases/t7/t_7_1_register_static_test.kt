@@ -63,7 +63,6 @@ class t_7_1_register_static_test {
         )
         appCompatImageButton.perform(click())
 
-      //  Thread.sleep(200) //must
 
         val navigationMenuItemView = onView(
             allOf(
@@ -84,7 +83,6 @@ class t_7_1_register_static_test {
 
 
 
-     //   Thread.sleep(200) //must
 
         val appCompatButton = onView(
             allOf(
@@ -104,7 +102,6 @@ class t_7_1_register_static_test {
         )
         appCompatButton.perform(click())
 
-      //  Thread.sleep(200) //must
 
         val textView = onView(
             allOf(
@@ -120,7 +117,7 @@ class t_7_1_register_static_test {
             )
         )
         textView.check(matches(withText("Gib deine E-Mail Adresse ein")))
-    //    Thread.sleep(200) //must
+
 
         val editText = onView(
             allOf(
@@ -137,7 +134,6 @@ class t_7_1_register_static_test {
         )
         editText.check(matches(isDisplayed()))
 
-       // Thread.sleep(200) //must
 
         val textView2 = onView(
             allOf(
@@ -155,7 +151,6 @@ class t_7_1_register_static_test {
         )
         textView2.check(matches(withText("Gib dir einen Nutzernamen (optional)")))
 
-      //  Thread.sleep(200) //must
 
         val editText2 = onView(
             allOf(
@@ -172,7 +167,6 @@ class t_7_1_register_static_test {
         )
         editText2.check(matches(isDisplayed()))
 
-       // Thread.sleep(200) //must
 
         val textView3 = onView(
             allOf(
@@ -189,7 +183,6 @@ class t_7_1_register_static_test {
         )
         textView3.check(matches(withText("Gib dein Passwort ein")))
 
-       // Thread.sleep(200) //must
 
         val editText3 = onView(
             allOf(

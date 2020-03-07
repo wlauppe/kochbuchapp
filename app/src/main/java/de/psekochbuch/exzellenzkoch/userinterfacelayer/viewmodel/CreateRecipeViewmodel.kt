@@ -149,13 +149,16 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
 
         // save to room database or update if already exists in room database
         // if recipe ID = 0, it's a new recipe, else update the existing one
-        var resultTags = getCheckedTags()
+
         if (imgUrl.value.equals("") ) {
            imgUrl.value = recipe.value?.imgUrl
         }
         if(imgUrl.value.isNullOrEmpty()){
             imgUrl.value =  "file:///android_asset/exampleimages/vegetables_lowcontrast.png"
         }
+
+        var resultTags = getCheckedTags()
+
        var newPrivateRecipe =
            PrivateRecipe(recipeID, title.value!!,ingredients.value!!,
                resultTags,preparation.value!!,imgUrl.value!!, Integer.parseInt(cookingTime.value!!), Integer.parseInt(prepTime.value!!), creationTimeStamp, portions.value!!, publishedID)
@@ -235,14 +238,17 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         }
         if(this.tagCheckBoxSavoury.value!!){
             list.add("herzhaft")
-
             Log.i(Tag, "herzhaft ist enthalten" )
         }
         if(this.tagCheckBoxSweet.value!!){
-            list.add("sweet")
+            list.add("süß")
             Log.i(Tag, "süß ist enthalten" )
         }
-        return list.toList()
+        if(this.tagCheckBoxSalty.value!!){
+            list.add("salzig")
+            Log.i(Tag, "salzig ist enthalten" )
+        }
+           return list.toList()
     }
 
     fun setTags(tags : List<String>){
@@ -255,7 +261,7 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
         if(tags.contains("salzig")){
             tagCheckBoxSalty.value = true
         }
-        if(tags.contains("sweet")){
+        if(tags.contains("süß")){
           tagCheckBoxSweet.value = true
         }
         if(tags.contains("günstig")){
@@ -265,11 +271,4 @@ class CreateRecipeViewmodel(privateRepository: PrivateRecipeRepository,
             tagCheckBoxSavoury.value = true
         }
     }
-
-
-
-
-
-
-
 }

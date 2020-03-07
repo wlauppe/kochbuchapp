@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.testcases.t21
+package de.psekochbuch.exzellenzkoch.navigation.changepasswordfragment
 
 
 import android.view.View
@@ -9,50 +9,43 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import androidx.test.rule.GrantPermissionRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-/**
- * This test sets up a logged in user before it starts. The user has given the app permission to access
- * the picture intent. The user is in his profile edit view and wants to load a new profile pic.
- * He clicks the profile picture and chooses one picture to upload then clicks save.
- * The picture is shown in his profile display view. Assert that the picture coming from the server
- * is the same as the previously set.
- */
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class T_21_2_upload_profile_pic {
+class navigation_EditPasswordFragment_to_ProfileDisplayFragment {
 
-    /**
-     * Set the MainActivity to use
-     */
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    /**
-     * Set that the user app has permission to access the devices folder
-     */
-    @Rule
-    @JvmField
-    var mGrantPermissionRule =
-        GrantPermissionRule.grant(
-            "android.permission.READ_EXTERNAL_STORAGE"
-        )
+    @Before
+    fun setUp(){
+        AuthentificationImpl.logout()
+    }
+
+    @After
+    fun tearDown(){
+        AuthentificationImpl.logout()
+    }
 
     @Test
-    fun t_21_2_upload_profile_pic() {
+    fun navigation_EditPasswordFragment_to_ProfileDisplayFragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -71,7 +64,6 @@ class T_21_2_upload_profile_pic {
         )
         appCompatImageButton.perform(click())
 
-
         val navigationMenuItemView = onView(
             allOf(
                 childAtPosition(
@@ -89,8 +81,6 @@ class T_21_2_upload_profile_pic {
         )
         navigationMenuItemView.perform(click())
 
-        Thread.sleep(3000)
-
         val appCompatEditText = onView(
             allOf(
                 withId(R.id.editText_login_fragment_email),
@@ -107,9 +97,7 @@ class T_21_2_upload_profile_pic {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
-
-        Thread.sleep(3000)
+        appCompatEditText.perform(replaceText("nichtloeschen@wehe.de"), closeSoftKeyboard())
 
         val appCompatEditText2 = onView(
             allOf(
@@ -129,8 +117,6 @@ class T_21_2_upload_profile_pic {
         )
         appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
-        Thread.sleep(5000)
-
         val appCompatButton = onView(
             allOf(
                 withId(R.id.button_login_fragment_login), withText("Einloggen"),
@@ -149,7 +135,7 @@ class T_21_2_upload_profile_pic {
         )
         appCompatButton.perform(click())
 
-        Thread.sleep(5000)
+        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButton2 = onView(
             allOf(
@@ -166,31 +152,9 @@ class T_21_2_upload_profile_pic {
         )
         appCompatButton2.perform(scrollTo(), click())
 
-        Thread.sleep(5000)
-
-        // change the image
-        val appCompatImageButton2 = onView(
-            allOf(
-                withId(R.id.imageView_user_img),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.linearLayout2),
-                        childAtPosition(
-                            withClassName(`is`("android.widget.ScrollView")),
-                            0
-                        )
-                    ),
-                    0
-                )
-            )
-        )
-        appCompatImageButton2.perform(scrollTo(), click())
-
-        Thread.sleep(5000)
-
         val appCompatButton3 = onView(
             allOf(
-                withId(R.id.button_save_profile_changes), withText("Speichern"),
+                withId(R.id.button_change_login_data), withText("Login Daten ändern"),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -199,30 +163,59 @@ class T_21_2_upload_profile_pic {
                             0
                         )
                     ),
-                    2
+                    1
                 ),
                 isDisplayed()
             )
         )
         appCompatButton3.perform(click())
 
-        Thread.sleep(5000)
-
-        // get the newly set image from server and check that it has the expected imgUrl
-        val imageView = onView(
+        val appCompatEditText3 = onView(
             allOf(
-                withId(R.id.imageView2),
+                withId(R.id.textEdit_change_password),
                 childAtPosition(
                     childAtPosition(
-                        IsInstanceOf.instanceOf(android.widget.ScrollView::class.java),
+                        withId(R.id.nav_host_fragment),
                         0
+                    ),
+                    1
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatEditText3.perform(replaceText("123456"), closeSoftKeyboard())
+
+        val appCompatButton4 = onView(
+            allOf(
+                withId(R.id.button_change_password), withText("Passwort ändern"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(R.id.nav_host_fragment),
+                        0
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton4.perform(click())
+
+        val linearLayout = onView(
+            allOf(
+                childAtPosition(
+                    allOf(
+                        withId(R.id.nav_host_fragment),
+                        childAtPosition(
+                            IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
+                            0
+                        )
                     ),
                     0
                 ),
                 isDisplayed()
             )
         )
-        imageView.check(matches(isDisplayed()))
+        linearLayout.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

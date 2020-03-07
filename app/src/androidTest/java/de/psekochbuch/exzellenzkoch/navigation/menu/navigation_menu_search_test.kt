@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation
+package de.psekochbuch.exzellenzkoch.navigation.menu
 
 
 import android.view.View
@@ -10,7 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import org.hamcrest.Description
@@ -25,18 +24,14 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_menu_feed_test {
+class navigation_menu_search_test {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun navigation_menu_feed_test() {
-
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
-
-
+    fun navigation_menu_search_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -65,15 +60,16 @@ class navigation_menu_feed_test {
                             0
                         )
                     ),
-                    1
+                    2
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-        val linearLayout = onView(
+        val viewGroup = onView(
             allOf(
+                withId(R.id.linearLayout3),
                 childAtPosition(
                     allOf(
                         withId(R.id.nav_host_fragment),
@@ -87,7 +83,7 @@ class navigation_menu_feed_test {
                 isDisplayed()
             )
         )
-        linearLayout.check(matches(isDisplayed()))
+        viewGroup.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

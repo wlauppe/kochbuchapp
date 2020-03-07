@@ -1,4 +1,4 @@
-package de.psekochbuch.exzellenzkoch.navigation
+package de.psekochbuch.exzellenzkoch.navigation.publicrecipesearch
 
 
 import android.view.View
@@ -24,14 +24,14 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class navigation_menu_recipelist_test {
+class navigation_displaySearchListFragment_to_recipeDisplayFragment {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun navigation_menu_recipelist_test() {
+    fun navigation_display_searchlist_fragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -60,16 +60,33 @@ class navigation_menu_recipelist_test {
                             0
                         )
                     ),
-                    4
+                    2
                 ),
                 isDisplayed()
             )
         )
         navigationMenuItemView.perform(click())
 
-        val viewGroup = onView(
+        val appCompatButton = onView(
             allOf(
-                withId(R.id.constraintLayout),
+                withId(R.id.button_search_recipe_search_button), withText("Suchen"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.linearLayout3),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
+                    ),
+                    8
+                ),
+                isDisplayed()
+            )
+        )
+        appCompatButton.perform(click())
+
+        val linearLayout = onView(
+            allOf(
                 childAtPosition(
                     allOf(
                         withId(R.id.nav_host_fragment),
@@ -83,7 +100,7 @@ class navigation_menu_recipelist_test {
                 isDisplayed()
             )
         )
-        viewGroup.check(matches(isDisplayed()))
+        linearLayout.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(

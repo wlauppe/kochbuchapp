@@ -1,11 +1,11 @@
-package de.psekochbuch.exzellenzkoch.testcases.t7
+package de.psekochbuch.exzellenzkoch.navigation.loginfragment
 
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
@@ -13,44 +13,26 @@ import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
-import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
-import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
-import junit.framework.Assert.assertEquals
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-import org.junit.After
-import org.junit.Before
+import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_7_unique_user_id {
+class navigation_loginfragment_to_profiledisplayfragment {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    @Before
-    fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.logout()
-
-    }
-
-    @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        AuthentificationImpl.userDelete()
-        AuthentificationImpl.logout()
-    }
-
     @Test
-    fun t_7_7_unique_user_id() {
+    fun navigation_loginfragment_to_registrationfragment() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -86,9 +68,9 @@ class t_7_7_unique_user_id {
         )
         navigationMenuItemView.perform(click())
 
-        val appCompatButton = onView(
+        val appCompatEditText = onView(
             allOf(
-                withId(R.id.button_login_fragment_register), withText("Registrieren"),
+                withId(R.id.editText_login_fragment_email),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -97,91 +79,34 @@ class t_7_7_unique_user_id {
                             0
                         )
                     ),
-                    6
+                    1
                 ),
                 isDisplayed()
             )
         )
-        appCompatButton.perform(click())
-
-        val appCompatEditText = onView(
-            allOf(
-                withId(R.id.editText_register_email_input),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    2
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatEditText.perform(replaceText("temtomate@muster.de"), closeSoftKeyboard())
-
+        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
 
         val appCompatEditText2 = onView(
             allOf(
-                withId(R.id.editText_register_password_input),
+                withId(R.id.editText_login_fragment_password),
                 childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
                     ),
-                    6
+                    3
                 ),
                 isDisplayed()
             )
         )
         appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
-
-        val appCompatButton2 = onView(
+        val appCompatButton = onView(
             allOf(
-                withId(R.id.button_register_fragment_register), withText("Registrieren"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.nav_host_fragment),
-                        0
-                    ),
-                    7
-                ),
-                isDisplayed()
-            )
-        )
-        appCompatButton2.perform(click())
-
-
-
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
-
-        val appCompatEditText3 = onView(
-            allOf(
-                withId(R.id.textView_enter_userID),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.linearLayout2),
-                        childAtPosition(
-                            withClassName(`is`("android.widget.ScrollView")),
-                            0
-                        )
-                    ),
-                    1
-                )
-            )
-        )
-        appCompatEditText3.perform(
-            scrollTo(),
-            replaceText("eindeutigeindeutig"),
-            closeSoftKeyboard()
-        )
-
-
-
-
-        val appCompatButton3 = onView(
-            allOf(
-                withId(R.id.button_save_profile_changes), withText("Speichern"),
+                withId(R.id.button_login_fragment_login), withText("Einloggen"),
                 childAtPosition(
                     allOf(
                         withId(R.id.constraintLayout),
@@ -190,23 +115,31 @@ class t_7_7_unique_user_id {
                             0
                         )
                     ),
-                    2
+                    4
                 ),
                 isDisplayed()
             )
         )
-        appCompatButton3.perform(click())
-
-        var userRepo = UserRepositoryImp()
-        var user = userRepo.getUser("eindeutigeindeutig")
+        appCompatButton.perform(click())
 
         Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
-        assertEquals(AuthentificationImpl.getUserId(), "eindeutigeindeutig")
-
-
-        //Der Nutzer hat sich registriert und hat sich eine id zugewiesen
-        //zu testen bleibt, ob die ID eindeutig ist
+        val linearLayout = onView(
+            allOf(
+                childAtPosition(
+                    allOf(
+                        withId(R.id.nav_host_fragment),
+                        childAtPosition(
+                            IsInstanceOf.instanceOf(android.view.ViewGroup::class.java),
+                            0
+                        )
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        linearLayout.check(matches(isDisplayed()))
     }
 
     private fun childAtPosition(
@@ -227,8 +160,3 @@ class t_7_7_unique_user_id {
         }
     }
 }
-
-/*
-T 7_7 schlägt fehl (Could not connect to server)
-
- */

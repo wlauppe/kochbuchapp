@@ -64,7 +64,7 @@ class UserRepositoryImp : UserRepository {
 
 
         Log.w(TAG, "getUser() wird aufgerufen")
-        val lData = liveData(Dispatchers.IO, 1000) {
+        val lData = liveData(Dispatchers.IO, 4000) {
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
                 Log.w(TAG, "vor dem getUser")

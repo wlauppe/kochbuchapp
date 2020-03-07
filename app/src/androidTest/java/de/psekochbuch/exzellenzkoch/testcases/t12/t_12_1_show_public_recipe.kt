@@ -10,6 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import org.hamcrest.Description
@@ -33,7 +34,9 @@ class t_12_1_show_public_recipe {
     @Test
     fun t_12_1_show_public_recipe() {
 
-        Thread.sleep(5000)
+        Thread.sleep(EspressoIdlingResource.Sleep)
+        Thread.sleep(EspressoIdlingResource.Sleep)
+
         val linearLayout = onView(
             allOf(
                 withId(R.id.feed_layout_item),

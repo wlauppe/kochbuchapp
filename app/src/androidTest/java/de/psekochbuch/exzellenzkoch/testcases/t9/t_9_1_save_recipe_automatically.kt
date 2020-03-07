@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.testcases.t9
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -20,17 +21,28 @@ import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-abstract class T_9_1_save_recipe_automatically {
+class t_9_1_save_recipe_automatically {
 
-    private val repo: PrivateRecipeRepositoryImp.Companion
-        get() = PrivateRecipeRepositoryImp
 
+    @Before
+    fun setup(){
+        val repo =  PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        repo.deleteAll()
+    }
+
+    @After
+    fun tearDown(){
+        val repo =  PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        repo.deleteAll()
+    }
 
     @Rule
     @JvmField
