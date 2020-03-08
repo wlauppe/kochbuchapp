@@ -41,7 +41,10 @@ class t_10_2_save_uncomplete_recipe_Test {
     fun registerIdlingResource(){
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         AuthentificationImpl.logout()
-
+        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        repo.deleteAll()
+        AuthentificationImpl.logout()
+        AuthentificationImpl.logout()
     }
 
     @After
@@ -282,9 +285,11 @@ class t_10_2_save_uncomplete_recipe_Test {
         )
         navigationMenuItemView3.perform(click())
 
+        Thread.sleep(1000)
+
         val textView = onView(
             allOf(
-                withId(R.id.textView_recipe_title_item), withText("Supa"),
+                withId(R.id.textView_recipe_title_item),
                 childAtPosition(
                     allOf(
                         withId(R.id.recipe_list_layout_item),

@@ -73,7 +73,6 @@ class t_8_1_create_recipe_test {
     fun setUp(){
         var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
-
         AuthentificationImpl.logout()
     }
     @After
@@ -86,6 +85,7 @@ class t_8_1_create_recipe_test {
 
     @Test
     fun t_8_1_create_recipe_test() {
+
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),

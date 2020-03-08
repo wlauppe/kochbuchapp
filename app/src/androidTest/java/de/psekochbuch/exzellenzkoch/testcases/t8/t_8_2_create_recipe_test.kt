@@ -20,6 +20,7 @@ import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -51,6 +52,7 @@ class t_8_2_create_recipe_test {
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
+        AuthentificationImpl.logout()
 
     }
 
@@ -59,6 +61,7 @@ class t_8_2_create_recipe_test {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
         var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
+        AuthentificationImpl.logout()
     }
 
     @Test
