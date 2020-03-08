@@ -250,9 +250,6 @@ class t_9_1_save_recipe_automatically {
             )
         )
 
-
-      //  Thread.sleep(2000)
-        // click on recipe
         linearLayout.perform(click())
 
         val editTextTitle = onView(

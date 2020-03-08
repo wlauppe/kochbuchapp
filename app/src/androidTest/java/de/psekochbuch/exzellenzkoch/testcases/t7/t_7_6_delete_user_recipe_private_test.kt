@@ -19,7 +19,9 @@ import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileEditViewmodel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -175,6 +177,8 @@ closeSoftKeyboard()
             )
         )
         appCompatButton2.perform(click())
+
+        Thread.sleep(500)
 
         val appCompatButton3 = onView(
             allOf(
@@ -448,8 +452,10 @@ closeSoftKeyboard()
         )
         navigationMenuItemView3.perform(click())
 
-        Thread.sleep(1000)
+        var vmUsers = ProfileEditViewmodel(UserRepositoryImp(), PublicRecipeRepositoryImp(),PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext()))
+    vmUsers.user.blockingObserve()
 
+        Thread.sleep(400)
 
         val appCompatButton6 = onView(
             allOf(
@@ -464,8 +470,6 @@ closeSoftKeyboard()
             )
         )
         appCompatButton6.perform(scrollTo(), click())
-
-
 
 
         Thread.sleep(EspressoIdlingResource.Sleep)

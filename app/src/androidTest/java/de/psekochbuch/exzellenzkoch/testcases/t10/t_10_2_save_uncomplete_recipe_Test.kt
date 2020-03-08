@@ -33,6 +33,17 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class t_10_2_save_uncomplete_recipe_Test {
 
+
+
+    fun getRandomString(length: Int) : String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+    var recipeTitel = getRandomString(7)
+
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
@@ -75,6 +86,8 @@ class t_10_2_save_uncomplete_recipe_Test {
             )
         )
         appCompatImageButton.perform(click())
+
+        Thread.sleep(500)
 
         val navigationMenuItemView = onView(
             allOf(
@@ -213,7 +226,7 @@ class t_10_2_save_uncomplete_recipe_Test {
                 )
             )
         )
-        appCompatEditText3.perform(scrollTo(), replaceText("Supa"), closeSoftKeyboard())
+        appCompatEditText3.perform(scrollTo(), replaceText(recipeTitel), closeSoftKeyboard())
 
 
         val appCompatCheckBox = onView(
@@ -303,7 +316,7 @@ class t_10_2_save_uncomplete_recipe_Test {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Supa")))
+        textView.check(matches(withText(recipeTitel)))
 
         val linearLayout = onView(
             allOf(
