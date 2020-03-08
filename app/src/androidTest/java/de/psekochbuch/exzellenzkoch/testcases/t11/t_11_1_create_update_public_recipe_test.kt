@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -20,6 +22,7 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
@@ -45,30 +48,29 @@ class t_11_1_create_update_public_recipe_test {
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
+
     @Before
     fun setup(){
         AuthentificationImpl.logout()
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
     }
     @After
     fun tearDown(){
-
         AuthentificationImpl.logout()
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
-
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
     fun t_11_1_create_update_public_recipe_test() {
 
-        val loginVm = LoginViewModel()
         val listVm = RecipeListViewmodel(PrivateRecipeRepositoryImp(Application()), PublicRecipeRepositoryImp())
         listVm.recipes.blockingObserve()
-        loginVm.email.blockingObserve()
-        loginVm.password.blockingObserve()
-        loginVm.progressBarVisibility.blockingObserve()
+        val feedVm = FeedViewModel(PublicRecipeRepositoryImp())
+        feedVm.recipes.blockingObserve()
 
         val appCompatImageButton = onView(
             allOf(
@@ -456,19 +458,10 @@ class t_11_1_create_update_public_recipe_test {
         )
         appCompatCheckBox2.perform(scrollTo(), click())
 
-        val appCompatButton4 = onView(
-            allOf(
-                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    10
-                )
-            )
-        )
-        appCompatButton4.perform(scrollTo(), click())
+        pressBack()
+
+        Espresso.pressBack()
+        Thread.sleep(1000)
 
         val appCompatImageButton3 = onView(
             allOf(
@@ -608,17 +601,16 @@ class t_11_1_create_update_public_recipe_test {
             }
         }
     }
+}
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
 
-    private fun <T> LiveData<T>.blockingObserve(): T? {
-        var value: T? = null
-        val latch = CountDownLatch(1)
-
-        observeForever{
-            value = it
-            latch.countDown()
-        }
-
-        latch.await()
-        return value
+    observeForever{
+        value = it
+        latch.countDown()
     }
+
+    latch.await()
+    return value
 }

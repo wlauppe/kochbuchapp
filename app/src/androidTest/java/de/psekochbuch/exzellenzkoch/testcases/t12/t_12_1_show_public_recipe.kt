@@ -43,7 +43,6 @@ class t_12_1_show_public_recipe {
     fun t_12_1_show_public_recipe() {
 
         val vm = FeedViewModel(PublicRecipeRepositoryImp())
-
         vm.recipes.blockingObserve()
 
         val linearLayout = onView(
@@ -100,16 +99,16 @@ class t_12_1_show_public_recipe {
             }
         }
     }
-}
-private fun <T> LiveData<T>.blockingObserve(): T? {
-    var value: T? = null
-    val latch = CountDownLatch(1)
+    private fun <T> LiveData<T>.blockingObserve(): T? {
+        var value: T? = null
+        val latch = CountDownLatch(1)
 
-    observeForever{
-        value = it
-        latch.countDown()
+        observeForever{
+            value = it
+            latch.countDown()
+        }
+
+        latch.await()
+        return value
     }
-
-    latch.await()
-    return value
 }

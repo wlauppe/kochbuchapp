@@ -4,6 +4,8 @@ package de.psekochbuch.exzellenzkoch.testcases.t9
 import android.app.Application
 import android.view.View
 import android.view.ViewGroup
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -17,6 +19,8 @@ import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -27,10 +31,24 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CountDownLatch
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_9_3_create_private_recipe_test {
+
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+
+
+    fun getRandomString(length: Int) : String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+    var recipeTitle = getRandomString(7)
 
     @Rule
     @JvmField
@@ -118,7 +136,7 @@ class t_9_3_create_private_recipe_test {
                 )
             )
         )
-        appCompatEditText.perform(scrollTo(), replaceText("NeuesRezept"), closeSoftKeyboard())
+        appCompatEditText.perform(scrollTo(), replaceText(this.recipeTitle), closeSoftKeyboard())
 
         val appCompatEditText2 = onView(
             allOf(
@@ -239,8 +257,8 @@ class t_9_3_create_private_recipe_test {
         appCompatButton2.perform(scrollTo(), click())
 
 
-
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+var vm = RecipeListViewmodel(PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext()), PublicRecipeRepositoryImp())
+        vm.recipes.blockingObserve()
 
         val linearLayout = onView(
             allOf(
@@ -260,11 +278,10 @@ class t_9_3_create_private_recipe_test {
         )
         linearLayout.check(matches(isDisplayed()))
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val textView = onView(
             allOf(
-                withId(R.id.textView_recipe_title_item), withText("NeuesRezept"),
+                withId(R.id.textView_recipe_title_item), withText(this.recipeTitle),
                 childAtPosition(
                     allOf(
                         withId(R.id.recipe_list_layout_item),
@@ -278,7 +295,7 @@ class t_9_3_create_private_recipe_test {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("NeuesRezept")))
+        textView.check(matches(withText(this.recipeTitle)))
 
         }
 
@@ -300,6 +317,16 @@ class t_9_3_create_private_recipe_test {
         }
     }
 }
-/*
-läuft geschmeidig
- */
+
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever{
+        value = it
+        latch.countDown()
+    }
+
+    latch.await()
+    return value
+}

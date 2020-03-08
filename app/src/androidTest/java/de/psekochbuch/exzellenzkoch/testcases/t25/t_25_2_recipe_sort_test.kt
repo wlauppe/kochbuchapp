@@ -170,18 +170,18 @@ class t_25_2_recipe_sort_test {
             }
         }
     }
-}
+    private fun <T> LiveData<T>.blockingObserve(): T? {
+        var value: T? = null
+        val latch = CountDownLatch(1)
 
-private fun <T> LiveData<T>.blockingObserve(): T? {
-    var value: T? = null
-    val latch = CountDownLatch(1)
+        observeForever {
+            value = it
+            latch.countDown()
+        }
 
-    observeForever {
-        value = it
-        latch.countDown()
+        latch.await()
+        return value
+
     }
-
-    latch.await()
-    return value
-
 }
+
