@@ -7,7 +7,9 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepo
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -37,7 +39,9 @@ class t_7_7_unique_user_id_integration_test{
         val latch = CountDownLatch(1)
         val randomStr=getRandomString(12)
 
-        AuthentificationImpl.register("extraTestServer${randomStr}@test.de","123456","random${randomStr}"){ a, b->
+        val userid = "random${randomStr}"
+
+        AuthentificationImpl.register("extraTestServer${randomStr}@test.de","123456",userid){ a, b->
             authResult = b
             repo.setToken(a)
             userRepo.setToken(a)
@@ -49,7 +53,16 @@ class t_7_7_unique_user_id_integration_test{
         assertEquals(authResult, AuthenticationResult.REGISTRATIONSUCCESS)
 
 
-        assertEquals(AuthentificationImpl.getUserId(),"random${randomStr}")
+
+        val newuserid = "random${getRandomString(12)}"
+
+        runBlocking {
+            userRepo.updateUser(userid, User(newuserid,"",""))
+        }
+
+        val fromrepo = AuthentificationImpl.getUserId()
+
+        assertEquals(AuthentificationImpl.getUserId(),newuserid)
 
         AuthentificationImpl.userDelete()
     }
