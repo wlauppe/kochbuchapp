@@ -174,7 +174,7 @@ class T_21_1_edit_user_description {
         )
         appCompatButton2.perform(scrollTo(), click())
 
-        Thread.sleep(2000)
+        Thread.sleep(3000)
 
         val appCompatEditText3 = onView(
             allOf(
