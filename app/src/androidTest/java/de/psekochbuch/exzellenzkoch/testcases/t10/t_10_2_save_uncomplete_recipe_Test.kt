@@ -144,7 +144,6 @@ class t_10_2_save_uncomplete_recipe_Test {
         )
         appCompatButton.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val appCompatImageButton2 = onView(
             allOf(

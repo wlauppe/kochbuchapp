@@ -5,6 +5,7 @@ import android.app.Application
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
@@ -33,6 +34,14 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_10_4_create_public_recipe_test {
+
+    fun getRandomString(length: Int) : String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+    var recipeTitle = getRandomString(7)
 
     @Rule
     @JvmField
@@ -161,7 +170,6 @@ class t_10_4_create_public_recipe_test {
         )
         appCompatImageButton2.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val navigationMenuItemView2 = onView(
             allOf(
@@ -180,7 +188,6 @@ class t_10_4_create_public_recipe_test {
         )
         navigationMenuItemView2.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
         val appCompatButton2 = onView(
             allOf(
                 withId(R.id.button_create_recipe), withText("Neues Rezept erstellen"),
@@ -211,7 +218,7 @@ class t_10_4_create_public_recipe_test {
                 )
             )
         )
-        appCompatEditText3.perform(scrollTo(), replaceText("bauer"), closeSoftKeyboard())
+        appCompatEditText3.perform(scrollTo(), replaceText(this.recipeTitle), closeSoftKeyboard())
 
         val appCompatEditText4 = onView(
             allOf(
@@ -331,26 +338,11 @@ class t_10_4_create_public_recipe_test {
         )
         appCompatCheckBox.perform(scrollTo(), click())
 
-      /*  val appCompatButton3 = onView(
-            allOf(
-                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    10
-                )
-            )
-        )
-        appCompatButton3.perform(scrollTo(), click())
 
+       pressBack()
 
-       */
-
-pressBack()
-
-
+        Espresso.pressBack()
+        Thread.sleep(1000)
 
         val appCompatImageButton4 = onView(
             allOf(
@@ -403,7 +395,7 @@ pressBack()
                 isDisplayed()
             )
         )
-        appCompatEditText11.perform(replaceText("bauer"), closeSoftKeyboard())
+        appCompatEditText11.perform(replaceText(recipeTitle), closeSoftKeyboard())
 
 
         val appCompatButton5 = onView(
@@ -448,7 +440,7 @@ pressBack()
 
         val textView = onView(
             allOf(
-                withId(R.id.textView_recipe_name), withText("bauer"),
+                withId(R.id.textView_recipe_name), withText(recipeTitle),
                 childAtPosition(
                     allOf(
                         withId(R.id.display_searchlist_layout_Item),
@@ -462,7 +454,7 @@ pressBack()
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("bauer")))
+        textView.check(matches(withText(recipeTitle)))
 
     }
 

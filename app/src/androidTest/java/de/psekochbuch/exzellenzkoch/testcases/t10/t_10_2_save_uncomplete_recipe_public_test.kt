@@ -21,6 +21,7 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -331,8 +332,10 @@ class t_10_2_redo {
         )
         appCompatButton4.perform(click())
 
-        Thread.sleep(3000)
+       // Thread.sleep(3000)
 
+        var vms = DisplaySearchListViewmodel(PublicRecipeRepositoryImp())
+        vms.recipesFromServer.blockingObserve()
 
 
         val linearLayout2 = onView(
