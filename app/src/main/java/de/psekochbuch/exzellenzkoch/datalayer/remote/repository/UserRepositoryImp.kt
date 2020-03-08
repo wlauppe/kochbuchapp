@@ -136,15 +136,12 @@ class UserRepositoryImp : UserRepository {
             throw NetworkError("Unable to publish recipe image", error)
         }
         try {
-            //TODO Baseurl hinzufügen eventuell in den Mapper.
             if (response!=null) {
                 //setze url nur, wenn ich network bild speichern durchgeführt habe
                 remoteUrl = response.filePath
                 user.imgUrl= BuildConfig.IMG_PREFIX +remoteUrl
             }
             //speichere filepath in recipe
-            //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
-
             Log.w(TAG,"update user, $oldUserId imageUrl =${user.imgUrl}")
             userApiService.updateUser(oldUserId,userMapper.toDto(user))
         } catch (error: Throwable) {

@@ -51,8 +51,10 @@ class t_7_7_unique_user_id_integration_test{
         latch.await()
 
         assertEquals(authResult, AuthenticationResult.REGISTRATIONSUCCESS)
-
-
+        runBlocking {
+            val token = userRepo.addUser(userid)
+        }
+        
 
         val newuserid = "random${getRandomString(12)}"
 
