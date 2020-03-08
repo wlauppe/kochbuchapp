@@ -216,17 +216,16 @@ class t_11_3_delete_private_recipe_test {
             }
         }
     }
+}
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
 
-    private fun <T> LiveData<T>.blockingObserve(): T? {
-        var value: T? = null
-        val latch = CountDownLatch(1)
-
-        observeForever{
-            value = it
-            latch.countDown()
-        }
-
-        latch.await()
-        return value
+    observeForever{
+        value = it
+        latch.countDown()
     }
+
+    latch.await()
+    return value
 }

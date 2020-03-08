@@ -43,7 +43,6 @@ class t_12_1_show_public_recipe {
     fun t_12_1_show_public_recipe() {
 
         val vm = FeedViewModel(PublicRecipeRepositoryImp())
-
         vm.recipes.blockingObserve()
 
         val linearLayout = onView(
