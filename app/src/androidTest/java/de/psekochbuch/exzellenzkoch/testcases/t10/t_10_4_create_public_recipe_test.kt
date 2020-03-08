@@ -435,6 +435,8 @@ class t_10_4_create_public_recipe_test {
         )
         appCompatButton5.perform(click())
 
+        Thread.sleep(EspressoIdlingResource.Sleep)
+
         val linearLayout = onView(
             allOf(
                 withId(R.id.display_searchlist_layout_Item),
