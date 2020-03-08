@@ -89,7 +89,7 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 dtoList.let {
                     val entityList = PublicRecipeDtoEntityMapper().toListEntity(dtoList)
                     // emit in reversed order to show most recent one first
-                    emit(entityList.reversed())
+                    emit(entityList)
                 }
             }
              catch(error : Throwable) {
