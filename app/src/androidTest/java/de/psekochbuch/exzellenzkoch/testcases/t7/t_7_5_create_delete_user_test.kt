@@ -29,6 +29,16 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class t_7_5_create_delete_user_test {
 
+
+    fun getRandomString(length: Int) : String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+    var mail = getRandomString(5).plus("@muster.de")
+
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
@@ -86,7 +96,9 @@ class t_7_5_create_delete_user_test {
         )
         navigationMenuItemView.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+
+
+
 
         val appCompatButton = onView(
             allOf(
@@ -119,7 +131,7 @@ class t_7_5_create_delete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("testomatost@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText(this.mail), closeSoftKeyboard())
 
 
 
@@ -154,7 +166,6 @@ class t_7_5_create_delete_user_test {
         )
         appCompatButton2.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButton3 = onView(
             allOf(
@@ -313,7 +324,7 @@ class t_7_5_create_delete_user_test {
                 isDisplayed()
             )
         )
-        appCompatEditTexts.perform(replaceText("testomatost@muster.de"), closeSoftKeyboard())
+        appCompatEditTexts.perform(replaceText(this.mail), closeSoftKeyboard())
 
 
 
@@ -348,9 +359,8 @@ class t_7_5_create_delete_user_test {
         )
         appCompatButton6.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+        Thread.sleep(1000)
         val appCompatButtonn = onView(
             allOf(
                 withId(R.id.button_save_profile_changes), withText("Speichern"),

@@ -8,9 +8,11 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.ApiServiceBuilder
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.AdminApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.FileApi
 import de.psekochbuch.exzellenzkoch.datalayer.remote.api.UserApi
+import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.FileDto
 import de.psekochbuch.exzellenzkoch.datalayer.remote.mapper.UserDtoEntityMapper
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.errors.NetworkError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import okhttp3.MediaType
@@ -21,6 +23,7 @@ import java.io.File
 class UserRepositoryImp : UserRepository {
     val userMapper = UserDtoEntityMapper()
     private val TAG = "UserRealImp"
+    private var cache : User? = null
     private var token :String? = null
 
     var userApiService: UserApi =
@@ -64,27 +67,32 @@ class UserRepositoryImp : UserRepository {
 
 
         Log.w(TAG, "getUser() wird aufgerufen")
-        val lData = liveData(Dispatchers.IO, 4000) {
-            Log.w(TAG, "jetzt bin ich im Coroutine Scope")
-            try {
-                Log.w(TAG, "vor dem getUser")
-                val dto =
-                    userApiService.getUser(userId)
-                dto?.let {
-                    Log.w(TAG, "vor dem Mapper")
-                    val entity = UserDtoEntityMapper().toEntity(dto)
-                    emit(entity)
-                }
-            } catch (error: Throwable) {
-                emit(
-                    User(
-                        userId = "Error Fetching User! with Id = $userId",
-                        imgUrl = "file:///android_asset/exampleimages/error.png"
-                    )
-                )
-            }
+        if (cache != null) {
+            return liveData<User> { emit(cache!!)}
         }
-        return lData
+        else {
+            val lData = liveData(Dispatchers.IO, 4000) {
+                Log.w(TAG, "jetzt bin ich im Coroutine Scope")
+                try {
+                    Log.w(TAG, "vor dem getUser")
+                    val dto =
+                        userApiService.getUser(userId)
+                    dto?.let {
+                        Log.w(TAG, "vor dem Mapper")
+                        val entity = UserDtoEntityMapper().toEntity(dto)
+                        emit(entity)
+                    }
+                } catch (error: Throwable) {
+                    emit(
+                        User(
+                            userId = "Error Fetching User! with Id = $userId",
+                            imgUrl = "file:///android_asset/exampleimages/error.png"
+                        )
+                    )
+                }
+            }
+            return lData
+        }
     }
 
     override suspend fun checkIsUserIdRegistered(userId: String): User? {
@@ -106,20 +114,37 @@ class UserRepositoryImp : UserRepository {
     }
 
     override suspend fun updateUser(oldUserId: String, user: User) {
+        var response: FileDto
+        val remoteUrl : String
+
+        cache = user
+
         try {
-            //First upload the Image.
-            val file : File = File(user.imgUrl)
-            val body = RequestBody.create(MediaType.parse("image/*"), file)
+            val file: File = File(user.imgUrl)
+            Log.i(TAG,"ImgUrl is ${user.imgUrl}")
+            val ex = file.exists()
+            if(!ex) {
+                throw NetworkError("cant publish image, it doesnt exist ${user.imgUrl}", Error())
+            }
+            val body = RequestBody.create(MediaType.parse("*/*"), file)
             val multi = MultipartBody.Part.createFormData("file", file.name, body)
-            val requestFile : RequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            val response = fileApiService.addImage(multi)
+            val requestFile: RequestBody =
+                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            response = fileApiService.addImage(multi)
+        }
+        catch(error : Throwable) {
+            throw NetworkError("Unable to publish recipe image", error)
+        }
+        try {
             //TODO Baseurl hinzufügen eventuell in den Mapper.
-            val remoteUrl = response.filePath
+            remoteUrl = response.filePath
             //speichere filepath in recipe
             //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
             user.imgUrl= BuildConfig.IMG_PREFIX +remoteUrl
-            val returnDto = userApiService.updateUser(oldUserId,userMapper.toDto(user))
+            Log.w(TAG,"update user, $oldUserId imageUrl =${user.imgUrl}")
+            userApiService.updateUser(oldUserId,userMapper.toDto(user))
         } catch (error: Throwable) {
+            Log.e(TAG,"update User, hat nicht Funktioniert error: error.message")
           //  throw NetworkError("Unable to update user", error)
         }
     }
@@ -145,6 +170,7 @@ class UserRepositoryImp : UserRepository {
         this.token = token
         userApiService = ApiServiceBuilder(token).createApi(UserApi::class.java) as UserApi
         adminApiService = ApiServiceBuilder(token).createApi(AdminApi::class.java) as AdminApi
+        fileApiService = ApiServiceBuilder(token).createApi(FileApi::class.java) as FileApi
     }
 
     override fun isTokenSet(): Boolean {
