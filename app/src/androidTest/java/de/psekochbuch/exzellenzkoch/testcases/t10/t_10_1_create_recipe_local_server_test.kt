@@ -3,9 +3,12 @@ package de.psekochbuch.exzellenzkoch.testcases.t10
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -16,7 +19,10 @@ import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -28,15 +34,38 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CountDownLatch
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_10_1_create_recipe_local_server_test {
 
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+
+    fun getRandomString(length: Int) : String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+    var recipeTitle = getRandomString(7)
+
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
+
+    @Before
+    fun registerIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
     @Before
     fun setUp(){
         AuthentificationImpl.logout()
@@ -142,7 +171,6 @@ class t_10_1_create_recipe_local_server_test {
         )
         appCompatButton.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val appCompatImageButton2 = onView(
             allOf(
@@ -209,7 +237,7 @@ class t_10_1_create_recipe_local_server_test {
                 )
             )
         )
-        appCompatEditText3.perform(scrollTo(), replaceText("Knallerx"), closeSoftKeyboard())
+        appCompatEditText3.perform(scrollTo(), replaceText(recipeTitle), closeSoftKeyboard())
 
         val appCompatEditText4 = onView(
             allOf(
@@ -331,7 +359,9 @@ class t_10_1_create_recipe_local_server_test {
 
    Espresso.pressBack()
 
-        Thread.sleep(EspressoIdlingResource.Sleep)
+
+        var vm = RecipeListViewmodel(PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext()), PublicRecipeRepositoryImp())
+        vm.recipes.blockingObserve()
 
         val appCompatImageButton3 = onView(
             allOf(
@@ -437,7 +467,7 @@ class t_10_1_create_recipe_local_server_test {
                 isDisplayed()
             )
         )
-        appCompatEditText11.perform(replaceText("Knallerx"), closeSoftKeyboard())
+        appCompatEditText11.perform(replaceText(recipeTitle), closeSoftKeyboard())
 
 
         val appCompatButton4 = onView(
@@ -457,7 +487,10 @@ class t_10_1_create_recipe_local_server_test {
             )
         )
         appCompatButton4.perform(click())
-        Thread.sleep(EspressoIdlingResource.Sleep)
+
+
+
+       Thread.sleep(EspressoIdlingResource.Sleep)
 
         val linearLayout2 = onView(
             allOf(
@@ -495,4 +528,18 @@ class t_10_1_create_recipe_local_server_test {
             }
         }
     }
+
+    private fun <T> LiveData<T>.blockingObserve(): T? {
+        var value: T? = null
+        val latch = CountDownLatch(1)
+
+        observeForever{
+            value = it
+            latch.countDown()
+        }
+
+        latch.await()
+        return value
+    }
+
 }
