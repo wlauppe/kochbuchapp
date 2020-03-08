@@ -31,8 +31,12 @@ import kotlin.random.Random.Default.nextInt
 class manyUserManyRecipes {
     @get:Rule
     val rule = InstantTaskExecutorRule()
-    val recipeCount = 35
-    val userCount = 301
+
+    val recipeCount = 2
+    val userCount = 2
+    //val recipeCount = 35
+    //val userCount = 301
+
     val imagePath = "/storage/emulated/0/recipe_pictures"
     var imgUrlList = mutableListOf<String>()
 
