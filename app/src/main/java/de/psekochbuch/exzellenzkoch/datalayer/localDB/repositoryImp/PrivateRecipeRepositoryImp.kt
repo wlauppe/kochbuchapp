@@ -78,8 +78,10 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
      * @param id: The id of the recipe
      */
     override suspend fun deletePrivateRecipe(id: Int) {
-        privateRecipeDao?.deleteRecipe(id.toLong())
-        privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
+        DB.databaseWriteExecutor.execute {
+            privateRecipeDao?.deleteRecipe(id.toLong())
+            privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
+        }
     }
 
     override fun getAllPublishedIds():LiveData<List<Int>>{
@@ -97,10 +99,12 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
      */
 
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
-        val id = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!
-        privateRecipeTagDao?.deleteTagsFromRecipe(id)
-        for (tag: String in privateRecipe.tags){
-            privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,id,tag))
+        DB.databaseWriteExecutor.execute {
+            val id = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!
+            privateRecipeTagDao?.deleteTagsFromRecipe(id)
+            for (tag: String in privateRecipe.tags){
+                privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,id,tag))
+            }
         }
     }
 
