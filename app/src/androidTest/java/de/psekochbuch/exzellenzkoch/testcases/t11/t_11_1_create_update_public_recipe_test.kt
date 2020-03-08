@@ -8,6 +8,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -20,6 +21,7 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
@@ -46,16 +48,26 @@ class t_11_1_create_update_public_recipe_test {
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Before
+    fun registerIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @Before
     fun setup(){
         AuthentificationImpl.logout()
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
     }
     @After
     fun tearDown(){
 
         AuthentificationImpl.logout()
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
 
     }
@@ -63,12 +75,10 @@ class t_11_1_create_update_public_recipe_test {
     @Test
     fun t_11_1_create_update_public_recipe_test() {
 
-        val loginVm = LoginViewModel()
         val listVm = RecipeListViewmodel(PrivateRecipeRepositoryImp(Application()), PublicRecipeRepositoryImp())
         listVm.recipes.blockingObserve()
-        loginVm.email.blockingObserve()
-        loginVm.password.blockingObserve()
-        loginVm.progressBarVisibility.blockingObserve()
+        val feedVm = FeedViewModel(PublicRecipeRepositoryImp())
+        feedVm.recipes.blockingObserve()
 
         val appCompatImageButton = onView(
             allOf(
