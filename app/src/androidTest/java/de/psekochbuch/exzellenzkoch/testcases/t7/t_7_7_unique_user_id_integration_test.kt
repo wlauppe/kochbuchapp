@@ -2,6 +2,7 @@ package de.psekochbuch.exzellenzkoch.testcases.t7
 
 import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import com.google.firebase.FirebaseApp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
@@ -75,11 +76,25 @@ class t_7_7_unique_user_id_integration_test{
             userRepo.updateUser(user.userId, user)
         }
 
-        val fromrepo = userRepo.getUser(user.userId)
+        val fromrepo = userRepo.getUser(user.userId).blockingObserve()!!
 
-        //TODO teste mit equals, das description geändert wird.
-        //assertEquals(AuthentificationImpl.getUserId(),user)
+        assertEquals(fromrepo.description,user.description)
+
+
 
         AuthentificationImpl.userDelete()
     }
+}
+
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever{
+        value = it
+        latch.countDown()
+    }
+
+    latch.await(2, TimeUnit.SECONDS)
+    return value
 }
