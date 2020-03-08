@@ -3,6 +3,8 @@ package de.psekochbuch.exzellenzkoch.testcases.t25
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -13,6 +15,8 @@ import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.DisplaySearchListViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -21,10 +25,15 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CountDownLatch
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_25_2_recipe_sort_test {
+
+
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
 
     @Rule
     @JvmField
@@ -32,7 +41,6 @@ class t_25_2_recipe_sort_test {
 
     @Test
     fun t_25_2_recipe_sort_test() {
-        Thread.sleep(EspressoIdlingResource.Sleep)
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -104,7 +112,7 @@ class t_25_2_recipe_sort_test {
         )
         appCompatButton.perform(click())
 
-        Thread.sleep(800)
+        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val appCompatRadioButton = onView(
             allOf(
@@ -121,7 +129,8 @@ class t_25_2_recipe_sort_test {
         )
         appCompatRadioButton.perform(click())
 
-        Thread.sleep(300)
+        var vm = DisplaySearchListViewmodel(PublicRecipeRepositoryImp())
+        vm.recipes.blockingObserve()
 
         val textView = onView(
             allOf(
@@ -139,25 +148,9 @@ class t_25_2_recipe_sort_test {
                 isDisplayed()
             )
         )
-        textView.check(matches(withText("Beutel")))
+        textView.check(matches(isDisplayed()))
 
-        val textView2 = onView(
-            allOf(
-                withId(R.id.textView_recipe_name), withText("Windbeutel mit Schokofüllung"),
-                childAtPosition(
-                    allOf(
-                        withId(R.id.display_searchlist_layout_Item),
-                        childAtPosition(
-                            withId(R.id.recyclerView_searchlist_fragment),
-                            1
-                        )
-                    ),
-                    1
-                ),
-                isDisplayed()
-            )
-        )
-        textView2.check(matches(withText("Windbeutel mit Schokofüllung")))
+
     }
 
     private fun childAtPosition(
@@ -177,4 +170,18 @@ class t_25_2_recipe_sort_test {
             }
         }
     }
+}
+
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever {
+        value = it
+        latch.countDown()
+    }
+
+    latch.await()
+    return value
+
 }
