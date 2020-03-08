@@ -20,7 +20,7 @@ class PrivateRecipeTest{
         assertEquals(con.ingredientChapter.last().chapter,"kapitel2")
 
         val ingredient = con.ingredientChapter.last().ingredients.last()
-        assertEquals(ingredient.unit, Unit.Gramm)
+        assertEquals(ingredient.unit, "gramm")
         assertEquals(ingredient.ingredient,"Frischkäse")
     }
 }
