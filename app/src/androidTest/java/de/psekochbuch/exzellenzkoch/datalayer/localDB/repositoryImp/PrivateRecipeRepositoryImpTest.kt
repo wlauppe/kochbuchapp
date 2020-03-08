@@ -60,8 +60,11 @@ class PrivateRecipeRepositoryImpTest(){
     fun correctdelete(){
         runBlocking { repo.insertPrivateRecipe(recipe) }
 
+        Thread.sleep(1000)
 
         runBlocking { repo.deletePrivateRecipe(1) }
+
+        Thread.sleep(1000)
 
         assertEquals(privateRecipeDao.getAll().size,0)
         assertEquals(privateRecipeTagDao.getAll().size,0)
@@ -71,11 +74,15 @@ class PrivateRecipeRepositoryImpTest(){
     fun insertdeleteandget(){
         runBlocking { repo.insertPrivateRecipe(recipe)}
 
+        Thread.sleep(1000)
+
         val lfromDb = repo.getPrivateRecipe(1).blockingObserve()
 
         assertEquals(lfromDb,recipe)
 
         runBlocking { repo.deletePrivateRecipe(1)}
+
+        Thread.sleep(1000)
 
         val del = repo.getPrivateRecipe(1).blockingObserve()!!
 
@@ -86,10 +93,14 @@ class PrivateRecipeRepositoryImpTest(){
     fun insertandupdate(){
         runBlocking { repo.insertPrivateRecipe(recipe)}
 
+        Thread.sleep(1000)
+
         val recipe2 = PrivateRecipe(1,"lalale", "efg", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)
 
         runBlocking { repo.insertPrivateRecipe(recipe2)}
+
+        Thread.sleep(1000)
 
         val recipe = repo.getPrivateRecipe(1).blockingObserve()
 
