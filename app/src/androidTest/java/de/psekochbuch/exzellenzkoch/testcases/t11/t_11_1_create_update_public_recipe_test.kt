@@ -47,29 +47,20 @@ class t_11_1_create_update_public_recipe_test {
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
-    @Before
-    fun registerIdlingResource(){
-        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
-    }
-
-    @After
-    fun unregister(){
-        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-    }
 
     @Before
     fun setup(){
         AuthentificationImpl.logout()
         val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
     }
     @After
     fun tearDown(){
-
         AuthentificationImpl.logout()
         val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
-
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
@@ -618,17 +609,16 @@ class t_11_1_create_update_public_recipe_test {
             }
         }
     }
+}
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
 
-    private fun <T> LiveData<T>.blockingObserve(): T? {
-        var value: T? = null
-        val latch = CountDownLatch(1)
-
-        observeForever{
-            value = it
-            latch.countDown()
-        }
-
-        latch.await()
-        return value
+    observeForever{
+        value = it
+        latch.countDown()
     }
+
+    latch.await()
+    return value
 }
