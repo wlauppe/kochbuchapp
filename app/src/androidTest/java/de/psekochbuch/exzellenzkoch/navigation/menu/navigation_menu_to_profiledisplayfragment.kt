@@ -4,6 +4,7 @@ package de.psekochbuch.exzellenzkoch.navigation.menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -33,6 +34,15 @@ class navigation_menu_to_profiledisplayfragment {
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
+    @Before
+    fun registerIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
 
     @Before
     fun setUp(){
@@ -127,7 +137,6 @@ class navigation_menu_to_profiledisplayfragment {
         )
         appCompatButton.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
     }
 
