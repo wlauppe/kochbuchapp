@@ -166,6 +166,7 @@ class navigation_menu_to_profiledisplayfragment {
         )
         appCompatImageButton2.perform(click())
 
+        Thread.sleep(500)
 
         val navigationMenuItemView2 = onView(
             allOf(
