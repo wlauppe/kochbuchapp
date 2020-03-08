@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -35,15 +36,13 @@ class navigation_createrecipefragment_to_recipelistfragment {
 
     @Before
     fun setup(){
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
-        repo.deleteAll()
+
     }
 
 
     @After
     fun tearDown(){
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
-        repo.deleteAll()
+
     }
     @Test 
     fun navigation_create_recipe_recipelist_test() {
@@ -100,7 +99,7 @@ class navigation_createrecipefragment_to_recipelistfragment {
         )
         appCompatButton.perform(click())
 
-        val appCompatButton2 = onView(
+      /*  val appCompatButton2 = onView(
             allOf(
                 withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
                 childAtPosition(
@@ -113,6 +112,10 @@ class navigation_createrecipefragment_to_recipelistfragment {
             )
         )
         appCompatButton2.perform(scrollTo(), click())
+
+
+       */
+        pressBack()
 
         val viewGroup = onView(
             allOf(
@@ -131,6 +134,9 @@ class navigation_createrecipefragment_to_recipelistfragment {
             )
         )
         viewGroup.check(matches(isDisplayed()))
+
+        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        repo.deleteAll()
     }
 
     private fun childAtPosition(

@@ -31,6 +31,19 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class navigation_registrationFragment_to_ProfileEditFragment {
 
+
+
+
+    fun getRandomString(length: Int) : String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+
+    var email = getRandomString(6).plus("@muster.de")
+
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
@@ -125,7 +138,7 @@ class navigation_registrationFragment_to_ProfileEditFragment {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("zww@muster.de"), closeSoftKeyboard())
+        appCompatEditText.perform(replaceText(email), closeSoftKeyboard())
 
 
 
