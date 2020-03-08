@@ -3,6 +3,8 @@ package de.psekochbuch.exzellenzkoch.testcases.t9
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
@@ -15,6 +17,8 @@ import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -26,10 +30,14 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CountDownLatch
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_9_1_save_recipe_automatically {
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+
 
 
     @Before
@@ -207,9 +215,23 @@ class t_9_1_save_recipe_automatically {
         )
         appCompatCheckBox.perform(scrollTo(), click())
 
-        // go back to recipelist
-        Espresso.pressBack()
-        Thread.sleep(5000)
+
+        val appCompatButton2 = onView(
+            allOf(
+                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
+                childAtPosition(
+                    childAtPosition(
+                        withClassName(`is`("android.widget.ScrollView")),
+                        0
+                    ),
+                    10
+                )
+            )
+        )
+        appCompatButton2.perform(scrollTo(), click())
+
+        var vm = RecipeListViewmodel(PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext()), PublicRecipeRepositoryImp())
+        vm.recipes.blockingObserve()
 
         val linearLayout = onView(
             allOf(
@@ -228,7 +250,8 @@ class t_9_1_save_recipe_automatically {
             )
         )
 
-        Thread.sleep(2000)
+
+      //  Thread.sleep(2000)
         // click on recipe
         linearLayout.perform(click())
 
@@ -312,4 +335,16 @@ class t_9_1_save_recipe_automatically {
             }
         }
     }
+}
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever{
+        value = it
+        latch.countDown()
+    }
+
+    latch.await()
+    return value
 }
