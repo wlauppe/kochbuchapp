@@ -27,6 +27,7 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
+import org.hamcrest.core.IsInstanceOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -102,6 +103,8 @@ class t_8_1_create_recipe_test {
             )
         )
         appCompatImageButton.perform(click())
+
+        Thread.sleep(300)
 
         val navigationMenuItemView = onView(
             allOf(
@@ -192,6 +195,8 @@ class t_8_1_create_recipe_test {
             )
         )
         appCompatImageButton2.perform(click())
+
+        Thread.sleep(300)
 
         val navigationMenuItemView2 = onView(
             allOf(
@@ -380,6 +385,7 @@ class t_8_1_create_recipe_test {
         )
         appCompatImageButton3.perform(click())
 
+        Thread.sleep(300)
         val navigationMenuItemView3 = onView(
             allOf(
                 childAtPosition(
@@ -434,12 +440,8 @@ class t_8_1_create_recipe_test {
         )
         appCompatButton4.perform(click())
 
-        var vm = DisplaySearchListViewmodel(PublicRecipeRepositoryImp())
-        vm.recipesSortedTitle.blockingObserve()
 
-
-     //   Thread.sleep(EspressoIdlingResource.Sleep)
-
+        Thread.sleep(EspressoIdlingResource.Sleep) // Muss da viewmodel von zwei fragments genutzt wird.
         val linearLayout = onView(
             allOf(
                 withId(R.id.display_searchlist_layout_Item),
@@ -447,7 +449,7 @@ class t_8_1_create_recipe_test {
                     allOf(
                         withId(R.id.recyclerView_searchlist_fragment),
                         childAtPosition(
-                            withClassName(`is`("android.widget.LinearLayout")),
+                            IsInstanceOf.instanceOf(android.widget.LinearLayout::class.java),
                             1
                         )
                     ),
@@ -456,6 +458,8 @@ class t_8_1_create_recipe_test {
                 isDisplayed()
             )
         )
+        linearLayout.check(matches(isDisplayed()))
+
         linearLayout.perform(click())
 
 
