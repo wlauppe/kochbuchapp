@@ -4,6 +4,7 @@ package de.psekochbuch.exzellenzkoch.navigation.profileeditfragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -33,6 +34,15 @@ class navigation_profileEditFragment_to_ChangePasswordFragment {
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
+    @Before
+    fun registerIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
 
     @Before
     fun setUp(){
@@ -135,7 +145,6 @@ class navigation_profileEditFragment_to_ChangePasswordFragment {
         )
         appCompatButton.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val appCompatButton2 = onView(
             allOf(

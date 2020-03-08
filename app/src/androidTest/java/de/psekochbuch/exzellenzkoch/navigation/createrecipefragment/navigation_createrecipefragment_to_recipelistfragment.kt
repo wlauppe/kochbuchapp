@@ -22,10 +22,7 @@ import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 
 @LargeTest
@@ -40,7 +37,6 @@ class navigation_createrecipefragment_to_recipelistfragment {
     fun setup(){
         var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
-        Thread.sleep(EspressoIdlingResource.Sleep)
     }
 
 
@@ -49,7 +45,7 @@ class navigation_createrecipefragment_to_recipelistfragment {
         var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
     }
-    @Test
+    @Test 
     fun navigation_create_recipe_recipelist_test() {
         val appCompatImageButton = onView(
             allOf(
