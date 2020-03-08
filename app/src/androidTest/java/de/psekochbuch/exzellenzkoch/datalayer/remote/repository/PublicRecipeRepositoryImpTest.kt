@@ -104,9 +104,7 @@ class PublicRecipeRepositoryImpTest{
     fun recipesfromuser(){
         var recipes = repo.getRecipesFromUser(userId).blockingObserve()!!
 
-        var same: List<PublicRecipe> = listOf()
-
-        assertEquals(recipes,same)
+        assertEquals(recipes.size,0)
 
         var id =0
         runBlocking { id = repo.publishRecipe(recipe) }
@@ -120,7 +118,10 @@ class PublicRecipeRepositoryImpTest{
 
     @Test
     fun search(){
-        val recipe2 = PublicRecipe(0,"anders","ingredients",
+
+        val title = getRandomString(12)
+
+        val recipe2 = PublicRecipe(0,title,"ingredients",
             listOf(IngredientChapter(2, "chapter",listOf(IngredientAmount("ingedient",2.0,"Einheit")))),
             listOf("tag1","tag2"),"So macht man es","",1,2, User(userId),
             Date(0),3,0.0)
@@ -130,13 +131,9 @@ class PublicRecipeRepositoryImpTest{
         runBlocking { id2 = repo.publishRecipe(recipe2) }
         runBlocking { id1 = repo.publishRecipe(recipe) }
 
-        val search1 = repo.getPublicRecipes("anders",listOf(),listOf(),null,"titel").blockingObserve()
+        val search = repo.getPublicRecipes(title,listOf(),listOf(),null,"titel").blockingObserve()
 
-        assertEquals(search1, listOf(recipe2))
-
-        val search2 = repo.getPublicRecipes("titel", listOf(),listOf(),null,"titel").blockingObserve()
-
-        assertEquals(search2, listOf(recipe))
+        assertEquals(search, listOf(recipe2))
 
         runBlocking {
             repo.deleteRecipe(id1)

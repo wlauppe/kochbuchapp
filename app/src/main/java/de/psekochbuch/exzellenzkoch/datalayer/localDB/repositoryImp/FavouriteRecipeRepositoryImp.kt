@@ -45,7 +45,7 @@ class FavouriteRecipeRepositoryImp(application: Application?) : FavouriteRecipeR
     }
 
     override fun getFavourite(id: Int): LiveData<PublicRecipe> {
-        val lData = liveData(Dispatchers.IO){
+        val lData = liveData(Dispatchers.IO,4000){
             try{
                 val recipe = transformPublicRecipeDBToPublicRecipe(publicRecipeDao.getRecipe(id.toLong()))
                 emit(recipe)

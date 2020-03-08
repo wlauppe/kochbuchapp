@@ -54,6 +54,8 @@ class FavouritRecipeRepositoryImpTest(){
     @Before
     fun setUp(){
         repo.insertFavourite(recipe)
+
+        Thread.sleep(1000)
     }
 
     @After
@@ -66,6 +68,8 @@ class FavouritRecipeRepositoryImpTest(){
 
     //der hier wird ignoriert, da synchronisationsprimoitve nur in repos sind und nicht in daos
     fun deleteAll(){
+        Thread.sleep(1000)
+
         repo.deleteAll()
 
         Thread.sleep(1000)
@@ -78,6 +82,7 @@ class FavouritRecipeRepositoryImpTest(){
 
     @Test
     fun getfavourite(){
+        Thread.sleep(4000)
         val fromrepo = repo.getFavourite(1).blockingObserve()!!
 
         assertEquals(fromrepo, recipe)

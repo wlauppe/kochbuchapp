@@ -26,7 +26,7 @@ class PrivateRecipeRepositoryImpTest(){
         lateinit var repo:PrivateRecipeRepository
         val recipe = PrivateRecipe(1,"titel", "so mact man es", listOf("tag1","tag2"),"lalali","so",1,2,
             Date(),4,6)
-        val errorrecipe = PrivateRecipe(0,"Konnte nicht geladen werden","",listOf(),"","file://android_assed/exampleimages/error.png",0,0,Date(0),0,0)
+        val errorrecipe = PrivateRecipe(0,"Konnte nicht geladen werden","",listOf(""),"","file://android_assed/exampleimages/error.png",0,0,Date(0),0,0)
 
         val privateRecipeDao: PrivateRecipeDao = DB.getDatabase(ApplicationProvider.getApplicationContext()!!)?.privateRecipeDao()!!
         val privateRecipeTagDao: PrivateRecipeTagDao = DB.getDatabase(ApplicationProvider.getApplicationContext()!!)?.privateRecipeTagDao()!!
@@ -52,6 +52,8 @@ class PrivateRecipeRepositoryImpTest(){
     @Before
     fun setUp(){
         repo.deleteAll()
+
+        Thread.sleep(1000)
     }
 
     //Dieser test soll ignoriert werden, da synchronisationsprimitive nur im repo und nicht in den daos existieren
