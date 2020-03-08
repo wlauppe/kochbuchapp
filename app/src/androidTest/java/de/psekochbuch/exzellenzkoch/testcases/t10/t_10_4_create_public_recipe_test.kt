@@ -51,6 +51,7 @@ class t_10_4_create_public_recipe_test {
             .joinToString("")
     }
     var recipeTitle = getRandomString(7)
+
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
