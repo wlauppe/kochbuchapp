@@ -460,7 +460,6 @@ closeSoftKeyboard()
         val appCompatButton6 = onView(
             allOf(
                 withId(R.id.button_profile_display_fragment_edit_profile),
-                withText("Profil Bearbeiten"),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.LinearLayout")),
