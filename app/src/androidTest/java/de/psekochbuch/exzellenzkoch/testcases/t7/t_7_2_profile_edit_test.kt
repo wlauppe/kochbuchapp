@@ -161,7 +161,7 @@ class t_7_2_profile_edit_test {
 
 
 
-        Thread.sleep(300) //Transofmration
+        Thread.sleep(1000) //Transofmration
 
         val appCompatButton2 = onView(
             allOf(
