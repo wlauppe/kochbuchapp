@@ -75,6 +75,9 @@ class t_14_scale_portions_integration_test{
 
         assertEquals(fromrepo,scaledrecipe)
 
+        fromrepo.scaleDown()
+
+        assertEquals(fromrepo,recipe)
 
         AuthentificationImpl.userDelete()
     }

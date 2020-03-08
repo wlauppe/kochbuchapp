@@ -63,7 +63,7 @@ class t_21_2_upload_profile_pic_integration_test{
 
         val fromrepo = userRepo.getUser("random${randomStr}").blockingObserve()!!
 
-        assertEquals(fromrepo.userId,"random${randomStr}")
+        assertEquals(fromrepo.imgUrl,"https://s.gravatar.com/avatar/f849c680f420d89b5b0b49979d1df5ec?s=80")
 
         AuthentificationImpl.userDelete()
     }
