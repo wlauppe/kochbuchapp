@@ -78,7 +78,11 @@
     <string name="sweet_tag">süß</string>
     <string name="salty_tag">salzig</string>
     <string name="publish">veröffentlichen</string>
-    <string name="ingredient_input_description">Schreibe jede Zutat so auf: (Menge, Einheit, Zutat)</string>
+    <string name="ingredient_input_description">Schreibe jede Zutaten und Kapitel so auf:
+                                                #Zutaten\n
+                                                10 g Zucker\n
+                                                10 Apfel\n
+                                                #Kapitel 2</string>
     <string name="cheap">günstig</string>
     <string name="favor">Favorisieren</string>
     <string name="cookingtime">Backzeit:</string>
