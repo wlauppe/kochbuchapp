@@ -67,7 +67,7 @@ class UserRepositoryImp : UserRepository {
 
 
         Log.w(TAG, "getUser() wird aufgerufen")
-        if (cache != null) {
+        if (cache != null && cache!!.userId == userId) {
             return liveData<User> { emit(cache!!)}
         }
         else {
@@ -114,33 +114,37 @@ class UserRepositoryImp : UserRepository {
     }
 
     override suspend fun updateUser(oldUserId: String, user: User) {
-        var response: FileDto
+        var response: FileDto? =null
         val remoteUrl : String
 
         cache = user
-
+        val file: File = File(user.imgUrl)
+        Log.i(TAG,"ImgUrl is ${user.imgUrl}")
+        val ex = file.exists()
         try {
-            val file: File = File(user.imgUrl)
-            Log.i(TAG,"ImgUrl is ${user.imgUrl}")
-            val ex = file.exists()
-            if(!ex) {
-                throw NetworkError("cant publish image, it doesnt exist ${user.imgUrl}", Error())
+             //Nur versuchen Bild hochzuladen wenn es lokal auf dem Handy liegt.
+            //ansonsten wenn es zum Beispiel schon ein http://Link ist nicht.
+            if(ex) {
+                val body = RequestBody.create(MediaType.parse("*/*"), file)
+                val multi = MultipartBody.Part.createFormData("file", file.name, body)
+                val requestFile: RequestBody =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                response = fileApiService.addImage(multi)
             }
-            val body = RequestBody.create(MediaType.parse("*/*"), file)
-            val multi = MultipartBody.Part.createFormData("file", file.name, body)
-            val requestFile: RequestBody =
-                RequestBody.create(MediaType.parse("multipart/form-data"), file)
-            response = fileApiService.addImage(multi)
         }
         catch(error : Throwable) {
             throw NetworkError("Unable to publish recipe image", error)
         }
         try {
             //TODO Baseurl hinzufügen eventuell in den Mapper.
-            remoteUrl = response.filePath
+            if (response!=null) {
+                //setze url nur, wenn ich network bild speichern durchgeführt habe
+                remoteUrl = response.filePath
+                user.imgUrl= BuildConfig.IMG_PREFIX +remoteUrl
+            }
             //speichere filepath in recipe
             //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
-            user.imgUrl= BuildConfig.IMG_PREFIX +remoteUrl
+
             Log.w(TAG,"update user, $oldUserId imageUrl =${user.imgUrl}")
             userApiService.updateUser(oldUserId,userMapper.toDto(user))
         } catch (error: Throwable) {
