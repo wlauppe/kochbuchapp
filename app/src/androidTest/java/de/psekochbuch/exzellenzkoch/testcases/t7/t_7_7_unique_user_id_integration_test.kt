@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.testcases.t7
 
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.core.app.ApplicationProvider
 import com.google.firebase.FirebaseApp
@@ -27,6 +28,16 @@ class t_7_7_unique_user_id_integration_test{
             .joinToString("")
     }
 
+    private fun createRandomUser(): User {
+        val userId = "testuser_${getRandomString(12)}"
+        val user = User(
+            userId,
+            "file:///android_asset/exampleimages/checkmark.png",
+            "Ich bin ein Testuser für den Lastentest"
+        )
+        return user
+    }
+
     /**
      * Hier wird ein nutzer mit einer zufälligen id genertiert und dann diese von der Authenfizierung abgefragt und überprüft ob diese gleich sind
      */
@@ -37,32 +48,37 @@ class t_7_7_unique_user_id_integration_test{
         val userRepo = UserRepositoryImp.getInstance()
         FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
         val latch = CountDownLatch(1)
-        val randomStr=getRandomString(12)
 
-        val userid = "random${randomStr}"
+        val user = createRandomUser()
+        Log.i("uniqueuserintegrationtest", "user created with id: ${user.userId}")
+        val email = "${user.userId}@test.de"
+        val password = "123456"
 
-        AuthentificationImpl.register("extraTestServer${randomStr}@test.de","123456",userid){ a, b->
+
+
+        AuthentificationImpl.register(email, password, user.userId) { a, b ->
             authResult = b
             repo.setToken(a)
             userRepo.setToken(a)
             latch.countDown()
         }
 
-        latch.await()
+        latch.await(10, TimeUnit.SECONDS)
 
-        assertEquals(authResult, AuthenticationResult.REGISTRATIONSUCCESS)
-
-
-
-        val newuserid = "random${getRandomString(12)}"
-
+        Assert.assertEquals(authResult, AuthenticationResult.REGISTRATIONSUCCESS)
         runBlocking {
-            userRepo.updateUser(userid, User(newuserid,"",""))
+            val token = userRepo.addUser(user.userId)
         }
 
-        val fromrepo = AuthentificationImpl.getUserId()
+        user.description = "blablabla"
+        runBlocking {
+            userRepo.updateUser(user.userId, user)
+        }
 
-        assertEquals(AuthentificationImpl.getUserId(),newuserid)
+        val fromrepo = userRepo.getUser(user.userId)
+
+        //TODO teste mit equals, das description geändert wird.
+        //assertEquals(AuthentificationImpl.getUserId(),user)
 
         AuthentificationImpl.userDelete()
     }
