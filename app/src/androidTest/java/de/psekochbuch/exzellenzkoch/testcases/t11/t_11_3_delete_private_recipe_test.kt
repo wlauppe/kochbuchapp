@@ -4,6 +4,8 @@ package de.psekochbuch.exzellenzkoch.testcases.t11
 import android.app.Application
 import android.view.View
 import android.view.ViewGroup
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -17,6 +19,8 @@ import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -28,10 +32,13 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CountDownLatch
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_11_3_delete_private_recipe_test {
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
 
     @Rule
     @JvmField
@@ -138,7 +145,8 @@ class t_11_3_delete_private_recipe_test {
         appCompatButton2.perform(scrollTo(), click())
 
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+        val vm = RecipeListViewmodel(PrivateRecipeRepositoryImp(Application()), PublicRecipeRepositoryImp())
+        vm.recipes.blockingObserve()
 
 
         val appCompatImageButton3 = onView(
@@ -207,5 +215,18 @@ class t_11_3_delete_private_recipe_test {
                         && view == parent.getChildAt(position)
             }
         }
+    }
+
+    private fun <T> LiveData<T>.blockingObserve(): T? {
+        var value: T? = null
+        val latch = CountDownLatch(1)
+
+        observeForever{
+            value = it
+            latch.countDown()
+        }
+
+        latch.await()
+        return value
     }
 }

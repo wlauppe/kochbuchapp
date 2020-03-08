@@ -15,6 +15,8 @@ import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -40,7 +42,9 @@ class t_12_1_show_public_recipe {
     @Test
     fun t_12_1_show_public_recipe() {
 
+        val vm = FeedViewModel(PublicRecipeRepositoryImp())
 
+        vm.recipes.blockingObserve()
 
         val linearLayout = onView(
             allOf(
