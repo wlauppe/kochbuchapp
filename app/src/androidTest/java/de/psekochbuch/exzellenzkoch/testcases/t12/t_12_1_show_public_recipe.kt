@@ -3,6 +3,8 @@ package de.psekochbuch.exzellenzkoch.testcases.t12
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -22,10 +24,14 @@ import org.hamcrest.core.IsInstanceOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CountDownLatch
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_12_1_show_public_recipe {
+
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
 
     @Rule
     @JvmField
@@ -34,8 +40,7 @@ class t_12_1_show_public_recipe {
     @Test
     fun t_12_1_show_public_recipe() {
 
-        Thread.sleep(EspressoIdlingResource.Sleep)
-        Thread.sleep(EspressoIdlingResource.Sleep)
+
 
         val linearLayout = onView(
             allOf(
@@ -91,4 +96,16 @@ class t_12_1_show_public_recipe {
             }
         }
     }
+}
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever{
+        value = it
+        latch.countDown()
+    }
+
+    latch.await()
+    return value
 }
