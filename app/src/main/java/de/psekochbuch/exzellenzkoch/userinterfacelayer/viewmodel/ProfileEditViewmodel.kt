@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PrivateRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.PublicRecipeRepository
 import de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository.UserRepository
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -18,6 +20,7 @@ import kotlinx.coroutines.runBlocking
 class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecipeRepository, val privateRepo: PrivateRecipeRepository) : ViewModel() {
 
     var user : MutableLiveData<User> = MutableLiveData(User(""))
+    val tag = "ProfileEditViewModel"
 
         //LiveData
         var userID : MutableLiveData<String> = MutableLiveData("")
@@ -49,6 +52,7 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
      */
     fun setUserByID(id:String){
         if(id != "") {
+
             user = repo.getUser(id) as MutableLiveData<User>
         }
 
@@ -62,7 +66,8 @@ class ProfileEditViewmodel(var repo: UserRepository, val publicRepo: PublicRecip
      */
     fun save() {
         var newUser = User(user.value!!.userId,user.value!!.imgUrl,userDesc.value!!)
-        viewModelScope.launch {
+        Log.i(tag,"User wird gespeichert werte sind. ${newUser.userId}, Url=${newUser.imgUrl}")
+        GlobalScope.launch {
             try {
                 repo.updateUser(userID.value!!,newUser)
             } catch (error: Error) {

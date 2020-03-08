@@ -14,6 +14,9 @@ import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientAmount
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.IngredientChapter
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.User
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -28,13 +31,16 @@ import kotlin.random.Random.Default.nextInt
 class manyUserManyRecipes {
     @get:Rule
     val rule = InstantTaskExecutorRule()
-    val recipeCount = 35
-    val userCount = 301
+
+    val recipeCount = 2
+    val userCount = 2
+    //val recipeCount = 35
+    //val userCount = 301
+
     val imagePath = "/storage/emulated/0/recipe_pictures"
     var imgUrlList = mutableListOf<String>()
 
     val tag = "manyUsersManyRecipes"
-
 
 
 
@@ -56,7 +62,7 @@ class manyUserManyRecipes {
 
     private fun getNextImgUrl() : String {
         val limit = imgUrlList.size -1
-        val randomInteger = ThreadLocalRandom.current().nextInt(0, 10)
+        val randomInteger = ThreadLocalRandom.current().nextInt(0, limit)
         val url = imgUrlList.get(randomInteger)
         return url
     }
@@ -81,7 +87,7 @@ class manyUserManyRecipes {
                     listOf(IngredientAmount("ingedient", 2.0, "Einheit"))
                 )
             ),
-            listOf("tag1", "tag2"), "So macht man es",getNextImgUrl(), 1, 2, user,
+            listOf("tag1", "tag2"), "Dies ist die Zubereitungsbeschreibung",getNextImgUrl(), 1, 2, user,
             Date(System.currentTimeMillis()), 3, 4.0
         )
         return recipe
@@ -91,7 +97,7 @@ class manyUserManyRecipes {
     @Test
     fun publishRecipes() {
         initalizeImgUrlList()
-        for (i in 1..userCount) {
+        for (userNo in 1..userCount) {
             var authResult: AuthenticationResult? = null
             val repo = PublicRecipeRepositoryImp.getInstance()
             val userRepo = UserRepositoryImp.getInstance()
@@ -125,20 +131,23 @@ class manyUserManyRecipes {
             for (i in 1..recipeCount) {
                 val recipe = createRandomRecipe(user)
                 //recipe.user = User(AuthentificationImpl.getUserId())
-                try {
-                    val titlewithoutnumber = "Testrunde 2, rezept: "
-                    Log.i(tag, "creating recipe ${i}")
-                    recipe.title = titlewithoutnumber + i.toString()
-                    runBlocking { repo.publishRecipe(recipe) }
-
-                } catch (e: Error) {
-                    Log.w(tag, "publish Recipe, returned Error ${e.message}")
+                //try {
+                val titlewithoutnumber = "xrun2 Testrezept user: $userNo, rezept: "
+                Log.i(tag, "creating recipe ${i}")
+                recipe.title = titlewithoutnumber + i.toString()
+                runBlocking {
+                    repo.publishRecipe(recipe)
                 }
-            }
 
-            //finally {
-            //    AuthentificationImpl.userDelete()
-            //}
+                //} catch (e: Error) {
+                //   Log.w(tag, "publish Recipe, returned Error ${e.message}")
+
+                //}
+
+                //finally {
+                //    AuthentificationImpl.userDelete()
+                //}
+            }
         }
     }
 
