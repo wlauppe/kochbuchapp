@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
@@ -457,19 +458,10 @@ class t_11_1_create_update_public_recipe_test {
         )
         appCompatCheckBox2.perform(scrollTo(), click())
 
-        val appCompatButton4 = onView(
-            allOf(
-                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    10
-                )
-            )
-        )
-        appCompatButton4.perform(scrollTo(), click())
+        pressBack()
+
+        Espresso.pressBack()
+        Thread.sleep(1000)
 
         val appCompatImageButton3 = onView(
             allOf(
