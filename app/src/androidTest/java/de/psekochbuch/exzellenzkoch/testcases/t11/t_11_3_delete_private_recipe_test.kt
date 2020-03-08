@@ -53,7 +53,7 @@ class t_11_3_delete_private_recipe_test {
     @After
     fun unregister(){
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
+        val repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
     }
 
