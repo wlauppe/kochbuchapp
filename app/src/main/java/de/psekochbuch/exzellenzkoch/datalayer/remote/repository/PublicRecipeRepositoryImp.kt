@@ -189,36 +189,41 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                 if(publicRecipe.imgUrl != "") {
                     try {
                         val file: File = File(publicRecipe.imgUrl)
-                        Log.i(TAG,"ImgUrl is ${publicRecipe.imgUrl}")
+                        Log.i(TAG, "ImgUrl is ${publicRecipe.imgUrl}")
                         val ex = file.exists()
-                        if(!ex) {
-                               throw NetworkError("cant publish image, it doesnt exist ${publicRecipe.imgUrl}", Error())
+                        if (!ex) {
+                            throw NetworkError(
+                                "cant publish image, it doesnt exist ${publicRecipe.imgUrl}",
+                                Error()
+                            )
                         }
                         val body = RequestBody.create(MediaType.parse("*/*"), file)
                         val multi = MultipartBody.Part.createFormData("file", file.name, body)
                         val requestFile: RequestBody =
                             RequestBody.create(MediaType.parse("multipart/form-data"), file)
                         response = fileApiService.addImage(multi)
-                    }
-                    catch(error : Throwable) {
+
+                        val remoteUrl = response.filePath
+                        //speichere filepath in recipe
+                        //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
+                        publicRecipe.imgUrl = BuildConfig.IMG_PREFIX + remoteUrl
+                    } catch (error: Throwable) {
                         throw NetworkError("Unable to publish recipe image", error)
                     }
-                    try {
+                }
+                try {
                     //TODO Baseurl hinzufügen eventuell in den Mapper.
-                    val remoteUrl = response.filePath
-                    //speichere filepath in recipe
-                    //TODO Muss noch Mapper schreiben, dass URL gemappt wird.
-                    publicRecipe.imgUrl = BuildConfig.IMG_PREFIX + remoteUrl
+
                     val returnDto = recipeApiService.addRecipe(recipeMapper.toDto(publicRecipe))
                     returnId = returnDto.id
-                    }
+                }
                 catch (error : Throwable) {
-                throw NetworkError("Unable to publish recipe", error)
-            }
+                    throw NetworkError("Unable to publish recipe", error)
+                }
 
         //das ist der Rückgabewert der
 
-    }
+
         return returnId
     }
 
