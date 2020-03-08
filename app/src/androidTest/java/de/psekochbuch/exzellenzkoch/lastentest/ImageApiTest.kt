@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit
 import de.psekochbuch.exzellenzkoch.BuildConfig
 import de.psekochbuch.exzellenzkoch.datalayer.remote.dto.FileDto
 import kotlinx.coroutines.runBlocking
+import org.junit.Ignore
 import org.junit.Test
 
 class ImageApiTest {
@@ -60,6 +61,7 @@ class ImageApiTest {
         return user
     }
 
+    @Ignore
     @Test
     fun testApi(){
         for (i in 1..userCount) {

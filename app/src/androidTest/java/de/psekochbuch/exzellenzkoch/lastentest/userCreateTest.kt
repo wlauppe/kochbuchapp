@@ -7,6 +7,7 @@ import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepo
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import org.junit.Assert
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
@@ -16,6 +17,7 @@ class userCreateTest{
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
+    @Ignore
     @Test
     fun test(){
         for (user:Int in 1..300) {

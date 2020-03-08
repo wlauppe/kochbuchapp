@@ -19,6 +19,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
@@ -93,7 +94,7 @@ class manyUserManyRecipes {
         return recipe
     }
 
-
+    @Ignore
     @Test
     fun publishRecipes() {
         initalizeImgUrlList()

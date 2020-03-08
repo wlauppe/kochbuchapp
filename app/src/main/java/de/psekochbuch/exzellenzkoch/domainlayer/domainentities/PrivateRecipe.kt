@@ -92,8 +92,8 @@ class PrivateRecipe(
      */
     fun convertToPublicRepipe(user:User) : PublicRecipe
     {
-        if (title.length == 0 || ingredientsText.length == 0 || preparation.length == 0 || portions == 0)
-            throw IllegalArgumentException("when publishing a recipe fields arent allowed to be empty")
+        if (title.length == 0 || ingredientsText.length == 0 || preparation.length == 0)
+            throw IllegalArgumentException("Titel, Zuten und Zubereitung dürfen nicht leer sein")
         var img = ""
         if(imgUrl != DEFAULT_IMAGE)  img = imgUrl
         return PublicRecipe(
