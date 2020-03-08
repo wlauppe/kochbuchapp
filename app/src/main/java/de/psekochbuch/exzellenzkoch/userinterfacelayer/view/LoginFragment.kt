@@ -50,7 +50,9 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
             val cm = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
             val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+
             if(isConnected) {
+                EspressoIdlingResource.increment()
                 viewModel.login { userId, result, message ->
                     if (userId != "" && result == AuthenticationResult.LOGINSUCCESS) {
                         AuthentificationImpl.getToken(true) {
@@ -64,6 +66,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
                                 userId
                             )
                         )
+                        EspressoIdlingResource.decrement()
                     } else {
                         setLoadingScreen(true)
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
@@ -73,6 +76,7 @@ class LoginFragment : Fragment(R.layout.login_fragment) {
                 setLoadingScreen(true)
                 Toast.makeText(context, "No connection to the internet", Toast.LENGTH_SHORT).show()
             }
+
         }
         binding.buttonLoginFragmentRegister.setOnClickListener {
             navController.navigate(R.id.action_loginFragment_to_registrationFragment)

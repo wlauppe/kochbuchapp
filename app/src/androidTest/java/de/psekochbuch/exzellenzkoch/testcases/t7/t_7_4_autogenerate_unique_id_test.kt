@@ -4,6 +4,7 @@ package de.psekochbuch.exzellenzkoch.testcases.t7
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -29,6 +30,26 @@ import org.junit.runner.RunWith
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_7_4_autogenerate_unique_id_test {
+
+    fun getRandomString(length: Int) : String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+    var name = getRandomString(5)
+
+
+    @Before
+    fun registerIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
 
     @Rule
     @JvmField
@@ -111,7 +132,8 @@ class t_7_4_autogenerate_unique_id_test {
                 isDisplayed()
             )
         )
-        appCompatEditText.perform(replaceText("wernero@muster.de"), closeSoftKeyboard())
+        var mail = this.name.plus("@muster.de")
+        appCompatEditText.perform(replaceText(mail), closeSoftKeyboard())
 
 
         val appCompatEditText2 = onView(
@@ -129,9 +151,6 @@ class t_7_4_autogenerate_unique_id_test {
         )
         appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
-
-
         val appCompatButton2 = onView(
             allOf(
                 withId(R.id.button_register_fragment_register), withText("Registrieren"),
@@ -147,8 +166,6 @@ class t_7_4_autogenerate_unique_id_test {
         )
         appCompatButton2.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
 
         val editText = onView(
             allOf(

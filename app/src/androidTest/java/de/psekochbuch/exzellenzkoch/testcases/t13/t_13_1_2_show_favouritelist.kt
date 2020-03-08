@@ -3,6 +3,8 @@ package de.psekochbuch.exzellenzkoch.testcases.t13
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -18,6 +20,8 @@ import de.psekochbuch.exzellenzkoch.R
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.FavouritRecipeRepositoryImpTest
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.FavouriteRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -29,10 +33,15 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CountDownLatch
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_13_1_2_show_favouritelist {
+
+
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
 
     @Rule
     @JvmField
@@ -42,7 +51,7 @@ class t_13_1_2_show_favouritelist {
 
         var repo = PrivateRecipeRepositoryImp(ApplicationProvider.getApplicationContext())
         repo.deleteAll()
-        Thread.sleep(EspressoIdlingResource.Sleep)
+
     }
 
     @After
@@ -57,6 +66,9 @@ class t_13_1_2_show_favouritelist {
 
     @Test
     fun t_13_2_show_favouritelist() {
+
+        var vm = FeedViewModel(PublicRecipeRepositoryImp())
+        vm.recipes.blockingObserve()
 
         val linearLayout = onView(
             allOf(
@@ -76,8 +88,8 @@ class t_13_1_2_show_favouritelist {
         )
         linearLayout.perform(click())
 
-        Thread.sleep(EspressoIdlingResource.Sleep)
 
+        Thread.sleep(300) //Animations
 
         val appCompatImageButton = onView(
             allOf(
@@ -164,4 +176,17 @@ class t_13_1_2_show_favouritelist {
             }
         }
     }
+}
+
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever{
+        value = it
+        latch.countDown()
+    }
+
+    latch.await()
+    return value
 }

@@ -1,9 +1,11 @@
 package de.psekochbuch.exzellenzkoch.testcases.t7
 
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.LiveData
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
@@ -13,24 +15,44 @@ import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
-
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
+import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModel
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.ProfileDisplayViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.core.IsInstanceOf
-import org.junit.*
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import org.junit.runner.RunWith
+import java.util.concurrent.CountDownLatch
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_7_2_profile_edit_static_test {
-    var TAG = "profileEditStaticTest"
+class t_7_2_profile_edit_test {
 
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
+
+
+    @Before
+    fun registerIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
 
     @Rule
     @JvmField
@@ -41,16 +63,13 @@ class t_7_2_profile_edit_static_test {
         AuthentificationImpl.logout()
     }
 
+
     @After
     fun tearDown(){
         AuthentificationImpl.logout()
     }
-
-
-
-
-    @Test @Ignore
-    fun t_7_2_profile_edit_static_test() {
+    @Test
+    fun t_7_2_profile_edit_test() {
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -85,68 +104,64 @@ class t_7_2_profile_edit_static_test {
             )
         )
         navigationMenuItemView.perform(click())
-Log.w(TAG, "in das LOGINFRAGMENT")
-        //Das Problem ist, dass der User token gesetzt ist und direkt angemeldet ist
 
-        //Falls der User eingeloggt ist -> überspringe
-        if(!AuthentificationImpl.isLogIn()) {
-            val appCompatEditText = onView(
-                allOf(
-                    withId(R.id.editText_login_fragment_email),
-                    childAtPosition(
-                        allOf(
-                            withId(R.id.constraintLayout),
-                            childAtPosition(
-                                withId(R.id.nav_host_fragment),
-                                0
-                            )
-                        ),
-                        1
+        val appCompatEditText = onView(
+            allOf(
+                withId(R.id.editText_login_fragment_email),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
                     ),
-                    isDisplayed()
-                )
+                    1
+                ),
+                isDisplayed()
             )
-            appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
+        )
+        appCompatEditText.perform(replaceText("max.musterman@muster.de"), closeSoftKeyboard())
 
-
-            Log.w(TAG, "max.musterman@muster.de")
-            val appCompatEditText2 = onView(
-                allOf(
-                    withId(R.id.editText_login_fragment_password),
-                    childAtPosition(
-                        allOf(
-                            withId(R.id.constraintLayout),
-                            childAtPosition(
-                                withId(R.id.nav_host_fragment),
-                                0
-                            )
-                        ),
-                        3
+        val appCompatEditText2 = onView(
+            allOf(
+                withId(R.id.editText_login_fragment_password),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
                     ),
-                    isDisplayed()
-                )
+                    3
+                ),
+                isDisplayed()
             )
-            appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
+        )
+        appCompatEditText2.perform(replaceText("123456"), closeSoftKeyboard())
 
-            val appCompatButton = onView(
-                allOf(
-                    withId(R.id.button_login_fragment_login), withText("Einloggen"),
-                    childAtPosition(
-                        allOf(
-                            withId(R.id.constraintLayout),
-                            childAtPosition(
-                                withId(R.id.nav_host_fragment),
-                                0
-                            )
-                        ),
-                        4
+        val appCompatButton = onView(
+            allOf(
+                withId(R.id.button_login_fragment_login), withText("Einloggen"),
+                childAtPosition(
+                    allOf(
+                        withId(R.id.constraintLayout),
+                        childAtPosition(
+                            withId(R.id.nav_host_fragment),
+                            0
+                        )
                     ),
-                    isDisplayed()
-                )
+                    4
+                ),
+                isDisplayed()
             )
-            appCompatButton.perform(click())
-        }
-        Thread.sleep(EspressoIdlingResource.Sleep.toLong())
+        )
+        appCompatButton.perform(click())
+
+
+
+        Thread.sleep(1000) //Transofmration
 
         val appCompatButton2 = onView(
             allOf(
@@ -163,12 +178,9 @@ Log.w(TAG, "in das LOGINFRAGMENT")
         )
         appCompatButton2.perform(scrollTo(), click())
 
-
-
-        /*
-        val editText24 = onView(
+        val editText = onView(
             allOf(
-                withId(R.id.editText_user_description),
+                withId(R.id.textView_enter_userID),
                 childAtPosition(
                     allOf(
                         withId(R.id.linearLayout2),
@@ -177,15 +189,12 @@ Log.w(TAG, "in das LOGINFRAGMENT")
                             0
                         )
                     ),
-                    3
+                    1
                 ),
                 isDisplayed()
             )
         )
-        editText24.check(matches(withText("KochDummy")))
-
-         */
-
+        editText.check(matches(isDisplayed()))
 
         val editText2 = onView(
             allOf(
@@ -204,8 +213,6 @@ Log.w(TAG, "in das LOGINFRAGMENT")
             )
         )
         editText2.check(matches(isDisplayed()))
-
-
     }
 
     private fun childAtPosition(
@@ -225,4 +232,17 @@ Log.w(TAG, "in das LOGINFRAGMENT")
             }
         }
     }
+}
+
+private fun <T> LiveData<T>.blockingObserve(): T? {
+    var value: T? = null
+    val latch = CountDownLatch(1)
+
+    observeForever{
+        value = it
+        latch.countDown()
+    }
+
+    latch.await()
+    return value
 }
