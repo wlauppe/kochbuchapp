@@ -44,7 +44,6 @@ class manyUserManyRecipes {
 
 
 
-
     private fun getRandomString(length: Int): String {
         val allowedChars = "abcdefghiklmnopqrstuvwxyz"
         return (1..length)

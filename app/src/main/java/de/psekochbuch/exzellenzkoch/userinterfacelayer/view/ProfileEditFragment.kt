@@ -87,7 +87,7 @@ class ProfileEditFragment : Fragment(R.layout.profile_edit_fragment) {
 
         binding.buttonSaveProfileChanges.setOnClickListener {
             viewModel.save()
-            //navController.navigate(ProfileEditFragmentDirections.actionProfileEditFragmentToProfileDisplayFragment().setUserID(userID))
+            navController.navigate(ProfileEditFragmentDirections.actionProfileEditFragmentToProfileDisplayFragment().setUserID(userID))
            // navController.navigate(R.id.action_profileEditFragment_to_profileDisplayFragment)
         }
         binding.buttonDeleteProfile.setOnClickListener {
