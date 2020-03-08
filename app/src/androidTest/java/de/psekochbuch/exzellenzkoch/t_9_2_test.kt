@@ -28,7 +28,7 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class t_9_2_MagnumDong {
+class t_9_2_test {
 
     @Rule
     @JvmField
