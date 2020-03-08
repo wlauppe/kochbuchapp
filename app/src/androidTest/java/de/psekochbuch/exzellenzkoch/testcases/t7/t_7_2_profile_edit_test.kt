@@ -5,7 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -15,6 +17,7 @@ import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.UserRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
@@ -39,6 +42,17 @@ class t_7_2_profile_edit_test {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
+
+
+    @Before
+    fun registerIdlingResource(){
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregister(){
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
 
     @Rule
     @JvmField
@@ -146,7 +160,8 @@ class t_7_2_profile_edit_test {
         appCompatButton.perform(click())
 
 
-        Thread.sleep(EspressoIdlingResource.Sleep)
+
+        Thread.sleep(300) //Transofmration
 
         val appCompatButton2 = onView(
             allOf(
@@ -165,7 +180,7 @@ class t_7_2_profile_edit_test {
 
         val editText = onView(
             allOf(
-                withId(R.id.textView_enter_userID), withText("KochDummy"),
+                withId(R.id.textView_enter_userID),
                 childAtPosition(
                     allOf(
                         withId(R.id.linearLayout2),
@@ -183,7 +198,7 @@ class t_7_2_profile_edit_test {
 
         val editText2 = onView(
             allOf(
-                withId(R.id.editText_user_description), withText("Ich koche gerne..."),
+                withId(R.id.editText_user_description),
                 childAtPosition(
                     allOf(
                         withId(R.id.linearLayout2),

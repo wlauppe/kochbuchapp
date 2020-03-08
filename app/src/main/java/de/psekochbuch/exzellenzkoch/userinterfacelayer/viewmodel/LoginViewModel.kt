@@ -3,6 +3,7 @@ package de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthenticationResult
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
@@ -47,6 +48,7 @@ class LoginViewModel() : ViewModel() {
         {
             updateUi("", AuthenticationResult.LOGINFAILED, "email or password are empty")
         }
+
 
     }
 
