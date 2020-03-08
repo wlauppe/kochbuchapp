@@ -167,6 +167,7 @@ class t_7_5_create_delete_user_test {
         appCompatButton2.perform(click())
 
 
+        Thread.sleep(1000)
         val appCompatButton3 = onView(
             allOf(
                 withId(R.id.button_save_profile_changes), withText("Speichern"),
@@ -220,6 +221,8 @@ class t_7_5_create_delete_user_test {
             )
         )
         navigationMenuItemView2.perform(click())
+
+        Thread.sleep(1000)
 
         val appCompatButton4 = onView(
             allOf(
@@ -413,6 +416,8 @@ class t_7_5_create_delete_user_test {
             )
         )
         navigationMenuItemViewx.perform(click())
+
+        Thread.sleep(1000)
 
         val appCompatButtonb = onView(
             allOf(

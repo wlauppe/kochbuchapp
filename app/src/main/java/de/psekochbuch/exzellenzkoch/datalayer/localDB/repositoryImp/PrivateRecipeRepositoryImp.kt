@@ -78,11 +78,8 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
      * @param id: The id of the recipe
      */
     override suspend fun deletePrivateRecipe(id: Int) {
-        DB.databaseWriteExecutor.execute{
-            privateRecipeDao?.deleteRecipe(id.toLong())
-            privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
-        }
-
+        privateRecipeDao?.deleteRecipe(id.toLong())
+        privateRecipeTagDao?.deleteTagsFromRecipe(id.toLong())
     }
 
     override fun getAllPublishedIds():LiveData<List<Int>>{
@@ -100,12 +97,10 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
      */
 
     override suspend fun insertPrivateRecipe(privateRecipe: PrivateRecipe) {
-        DB.databaseWriteExecutor.execute{
-            val id = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!
-            privateRecipeTagDao?.deleteTagsFromRecipe(id)
-            for (tag: String in privateRecipe.tags){
-                privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,id,tag))
-            }
+        val id = privateRecipeDao?.insert(transformPrivateRecipeToPrivateRecipeDB(privateRecipe))!!
+        privateRecipeTagDao?.deleteTagsFromRecipe(id)
+        for (tag: String in privateRecipe.tags){
+            privateRecipeTagDao?.insert(PrivateRecipeTagDB(0,id,tag))
         }
     }
 
@@ -131,7 +126,8 @@ class PrivateRecipeRepositoryImp(application: Application?): PrivateRecipeReposi
 
     fun transformPrivateRecipeDBToPrivateRecipe(recipe:PrivateRecipeDB):PrivateRecipe{
         //können wir IDs auch als longs abspeichern?
-        return PrivateRecipe(recipe.id.toInt(), recipe.title,recipe.ingredientsText,privateRecipeTagDao?.getTagsFromRecipe(recipe.id)!!.map{tag -> tag.tag},recipe.preparationDescription,recipe.imgURL,recipe.cookingTime,recipe.preparationTime, Date(recipe.creationDate),recipe.portions, recipe.publishedID)
+        val tags = privateRecipeTagDao?.getTagsFromRecipe(recipe.id)!!.map{tag -> tag.tag}
+        return PrivateRecipe(recipe.id.toInt(), recipe.title,recipe.ingredientsText,tags,recipe.preparationDescription,recipe.imgURL,recipe.cookingTime,recipe.preparationTime, Date(recipe.creationDate),recipe.portions, recipe.publishedID)
     }
 
     fun transformPrivateRecipeToPrivateRecipeDB(recipe:PrivateRecipe):PrivateRecipeDB{

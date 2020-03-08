@@ -19,11 +19,13 @@ import androidx.test.runner.AndroidJUnit4
 import de.psekochbuch.exzellenzkoch.EspressoIdlingResource
 import de.psekochbuch.exzellenzkoch.MainActivity
 import de.psekochbuch.exzellenzkoch.R
+import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.FavouriteRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.localDB.repositoryImp.PrivateRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.repository.PublicRecipeRepositoryImp
 import de.psekochbuch.exzellenzkoch.datalayer.remote.service.AuthentificationImpl
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.FeedViewModel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.LoginViewModel
+import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeDisplayViewmodel
 import de.psekochbuch.exzellenzkoch.userinterfacelayer.viewmodel.RecipeListViewmodel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -40,6 +42,17 @@ import java.util.concurrent.CountDownLatch
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class t_11_1_create_update_public_recipe_test {
+
+    fun getRandomString(length: Int) : String {
+        val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz"
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
+    }
+
+    var firstRecipe = getRandomString(7)
+    var secondRecipe = getRandomString(8)
+
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -72,6 +85,8 @@ class t_11_1_create_update_public_recipe_test {
         val feedVm = FeedViewModel(PublicRecipeRepositoryImp())
         feedVm.recipes.blockingObserve()
 
+
+        Thread.sleep(EspressoIdlingResource.Sleep)
         val appCompatImageButton = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -162,6 +177,8 @@ class t_11_1_create_update_public_recipe_test {
         )
         appCompatButton.perform(click())
 
+        Thread.sleep(EspressoIdlingResource.Sleep)
+
         val appCompatImageButton2 = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -227,7 +244,7 @@ class t_11_1_create_update_public_recipe_test {
                 )
             )
         )
-        appCompatEditText6.perform(scrollTo(), replaceText("Sonderbar"), closeSoftKeyboard())
+        appCompatEditText6.perform(scrollTo(), replaceText(firstRecipe), closeSoftKeyboard())
 
         val appCompatEditText7 = onView(
             allOf(
@@ -344,21 +361,9 @@ class t_11_1_create_update_public_recipe_test {
         appCompatCheckBox.perform(scrollTo(), click())
 
 
-        val appCompatButton3 = onView(
-            allOf(
-                withId(R.id.button_create_recipe_and_goto_RecipeList), withText("Speichern"),
-                childAtPosition(
-                    childAtPosition(
-                        withClassName(`is`("android.widget.ScrollView")),
-                        0
-                    ),
-                    10
-                )
-            )
-        )
+       Espresso.pressBack()
 
-        appCompatButton3.perform(scrollTo(), click())
-
+        Thread.sleep(EspressoIdlingResource.Sleep)
 
         val appCompatImageButton6 = onView(
             allOf(
@@ -417,7 +422,7 @@ class t_11_1_create_update_public_recipe_test {
 
         val appCompatEditText14 = onView(
             allOf(
-                withId(R.id.editText_recipe_title_create_recipe_fragment), withText("Sonderbar"),
+                withId(R.id.editText_recipe_title_create_recipe_fragment), withText(firstRecipe),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.ScrollView")),
@@ -427,11 +432,11 @@ class t_11_1_create_update_public_recipe_test {
                 )
             )
         )
-        appCompatEditText14.perform(scrollTo(), replaceText("Sonderlingoingo"))
+        appCompatEditText14.perform(scrollTo(), replaceText(this.secondRecipe))
 
         val appCompatEditText15 = onView(
             allOf(
-                withId(R.id.editText_recipe_title_create_recipe_fragment), withText("Sonderlingoingo"),
+                withId(R.id.editText_recipe_title_create_recipe_fragment), withText(secondRecipe),
                 childAtPosition(
                     childAtPosition(
                         withClassName(`is`("android.widget.ScrollView")),
@@ -463,6 +468,7 @@ class t_11_1_create_update_public_recipe_test {
         Espresso.pressBack()
         Thread.sleep(1000)
 
+        Thread.sleep(EspressoIdlingResource.Sleep)
         val appCompatImageButton3 = onView(
             allOf(
                 withContentDescription("Navigationsleiste öffnen"),
@@ -514,7 +520,7 @@ class t_11_1_create_update_public_recipe_test {
                 isDisplayed()
             )
         )
-        appCompatEditText16.perform(replaceText("Sonderlingoingo"), closeSoftKeyboard())
+        appCompatEditText16.perform(replaceText(secondRecipe), closeSoftKeyboard())
 
 
         val appCompatButton5 = onView(
@@ -535,6 +541,8 @@ class t_11_1_create_update_public_recipe_test {
         )
         appCompatButton5.perform(click())
 
+
+        Thread.sleep(EspressoIdlingResource.Sleep)
         val linearLayout2 = onView(
             allOf(
                 withId(R.id.display_searchlist_layout_Item),
@@ -553,9 +561,12 @@ class t_11_1_create_update_public_recipe_test {
         )
         linearLayout2.perform(click())
 
+        var vmd = RecipeDisplayViewmodel(PublicRecipeRepositoryImp(), FavouriteRecipeRepositoryImp(ApplicationProvider.getApplicationContext()))
+        vmd.recipe.blockingObserve()
+
         val textView = onView(
             allOf(
-                withId(R.id.textView_recipe_title), withText("Sonderlingoingo"),
+                withId(R.id.textView_recipe_title), 
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.linearLayout4),
@@ -568,20 +579,7 @@ class t_11_1_create_update_public_recipe_test {
         )
         textView.check(matches(isDisplayed()))
 
-        val textView2 = onView(
-            allOf(
-                withId(R.id.textView_recipe_title), withText("Sonderlingoingo"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.linearLayout4),
-                        1
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
-        textView2.check(matches(withText("Sonderlingoingo")))
+
     }
 
     private fun childAtPosition(
