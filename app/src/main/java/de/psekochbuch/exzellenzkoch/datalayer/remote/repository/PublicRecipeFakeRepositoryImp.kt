@@ -68,10 +68,10 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
     }
 
     override fun getReportedPublicRecipes(): LiveData<List<PublicRecipe>> {
-        return getPublicRecipes(1)
+        TODO("not implemented")
     }
 
-    override fun getPublicRecipes(page:Int): LiveData<List<PublicRecipe>> {
+    override suspend fun getPublicRecipes(page:Int): MutableLiveData<List<PublicRecipe>> {
         /*val recipe1 = PublicRecipe(1,"trockener Sandkuchen")
         val recipe2 = PublicRecipe(2,"Quiche", imgUrl = "file:///android_asset/exampleimages/quiche.png")
 
@@ -98,7 +98,7 @@ class PublicRecipeFakeRepositoryImp() : PublicRecipeRepository {
         Log.w(TAG, "Id von erstem aus der List ist $recipeList[1].recipeId()")
         val recipe1 = PublicRecipe(1, "extra tockener Sandkuchen")
         addToList(recipe1)
-        val ld: LiveData<List<PublicRecipe>> = MutableLiveData(recipeList)
+        val ld: MutableLiveData<List<PublicRecipe>> = MutableLiveData(recipeList)
         return ld
     }
 

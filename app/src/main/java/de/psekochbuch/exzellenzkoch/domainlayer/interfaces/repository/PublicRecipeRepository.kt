@@ -1,5 +1,6 @@
 package de.psekochbuch.exzellenzkoch.domainlayer.interfaces.repository
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import de.psekochbuch.exzellenzkoch.domainlayer.domainentities.PublicRecipe
 import java.util.*
 
@@ -15,7 +16,7 @@ interface PublicRecipeRepository {
 
 
     @Throws
-    fun getPublicRecipes(page:Int): LiveData<List<PublicRecipe>>
+    suspend fun getPublicRecipes(page:Int): MutableLiveData<List<PublicRecipe>>
 
     //Neueste Recipes werden zuerst zurueckgegeben.
 

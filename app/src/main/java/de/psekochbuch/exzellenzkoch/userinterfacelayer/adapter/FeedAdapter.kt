@@ -35,11 +35,13 @@ class FeedAdapter( var viewModel: FeedViewModel, context: Context) :
     var id : Int? = null
     var context  = context
 
-    var feedRecipes = listOf<PublicRecipe>()
+    var feedRecipes = ArrayList<PublicRecipe>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
+
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):FeedViewHolder{

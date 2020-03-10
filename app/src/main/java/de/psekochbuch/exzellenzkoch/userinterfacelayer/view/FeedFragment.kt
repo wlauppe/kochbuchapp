@@ -33,11 +33,12 @@ class FeedFragment : Fragment() {
      * Global variables used for pagination in RecyclerView
      */
     private var pageLimit = PAGE_SIZE
-    private var isLoading: Boolean = false
+   // private var isLoading: Boolean = false
     private lateinit var feedAdapter : FeedAdapter
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var classViewModel: FeedViewModel
     private lateinit var classBinding: FeedBinding
+    private var page = 1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FeedBinding.inflate(inflater, container, false)
@@ -56,9 +57,33 @@ class FeedFragment : Fragment() {
         // observe the recipe list
         val observer = Observer<List<PublicRecipe>> { items ->
             items?.let {
-                feedAdapter.feedRecipes = items}
+                feedAdapter.feedRecipes.addAll(items)
+                feedAdapter.notifyDataSetChanged()}
         }
         viewModel.recipes.observe(this.viewLifecycleOwner, observer)
+
+        viewModel.loadPage(1)
+        page++
+
+        binding.recyclerViewFeed.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
+                if(!viewModel.isLoading && !viewModel.isLastPage) {
+                    if((visibleItemCount + firstVisibleItem) >= totalItemCount && firstVisibleItem >= 0 && totalItemCount >= PAGE_SIZE) {
+                        viewModel.loadPage(page)
+                        page++
+                        viewModel.isLoading = true
+                    }
+                }
+
+
+
+            }
+        })
+
 
         binding.recyclerViewFeed.setHasFixedSize(true)
 

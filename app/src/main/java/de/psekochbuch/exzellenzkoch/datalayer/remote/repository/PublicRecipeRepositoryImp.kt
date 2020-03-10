@@ -1,6 +1,7 @@
 package de.psekochbuch.exzellenzkoch.datalayer.remote.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import de.psekochbuch.exzellenzkoch.BuildConfig
 
@@ -78,8 +79,15 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
 
     //Dies ist die normale Funktion die Search benutzt.
     @Throws
-    override fun getPublicRecipes(page:Int): LiveData<List<PublicRecipe>> {
+    override suspend fun getPublicRecipes(page:Int): MutableLiveData<List<PublicRecipe>> {
         Log.w(TAG, "getPublicRecipes() wird aufgerufen")
+
+
+
+        val rec = recipeApiService.search(null, null, null, null, page, PAGE_SIZE)
+        val recc = MutableLiveData(PublicRecipeDtoEntityMapper().toListEntity(rec))
+        return recc
+
         val lData = liveData(Dispatchers.IO, 1000) {
             Log.w(TAG, "jetzt bin ich im Coroutine Scope")
             try {
@@ -96,8 +104,10 @@ class PublicRecipeRepositoryImp : PublicRecipeRepository {
                  emit(listOf(errorRecipe))
              }
         }
-        return lData
-
+        val values = lData.value
+        if(values != null)
+            return MutableLiveData(values)
+        return MutableLiveData(listOf())
     }
 
     override fun getPublicRecipes(title:String, tags:List<String>, ingredients: List<String>, creationDate:Date?, sortOrder:String,page: Int ): LiveData<List<PublicRecipe>>
